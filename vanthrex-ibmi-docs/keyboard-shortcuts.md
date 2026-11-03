@@ -21,6 +21,7 @@ nav_order: 3
 | **Ctrl+Alt+W** | Surround the selection with IF, MONITOR, DOW… | RPG editor (selection) |
 | **Ctrl+/** | Toggle RPG comment | RPG editor |
 | **Ctrl+Alt+PageDown / PageUp** | Next / previous procedure | RPG editor |
+| **Ctrl+Alt+A** | IBM i tools for this source (Developer Toolbox) | Editor |
 | **Ctrl+Alt+Shift+T** | Toggle value (*ON / *OFF, AND / OR, = / <>…) | RPG editor |
 | **Ctrl+Alt+B** | Toggle a bookmark on the line | Editor |
 | **Ctrl+Alt+Shift+B** | List bookmarks | Anywhere |

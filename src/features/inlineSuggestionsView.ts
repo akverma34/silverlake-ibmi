@@ -8,6 +8,7 @@ import { logError } from '../core/log';
 import { ConnectionManager } from '../core/manager';
 import { rpgSignatures } from '../rpg/editing';
 import { cleanCompletion, suggest } from '../rpg/rpgSuggestions';
+import { sqlSuggest } from '../core/developerText';
 
 const editorCfg = () => vscode.workspace.getConfiguration('vanthrex.editor');
 const aiCfg = () => vscode.workspace.getConfiguration('vanthrex.ai');
@@ -77,6 +78,12 @@ class Suggestions implements vscode.InlineCompletionItemProvider {
         for (let i = from; i <= to; i++) { lines.push(doc.lineAt(i).text); }
         const line = pos.line - from + (from > 0 ? 1 : 0);
         const text = suggest({ lines, line, column: pos.character, language: doc.languageId as 'rpgle' | 'cl', signatures: doc.languageId === 'rpgle' ? signaturesOf(doc) : undefined });
+        if (text) { return [new vscode.InlineCompletionItem(text, new vscode.Range(pos, pos))]; }
+      }
+      if (editorCfg().get<boolean>('inlineSuggestions', true) && doc.languageId === 'sql') {
+        const from = Math.max(0, pos.line - 60);
+        const lines: string[] = []; for (let i = from; i <= pos.line; i++) { lines.push(doc.lineAt(i).text); }
+        const text = sqlSuggest(lines, pos.line - from, pos.character);
         if (text) { return [new vscode.InlineCompletionItem(text, new vscode.Range(pos, pos))]; }
       }
       const ai = await aiSuggestion(this.manager, doc, pos, token);

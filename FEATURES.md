@@ -1196,6 +1196,12 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** the statements that change every row or fail with -811, caught before they run.
 - **How:** on by default (`vanthrex.lint.sql`).
 
+### 187. Developer Toolbox — new in 2.6
+
+- **What:** one menu with the tools that fit the file and the selection: 43 new ones (rewrite RPG, generate SQL from a DS, COUNT before UPDATE / DELETE, fix all at once, copy the compile command, CL error handler…) plus the 2.6 commands.
+- **Why:** nobody has to remember command names: open the menu and type a word.
+- **How:** Ctrl+Alt+A, the IBM i button in the status bar, or right-click.
+
 ## Keyboard shortcuts
 
 | Keys | Action |
@@ -1220,6 +1226,7 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 | Ctrl+/ | Toggle RPG comment |
 | Ctrl+Alt+PageDown / PageUp | Next / previous procedure |
 | Ctrl+Alt+Shift+T | Toggle value (*ON / *OFF, AND / OR…) |
+| Ctrl+Alt+A | IBM i tools for this source |
 | Ctrl+Alt+B / Ctrl+Alt+Shift+B | Toggle a bookmark / list bookmarks |
 | Ctrl+Alt+O | Search objects |
 | Ctrl+Alt+F | Search source code |

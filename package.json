@@ -2720,6 +2720,227 @@
         "title": "%command.rpg.toggleValue%",
         "category": "Vanthrex RPG",
         "icon": "$(arrow-swap)"
+      },
+      {
+        "command": "vanthrex.dev.toolbox",
+        "title": "%command.dev.toolbox%",
+        "category": "Vanthrex Tools",
+        "icon": "$(tools)"
+      },
+      {
+        "command": "vanthrex.dev.compoundAssign",
+        "title": "%command.dev.compoundAssign%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.removeEval",
+        "title": "%command.dev.removeEval%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.negateCondition",
+        "title": "%command.dev.negateCondition%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.simplifyIndicators",
+        "title": "%command.dev.simplifyIndicators%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.wrapWithBif",
+        "title": "%command.dev.wrapWithBif%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.groupInDs",
+        "title": "%command.dev.groupInDs%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.subrToProc",
+        "title": "%command.dev.subrToProc%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.linesToConstants",
+        "title": "%command.dev.linesToConstants%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.dsSql",
+        "title": "%command.dev.dsSql%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.dsFromTable",
+        "title": "%command.dev.dsFromTable%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.tableFromDs",
+        "title": "%command.dev.tableFromDs%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.programHeader",
+        "title": "%command.dev.programHeader%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.separator",
+        "title": "%command.dev.separator%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.dateLiteral",
+        "title": "%command.dev.dateLiteral%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.keepAsComment",
+        "title": "%command.dev.keepAsComment%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.copyPrototype",
+        "title": "%command.dev.copyPrototype%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.copyCall",
+        "title": "%command.dev.copyCall%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.embeddedToSql",
+        "title": "%command.dev.embeddedToSql%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.declareHostVars",
+        "title": "%command.dev.declareHostVars%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.constEverywhere",
+        "title": "%command.dev.constEverywhere%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.removeDsply",
+        "title": "%command.dev.removeDsply%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.selectBlock",
+        "title": "%command.dev.selectBlock%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.selectProcedure",
+        "title": "%command.dev.selectProcedure%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.declareClVars",
+        "title": "%command.dev.declareClVars%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.clErrorHandler",
+        "title": "%command.dev.clErrorHandler%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.clUppercase",
+        "title": "%command.dev.clUppercase%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.clWrap",
+        "title": "%command.dev.clWrap%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.toQcmdexc",
+        "title": "%command.dev.toQcmdexc%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.countFirst",
+        "title": "%command.dev.countFirst%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.limitSelect",
+        "title": "%command.dev.limitSelect%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.sqlToEmbedded",
+        "title": "%command.dev.sqlToEmbedded%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.sqlCase",
+        "title": "%command.dev.sqlCase%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.inList",
+        "title": "%command.dev.inList%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.csvToValues",
+        "title": "%command.dev.csvToValues%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.toLiteral",
+        "title": "%command.dev.toLiteral%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.alignAssignments",
+        "title": "%command.dev.alignAssignments%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.alignComments",
+        "title": "%command.dev.alignComments%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.removeBlank",
+        "title": "%command.dev.removeBlank%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.cleanSource",
+        "title": "%command.dev.cleanSource%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.copyMarkdown",
+        "title": "%command.dev.copyMarkdown%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.copyLineRef",
+        "title": "%command.dev.copyLineRef%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.copyCompile",
+        "title": "%command.dev.copyCompile%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.whatsNew",
+        "title": "%command.dev.whatsNew%",
+        "category": "Vanthrex Tools"
       }
     ],
     "menus": {
@@ -4144,6 +4365,11 @@
           "command": "vanthrex.rpg.prototypeCopybook",
           "when": "editorLangId == rpgle",
           "group": "vanthrex-rpg@8"
+        },
+        {
+          "command": "vanthrex.dev.toolbox",
+          "when": "editorLangId =~ /^(rpgle|cl|sql|dds)$/",
+          "group": "vanthrex@0"
         }
       ],
       "commandPalette": [
@@ -5173,6 +5399,182 @@
         {
           "command": "vanthrex.rpg.toggleValue",
           "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.toolbox",
+          "when": "editorIsOpen"
+        },
+        {
+          "command": "vanthrex.dev.compoundAssign",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.removeEval",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.negateCondition",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.simplifyIndicators",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.wrapWithBif",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.groupInDs",
+          "when": "(editorLangId == rpgle) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.subrToProc",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.linesToConstants",
+          "when": "(editorLangId == rpgle) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.dsSql",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.dsFromTable",
+          "when": "(editorIsOpen) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.tableFromDs",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.programHeader",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.separator",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.dateLiteral",
+          "when": "editorLangId == rpgle || editorLangId == sql || editorLangId == cl"
+        },
+        {
+          "command": "vanthrex.dev.keepAsComment",
+          "when": "editorLangId == rpgle || editorLangId == cl"
+        },
+        {
+          "command": "vanthrex.dev.copyPrototype",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.copyCall",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.embeddedToSql",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.declareHostVars",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.constEverywhere",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.removeDsply",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.selectBlock",
+          "when": "editorLangId == rpgle || editorLangId == cl"
+        },
+        {
+          "command": "vanthrex.dev.selectProcedure",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.declareClVars",
+          "when": "editorLangId == cl"
+        },
+        {
+          "command": "vanthrex.dev.clErrorHandler",
+          "when": "editorLangId == cl"
+        },
+        {
+          "command": "vanthrex.dev.clUppercase",
+          "when": "editorLangId == cl"
+        },
+        {
+          "command": "vanthrex.dev.clWrap",
+          "when": "editorLangId == cl"
+        },
+        {
+          "command": "vanthrex.dev.toQcmdexc",
+          "when": "editorLangId == cl"
+        },
+        {
+          "command": "vanthrex.dev.countFirst",
+          "when": "editorLangId == sql"
+        },
+        {
+          "command": "vanthrex.dev.limitSelect",
+          "when": "editorLangId == sql"
+        },
+        {
+          "command": "vanthrex.dev.sqlToEmbedded",
+          "when": "editorLangId == sql"
+        },
+        {
+          "command": "vanthrex.dev.sqlCase",
+          "when": "editorLangId == sql || editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.inList",
+          "when": "(editorIsOpen) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.csvToValues",
+          "when": "(editorIsOpen) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.toLiteral",
+          "when": "(editorIsOpen) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.alignAssignments",
+          "when": "(editorIsOpen) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.alignComments",
+          "when": "(editorIsOpen) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.removeBlank",
+          "when": "(editorIsOpen) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.cleanSource",
+          "when": "editorIsOpen"
+        },
+        {
+          "command": "vanthrex.dev.copyMarkdown",
+          "when": "editorIsOpen"
+        },
+        {
+          "command": "vanthrex.dev.copyLineRef",
+          "when": "editorIsOpen"
+        },
+        {
+          "command": "vanthrex.dev.copyCompile",
+          "when": "editorLangId == rpgle || editorLangId == cl || editorLangId == sql || editorLangId == dds"
+        },
+        {
+          "command": "vanthrex.dev.whatsNew",
+          "when": "editorIsOpen"
         }
       ],
       "vanthrex.ai": [
@@ -5584,6 +5986,12 @@
         "key": "ctrl+alt+shift+t",
         "mac": "cmd+alt+shift+t",
         "when": "editorTextFocus && editorLangId == rpgle"
+      },
+      {
+        "command": "vanthrex.dev.toolbox",
+        "key": "ctrl+alt+a",
+        "mac": "cmd+alt+a",
+        "when": "editorTextFocus"
       }
     ],
     "languages": [
@@ -6974,6 +7382,16 @@
           "type": "boolean",
           "default": true,
           "markdownDescription": "%config.lint.sql%"
+        },
+        "vanthrex.editor.toolboxButton": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "%config.editor.toolboxButton%"
+        },
+        "vanthrex.editor.sizeHovers": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "%config.editor.sizeHovers%"
         }
       }
     },

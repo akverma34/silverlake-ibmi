@@ -8,7 +8,7 @@ nav_order: 90
 
 ## 2.6.0 (not released yet)
 
-**Daily RPG development** — more than 100 small features for the code you write every day. Everything works on the open source, with no round trip to the IBM i, so it is instant and works offline.
+**Daily RPG development** — about 150 small features for the code you write every day. Everything works on the open source, with no round trip to the IBM i, so it is instant and works offline.
 
 **19 new code checks** (each one can be switched off in `vanthrex.lint.rules`)
 
@@ -53,6 +53,17 @@ nav_order: 90
 - **CL**: the MONMSG that usually follows a command, with its message (CHKOBJ → CPF9801, DLTF → CPF2105, CRTLIB → CPF2111, ADDLIBLE → CPF2103… 29 commands), DCL for the PGM PARM parameters not declared yet, and a TYPE / LEN from the variable name.
 - Nothing is suggested inside a comment or a literal, in the middle of a line, or in fixed-format specs. **Turn IBM i Suggestions On or Off** (`vanthrex.editor.inlineSuggestions`).
 - **AI suggestions (off by default)**: `vanthrex.ai.inlineSuggestions` also asks your AI model when you pause typing (`vanthrex.ai.inlineDelay`, 500 ms) and no offline suggestion applies, in RPG, CL, SQL and DDS. The code around the cursor goes through the same guard as the chat (secrets and personal data replaced, denied libraries and protected systems never sent, every request in the audit trail); after three failures in a row it stops until turned on again. **AI: Turn Suggestions While Typing On or Off** asks for confirmation first.
+
+**Developer Toolbox — every tool in one menu** (Ctrl+Alt+A, the **$(tools) IBM i** button in the status bar, or right-click)
+
+- The menu shows only what fits where you are: the language of the file (RPG, CL, SQL, DDS) and whether text is selected, grouped (Rewrite, Generate, SQL, Edit, Copy, Select, Fix all, Help), searchable. The 2.6 commands are in it too, so nothing has to be remembered.
+- **Rewrite RPG**: compound assignments (`x = x + 1` → `x += 1`, only when the meaning stays the same), EVAL / CALLP removed, a condition negated (`=` ↔ `<>`, NOT added or removed), `= *ON` / `= *OFF` simplified, a value wrapped with a built-in (%TRIM, %CHAR, %DEC, %UPPER, %SCANRPL… 23 of them), DCL-S lines grouped in a qualified DS, a subroutine converted to a procedure (EXSR x → x(), LEAVESR → RETURN), `NAME value` lines to DCL-C.
+- **Generate**: SQL INSERT / SELECT INTO / UPDATE from a data structure, a DS template from CREATE TABLE and CREATE TABLE from a DS, a program header (author, date, change history), a section separator, date / time / timestamp literals, a global CL error handler (MONMSG CPF0000 → ERROR: that resends the message).
+- **SQL**: how many rows will change (`SELECT COUNT(*)` added above an UPDATE / DELETE), limit a SELECT to 100 rows, SQL to embedded SQL (`?` → `:host`) and embedded SQL to a runnable script, SQL keywords upper / lower, lines to an `IN (…)` list, CSV lines to VALUES / INSERT, and **WHERE** suggested while typing after UPDATE … SET or DELETE FROM.
+- **Fix all at once**: declare every undeclared SQL host variable, add CONST to every read-only parameter, remove every DSPLY (after a confirmation), declare every undeclared CL variable.
+- **Edit and copy**: keep a line as a comment (with your name and the date) before changing it, a literal from the selection, aligned `=` signs and end-of-line comments, blank lines removed, the source cleaned (tabs, trailing blanks, invisible spaces), CL in upper case and long CL commands wrapped with `+`; copy as Markdown, a reference to the line (`LIB/FILE(MBR) line 42`), the compile command of the member (CRTBNDRPG, CRTSQLRPGI, CRTBNDCL, CRTPF, CRTDSPF… 14 types), a CL command as `CALL QSYS2.QCMDEXC(…)`, the DCL-PR or a call of the procedure.
+- **Select** the current block or procedure; **What is new in 2.6** opens this page.
+- **Hovers**: a literal shows its length (bytes for `X'…'`), a declared RPG variable its storage size (`vanthrex.editor.sizeHovers`).
 
 **CL checks while you type** (`vanthrex.lint.cl`, each one also in `vanthrex.lint.rules`)
 

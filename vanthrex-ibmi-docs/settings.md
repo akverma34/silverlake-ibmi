@@ -141,6 +141,8 @@ Open **File → Preferences → Settings** and search for *Vanthrex*, or edit `s
 | `vanthrex.ai.inlineDelay` | number | `500` | Pause in milliseconds before an AI suggestion is requested. |
 | `vanthrex.lint.cl` | boolean | `true` | Check CL sources while you type: undeclared and unused variables, GOTO to a missing label, DO / SELECT / SUBR not closed, DCL after the first command, literals too long, text in *DEC variables, hard-coded libraries. |
 | `vanthrex.lint.sql` | boolean | `true` | Check SQL scripts while you type: UPDATE / DELETE without WHERE, DROP / TRUNCATE, = NULL instead of IS NULL, SELECT INTO without WHERE. |
+| `vanthrex.editor.toolboxButton` | boolean | `true` | Show the **$(tools) IBM i** button in the status bar for RPG, CL, SQL and DDS sources: it opens the tools that fit the file and the selection (also **Ctrl+Alt+A**). |
+| `vanthrex.editor.sizeHovers` | boolean | `true` | Hovering a literal shows its length (bytes for X'…' hex literals); hovering a declared RPG variable shows its storage size. |
 
 ## RPG check rules
 

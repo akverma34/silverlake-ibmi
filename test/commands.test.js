@@ -13,6 +13,10 @@ test('every command is registered exactly once and declared', () => {
     const src = fs.readFileSync(f, 'utf8');
     for (const m of src.matchAll(/(?:registerCommand|registerTextEditorCommand|\breg)\(\s*'(vanthrex\.[A-Za-z0-9_.]+)'/g)) { ids.push(m[1]); }
   }
+  // The Developer Toolbox registers one command per tool: vanthrex.dev.<id>.
+  const box = fs.readFileSync(path.join(__dirname, '..', 'src', 'features', 'developerToolbox.ts'), 'utf8');
+  const toolsPart = box.slice(box.indexOf('function tools('), box.indexOf('const EXISTING'));
+  for (const m of toolsPart.matchAll(/\{ id: '(\w+)'/g)) { ids.push(`vanthrex.dev.${m[1]}`); }
   const dup = ids.filter((x, i) => ids.indexOf(x) !== i);
   assert.deepStrictEqual([...new Set(dup)], [], 'registered twice');
   const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf8'));
