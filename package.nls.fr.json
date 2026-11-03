@@ -611,5 +611,16 @@
   "config.warmUp.enabled": "Après la connexion, préparer en arrière-plan : le travail SQL, la liste Accéder à tout, l'index des sources et les membres les plus récents.",
   "config.warmUp.members": "Membres ouverts récemment chargés dans le cache des membres par le préchauffage.",
   "config.compile.parallel": "Membres compilés simultanément par Compilation par lot et Recompiler les programmes qui utilisent ce fichier (1 = l'un après l'autre).",
-  "config.editor.referenceLinks": "Rendre cliquables les références IBM i dans les sources, fichiers spoule et journaux : LIB/FILE(MBR), PGM(LIB/OBJ), chemins IFS, ID de message et noms de travaux."
+  "config.editor.referenceLinks": "Rendre cliquables les références IBM i dans les sources, fichiers spoule et journaux : LIB/FILE(MBR), PGM(LIB/OBJ), chemins IFS, ID de message et noms de travaux.",
+  "command.sqlWatch.add": "Surveiller une valeur SQL dans la barre d'état…",
+  "command.sqlWatch.manage": "Gérer les surveillances SQL",
+  "command.runMacro": "Exécuter une macro CL…",
+  "command.runSelection": "Exécuter la sélection en tant que CL ou SQL",
+  "command.bookmark.toggle": "Ajouter/supprimer un signet",
+  "command.bookmark.list": "Signets",
+  "command.sourceSet.save": "Enregistrer les sources ouvertes comme ensemble…",
+  "command.sourceSet.open": "Ouvrir un ensemble de sources enregistré…",
+  "command.sourceSet.delete": "Supprimer un ensemble de sources enregistré…",
+  "config.macros": "Macros CL pour **Exécuter une macro CL** : un nom et une liste de commandes CL. `${NAME}` demande une valeur lors de l'exécution de la macro (`${LIB:MYLIB}` avec une valeur par défaut) ; `${USER}`, `${CURLIB}`, `${DATE}` et `${TIME}` sont renseignés automatiquement. Les commandes s'exécutent dans l'ordre et s'arrêtent à la première erreur.",
+  "config.editor.fileFieldHelp": "En RPG, le survol d'un fichier déclaré affiche ses zones depuis Db2, le survol d'une zone affiche son type et son texte, les noms de zones sont complétés et Ctrl+clic sur un fichier ouvre son source DDS."
 }

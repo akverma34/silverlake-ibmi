@@ -611,5 +611,16 @@
   "config.warmUp.enabled": "连接后在后台准备：SQL 作业、转到任何内容列表、源索引和最近的成员。",
   "config.warmUp.members": "预热时加载到成员缓存中的最近打开的成员数。",
   "config.compile.parallel": "批量编译和重新编译使用此文件的程序同时编译的成员数（1 = 逐个编译）。",
-  "config.editor.referenceLinks": "使源、假脱机文件和日志中的 IBM i 引用可单击：LIB/FILE(MBR)、PGM(LIB/OBJ)、IFS 路径、消息 ID 和作业名。"
+  "config.editor.referenceLinks": "使源、假脱机文件和日志中的 IBM i 引用可单击：LIB/FILE(MBR)、PGM(LIB/OBJ)、IFS 路径、消息 ID 和作业名。",
+  "command.sqlWatch.add": "在状态栏中监视 SQL 值…",
+  "command.sqlWatch.manage": "管理 SQL 监视",
+  "command.runMacro": "运行 CL 宏…",
+  "command.runSelection": "将所选内容作为 CL 或 SQL 运行",
+  "command.bookmark.toggle": "切换书签",
+  "command.bookmark.list": "书签",
+  "command.sourceSet.save": "将打开的源另存为集合…",
+  "command.sourceSet.open": "打开已保存的源集合…",
+  "command.sourceSet.delete": "删除已保存的源集合…",
+  "config.macros": "用于 **运行 CL 宏** 的 CL 宏：一个名称和一组 CL 命令。`${NAME}` 会在宏运行时要求输入值（`${LIB:MYLIB}` 带缺省值）；`${USER}`、`${CURLIB}`、`${DATE}` 和 `${TIME}` 会自动填入。命令按顺序运行，遇到第一个错误时停止。",
+  "config.editor.fileFieldHelp": "在 RPG 中，将鼠标悬停在已声明的文件上会显示其来自 Db2 的字段，悬停在字段上会显示其类型和文本，字段名称会自动补全，按 Ctrl+单击文件可打开其 DDS 源。"
 }

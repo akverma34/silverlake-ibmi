@@ -97,6 +97,7 @@ import { initMemberCache } from './features/memberCache';
 import { registerSourceIndex } from './features/sourceIndexView';
 import { registerQuickOpen } from './features/quickOpenView';
 import { registerSpeed } from './features/speedView';
+import { registerProductivity } from './features/productivityView';
 
 let manager: ConnectionManager | undefined;
 
@@ -233,6 +234,7 @@ export function activate(context: vscode.ExtensionContext): void {
   step('source index', () => registerSourceIndex(context, m));
   step('go to anything', () => registerQuickOpen(context, m));
   step('speed', () => registerSpeed(context, m));
+  step('productivity', () => registerProductivity(context, m));
 
   if (failures.length) {
     vscode.window.showErrorMessage(vscode.l10n.t('Vanthrex started with problems: {0}', failures.join(' | ')), vscode.l10n.t('Show Log'))

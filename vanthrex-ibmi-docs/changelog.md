@@ -6,7 +6,7 @@ nav_order: 90
 
 # Changelog
 
-## 2.5.0 (not released yet)
+## 2.5.0
 
 **AI with your data protected**
 
@@ -118,6 +118,16 @@ Everything sent to the AI now goes through one guard, and nothing the AI does ca
 - **Go to Definition across members**: F12 on a procedure call that is not defined in the source jumps to its `dcl-proc` in another member — found instantly in the source index, or through the service program that exports it and its bound modules.
 - **Clickable IBM i references** in sources, spooled files and logs: `LIB/FILE(MBR)` opens the member, `PGM(LIB/OBJ)` and `LIB/OBJ *TYPE` the object information, `/home/…` the IFS file, `CPF4131` the message help, `123456/USER/JOB` the job log (`vanthrex.editor.referenceLinks`).
 - **Speed Test of This Connection**: SSH round trip, QSH start, SQL statement, download and upload speed, graded, with what to change to make Vanthrex faster.
+
+**Flexible workflow**
+
+- **Copy, CSV and Excel on every report table**: every table of every report page (active jobs, unused objects, data profile, CRUD matrix, audits…) has *Copy* (paste into a spreadsheet), *CSV* and *Excel* buttons.
+- **File and field help in RPG**: hover a file of a `dcl-f` or an F spec to see its fields with types and texts from Db2 (EXTFILE, EXTDESC, PREFIX and QUALIFIED understood); hover a field to see its type, text and file; field names are completed (also after `file.` for qualified files); Ctrl+click on the file opens its DDS source (`vanthrex.editor.fileFieldHelp`).
+- **SQL watches**: a value from a SELECT in the status bar, refreshed every N seconds, with an alert when it changes or meets a condition (`> 0`, `= ACTIVE`, `contains MSGW`); ready-made watches for messages waiting for a reply, jobs in MSGW, system ASP and job queues; watches start again after VS Code restarts.
+- **CL macros** (`vanthrex.macros`): a named list of CL commands with `${VARIABLES}` asked when it runs (with defaults, remembered), `${USER}`, `${CURLIB}`, `${DATE}`, `${TIME}`; the commands are shown first, run in order and stop at the first error.
+- **Run Selection as CL or SQL** (Ctrl+Alt+R): the selected text — in any file, comments included — runs as SQL or as CL (continuation lines joined, several commands run in order).
+- **Bookmarks** on lines of members and IFS files (Ctrl+Alt+B, list with Ctrl+Alt+Shift+B), kept across sessions and systems.
+- **Sets of sources**: save the members and IFS files open now under a name (a ticket, a project) and open them all again later.
 
 ## 2.4.0
 

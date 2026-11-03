@@ -125,6 +125,8 @@ Open **File → Preferences → Settings** and search for *Vanthrex*, or edit `s
 | `vanthrex.warmUp.members` | number | `5` | Recently opened members loaded into the member cache by the warm-up. |
 | `vanthrex.compile.parallel` | number | `4` | Members compiled at the same time by Batch Compile and Recompile the Programs That Use This File (1 = one after the other). |
 | `vanthrex.editor.referenceLinks` | boolean | `true` | Make IBM i references clickable in sources, spooled files and logs: LIB/FILE(MBR), PGM(LIB/OBJ), IFS paths, message IDs and job names. |
+| `vanthrex.macros` | array | `[]` | CL macros for **Run a CL Macro**: a name and a list of CL commands. `${NAME}` asks for a value when the macro runs (`${LIB:MYLIB}` with a default); `${USER}`, `${CURLIB}`, `${DATE}` and `${TIME}` are filled in. The commands run in order and stop at the first error. |
+| `vanthrex.editor.fileFieldHelp` | boolean | `true` | In RPG, hovering a declared file shows its fields from Db2, hovering a field shows its type and text, field names are completed and Ctrl+click on a file opens its DDS source. |
 
 ## RPG check rules
 

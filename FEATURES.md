@@ -1054,6 +1054,34 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 
 - **What:** *Speed Test of This Connection*: SSH, QSH, SQL and transfer speed graded, with advice.
 
+### 161. Export any report — new in 2.5
+
+- **What:** Copy, CSV and Excel buttons on every table of every report page.
+
+### 162. File and field help — new in 2.5
+
+- **What:** Hover a declared file to see its fields, a field to see its type and text; completion of field names; Ctrl+click opens the DDS (`vanthrex.editor.fileFieldHelp`).
+
+### 163. SQL watches — new in 2.5
+
+- **What:** *Watch an SQL Value in the Status Bar…*: refreshed every N seconds, alert on change or condition.
+
+### 164. CL macros — new in 2.5
+
+- **What:** *Run a CL Macro…*: CL commands with `${VARIABLES}` from `vanthrex.macros`, run in order, stop at the first error.
+
+### 165. Run selection — new in 2.5
+
+- **What:** Ctrl+Alt+R: the selected text runs as SQL or CL.
+
+### 166. Bookmarks — new in 2.5
+
+- **What:** Ctrl+Alt+B on a line of a member or IFS file; Ctrl+Alt+Shift+B lists them.
+
+### 167. Sets of sources — new in 2.5
+
+- **What:** *Save the Open Sources as a Set…* and *Open a Saved Set of Sources…*.
+
 ## Keyboard shortcuts
 
 | Keys | Action |
@@ -1072,6 +1100,8 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 | Shift+Enter | Run a notebook cell |
 | Ctrl+Alt+J | Go to anything (members, objects, recent) |
 | Ctrl+Alt+Shift+F | Instant search in indexed sources |
+| Ctrl+Alt+R | Run the selection as CL or SQL |
+| Ctrl+Alt+B / Ctrl+Alt+Shift+B | Toggle a bookmark / list bookmarks |
 | Ctrl+Alt+O | Search objects |
 | Ctrl+Alt+F | Search source code |
 | F12 / Shift+F12 / F2 | Go to definition / Find references / Rename |

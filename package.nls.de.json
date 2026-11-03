@@ -611,5 +611,16 @@
   "config.warmUp.enabled": "Nach dem Verbinden im Hintergrund vorbereiten: den SQL-Job, die Liste von Zu allem springen, den Quellenindex und die zuletzt verwendeten Teildateien.",
   "config.warmUp.members": "Zuletzt geöffnete Teildateien, die beim Aufwärmen in den Teildatei-Cache geladen werden.",
   "config.compile.parallel": "Gleichzeitig kompilierte Teildateien bei Stapelkompilierung und Programme neu kompilieren, die diese Datei verwenden (1 = nacheinander).",
-  "config.editor.referenceLinks": "IBM i-Referenzen in Quellen, Spooldateien und Protokollen anklickbar machen: LIB/FILE(MBR), PGM(LIB/OBJ), IFS-Pfade, Nachrichten-IDs und Jobnamen."
+  "config.editor.referenceLinks": "IBM i-Referenzen in Quellen, Spooldateien und Protokollen anklickbar machen: LIB/FILE(MBR), PGM(LIB/OBJ), IFS-Pfade, Nachrichten-IDs und Jobnamen.",
+  "command.sqlWatch.add": "SQL-Wert in der Statusleiste überwachen…",
+  "command.sqlWatch.manage": "SQL-Überwachungen verwalten",
+  "command.runMacro": "CL-Makro ausführen…",
+  "command.runSelection": "Auswahl als CL oder SQL ausführen",
+  "command.bookmark.toggle": "Lesezeichen umschalten",
+  "command.bookmark.list": "Lesezeichen",
+  "command.sourceSet.save": "Geöffnete Quellen als Gruppe speichern…",
+  "command.sourceSet.open": "Gespeicherte Quellengruppe öffnen…",
+  "command.sourceSet.delete": "Gespeicherte Quellengruppe löschen…",
+  "config.macros": "CL-Makros für **CL-Makro ausführen**: ein Name und eine Liste von CL-Befehlen. `${NAME}` fragt beim Ausführen des Makros nach einem Wert (`${LIB:MYLIB}` mit Standardwert); `${USER}`, `${CURLIB}`, `${DATE}` und `${TIME}` werden automatisch ausgefüllt. Die Befehle werden der Reihe nach ausgeführt und beim ersten Fehler abgebrochen.",
+  "config.editor.fileFieldHelp": "In RPG werden beim Zeigen auf eine deklarierte Datei ihre Felder aus Db2 angezeigt, beim Zeigen auf ein Feld sein Typ und Text; Feldnamen werden vervollständigt, und Ctrl+Klick auf eine Datei öffnet ihre DDS-Quelle."
 }

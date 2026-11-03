@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
 import { escapeHtml, loaderHtml, page } from './ui/kit';
+import { buildXlsx } from '../core/dataTransfer';
+import { tableCsv, tableTsv } from '../core/productivity';
 
 /** A read-only report page: key/value cards, tables with clickable rows, and action buttons. */
 export interface ReportAction { label: string; command: string; args?: unknown[] }
@@ -98,9 +100,39 @@ export function showReport(id: string, report: Report, allowed: Set<string>): vo
   // Replace the listener each time the content changes.
   subs.get(panel)?.dispose();
   subs.set(panel, panel.webview.onDidReceiveMessage(m => {
+    if (m?.export !== undefined) { void exportTable(report, Number(m.export), String(m.fmt)); return; }
     const a = actions[Number(m?.action)];
     if (a && allowed.has(a.command)) { vscode.commands.executeCommand(a.command, ...(a.args ?? [])); }
   }));
+}
+
+/** Copy a report table, or save it as CSV or Excel. */
+async function exportTable(report: Report, ti: number, fmt: string): Promise<void> {
+  const t = report.tables?.[ti];
+  if (!t) { return; }
+  try {
+    if (fmt === 'copy') {
+      await vscode.env.clipboard.writeText(tableTsv(t.columns, t.rows));
+      vscode.window.setStatusBarMessage(vscode.l10n.t('{0} row(s) copied — paste them into a spreadsheet.', t.rows.length), 4000);
+      return;
+    }
+    const base = `${report.title}-${t.title}`.replace(/[^\w\- ]+/g, '').replace(/\s+/g, '-').toLowerCase().slice(0, 60) || 'report';
+    const xlsx = fmt === 'xlsx';
+    const to = await vscode.window.showSaveDialog({ defaultUri: vscode.Uri.file(`${base}.${xlsx ? 'xlsx' : 'csv'}`), filters: xlsx ? { Excel: ['xlsx'] } : { CSV: ['csv'] } });
+    if (!to) { return; }
+    let data: Uint8Array;
+    if (xlsx) {
+      const cols = t.columns.map((c, i) => c || `#${i + 1}`);
+      const rows = t.rows.map(r => Object.fromEntries(cols.map((c, i) => [c, r[i] ?? null])));
+      data = buildXlsx(t.title.slice(0, 31) || 'Sheet1', cols, rows, cols.map((_, i) => t.rows.length > 0 && t.rows.every(r => r[i] === null || r[i] === '' || typeof r[i] === 'number')));
+    } else {
+      const sep = vscode.workspace.getConfiguration('vanthrex').get<string>('csvSeparator', ',') || ',';
+      data = new TextEncoder().encode('\ufeff' + tableCsv(t.columns, t.rows, sep));
+    }
+    await vscode.workspace.fs.writeFile(to, data);
+    const open = vscode.l10n.t('Open');
+    void vscode.window.showInformationMessage(vscode.l10n.t('Saved {0} row(s) to {1}.', t.rows.length, to.fsPath), open).then(c => { if (c) { void vscode.env.openExternal(to); } });
+  } catch (e) { vscode.window.showErrorMessage(String(e instanceof Error ? e.message : e)); }
 }
 
 function cell(v: string | number | null | undefined): string {
@@ -120,6 +152,7 @@ const REPORT_CSS = `
   .actions { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
   .filter { margin-bottom: 6px; }
   .note { margin-top: 18px; color: var(--vx-muted); }
+  .exp { float: right; display: inline-flex; gap: 4px; } .exp .vx-btn { font-size: 0.75em; padding: 2px 8px; }
 `;
 
 function render(r: Report, ref: (a?: ReportAction) => number): string {
@@ -135,7 +168,8 @@ function render(r: Report, ref: (a?: ReportAction) => number): string {
   }));
   const tables = (r.tables ?? []).map((t, ti) => {
     const empty = t.rows.length ? '' : `<tr><td colspan="${t.columns.length}" class="dim">${escapeHtml(t.empty ?? vscode.l10n.t('Nothing to show.'))}</td></tr>`;
-    return `<section><h2>${escapeHtml(t.title)} <span class="dim">(${t.rows.length})</span></h2>` +
+    const exp = t.rows.length ? `<span class="exp"><button class="vx-btn" data-x="${ti}" data-f="copy">${escapeHtml(vscode.l10n.t('Copy'))}</button><button class="vx-btn" data-x="${ti}" data-f="csv">CSV</button><button class="vx-btn" data-x="${ti}" data-f="xlsx">Excel</button></span>` : '';
+    return `<section><h2>${escapeHtml(t.title)} <span class="dim">(${t.rows.length})</span>${exp}</h2>` +
       ((t.filter || t.rows.length > 50) && t.rows.length > 8 ? `<input class="vx-input filter" data-t="${ti}" placeholder="${escapeHtml(vscode.l10n.t('Filter…'))}">` : '') +
       `<table class="vx-table" data-t="${ti}"><thead><tr>${t.columns.map(c => `<th title="${escapeHtml(vscode.l10n.t('Sort'))}">${escapeHtml(c)}</th>`).join('')}</tr></thead><tbody>${empty}</tbody></table>` +
       `<div class="vx-more" data-t="${ti}"></div></section>`;
@@ -157,6 +191,8 @@ ${buttons}${facts}${tables}${r.note ? `<p class="note">${escapeHtml(r.note)}</p>
     return v;
   });
   document.addEventListener('click', e => {
+    const x = e.target.closest('[data-x]');
+    if (x) { vscode.postMessage({ export: x.dataset.x, fmt: x.dataset.f }); return; }
     const el = e.target.closest('[data-a]');
     if (el && Number(el.dataset.a) >= 0) { vscode.postMessage({ action: el.dataset.a }); }
   });

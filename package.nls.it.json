@@ -611,5 +611,16 @@
   "config.warmUp.enabled": "Dopo la connessione, prepara in background: il lavoro SQL, l'elenco di Vai a qualsiasi cosa, l'indice delle origini e i membri più recenti.",
   "config.warmUp.members": "Membri aperti di recente caricati nella cache dei membri dal riscaldamento.",
   "config.compile.parallel": "Membri compilati contemporaneamente da Compilazione batch e Ricompila i programmi che usano questo file (1 = uno dopo l'altro).",
-  "config.editor.referenceLinks": "Rende cliccabili i riferimenti IBM i in origini, file di spool e log: LIB/FILE(MBR), PGM(LIB/OBJ), percorsi IFS, ID messaggio e nomi di lavori."
+  "config.editor.referenceLinks": "Rende cliccabili i riferimenti IBM i in origini, file di spool e log: LIB/FILE(MBR), PGM(LIB/OBJ), percorsi IFS, ID messaggio e nomi di lavori.",
+  "command.sqlWatch.add": "Monitora un valore SQL nella barra di stato…",
+  "command.sqlWatch.manage": "Gestisci monitoraggi SQL",
+  "command.runMacro": "Esegui una macro CL…",
+  "command.runSelection": "Esegui selezione come CL o SQL",
+  "command.bookmark.toggle": "Attiva/disattiva segnalibro",
+  "command.bookmark.list": "Segnalibri",
+  "command.sourceSet.save": "Salva le origini aperte come set…",
+  "command.sourceSet.open": "Apri un set di origini salvato…",
+  "command.sourceSet.delete": "Elimina un set di origini salvato…",
+  "config.macros": "Macro CL per **Esegui una macro CL**: un nome e un elenco di comandi CL. `${NAME}` richiede un valore quando la macro viene eseguita (`${LIB:MYLIB}` con un valore predefinito); `${USER}`, `${CURLIB}`, `${DATE}` e `${TIME}` vengono compilati automaticamente. I comandi vengono eseguiti in ordine e si interrompono al primo errore.",
+  "config.editor.fileFieldHelp": "In RPG, passando il puntatore su un file dichiarato vengono mostrati i relativi campi da Db2, passandolo su un campo ne vengono mostrati tipo e testo, i nomi dei campi vengono completati e Ctrl+clic su un file ne apre il sorgente DDS."
 }

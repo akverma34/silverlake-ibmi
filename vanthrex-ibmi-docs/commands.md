@@ -7,7 +7,7 @@ parent: "Reference"
 
 # Commands
 
-All 410 commands contributed by Vanthrex for IBM i 2.5.0. Run any of them from the
+All 419 commands contributed by Vanthrex for IBM i 2.5.0. Run any of them from the
 Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-click menus and view toolbars.
 
 | Command | ID | Keys |
@@ -53,6 +53,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Authorization List Entries | `vanthrex.secadm.autlEntries` |  |
 | Authorization List Entry Options | `vanthrex.secadm.autlRow` |  |
 | Authorization Lists | `vanthrex.secadm.autl` |  |
+| Bookmarks | `vanthrex.bookmark.list` | Ctrl+Alt+Shift+B |
 | Browse Schema (SQL Objects)… | `vanthrex.schemaBrowser` |  |
 | Build Project on IBM i | `vanthrex.build` |  |
 | Call a Web API from the IBM i… | `vanthrex.callWebApi` |  |
@@ -133,6 +134,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Debugger Setup Check | `vanthrex.debugSetup` |  |
 | Declare a Name | `vanthrex.fix.declare` |  |
 | Delete | `vanthrex.ifsDelete` |  |
+| Delete a Saved Set of Sources… | `vanthrex.sourceSet.delete` |  |
 | Delete Member | `vanthrex.deleteMember` |  |
 | Delete Object | `vanthrex.objectDelete` |  |
 | Delete Spooled File | `vanthrex.spoolDelete` |  |
@@ -236,6 +238,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Library List Sets… | `vanthrex.librarySets` |  |
 | Live Alerts | `vanthrex.alerts.show` |  |
 | Live Job Log | `vanthrex.jobLogLive` |  |
+| Manage SQL Watches | `vanthrex.sqlWatch.manage` |  |
 | Member Lock: Ask Holder to Release… | `vanthrex.lockAskRelease` |  |
 | Member Lock: Check Again | `vanthrex.lockRefresh` |  |
 | Member Lock: End Holder's Job… | `vanthrex.lockEndJob` |  |
@@ -263,6 +266,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Objects Hidden in the Library List | `vanthrex.shadowedObjects` |  |
 | Objects Out of Sync with Source | `vanthrex.outOfSync` |  |
 | Open 5250 Session | `vanthrex.open5250` |  |
+| Open a Saved Set of Sources… | `vanthrex.sourceSet.open` |  |
 | Open ALTER Script | `vanthrex.compareStructure.script` |  |
 | Open Documentation | `vanthrex.openDocs` |  |
 | Open IBM i Reference | `vanthrex.openRef` |  |
@@ -320,12 +324,14 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Retrieve Binder Source | `vanthrex.retrieveBinderSource` |  |
 | Retrieve CL Source (RTVCLSRC) | `vanthrex.retrieveClSource` |  |
 | Row Lock Options | `vanthrex.rowLocks.row` |  |
+| Run a CL Macro… | `vanthrex.runMacro` |  |
 | Run CL Command on Several Systems… | `vanthrex.clOnSystems` |  |
 | Run CL Command… | `vanthrex.runCl` | Ctrl+Alt+L |
 | Run Import | `vanthrex.importData.run` |  |
 | Run Promotion | `vanthrex.promote.run` |  |
 | Run Queue Command | `vanthrex.tracker.cl` |  |
 | Run RPG Code Checks | `vanthrex.lintCurrent` |  |
+| Run Selection as CL or SQL | `vanthrex.runSelection` | Ctrl+Alt+R |
 | Run SQL on Several Systems… | `vanthrex.sqlOnSystems` |  |
 | Run SQL Query… | `vanthrex.sqlQuery` |  |
 | Run SQL Script (All Statements) | `vanthrex.runSqlScript` | Ctrl+Shift+Enter |
@@ -337,6 +343,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Save Library or Objects to a Save File… | `vanthrex.saveToSaveFile` |  |
 | Save Query… | `vanthrex.saveQuery` |  |
 | Save Spooled File As… | `vanthrex.spoolDownload` |  |
+| Save the Open Sources as a Set… | `vanthrex.sourceSet.save` |  |
 | Saved Queries… | `vanthrex.savedQueries` |  |
 | Schema Object Options | `vanthrex.schema.row` |  |
 | Search Objects… | `vanthrex.searchObjects` | Ctrl+Alt+O |
@@ -381,6 +388,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Take a Library Snapshot | `vanthrex.librarySnapshot` |  |
 | Time This SQL Statement (Several Runs) | `vanthrex.sqlBenchmark` |  |
 | TODO and FIXME Notes in Open Sources… | `vanthrex.sourceNotes` |  |
+| Toggle Bookmark | `vanthrex.bookmark.toggle` | Ctrl+Alt+B |
 | Toggle Source Dates (SEU) | `vanthrex.toggleSourceDates` | Ctrl+Alt+D |
 | Turn Live Alerts On/Off | `vanthrex.alerts.toggle` |  |
 | Turn Off a Code Check | `vanthrex.disableLintRule` |  |
@@ -395,6 +403,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | User Profile Options | `vanthrex.secadm.row` |  |
 | View Data Area | `vanthrex.dataArea` |  |
 | View Data Queue Entries | `vanthrex.dataQueue` |  |
+| Watch an SQL Value in the Status Bar… | `vanthrex.sqlWatch.add` |  |
 | Watch This Job (Notify When It Ends) | `vanthrex.watchJob` |  |
 | What Changed (Release Notes)… | `vanthrex.changeReport` |  |
 | What Depends on This File? | `vanthrex.tableDependents` |  |

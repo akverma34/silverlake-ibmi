@@ -611,5 +611,16 @@
   "config.warmUp.enabled": "After connecting, prepare in the background: the SQL job, the Go to Anything list, the source index and the most recent members.",
   "config.warmUp.members": "Recently opened members loaded into the member cache by the warm-up.",
   "config.compile.parallel": "Members compiled at the same time by Batch Compile and Recompile the Programs That Use This File (1 = one after the other).",
-  "config.editor.referenceLinks": "Make IBM i references clickable in sources, spooled files and logs: LIB/FILE(MBR), PGM(LIB/OBJ), IFS paths, message IDs and job names."
+  "config.editor.referenceLinks": "Make IBM i references clickable in sources, spooled files and logs: LIB/FILE(MBR), PGM(LIB/OBJ), IFS paths, message IDs and job names.",
+  "command.sqlWatch.add": "Watch an SQL Value in the Status Bar…",
+  "command.sqlWatch.manage": "Manage SQL Watches",
+  "command.runMacro": "Run a CL Macro…",
+  "command.runSelection": "Run Selection as CL or SQL",
+  "command.bookmark.toggle": "Toggle Bookmark",
+  "command.bookmark.list": "Bookmarks",
+  "command.sourceSet.save": "Save the Open Sources as a Set…",
+  "command.sourceSet.open": "Open a Saved Set of Sources…",
+  "command.sourceSet.delete": "Delete a Saved Set of Sources…",
+  "config.macros": "CL macros for **Run a CL Macro**: a name and a list of CL commands. `${NAME}` asks for a value when the macro runs (`${LIB:MYLIB}` with a default); `${USER}`, `${CURLIB}`, `${DATE}` and `${TIME}` are filled in. The commands run in order and stop at the first error.",
+  "config.editor.fileFieldHelp": "In RPG, hovering a declared file shows its fields from Db2, hovering a field shows its type and text, field names are completed and Ctrl+click on a file opens its DDS source."
 }

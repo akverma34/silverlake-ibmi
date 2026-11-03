@@ -611,5 +611,16 @@
   "config.warmUp.enabled": "接続後、バックグラウンドで準備します: SQL ジョブ、あらゆるものに移動のリスト、ソース索引、最近のメンバー。",
   "config.warmUp.members": "ウォームアップでメンバー・キャッシュにロードする最近開いたメンバー数。",
   "config.compile.parallel": "一括コンパイルおよびこのファイルを使用するプログラムを再コンパイルで同時にコンパイルするメンバー数 (1 = 1 つずつ順番に)。",
-  "config.editor.referenceLinks": "ソース、スプール・ファイル、ログ内の IBM i 参照をクリック可能にします: LIB/FILE(MBR)、PGM(LIB/OBJ)、IFS パス、メッセージ ID、ジョブ名。"
+  "config.editor.referenceLinks": "ソース、スプール・ファイル、ログ内の IBM i 参照をクリック可能にします: LIB/FILE(MBR)、PGM(LIB/OBJ)、IFS パス、メッセージ ID、ジョブ名。",
+  "command.sqlWatch.add": "ステータス・バーで SQL 値を監視…",
+  "command.sqlWatch.manage": "SQL 監視の管理",
+  "command.runMacro": "CL マクロの実行…",
+  "command.runSelection": "選択範囲を CL または SQL として実行",
+  "command.bookmark.toggle": "ブックマークの切り替え",
+  "command.bookmark.list": "ブックマーク",
+  "command.sourceSet.save": "開いているソースをセットとして保存…",
+  "command.sourceSet.open": "保存されたソースのセットを開く…",
+  "command.sourceSet.delete": "保存されたソースのセットの削除…",
+  "config.macros": "**CL マクロの実行** 用の CL マクロ: 名前と CL コマンドのリストです。`${NAME}` はマクロの実行時に値を要求します (`${LIB:MYLIB}` はデフォルト値付き)。`${USER}`、`${CURLIB}`、`${DATE}`、`${TIME}` は自動的に入力されます。コマンドは順番に実行され、最初のエラーで停止します。",
+  "config.editor.fileFieldHelp": "RPG では、宣言されたファイルにカーソルを合わせると Db2 のフィールドが表示され、フィールドにカーソルを合わせるとその型とテキストが表示されます。フィールド名は補完され、ファイルを Ctrl+クリックするとその DDS ソースが開きます。"
 }

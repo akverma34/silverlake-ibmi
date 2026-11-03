@@ -2522,6 +2522,60 @@
         "title": "%command.rebuildImpacted%",
         "category": "Vanthrex",
         "icon": "$(sync)"
+      },
+      {
+        "command": "vanthrex.sqlWatch.add",
+        "title": "%command.sqlWatch.add%",
+        "category": "Vanthrex",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "vanthrex.sqlWatch.manage",
+        "title": "%command.sqlWatch.manage%",
+        "category": "Vanthrex",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "vanthrex.runMacro",
+        "title": "%command.runMacro%",
+        "category": "Vanthrex",
+        "icon": "$(play)"
+      },
+      {
+        "command": "vanthrex.runSelection",
+        "title": "%command.runSelection%",
+        "category": "Vanthrex",
+        "icon": "$(play)"
+      },
+      {
+        "command": "vanthrex.bookmark.toggle",
+        "title": "%command.bookmark.toggle%",
+        "category": "Vanthrex",
+        "icon": "$(bookmark)"
+      },
+      {
+        "command": "vanthrex.bookmark.list",
+        "title": "%command.bookmark.list%",
+        "category": "Vanthrex",
+        "icon": "$(bookmark)"
+      },
+      {
+        "command": "vanthrex.sourceSet.save",
+        "title": "%command.sourceSet.save%",
+        "category": "Vanthrex",
+        "icon": "$(save-all)"
+      },
+      {
+        "command": "vanthrex.sourceSet.open",
+        "title": "%command.sourceSet.open%",
+        "category": "Vanthrex",
+        "icon": "$(files)"
+      },
+      {
+        "command": "vanthrex.sourceSet.delete",
+        "title": "%command.sourceSet.delete%",
+        "category": "Vanthrex",
+        "icon": "$(trash)"
       }
     ],
     "menus": {
@@ -3896,6 +3950,16 @@
           "command": "vanthrex.explainCode",
           "when": "editorLangId =~ /^(rpgle|cl|sql)$/",
           "group": "vanthrex@16"
+        },
+        {
+          "command": "vanthrex.runSelection",
+          "when": "vanthrex.connected && editorHasSelection",
+          "group": "vanthrex@17"
+        },
+        {
+          "command": "vanthrex.bookmark.toggle",
+          "when": "resourceScheme =~ /^vanthrex-(member|ifs)$/",
+          "group": "vanthrex@18"
         }
       ],
       "commandPalette": [
@@ -4821,6 +4885,22 @@
         {
           "command": "vanthrex.rebuildImpacted",
           "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.sqlWatch.add",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.sqlWatch.manage",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.runMacro",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.runSelection",
+          "when": "vanthrex.connected"
         }
       ],
       "vanthrex.ai": [
@@ -5179,6 +5259,23 @@
         "key": "ctrl+alt+shift+f",
         "mac": "cmd+alt+shift+f",
         "when": "vanthrex.connected"
+      },
+      {
+        "command": "vanthrex.bookmark.toggle",
+        "key": "ctrl+alt+b",
+        "mac": "cmd+alt+b",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "vanthrex.bookmark.list",
+        "key": "ctrl+alt+shift+b",
+        "mac": "cmd+alt+shift+b"
+      },
+      {
+        "command": "vanthrex.runSelection",
+        "key": "ctrl+alt+r",
+        "mac": "cmd+alt+r",
+        "when": "editorTextFocus && vanthrex.connected"
       }
     ],
     "languages": [
@@ -6236,6 +6333,37 @@
           "type": "boolean",
           "default": true,
           "markdownDescription": "%config.editor.referenceLinks%"
+        },
+        "vanthrex.macros": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "commands"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "commands": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "markdownDescription": "%config.macros%"
+        },
+        "vanthrex.editor.fileFieldHelp": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "%config.editor.fileFieldHelp%"
         }
       }
     },

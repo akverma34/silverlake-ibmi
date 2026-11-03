@@ -611,5 +611,16 @@
   "config.warmUp.enabled": "Tras conectar, preparar en segundo plano: el trabajo SQL, la lista de Ir a cualquier cosa, el índice de fuentes y los miembros más recientes.",
   "config.warmUp.members": "Miembros abiertos recientemente que el precalentamiento carga en la caché de miembros.",
   "config.compile.parallel": "Miembros compilados a la vez por Compilación por lotes y Recompilar los programas que usan este archivo (1 = uno tras otro).",
-  "config.editor.referenceLinks": "Hacer clicables las referencias de IBM i en fuentes, archivos en spool y registros: LIB/FILE(MBR), PGM(LIB/OBJ), vías de acceso IFS, ID de mensaje y nombres de trabajo."
+  "config.editor.referenceLinks": "Hacer clicables las referencias de IBM i en fuentes, archivos en spool y registros: LIB/FILE(MBR), PGM(LIB/OBJ), vías de acceso IFS, ID de mensaje y nombres de trabajo.",
+  "command.sqlWatch.add": "Vigilar un valor SQL en la barra de estado…",
+  "command.sqlWatch.manage": "Gestionar vigilancias SQL",
+  "command.runMacro": "Ejecutar una macro CL…",
+  "command.runSelection": "Ejecutar selección como CL o SQL",
+  "command.bookmark.toggle": "Alternar marcador",
+  "command.bookmark.list": "Marcadores",
+  "command.sourceSet.save": "Guardar los fuentes abiertos como conjunto…",
+  "command.sourceSet.open": "Abrir un conjunto de fuentes guardado…",
+  "command.sourceSet.delete": "Suprimir un conjunto de fuentes guardado…",
+  "config.macros": "Macros CL para **Ejecutar una macro CL**: un nombre y una lista de mandatos CL. `${NAME}` solicita un valor cuando se ejecuta la macro (`${LIB:MYLIB}` con un valor predeterminado); `${USER}`, `${CURLIB}`, `${DATE}` y `${TIME}` se rellenan automáticamente. Los mandatos se ejecutan en orden y se detienen en el primer error.",
+  "config.editor.fileFieldHelp": "En RPG, al pasar el puntero sobre un archivo declarado se muestran sus campos de Db2, al pasarlo sobre un campo se muestran su tipo y su texto, se completan los nombres de campo y Ctrl+clic en un archivo abre su fuente DDS."
 }
