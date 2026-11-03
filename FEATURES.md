@@ -1172,6 +1172,18 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** less typing and fewer forgotten checks, offline and instant.
 - **How:** type, then **Tab** to accept. `vanthrex.editor.inlineSuggestions` (on), `vanthrex.ai.inlineSuggestions` (off).
 
+### 183. Checks on how variables are used — new in 2.6
+
+- **What:** %SUBST beyond the field, array index outside DIM, literals too big for the field, text assigned to a number, numbers compared with *BLANKS, undeclared SQL host variables, EXSR of a missing subroutine — with quick fixes.
+- **Why:** run-time errors (RNX0100, RNX0121, numeric overflow) and compile errors found while typing.
+- **How:** on by default in `vanthrex.lint.rules`; Ctrl+. for the fixes.
+
+### 184. Toggle Value — new in 2.6
+
+- **What:** *ON ↔ *OFF, AND ↔ OR, = ↔ <>, SETLL ↔ SETGT… under the cursor.
+- **Why:** flip a condition in one key.
+- **How:** Ctrl+Alt+Shift+T.
+
 ## Keyboard shortcuts
 
 | Keys | Action |
@@ -1195,6 +1207,7 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 | Ctrl+Alt+W | Surround the selection with IF, MONITOR, DOW… |
 | Ctrl+/ | Toggle RPG comment |
 | Ctrl+Alt+PageDown / PageUp | Next / previous procedure |
+| Ctrl+Alt+Shift+T | Toggle value (*ON / *OFF, AND / OR…) |
 | Ctrl+Alt+B / Ctrl+Alt+Shift+B | Toggle a bookmark / list bookmarks |
 | Ctrl+Alt+O | Search objects |
 | Ctrl+Alt+F | Search source code |

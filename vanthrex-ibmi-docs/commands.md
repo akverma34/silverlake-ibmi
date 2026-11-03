@@ -7,7 +7,7 @@ parent: "Reference"
 
 # Commands
 
-All 442 commands contributed by Vanthrex for IBM i 2.6.0. Run any of them from the
+All 443 commands contributed by Vanthrex for IBM i 2.6.0. Run any of them from the
 Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-click menus and view toolbars.
 
 | Command | ID | Keys |
@@ -411,6 +411,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Toggle Bookmark | `vanthrex.bookmark.toggle` | Ctrl+Alt+B |
 | Toggle RPG Comment | `vanthrex.rpg.toggleComment` | Ctrl+/ |
 | Toggle Source Dates (SEU) | `vanthrex.toggleSourceDates` | Ctrl+Alt+D |
+| Toggle Value (*ON / *OFF, AND / OR, = / <>…) | `vanthrex.rpg.toggleValue` | Ctrl+Alt+Shift+T |
 | Turn IBM i Suggestions On or Off | `vanthrex.toggleInlineSuggestions` |  |
 | Turn Live Alerts On/Off | `vanthrex.alerts.toggle` |  |
 | Turn Off a Code Check | `vanthrex.disableLintRule` |  |

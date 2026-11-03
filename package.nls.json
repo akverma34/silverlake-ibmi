@@ -682,5 +682,13 @@
   "command.ai.toggleInlineSuggestions": "AI: Turn Suggestions While Typing On or Off",
   "config.editor.inlineSuggestions": "Suggestions while you type in RPG and CL, shown in grey and accepted with **Tab**: the next statement you usually write (IF %FOUND after CHAIN, SQLCODE test after embedded SQL, OPEN and FETCH after DECLARE CURSOR, MONMSG after CHKOBJ / DLTF…), the type of a new variable from its name and from the variables already declared, the file of %FOUND / %EOF and the parameters of a call. Offline: nothing is sent anywhere.",
   "config.ai.inlineSuggestions": "Also ask the AI model for a suggestion when you pause typing and no offline suggestion applies (RPG, CL, SQL, DDS). The code around the cursor goes through the Vanthrex guard first (secrets and personal data replaced, denied libraries and protected systems never sent) and every request is in the audit trail.",
-  "config.ai.inlineDelay": "Pause in milliseconds before an AI suggestion is requested."
+  "config.ai.inlineDelay": "Pause in milliseconds before an AI suggestion is requested.",
+  "command.rpg.toggleValue": "Toggle Value (*ON / *OFF, AND / OR, = / <>…)",
+  "config.lint.rules.substring-out-of-range": "%SUBST with a start or length beyond the declared length of the field.",
+  "config.lint.rules.index-out-of-range": "An array index (a number) lower than 1 or higher than DIM.",
+  "config.lint.rules.literal-overflow": "A numeric literal with more integer digits than the field can hold.",
+  "config.lint.rules.blank-compare-numeric": "A numeric field compared with *BLANKS or a blank literal.",
+  "config.lint.rules.char-to-numeric": "A text literal assigned to a numeric field.",
+  "config.lint.rules.undeclared-host-variable": "An SQL host variable (:name) that is not declared in the source.",
+  "config.lint.rules.undefined-subroutine": "EXSR of a subroutine that is not in the source."
 }

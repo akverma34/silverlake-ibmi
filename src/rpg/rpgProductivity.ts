@@ -535,3 +535,18 @@ export function embeddedSqlAt(text: string, line: number): { start: number; end:
   const sql = body.slice(at).replace(/^exec\s+sql\s*/i, '').replace(/;\s*(\/\/.*)?$/, '').trim();
   return { start: s, end: e, sql, indent: /^\s*/.exec(lines[s])![0] };
 }
+
+// ---------------------------------------------------------------- toggle a value
+
+const OPPOSITES: [string, string][] = [['*on', '*off'], ['*yes', '*no'], ['and', 'or'], ['*start', '*end'], ['*loval', '*hival'], ['*inlr', '*inlr'], ['=', '<>'], ['<', '>='], ['>', '<='], ['*all', '*all'], ['*blanks', '*zeros'], ['*first', '*last'], ['*next', '*prev'], ['*input', '*output'], ['read', 'readp'], ['reade', 'readpe'], ['setll', 'setgt'], ['*asc', '*desc']];
+
+/** The opposite of a word (*ON ↔ *OFF, AND ↔ OR, = ↔ <>, SETLL ↔ SETGT…), in the same case; undefined when there is none. */
+export function toggleWord(word: string): string | undefined {
+  const w = word.toLowerCase();
+  for (const [a, b] of OPPOSITES) {
+    if (a === b) { continue; }
+    const to = w === a ? b : w === b ? a : undefined;
+    if (to !== undefined) { return word === word.toUpperCase() && /[a-z]/i.test(word) ? to.toUpperCase() : to; }
+  }
+  return undefined;
+}

@@ -2714,6 +2714,12 @@
         "title": "%command.ai.toggleInlineSuggestions%",
         "category": "Vanthrex",
         "icon": "$(sparkle)"
+      },
+      {
+        "command": "vanthrex.rpg.toggleValue",
+        "title": "%command.rpg.toggleValue%",
+        "category": "Vanthrex RPG",
+        "icon": "$(arrow-swap)"
       }
     ],
     "menus": {
@@ -5163,6 +5169,10 @@
         {
           "command": "vanthrex.rpg.removeUnusedDeclarations",
           "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.rpg.toggleValue",
+          "when": "editorLangId == rpgle"
         }
       ],
       "vanthrex.ai": [
@@ -5568,6 +5578,12 @@
         "key": "ctrl+alt+w",
         "mac": "cmd+alt+w",
         "when": "editorTextFocus && editorLangId == rpgle && editorHasSelection"
+      },
+      {
+        "command": "vanthrex.rpg.toggleValue",
+        "key": "ctrl+alt+shift+t",
+        "mac": "cmd+alt+shift+t",
+        "when": "editorTextFocus && editorLangId == rpgle"
       }
     ],
     "languages": [
@@ -6045,6 +6061,41 @@
               "type": "boolean",
               "default": true,
               "description": "%config.lint.rules.hardcoded-library%"
+            },
+            "substring-out-of-range": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.substring-out-of-range%"
+            },
+            "index-out-of-range": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.index-out-of-range%"
+            },
+            "literal-overflow": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.literal-overflow%"
+            },
+            "blank-compare-numeric": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.blank-compare-numeric%"
+            },
+            "char-to-numeric": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.char-to-numeric%"
+            },
+            "undeclared-host-variable": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.undeclared-host-variable%"
+            },
+            "undefined-subroutine": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.undefined-subroutine%"
             }
           },
           "additionalProperties": false

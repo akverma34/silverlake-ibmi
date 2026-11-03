@@ -3156,5 +3156,10 @@
   "Turn on": "开启",
   "AI suggestions send the code around the cursor (about 100 lines) to your AI model when you pause typing, through the Vanthrex guard (secrets and personal data replaced, protected systems and denied libraries never sent). Turn on?": "AI 建议会在您暂停键入时，通过 Vanthrex 防护将光标周围的代码 (约 100 行) 发送给您的 AI 模型 (机密和个人数据会被替换，受保护的系统和被拒绝的库永远不会发送)。是否开启？",
   "AI suggestions on.": "AI 建议已开启。",
-  "AI suggestions off.": "AI 建议已关闭。"
+  "AI suggestions off.": "AI 建议已关闭。",
+  "Declare {0} as {1}": "将 {0} 声明为 {1}",
+  "Create subroutine {0}": "创建子例程 {0}",
+  "Compare with 0": "与 0 比较",
+  "Convert with {0}": "使用 {0} 转换",
+  "Nothing to toggle here (*ON / *OFF, AND / OR, = / <>, SETLL / SETGT…).": "此处没有可切换的内容 (*ON / *OFF, AND / OR, = / <>, SETLL / SETGT…)。"
 }

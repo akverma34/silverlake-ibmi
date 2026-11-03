@@ -682,5 +682,13 @@
   "command.ai.toggleInlineSuggestions": "AI: 开启或关闭键入时建议",
   "config.editor.inlineSuggestions": "在 RPG 和 CL 中键入时的建议，以灰色显示，按 **Tab** 接受：您通常接下来编写的语句 (CHAIN 后的 IF %FOUND、嵌入式 SQL 后的 SQLCODE 测试、DECLARE CURSOR 后的 OPEN 和 FETCH、CHKOBJ / DLTF 后的 MONMSG…)、根据名称和已声明变量推断的新变量类型、%FOUND / %EOF 的文件以及调用的参数。离线：不会发送任何内容。",
   "config.ai.inlineSuggestions": "当您暂停键入且没有适用的离线建议时，同时向 AI 模型请求建议 (RPG、CL、SQL、DDS)。光标周围的代码会先经过 Vanthrex 防护 (机密和个人数据会被替换，被拒绝的库和受保护的系统永远不会发送)，并且每个请求都会记录在审计跟踪中。",
-  "config.ai.inlineDelay": "请求 AI 建议之前的暂停时间 (毫秒)。"
+  "config.ai.inlineDelay": "请求 AI 建议之前的暂停时间 (毫秒)。",
+  "command.rpg.toggleValue": "切换值 (*ON / *OFF, AND / OR, = / <>…)",
+  "config.lint.rules.substring-out-of-range": "起始位置或长度超出字段声明长度的 %SUBST。",
+  "config.lint.rules.index-out-of-range": "小于 1 或大于 DIM 的数组索引 (数字)。",
+  "config.lint.rules.literal-overflow": "整数位数超过字段可容纳位数的数字字面值。",
+  "config.lint.rules.blank-compare-numeric": "与 *BLANKS 或空白字面值比较的数字字段。",
+  "config.lint.rules.char-to-numeric": "赋给数字字段的文本字面值。",
+  "config.lint.rules.undeclared-host-variable": "未在源中声明的 SQL 主变量 (:name)。",
+  "config.lint.rules.undefined-subroutine": "调用源中不存在的子例程的 EXSR。"
 }

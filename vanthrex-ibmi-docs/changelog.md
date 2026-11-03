@@ -8,7 +8,7 @@ nav_order: 90
 
 ## 2.6.0 (not released yet)
 
-**Daily RPG development** — about 85 small features for the code you write every day. Everything works on the open source, with no round trip to the IBM i, so it is instant and works offline.
+**Daily RPG development** — about 95 small features for the code you write every day. Everything works on the open source, with no round trip to the IBM i, so it is instant and works offline.
 
 **19 new code checks** (each one can be switched off in `vanthrex.lint.rules`)
 
@@ -53,6 +53,21 @@ nav_order: 90
 - **CL**: the MONMSG that usually follows a command, with its message (CHKOBJ → CPF9801, DLTF → CPF2105, CRTLIB → CPF2111, ADDLIBLE → CPF2103… 29 commands), DCL for the PGM PARM parameters not declared yet, and a TYPE / LEN from the variable name.
 - Nothing is suggested inside a comment or a literal, in the middle of a line, or in fixed-format specs. **Turn IBM i Suggestions On or Off** (`vanthrex.editor.inlineSuggestions`).
 - **AI suggestions (off by default)**: `vanthrex.ai.inlineSuggestions` also asks your AI model when you pause typing (`vanthrex.ai.inlineDelay`, 500 ms) and no offline suggestion applies, in RPG, CL, SQL and DDS. The code around the cursor goes through the same guard as the chat (secrets and personal data replaced, denied libraries and protected systems never sent, every request in the audit trail); after three failures in a row it stops until turned on again. **AI: Turn Suggestions While Typing On or Off** asks for confirmation first.
+
+**7 checks on how variables are used** (from their declared type, free and fixed form; also in `vanthrex.lint.rules`)
+
+- `%SUBST` with a start or length beyond the field (RNX0100 at run time) and array indexes outside 1-DIM (RNX0121).
+- Numeric literals too big for the field (`packed(5:2)` = 1234.5, `int(5)` = 40000) and text literals assigned to a number, with a quick fix that converts with `%DEC` / `%INT`.
+- Numbers compared with `*BLANKS`, with a quick fix to compare with 0.
+- SQL host variables (`:name`) that are not declared, with a quick fix that declares them with a type guessed from the name.
+- `EXSR` of a subroutine that is not in the source, with a quick fix that creates the BEGSR … ENDSR.
+- These checks stay silent when they cannot be sure: a /COPY, an EXTNAME / LIKEREC structure or a declared file may bring the name.
+
+**More help while typing**
+
+- After `DCL-PI` in a procedure whose DCL-PR is already written, its parameters are suggested (and END-PI if missing); `WHEN` after `SELECT`; MONMSG after RCVF (CPF0864), RTVDTAARA / CHGDTAARA, CRTDTAQ, MOVOBJ and GRTOBJAUT.
+- **Toggle Value** (Ctrl+Alt+Shift+T): `*ON` ↔ `*OFF`, `*YES` ↔ `*NO`, `AND` ↔ `OR`, `=` ↔ `<>`, `<` ↔ `>=`, `SETLL` ↔ `SETGT`, `READ` ↔ `READP`, `*START` ↔ `*END`… at every cursor, keeping the case.
+- Very large sources (over 3 MB) keep the basic checks only, so the editor stays responsive.
 
 **6 checks for errors found late** (also in `vanthrex.lint.rules`)
 

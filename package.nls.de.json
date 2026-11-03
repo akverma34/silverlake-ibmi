@@ -682,5 +682,13 @@
   "command.ai.toggleInlineSuggestions": "KI: Vorschläge während der Eingabe ein- oder ausschalten",
   "config.editor.inlineSuggestions": "Vorschläge während der Eingabe in RPG und CL, grau angezeigt und mit **Tab** übernommen: die nächste Anweisung, die Sie üblicherweise schreiben (IF %FOUND nach CHAIN, SQLCODE-Prüfung nach eingebettetem SQL, OPEN und FETCH nach DECLARE CURSOR, MONMSG nach CHKOBJ / DLTF…), der Typ einer neuen Variablen anhand ihres Namens und der bereits deklarierten Variablen, die Datei von %FOUND / %EOF und die Parameter eines Aufrufs. Offline: Es wird nichts gesendet.",
   "config.ai.inlineSuggestions": "Das KI-Modell zusätzlich um einen Vorschlag bitten, wenn Sie die Eingabe unterbrechen und kein Offline-Vorschlag zutrifft (RPG, CL, SQL, DDS). Der Code um den Cursor durchläuft zuerst den Vanthrex-Schutz (Geheimnisse und personenbezogene Daten werden ersetzt, gesperrte Bibliotheken und geschützte Systeme werden nie gesendet), und jede Anfrage wird im Audit-Trail erfasst.",
-  "config.ai.inlineDelay": "Pause in Millisekunden, bevor ein KI-Vorschlag angefordert wird."
+  "config.ai.inlineDelay": "Pause in Millisekunden, bevor ein KI-Vorschlag angefordert wird.",
+  "command.rpg.toggleValue": "Wert umschalten (*ON / *OFF, AND / OR, = / <>…)",
+  "config.lint.rules.substring-out-of-range": "%SUBST mit einem Start oder einer Länge jenseits der deklarierten Länge des Felds.",
+  "config.lint.rules.index-out-of-range": "Ein Array-Index (eine Zahl) kleiner als 1 oder größer als DIM.",
+  "config.lint.rules.literal-overflow": "Ein numerisches Literal mit mehr ganzzahligen Stellen, als das Feld aufnehmen kann.",
+  "config.lint.rules.blank-compare-numeric": "Ein numerisches Feld, das mit *BLANKS oder einem leeren Literal verglichen wird.",
+  "config.lint.rules.char-to-numeric": "Ein Textliteral, das einem numerischen Feld zugewiesen wird.",
+  "config.lint.rules.undeclared-host-variable": "Eine SQL-Hostvariable (:name), die in der Quelle nicht deklariert ist.",
+  "config.lint.rules.undefined-subroutine": "EXSR einer Unterroutine, die nicht in der Quelle enthalten ist."
 }

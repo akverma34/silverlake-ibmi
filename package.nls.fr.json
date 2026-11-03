@@ -682,5 +682,13 @@
   "command.ai.toggleInlineSuggestions": "IA : Activer ou désactiver les suggestions pendant la saisie",
   "config.editor.inlineSuggestions": "Suggestions pendant la saisie en RPG et CL, affichées en gris et acceptées avec **Tab** : l'instruction suivante que vous écrivez habituellement (IF %FOUND après CHAIN, test de SQLCODE après du SQL intégré, OPEN et FETCH après DECLARE CURSOR, MONMSG après CHKOBJ / DLTF…), le type d'une nouvelle variable d'après son nom et les variables déjà déclarées, le fichier de %FOUND / %EOF et les paramètres d'un appel. Hors ligne : rien n'est envoyé nulle part.",
   "config.ai.inlineSuggestions": "Demander aussi une suggestion au modèle d'IA lorsque vous faites une pause dans la saisie et qu'aucune suggestion hors ligne ne s'applique (RPG, CL, SQL, DDS). Le code autour du curseur passe d'abord par la protection Vanthrex (secrets et données personnelles remplacés, bibliothèques refusées et systèmes protégés jamais envoyés) et chaque requête figure dans la piste d'audit.",
-  "config.ai.inlineDelay": "Pause en millisecondes avant qu'une suggestion IA soit demandée."
+  "config.ai.inlineDelay": "Pause en millisecondes avant qu'une suggestion IA soit demandée.",
+  "command.rpg.toggleValue": "Basculer la valeur (*ON / *OFF, AND / OR, = / <>…)",
+  "config.lint.rules.substring-out-of-range": "%SUBST avec un début ou une longueur au-delà de la longueur déclarée de la zone.",
+  "config.lint.rules.index-out-of-range": "Indice de tableau (un nombre) inférieur à 1 ou supérieur à DIM.",
+  "config.lint.rules.literal-overflow": "Littéral numérique avec plus de chiffres entiers que la zone ne peut en contenir.",
+  "config.lint.rules.blank-compare-numeric": "Zone numérique comparée à *BLANKS ou à un littéral à blanc.",
+  "config.lint.rules.char-to-numeric": "Littéral texte affecté à une zone numérique.",
+  "config.lint.rules.undeclared-host-variable": "Variable hôte SQL (:nom) non déclarée dans le source.",
+  "config.lint.rules.undefined-subroutine": "EXSR d'un sous-programme absent du source."
 }

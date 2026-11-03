@@ -4,6 +4,7 @@
 // variable from its name and from the variables already declared, the file of %FOUND / %EOF, and the parameters of a
 // call. Pure (no vscode import), unit tested, instant and offline.
 import { isFixedLine, isFullyFreeSource, maskLine } from './parser';
+import { interfaces } from './rpgSafetyChecks';
 
 export interface SuggestContext {
   lines: string[];
@@ -122,6 +123,18 @@ function suggestRpg(ctx: SuggestContext, before: string): string | undefined {
     if (/^EXEC SQL FETCH\b/.test(P) && !/SQLCODE|SQLSTATE|SQLSTT|SQLCOD/.test(next)) { return 'if sqlcode <> 0;'; }
     if (/^EXEC SQL (SELECT\b.*\bINTO\b|INSERT|UPDATE|DELETE|MERGE|CALL|VALUES\b.*\bINTO\b)/.test(P) && !/SQLCODE|SQLSTATE|SQLSTT|SQLCOD/.test(next)) { return 'if sqlcode < 0;'; }
     if ((m = new RegExp(`^DCL-PROC (${id})\\b`, 'i').exec(P)) && !/^DCL-PI\b/.test(next)) { return 'dcl-pi *n;'; }
+    if (/^SELECT\s*;$/.test(P) && !/^WHEN\b/.test(next)) { return 'when '; }
+    // DCL-PI of a procedure whose DCL-PR is already written: its parameters.
+    if (/^DCL-PI\b/.test(P) && !/\bEND-PI\b/.test(P)) {
+      let proc: string | undefined;
+      for (let i = prev.start; i >= 0; i--) { const pm = new RegExp(`^\\s*dcl-proc\\s+(${id})`, 'i').exec(code[i]); if (pm) { proc = pm[1]; break; } if (/^\s*end-proc\b/i.test(code[i])) { break; } }
+      const pr = proc ? interfaces(lines.join('\n')).find(x => x.kind === 'PR' && x.name.toUpperCase() === proc!.toUpperCase()) : undefined;
+      if (pr?.parms.length && (!next || /^END-PI\b/.test(next) || next.startsWith('END-PROC'))) {
+        const ind = /^\s*/.exec(lines[prev.start])![0] + '  ';
+        const parms = pr.parms.map((x, k) => `${k ? ind : ''}${(lines[x.line] ?? '').trim()}`);
+        return parms.join('\n') + (/^END-PI\b/.test(next) ? '' : `\n${/^\s*/.exec(lines[prev.start])![0]}end-pi;`);
+      }
+    }
     if (/^MONITOR\s*;/.test(P) || /^ON-ERROR\b/.test(P)) { return undefined; }
     return undefined;
   }
@@ -162,7 +175,8 @@ export const CL_MONMSG: Record<string, [string, string]> = {
   CLRPFM: ['CPF3142', 'file not found'], CPYF: ['CPF2817', 'copy failed'], ALCOBJ: ['CPF1002', 'object not allocated'], DLCOBJ: ['CPF1005', 'object not deallocated'],
   RMVM: ['CPF3220', 'member not found'], ADDPFM: ['CPF5812', 'member already exists'], CRTPF: ['CPF5813', 'file already exists'], RNMOBJ: ['CPF2105', 'object not found'],
   ENDJOB: ['CPF1321', 'job not found'], SBMJOB: ['CPF1338', 'job not submitted'], RTVMBRD: ['CPF9815', 'member not found'], RTVOBJD: ['CPF9811', 'object not found'],
-  OVRDBF: ['CPF0000', 'override failed'], STRCMTCTL: ['CPF8351', 'commitment control already started'], ENDCMTCTL: ['CPF8356', 'commitment control not started'],
+  OVRDBF: ['CPF0000', 'override failed'], RCVF: ['CPF0864', 'end of file'], RTVDTAARA: ['CPF1015', 'data area not found'], CHGDTAARA: ['CPF1015', 'data area not found'],
+  CRTDTAQ: ['CPF9870', 'data queue already exists'], MOVOBJ: ['CPF2105', 'object not found'], GRTOBJAUT: ['CPF2207', 'not authorized'], STRCMTCTL: ['CPF8351', 'commitment control already started'], ENDCMTCTL: ['CPF8356', 'commitment control not started'],
 };
 
 function suggestCl(ctx: SuggestContext, before: string): string | undefined {

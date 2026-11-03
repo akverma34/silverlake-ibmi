@@ -3156,5 +3156,10 @@
   "Turn on": "オンにする",
   "AI suggestions send the code around the cursor (about 100 lines) to your AI model when you pause typing, through the Vanthrex guard (secrets and personal data replaced, protected systems and denied libraries never sent). Turn on?": "AI 提案では、入力を一時停止したときに、カーソル周辺のコード (約 100 行) が Vanthrex ガードを経由して AI モデルに送信されます (シークレットと個人データは置き換えられ、保護されたシステムと拒否されたライブラリーは送信されません)。オンにしますか?",
   "AI suggestions on.": "AI 提案がオンになりました。",
-  "AI suggestions off.": "AI 提案がオフになりました。"
+  "AI suggestions off.": "AI 提案がオフになりました。",
+  "Declare {0} as {1}": "{0} を {1} として宣言",
+  "Create subroutine {0}": "サブルーチン {0} を作成",
+  "Compare with 0": "0 と比較",
+  "Convert with {0}": "{0} で変換",
+  "Nothing to toggle here (*ON / *OFF, AND / OR, = / <>, SETLL / SETGT…).": "ここには切り替えるものがありません (*ON / *OFF, AND / OR, = / <>, SETLL / SETGT…)。"
 }

@@ -125,3 +125,45 @@ export function syncPrototype(text: string, name: string): { start: number; end:
   const parms = pi.parms.map(p => `${step}${(lines[p.line] ?? '').trim()}`);
   return { start: pr.line, end: endPr, lines: [head, ...parms, lines[endPr]] };
 }
+
+/** Where to declare a new variable used on `line`: after the declarations of its procedure, else of the main part. */
+export function declarationLine(text: string, line: number): { line: number; indent: string } {
+  const lines = text.split(/\r?\n/);
+  let procStart = -1;
+  for (let i = line; i >= 0; i--) {
+    if (/^\s*end-proc\b/i.test(lines[i] ?? '')) { break; }
+    if (/^\s*dcl-proc\b/i.test(lines[i] ?? '')) { procStart = i; break; }
+  }
+  const isDecl = (l: string) => /^\s*(dcl-[scf]\b|end-ds\b|end-pi\b|end-pr\b|ctl-opt\b|\*\*free|\/copy\b|\/include\b|dcl-ds\b[^;]*\b(likeds|likerec|extname)\b)/i.test(l);
+  if (procStart >= 0) {
+    let at = procStart + 1;
+    for (let i = procStart + 1; i < lines.length && i <= line; i++) {
+      if (/^\s*(dcl-pi|dcl-ds|dcl-pr)\b/i.test(lines[i]) && !/\bend-(pi|ds|pr)\b/i.test(lines[i]) && !/\b(likeds|likerec)\s*\(/i.test(lines[i])) {
+        while (i < lines.length && !/^\s*end-(pi|ds|pr)\b/i.test(lines[i])) { i++; }
+        at = i + 1; continue;
+      }
+      if (isDecl(lines[i])) { at = i + 1; continue; }
+      if (lines[i].trim() && !/^\s*\/\//.test(lines[i])) { break; }
+    }
+    return { line: at, indent: (/^\s*/.exec(lines[procStart])![0]) + '  ' };
+  }
+  let at = 0;
+  const firstProc = lines.findIndex(l => /^\s*dcl-proc\b/i.test(l));
+  for (let i = 0; i < (firstProc < 0 ? lines.length : firstProc); i++) {
+    if (/^\s*(dcl-ds|dcl-pr|dcl-pi)\b/i.test(lines[i]) && !/\bend-(pi|ds|pr)\b/i.test(lines[i]) && !/\b(likeds|likerec)\s*\(/i.test(lines[i])) {
+      while (i < lines.length && !/^\s*end-(pi|ds|pr)\b/i.test(lines[i])) { i++; }
+      at = i + 1; continue;
+    }
+    if (isDecl(lines[i])) { at = i + 1; }
+  }
+  return { line: at, indent: '' };
+}
+
+/** Where a new subroutine goes: before the first procedure, else at the end. */
+export function subroutineLine(text: string): number {
+  const lines = text.split(/\r?\n/);
+  const firstProc = lines.findIndex(l => /^\s*dcl-proc\b/i.test(l));
+  if (firstProc >= 0) { let i = firstProc; while (i > 0 && /^\s*(\/\/.*)?$/.test(lines[i - 1])) { i--; } return i; }
+  let end = lines.length; while (end > 0 && !lines[end - 1].trim()) { end--; }
+  return end;
+}

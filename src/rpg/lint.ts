@@ -2,6 +2,7 @@
 import { findOccurrences, isFixedLine, maskLine, parseRpg } from './parser';
 import { DAILY_RULES, DailyRule, dailyLint } from './rpgProductivity';
 import { SAFETY_RULES, SafetyRule, safetyLint } from './rpgSafetyChecks';
+import { DATA_RULES, DataRule, dataLint } from './rpgDataChecks';
 
 export type LintSeverity = 'error' | 'warning' | 'info' | 'hint';
 
@@ -24,7 +25,7 @@ export interface LintOptions {
 
 export type LintRule =
   | 'unused-definition' | 'goto' | 'program-end' | 'long-procedure'
-  | 'numbered-indicator' | 'empty-on-error' | 'select-star' | 'mixed-format' | 'tag' | DailyRule | SafetyRule;
+  | 'numbered-indicator' | 'empty-on-error' | 'select-star' | 'mixed-format' | 'tag' | DailyRule | SafetyRule | DataRule;
 
 export const LINT_RULES: Record<LintRule, string> = {
   'unused-definition': 'Variables, constants and subroutines that are declared but never used',
@@ -38,6 +39,7 @@ export const LINT_RULES: Record<LintRule, string> = {
   'mixed-format': 'Fixed-format calculation specs in a free-format source',
   ...DAILY_RULES,
   ...SAFETY_RULES,
+  ...DATA_RULES,
 };
 
 export function lintRpg(text: string, options: LintOptions = {}): LintFinding[] {
@@ -153,7 +155,11 @@ export function lintRpg(text: string, options: LintOptions = {}): LintFinding[] 
   }
 
   // The newer checks are isolated: an unexpected statement in one of them never hides the findings of the others.
-  try { findings.push(...dailyLint(text, { enabled: r => options.rules?.[r] !== false, maxNesting: options.maxNesting, isInclude: options.isInclude })); } catch { /* keep the other findings */ }
-  try { findings.push(...safetyLint(text, { enabled: r => options.rules?.[r] !== false })); } catch { /* keep the other findings */ }
+  // Very large sources (generated code, merged listings) keep the basic checks only, so the editor stays responsive.
+  if (text.length > 3_000_000) { return findings; }
+  const on = (r: string) => options.rules?.[r as LintRule] !== false;
+  try { findings.push(...dailyLint(text, { enabled: on, maxNesting: options.maxNesting, isInclude: options.isInclude })); } catch { /* keep the other findings */ }
+  try { findings.push(...safetyLint(text, { enabled: on })); } catch { /* keep the other findings */ }
+  try { findings.push(...dataLint(text, { enabled: r => on(r) && !(options.isInclude && (r === 'undeclared-host-variable' || r === 'undefined-subroutine')) })); } catch { /* keep the other findings */ }
   return findings;
 }

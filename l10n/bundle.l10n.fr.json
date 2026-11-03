@@ -3156,5 +3156,10 @@
   "Turn on": "Activer",
   "AI suggestions send the code around the cursor (about 100 lines) to your AI model when you pause typing, through the Vanthrex guard (secrets and personal data replaced, protected systems and denied libraries never sent). Turn on?": "Les suggestions IA envoient le code autour du curseur (environ 100 lignes) à votre modèle d'IA lorsque vous faites une pause dans la saisie, via la protection Vanthrex (secrets et données personnelles remplacés, systèmes protégés et bibliothèques refusées jamais envoyés). Activer ?",
   "AI suggestions on.": "Suggestions IA activées.",
-  "AI suggestions off.": "Suggestions IA désactivées."
+  "AI suggestions off.": "Suggestions IA désactivées.",
+  "Declare {0} as {1}": "Déclarer {0} en tant que {1}",
+  "Create subroutine {0}": "Créer le sous-programme {0}",
+  "Compare with 0": "Comparer à 0",
+  "Convert with {0}": "Convertir avec {0}",
+  "Nothing to toggle here (*ON / *OFF, AND / OR, = / <>, SETLL / SETGT…).": "Rien à basculer ici (*ON / *OFF, AND / OR, = / <>, SETLL / SETGT…)."
 }

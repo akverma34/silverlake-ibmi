@@ -3156,5 +3156,10 @@
   "Turn on": "Aktivieren",
   "AI suggestions send the code around the cursor (about 100 lines) to your AI model when you pause typing, through the Vanthrex guard (secrets and personal data replaced, protected systems and denied libraries never sent). Turn on?": "KI-Vorschläge senden den Code um den Cursor (etwa 100 Zeilen) an Ihr KI-Modell, wenn Sie die Eingabe unterbrechen, über den Vanthrex-Schutz (Geheimnisse und personenbezogene Daten werden ersetzt, geschützte Systeme und gesperrte Bibliotheken werden nie gesendet). Aktivieren?",
   "AI suggestions on.": "KI-Vorschläge aktiviert.",
-  "AI suggestions off.": "KI-Vorschläge deaktiviert."
+  "AI suggestions off.": "KI-Vorschläge deaktiviert.",
+  "Declare {0} as {1}": "{0} als {1} deklarieren",
+  "Create subroutine {0}": "Unterroutine {0} erstellen",
+  "Compare with 0": "Mit 0 vergleichen",
+  "Convert with {0}": "Mit {0} konvertieren",
+  "Nothing to toggle here (*ON / *OFF, AND / OR, = / <>, SETLL / SETGT…).": "Hier gibt es nichts umzuschalten (*ON / *OFF, AND / OR, = / <>, SETLL / SETGT…)."
 }

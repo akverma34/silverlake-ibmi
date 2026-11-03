@@ -101,6 +101,7 @@ import { registerProductivity } from './features/productivityView';
 import { registerRpgProductivity } from './features/rpgProductivityView';
 import { registerRpgModuleTools } from './features/rpgModuleView';
 import { registerInlineSuggestions } from './features/inlineSuggestionsView';
+import { registerRpgDataFixes } from './features/rpgDataFixesView';
 
 let manager: ConnectionManager | undefined;
 
@@ -241,6 +242,7 @@ export function activate(context: vscode.ExtensionContext): void {
   step('rpg productivity', () => registerRpgProductivity(context, m));
   step('rpg module tools', () => registerRpgModuleTools(context));
   step('inline suggestions', () => registerInlineSuggestions(context, m));
+  step('rpg data fixes', () => registerRpgDataFixes(context));
 
   if (failures.length) {
     vscode.window.showErrorMessage(vscode.l10n.t('Vanthrex started with problems: {0}', failures.join(' | ')), vscode.l10n.t('Show Log'))
