@@ -5,6 +5,11 @@ import { isFixedLine, isFullyFreeSource, maskLine, parseRpg, findOccurrences } f
 import type { LintFinding, LintSeverity } from './lint';
 import { BIFS, OPCODES } from './docs';
 
+/** Escapes text for a VS Code snippet ($, } and \\ are special there). */
+export function snippetEscape(s: string): string {
+  return s.replace(/[\\$}]/g, '\\$&');
+}
+
 export type DailyRule =
   | 'deprecated-opcode' | 'missing-ctl-opt' | 'chain-without-found' | 'unchecked-sql' | 'dsply' | 'deep-nesting'
   | 'literal-too-long' | 'unreachable-code' | 'duplicate-declaration' | 'empty-block' | 'select-without-other'
@@ -302,15 +307,15 @@ export function surround(text: string, kind: SurroundKind, step = 2): string {
   const lines = text.replace(/\n$/, '').split(/\r?\n/);
   const ind = lines.filter(l => l.trim()).reduce((m, l) => Math.min(m, /^\s*/.exec(l)![0].length), 999);
   const pad = ' '.repeat(ind === 999 ? 0 : ind);
-  const inner = lines.map(l => (l.trim() ? ' '.repeat(step) + l : l)).join('\n').replace(/\$/g, '\\$');
+  const inner = snippetEscape(lines.map(l => (l.trim() ? ' '.repeat(step) + l : l)).join('\n'));
   switch (kind) {
     case 'if': return `${pad}if \${1:condition};\n${inner}\n${pad}endif;\n`;
     case 'monitor': return `${pad}monitor;\n${inner}\n${pad}on-error \${1:*all};\n${pad}${' '.repeat(step)}\${2:// handle the error};\n${pad}endmon;\n`;
     case 'dow': return `${pad}dow \${1:not %eof(file)};\n${inner}\n${pad}enddo;\n`;
     case 'for': return `${pad}for \${1:i} = 1 to \${2:n};\n${inner}\n${pad}endfor;\n`;
-    case 'select': return `${pad}select;\n${pad}${' '.repeat(step)}when \${1:condition};\n${lines.map(l => (l.trim() ? ' '.repeat(step * 2) + l : l)).join('\n').replace(/\$/g, '\\$')}\n${pad}${' '.repeat(step)}other;\n${pad}endsl;\n`;
+    case 'select': return `${pad}select;\n${pad}${' '.repeat(step)}when \${1:condition};\n${snippetEscape(lines.map(l => (l.trim() ? ' '.repeat(step * 2) + l : l)).join('\n'))}\n${pad}${' '.repeat(step)}other;\n${pad}endsl;\n`;
     case 'begsr': return `${pad}begsr \${1:name};\n${inner}\n${pad}endsr;\n`;
-    default: return lines.map(l => `${pad}// ${l.slice(Math.min(pad.length, /^\s*/.exec(l)![0].length))}`).join('\n').replace(/\$/g, '\\$') + '\n';
+    default: return snippetEscape(lines.map(l => `${pad}// ${l.slice(Math.min(pad.length, /^\s*/.exec(l)![0].length))}`).join('\n')) + '\n';
   }
 }
 
@@ -436,10 +441,10 @@ export function procedureHeader(name: string, params: { name: string; definition
   const w = Math.max(0, ...params.map(p => p.name.length));
   const lines = [
     `${indent}// ------------------------------------------------------------------`,
-    `${indent}// ${name}: \${1:what it does}`,
+    `${indent}// ${snippetEscape(name)}: \${1:what it does}`,
     `${indent}//`,
-    ...params.map((p, i) => `${indent}// @param ${p.name.padEnd(w)}  ${p.definition.replace(/\s+/g, ' ').replace(/\$/g, '\\$')} — \${${i + 2}:meaning}`),
-    ...(returns ? [`${indent}// @return ${returns.replace(/\$/g, '\\$')} — \${${params.length + 2}:meaning}`] : []),
+    ...params.map((p, i) => `${indent}// @param ${snippetEscape(p.name.padEnd(w))}  ${snippetEscape(p.definition.replace(/\s+/g, ' '))} — \${${i + 2}:meaning}`),
+    ...(returns ? [`${indent}// @return ${snippetEscape(returns)} — \${${params.length + 2}:meaning}`] : []),
     `${indent}// ------------------------------------------------------------------`,
   ];
   return lines.join('\n') + '\n';
@@ -447,7 +452,7 @@ export function procedureHeader(name: string, params: { name: string; definition
 
 /** A call of a procedure as a snippet: name(${1:p1}: ${2:p2}). */
 export function callSnippet(name: string, params: { name: string }[]): string {
-  return `${name}(${params.map((p, i) => `\${${i + 1}:${p.name.replace(/[$}]/g, '')}}`).join(': ')})`;
+  return `${snippetEscape(name)}(${params.map((p, i) => `\${${i + 1}:${p.name.replace(/[$}]/g, '')}}`).join(': ')})`;
 }
 
 /** Where to show parameter names in calls of known procedures: one hint before each argument. */

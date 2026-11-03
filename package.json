@@ -2672,6 +2672,36 @@
         "title": "%command.rpg.addPrototype%",
         "category": "Vanthrex RPG",
         "icon": "$(symbol-interface)"
+      },
+      {
+        "command": "vanthrex.rpg.binderSource",
+        "title": "%command.rpg.binderSource%",
+        "category": "Vanthrex RPG",
+        "icon": "$(export)"
+      },
+      {
+        "command": "vanthrex.rpg.prototypeCopybook",
+        "title": "%command.rpg.prototypeCopybook%",
+        "category": "Vanthrex RPG",
+        "icon": "$(symbol-interface)"
+      },
+      {
+        "command": "vanthrex.rpg.documentAll",
+        "title": "%command.rpg.documentAll%",
+        "category": "Vanthrex RPG",
+        "icon": "$(note)"
+      },
+      {
+        "command": "vanthrex.rpg.joinLines",
+        "title": "%command.rpg.joinLines%",
+        "category": "Vanthrex RPG",
+        "icon": "$(fold-up)"
+      },
+      {
+        "command": "vanthrex.rpg.removeUnusedDeclarations",
+        "title": "%command.rpg.removeUnusedDeclarations%",
+        "category": "Vanthrex RPG",
+        "icon": "$(trash)"
       }
     ],
     "menus": {
@@ -4086,6 +4116,16 @@
           "command": "vanthrex.rpg.ibmDocs",
           "when": "editorLangId =~ /^(rpgle|cl|sql|dds)$/",
           "group": "vanthrex-rpg@6"
+        },
+        {
+          "command": "vanthrex.rpg.binderSource",
+          "when": "editorLangId == rpgle",
+          "group": "vanthrex-rpg@7"
+        },
+        {
+          "command": "vanthrex.rpg.prototypeCopybook",
+          "when": "editorLangId == rpgle",
+          "group": "vanthrex-rpg@8"
         }
       ],
       "commandPalette": [
@@ -5091,6 +5131,26 @@
         {
           "command": "vanthrex.rpg.addPrototype",
           "when": "false"
+        },
+        {
+          "command": "vanthrex.rpg.binderSource",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.rpg.prototypeCopybook",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.rpg.documentAll",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.rpg.joinLines",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.rpg.removeUnusedDeclarations",
+          "when": "editorLangId == rpgle"
         }
       ],
       "vanthrex.ai": [
@@ -5943,6 +6003,36 @@
               "type": "boolean",
               "default": true,
               "description": "%config.lint.rules.commented-out-code%"
+            },
+            "prototype-mismatch": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.prototype-mismatch%"
+            },
+            "call-argument-count": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.call-argument-count%"
+            },
+            "assign-to-const": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.assign-to-const%"
+            },
+            "infinite-loop": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.infinite-loop%"
+            },
+            "leave-outside-loop": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.leave-outside-loop%"
+            },
+            "hardcoded-library": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.hardcoded-library%"
             }
           },
           "additionalProperties": false

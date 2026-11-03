@@ -1,6 +1,7 @@
 // RPG code checks (pure, unit tested). Returns findings; the extension turns them into diagnostics.
 import { findOccurrences, isFixedLine, maskLine, parseRpg } from './parser';
 import { DAILY_RULES, DailyRule, dailyLint } from './rpgProductivity';
+import { SAFETY_RULES, SafetyRule, safetyLint } from './rpgSafetyChecks';
 
 export type LintSeverity = 'error' | 'warning' | 'info' | 'hint';
 
@@ -23,7 +24,7 @@ export interface LintOptions {
 
 export type LintRule =
   | 'unused-definition' | 'goto' | 'program-end' | 'long-procedure'
-  | 'numbered-indicator' | 'empty-on-error' | 'select-star' | 'mixed-format' | 'tag' | DailyRule;
+  | 'numbered-indicator' | 'empty-on-error' | 'select-star' | 'mixed-format' | 'tag' | DailyRule | SafetyRule;
 
 export const LINT_RULES: Record<LintRule, string> = {
   'unused-definition': 'Variables, constants and subroutines that are declared but never used',
@@ -36,6 +37,7 @@ export const LINT_RULES: Record<LintRule, string> = {
   'select-star': 'SELECT * in embedded SQL',
   'mixed-format': 'Fixed-format calculation specs in a free-format source',
   ...DAILY_RULES,
+  ...SAFETY_RULES,
 };
 
 export function lintRpg(text: string, options: LintOptions = {}): LintFinding[] {
@@ -150,6 +152,8 @@ export function lintRpg(text: string, options: LintOptions = {}): LintFinding[] 
     }
   }
 
-  findings.push(...dailyLint(text, { enabled: r => options.rules?.[r] !== false, maxNesting: options.maxNesting, isInclude: options.isInclude }));
+  // The newer checks are isolated: an unexpected statement in one of them never hides the findings of the others.
+  try { findings.push(...dailyLint(text, { enabled: r => options.rules?.[r] !== false, maxNesting: options.maxNesting, isInclude: options.isInclude })); } catch { /* keep the other findings */ }
+  try { findings.push(...safetyLint(text, { enabled: r => options.rules?.[r] !== false })); } catch { /* keep the other findings */ }
   return findings;
 }

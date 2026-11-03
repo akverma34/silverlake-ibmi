@@ -7,12 +7,13 @@ parent: "Reference"
 
 # Commands
 
-All 435 commands contributed by Vanthrex for IBM i 2.6.0. Run any of them from the
+All 440 commands contributed by Vanthrex for IBM i 2.6.0. Run any of them from the
 Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-click menus and view toolbars.
 
 | Command | ID | Keys |
 |---|---|---|
 | *PUBLIC Authority Scan | `vanthrex.publicAuthorityScan` |  |
+| Add a Header to Every Procedure | `vanthrex.rpg.documentAll` |  |
 | Add Binding Directory Entry… | `vanthrex.bnddir.add` |  |
 | Add Change Log Entry | `vanthrex.changeLogEntry` |  |
 | Add DCL-PR From the Source Index | `vanthrex.rpg.addPrototype` |  |
@@ -193,6 +194,8 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Follow File (tail -f) | `vanthrex.followIfsFile` |  |
 | Format Embedded SQL | `vanthrex.rpg.formatEmbeddedSql` |  |
 | Format SQL | `vanthrex.formatSql` |  |
+| Generate a Prototype Copybook From the Exports | `vanthrex.rpg.prototypeCopybook` |  |
+| Generate Binder Source From the Exports | `vanthrex.rpg.binderSource` |  |
 | Generate Documentation (Markdown) | `vanthrex.generateDocs` |  |
 | Generate Prototype from Procedure | `vanthrex.generatePrototype` |  |
 | Generate RPG Code for This Table | `vanthrex.generateRpgForTable` |  |
@@ -240,6 +243,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Job Schedule for the Next Days | `vanthrex.scheduleCalendar` |  |
 | Jobs in Subsystem | `vanthrex.wrkSubsystemJobs` |  |
 | Jobs on Job Queue | `vanthrex.wrkJobQueue` |  |
+| Join the Lines of a Statement | `vanthrex.rpg.joinLines` |  |
 | Journal Coverage of a Library… | `vanthrex.journalCoverage` |  |
 | Journal Explorer: Who Changed This Table? | `vanthrex.journalExplorer` |  |
 | Journal Options | `vanthrex.journals.row` |  |
@@ -328,6 +332,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Remove Library from List | `vanthrex.removeLibrary` |  |
 | Remove Message | `vanthrex.removeMessage` |  |
 | Remove the Local Source Index | `vanthrex.index.clear` |  |
+| Remove Unused Declarations… | `vanthrex.rpg.removeUnusedDeclarations` |  |
 | Rename or Move… | `vanthrex.moveRenameObject` |  |
 | Reply to Inquiry Message | `vanthrex.alerts.reply` |  |
 | Reply… | `vanthrex.replyMessage` |  |

@@ -666,5 +666,16 @@
   "config.lint.rules.unused-procedure": "Procedimientos que no se exportan ni se llaman.",
   "config.lint.rules.long-parameter-list": "Procedimientos con más de 8 parámetros.",
   "config.lint.rules.cursor-not-closed": "Cursores SQL que se abren pero nunca se cierran.",
-  "config.lint.rules.commented-out-code": "Bloques grandes de código comentado."
+  "config.lint.rules.commented-out-code": "Bloques grandes de código comentado.",
+  "command.rpg.binderSource": "Generar fuente de enlazador a partir de las exportaciones",
+  "command.rpg.prototypeCopybook": "Generar un copybook de prototipos a partir de las exportaciones",
+  "command.rpg.documentAll": "Añadir una cabecera a cada procedimiento",
+  "command.rpg.joinLines": "Unir las líneas de una sentencia",
+  "command.rpg.removeUnusedDeclarations": "Eliminar declaraciones sin utilizar…",
+  "config.lint.rules.prototype-mismatch": "Un DCL-PR cuyos parámetros o valor de retorno no coinciden con el DCL-PI del mismo procedimiento.",
+  "config.lint.rules.call-argument-count": "Una llamada con menos argumentos que los parámetros obligatorios, o con más de los que tiene el procedimiento.",
+  "config.lint.rules.assign-to-const": "Un parámetro CONST que se modifica (la compilación falla con RNF5346).",
+  "config.lint.rules.infinite-loop": "Bucles DOW / DOU con una condición constante sin LEAVE ni RETURN dentro.",
+  "config.lint.rules.leave-outside-loop": "LEAVE o ITER fuera de un bucle DOW, DOU o FOR.",
+  "config.lint.rules.hardcoded-library": "Un nombre de biblioteca escrito en EXTFILE / EXTDESC / EXTNAME o en SQL incorporado (utilice la lista de bibliotecas)."
 }

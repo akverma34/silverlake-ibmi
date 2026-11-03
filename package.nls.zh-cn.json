@@ -666,5 +666,16 @@
   "config.lint.rules.unused-procedure": "既未导出也未调用的过程。",
   "config.lint.rules.long-parameter-list": "参数超过 8 个的过程。",
   "config.lint.rules.cursor-not-closed": "已打开但从未关闭的 SQL 游标。",
-  "config.lint.rules.commented-out-code": "大段被注释掉的代码。"
+  "config.lint.rules.commented-out-code": "大段被注释掉的代码。",
+  "command.rpg.binderSource": "根据导出项生成绑定程序源",
+  "command.rpg.prototypeCopybook": "根据导出项生成原型副本成员",
+  "command.rpg.documentAll": "为每个过程添加头部注释",
+  "command.rpg.joinLines": "合并语句的各行",
+  "command.rpg.removeUnusedDeclarations": "删除未使用的声明…",
+  "config.lint.rules.prototype-mismatch": "参数或返回值与同一过程的 DCL-PI 不匹配的 DCL-PR。",
+  "config.lint.rules.call-argument-count": "实参少于必需参数或多于过程参数个数的调用。",
+  "config.lint.rules.assign-to-const": "被修改的 CONST 参数 (编译会因 RNF5346 失败)。",
+  "config.lint.rules.infinite-loop": "条件为常量且内部没有 LEAVE 或 RETURN 的 DOW / DOU 循环。",
+  "config.lint.rules.leave-outside-loop": "位于 DOW、DOU 或 FOR 循环之外的 LEAVE 或 ITER。",
+  "config.lint.rules.hardcoded-library": "在 EXTFILE / EXTDESC / EXTNAME 或嵌入式 SQL 中写入的库名 (请使用库列表)。"
 }

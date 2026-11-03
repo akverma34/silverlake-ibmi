@@ -666,5 +666,16 @@
   "config.lint.rules.unused-procedure": "Procedures that are neither exported nor called.",
   "config.lint.rules.long-parameter-list": "Procedures with more than 8 parameters.",
   "config.lint.rules.cursor-not-closed": "SQL cursors that are opened but never closed.",
-  "config.lint.rules.commented-out-code": "Large blocks of commented-out code."
+  "config.lint.rules.commented-out-code": "Large blocks of commented-out code.",
+  "command.rpg.binderSource": "Generate Binder Source From the Exports",
+  "command.rpg.prototypeCopybook": "Generate a Prototype Copybook From the Exports",
+  "command.rpg.documentAll": "Add a Header to Every Procedure",
+  "command.rpg.joinLines": "Join the Lines of a Statement",
+  "command.rpg.removeUnusedDeclarations": "Remove Unused Declarations…",
+  "config.lint.rules.prototype-mismatch": "A DCL-PR whose parameters or return value do not match the DCL-PI of the same procedure.",
+  "config.lint.rules.call-argument-count": "A call with fewer arguments than the required parameters, or more than the procedure has.",
+  "config.lint.rules.assign-to-const": "A CONST parameter that is changed (the compile fails with RNF5346).",
+  "config.lint.rules.infinite-loop": "DOW / DOU loops on a constant condition with no LEAVE or RETURN inside.",
+  "config.lint.rules.leave-outside-loop": "LEAVE or ITER outside a DOW, DOU or FOR loop.",
+  "config.lint.rules.hardcoded-library": "A library name written in EXTFILE / EXTDESC / EXTNAME or in embedded SQL (use the library list)."
 }

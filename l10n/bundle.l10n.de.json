@@ -3137,5 +3137,17 @@
   "(main)": "(Hauptprozedur)",
   "line(s)": "Zeile(n)",
   "main": "Hauptprozedur",
-  "Procedure or subroutine at the cursor — click to go to another one": "Prozedur oder Unterroutine am Cursor — klicken, um zu einer anderen zu wechseln"
+  "Procedure or subroutine at the cursor — click to go to another one": "Prozedur oder Unterroutine am Cursor — klicken, um zu einer anderen zu wechseln",
+  "The SQL is already formatted.": "Das SQL ist bereits formatiert.",
+  "{0} already has a prototype in this source.": "{0} hat bereits einen Prototyp in dieser Quelle.",
+  "$(new-file) New binder source": "$(new-file) Neue Binder-Quelle",
+  "Update {0}": "{0} aktualisieren",
+  "Binder source of {0}": "Binder-Quelle von {0}",
+  "Binder source updated: check it, then save.": "Binder-Quelle aktualisiert: Prüfen Sie sie und speichern Sie sie dann.",
+  "Every procedure already has a comment above it.": "Jede Prozedur hat bereits einen Kommentar darüber.",
+  "Header added to {0} procedure(s): replace the TODO lines.": "Kopfzeile zu {0} Prozedur(en) hinzugefügt: Ersetzen Sie die TODO-Zeilen.",
+  "No unused one-line DCL-S or DCL-C to remove.": "Keine nicht verwendete einzeilige DCL-S oder DCL-C zu entfernen.",
+  "Remove {0} unused declaration(s)?": "{0} nicht verwendete Deklaration(en) entfernen?",
+  "{0} declaration(s) removed (Ctrl+Z to undo).": "{0} Deklaration(en) entfernt (Ctrl+Z zum Rückgängigmachen).",
+  "Update the prototype of {0} from its procedure interface": "Prototyp von {0} aus seiner Prozedurschnittstelle aktualisieren"
 }

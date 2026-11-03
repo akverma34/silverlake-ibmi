@@ -347,5 +347,76 @@
       "enddo;",
       "exec sql close ${1};"
     ]
+  },
+  "*pssr": {
+    "prefix": "pssr",
+    "description": "*PSSR error subroutine (runs on an unhandled error)",
+    "body": [
+      "begsr *pssr;",
+      "  dump(a);",
+      "  // log psds.msgId and psds.msgText",
+      "  return;",
+      "endsr;"
+    ]
+  },
+  "on-exit": {
+    "prefix": "dcl-proc-on-exit",
+    "description": "Procedure with ON-EXIT clean-up (7.4)",
+    "body": [
+      "dcl-proc ${1:name};",
+      "  dcl-pi *n ${2:ind};",
+      "  end-pi;",
+      "  dcl-s failed ind;",
+      "",
+      "  $0",
+      "  return *on;",
+      "",
+      "on-exit failed;",
+      "  // always runs: close cursors, free memory",
+      "  if failed;",
+      "    return *off;",
+      "  endif;",
+      "end-proc;"
+    ]
+  },
+  "dcl-ds dim": {
+    "prefix": "dcl-ds-array",
+    "description": "Array of data structures with a counter",
+    "body": [
+      "dcl-ds ${1:item} qualified dim(${2:100});",
+      "  ${3:code} char(10);",
+      "  ${4:amount} packed(11:2);",
+      "end-ds;",
+      "dcl-s ${1}Count int(10);",
+      "$0"
+    ]
+  },
+  "get diagnostics": {
+    "prefix": "exec sql get diagnostics",
+    "description": "SQL error text after a failed statement",
+    "body": [
+      "dcl-s sqlMsg varchar(512);",
+      "exec sql get diagnostics condition 1 :sqlMsg = message_text;",
+      "$0"
+    ]
+  },
+  "exec sql set option": {
+    "prefix": "exec sql set option",
+    "description": "SQL options for the program (put it first)",
+    "body": [
+      "exec sql set option commit = *none, naming = *sys, datfmt = *iso, closqlcsr = *endmod;",
+      "$0"
+    ]
+  },
+  "dcl-enum": {
+    "prefix": "dcl-enum",
+    "description": "Named constants grouped in an enumeration (7.5)",
+    "body": [
+      "dcl-enum ${1:status} qualified;",
+      "  ${2:active} 'A';",
+      "  ${3:closed} 'C';",
+      "end-enum;",
+      "$0"
+    ]
   }
 }

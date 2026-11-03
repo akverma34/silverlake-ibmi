@@ -8,7 +8,7 @@ nav_order: 90
 
 ## 2.6.0 (not released yet)
 
-**Daily RPG development** — 55 small features for the code you write every day. Everything works on the open source, with no round trip to the IBM i, so it is instant and works offline.
+**Daily RPG development** — about 75 small features for the code you write every day. Everything works on the open source, with no round trip to the IBM i, so it is instant and works offline.
 
 **19 new code checks** (each one can be switched off in `vanthrex.lint.rules`)
 
@@ -44,6 +44,30 @@ nav_order: 90
 - Hover on `/COPY` and `/INCLUDE` shows the start of the member.
 - Fixed-format RPG: the column fields of the current line are shaded with their name on hover.
 - **Open IBM Documentation for the Word** under the cursor (release in `vanthrex.editor.docsRelease`).
+
+**6 checks for errors found late** (also in `vanthrex.lint.rules`)
+
+- A DCL-PR that no longer matches the DCL-PI of its procedure (parameter count, types, CONST, return value), with a quick fix that updates the prototype from the interface.
+- Calls with fewer arguments than the required parameters or more than the procedure has (`*NOPASS` understood, colons inside literals ignored).
+- A CONST parameter that is changed, LEAVE or ITER outside a loop, DOW / DOU loops on a constant condition with no LEAVE or RETURN inside.
+- Library names written in EXTFILE / EXTDESC / EXTNAME or in embedded SQL (QSYS2, SYSIBM, QTEMP… are fine).
+
+**Modules and service programs**
+
+- **Generate Binder Source From the Exports**: STRPGMEXP with a named signature; an open binder source is updated in place, keeping its export order and adding new exports at the end.
+- **Generate a Prototype Copybook From the Exports**: every exported procedure's DCL-PR, with a `/DEFINE` guard against a second /COPY.
+- **Add a Header to Every Procedure** that has no comment above it, with its parameters and return value.
+- **Join the Lines of a Statement** (the reverse of Wrap Long Line), refused when a `//` comment or a continued literal would break the code.
+- **Remove Unused Declarations…**: one-line DCL-S / DCL-C never used, after a confirmation listing them (one Ctrl+Z restores them).
+- 6 more snippets: `*PSSR`, procedure with ON-EXIT, array of data structures, GET DIAGNOSTICS, SET OPTION, DCL-ENUM.
+
+**Robustness**
+
+- Each document is parsed once per change and shared by hints, completion, lenses, call hierarchy and the status bar; sources over 40,000 lines skip the per-line decorations.
+- A provider that meets an unexpected source returns nothing instead of failing, and each group of checks runs on its own, so one never hides the others.
+- Automatic END lines are never added during undo / redo, with several cursors, or when the line changed meanwhile.
+- Snippet text (Surround With, call completion, headers) escapes `$`, `}` and `\`, so names like `$amount` stay intact.
+- Format Embedded SQL keeps a comment after the `;`; Wrap Long Line works from the Problems view; the deprecated-opcode fix is offered only when the conversion is complete.
 
 ## 2.5.0
 

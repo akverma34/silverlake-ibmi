@@ -666,5 +666,16 @@
   "config.lint.rules.unused-procedure": "エクスポートも呼び出しもされないプロシージャー。",
   "config.lint.rules.long-parameter-list": "パラメーターが 8 個を超えるプロシージャー。",
   "config.lint.rules.cursor-not-closed": "オープンされたがクローズされない SQL カーソル。",
-  "config.lint.rules.commented-out-code": "コメントアウトされたコードの大きなブロック。"
+  "config.lint.rules.commented-out-code": "コメントアウトされたコードの大きなブロック。",
+  "command.rpg.binderSource": "エクスポートからバインダー・ソースを生成",
+  "command.rpg.prototypeCopybook": "エクスポートからプロトタイプのコピーブックを生成",
+  "command.rpg.documentAll": "すべてのプロシージャーにヘッダーを追加",
+  "command.rpg.joinLines": "ステートメントの行を結合",
+  "command.rpg.removeUnusedDeclarations": "未使用の宣言の削除…",
+  "config.lint.rules.prototype-mismatch": "同じプロシージャーの DCL-PI とパラメーターまたは戻り値が一致しない DCL-PR。",
+  "config.lint.rules.call-argument-count": "必須パラメーターより引数が少ない、またはプロシージャーのパラメーターより引数が多い呼び出し。",
+  "config.lint.rules.assign-to-const": "変更される CONST パラメーター (コンパイルは RNF5346 で失敗します)。",
+  "config.lint.rules.infinite-loop": "LEAVE も RETURN も含まない、定数条件の DOW / DOU ループ。",
+  "config.lint.rules.leave-outside-loop": "DOW、DOU、または FOR ループの外にある LEAVE または ITER。",
+  "config.lint.rules.hardcoded-library": "EXTFILE / EXTDESC / EXTNAME または組み込み SQL に記述されたライブラリー名 (ライブラリー・リストを使用してください)。"
 }

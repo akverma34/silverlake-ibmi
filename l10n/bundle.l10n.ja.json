@@ -3137,5 +3137,17 @@
   "(main)": "(メイン)",
   "line(s)": "行",
   "main": "メイン",
-  "Procedure or subroutine at the cursor — click to go to another one": "カーソル位置のプロシージャーまたはサブルーチン — クリックして別のものに移動"
+  "Procedure or subroutine at the cursor — click to go to another one": "カーソル位置のプロシージャーまたはサブルーチン — クリックして別のものに移動",
+  "The SQL is already formatted.": "SQL はすでにフォーマットされています。",
+  "{0} already has a prototype in this source.": "{0} にはこのソース内にすでにプロトタイプがあります。",
+  "$(new-file) New binder source": "$(new-file) 新規バインダー・ソース",
+  "Update {0}": "{0} を更新",
+  "Binder source of {0}": "{0} のバインダー・ソース",
+  "Binder source updated: check it, then save.": "バインダー・ソースを更新しました: 確認してから保存してください。",
+  "Every procedure already has a comment above it.": "すべてのプロシージャーの上にすでにコメントがあります。",
+  "Header added to {0} procedure(s): replace the TODO lines.": "{0} 個のプロシージャーにヘッダーを追加しました: TODO 行を置き換えてください。",
+  "No unused one-line DCL-S or DCL-C to remove.": "削除する未使用の 1 行の DCL-S または DCL-C はありません。",
+  "Remove {0} unused declaration(s)?": "未使用の宣言 {0} 個を削除しますか?",
+  "{0} declaration(s) removed (Ctrl+Z to undo).": "{0} 個の宣言を削除しました (Ctrl+Z で元に戻す)。",
+  "Update the prototype of {0} from its procedure interface": "プロシージャー・インターフェースから {0} のプロトタイプを更新"
 }

@@ -3137,5 +3137,17 @@
   "(main)": "(principale)",
   "line(s)": "riga/e",
   "main": "principale",
-  "Procedure or subroutine at the cursor — click to go to another one": "Procedura o subroutine al cursore — fai clic per passare a un'altra"
+  "Procedure or subroutine at the cursor — click to go to another one": "Procedura o subroutine al cursore — fai clic per passare a un'altra",
+  "The SQL is already formatted.": "L'SQL è già formattato.",
+  "{0} already has a prototype in this source.": "{0} ha già un prototipo in questo sorgente.",
+  "$(new-file) New binder source": "$(new-file) Nuovo sorgente binder",
+  "Update {0}": "Aggiorna {0}",
+  "Binder source of {0}": "Sorgente binder di {0}",
+  "Binder source updated: check it, then save.": "Sorgente binder aggiornato: controllalo, quindi salvalo.",
+  "Every procedure already has a comment above it.": "Ogni procedura ha già un commento sopra.",
+  "Header added to {0} procedure(s): replace the TODO lines.": "Intestazione aggiunta a {0} procedura/e: sostituisci le righe TODO.",
+  "No unused one-line DCL-S or DCL-C to remove.": "Nessuna DCL-S o DCL-C su una riga inutilizzata da rimuovere.",
+  "Remove {0} unused declaration(s)?": "Rimuovere {0} dichiarazione/i inutilizzata/e?",
+  "{0} declaration(s) removed (Ctrl+Z to undo).": "{0} dichiarazione/i rimossa/e (Ctrl+Z per annullare).",
+  "Update the prototype of {0} from its procedure interface": "Aggiorna il prototipo di {0} dalla relativa interfaccia di procedura"
 }

@@ -11,11 +11,11 @@ import { ConnectionManager } from '../core/manager';
 import { convertFixedToFree } from '../rpg/fixedToFree';
 import { rpgSignatures } from '../rpg/editing';
 import { CopyResolver } from '../rpg/navigation';
-import { findOccurrences, isFullyFreeSource, parseRpg, RpgParse } from '../rpg/parser';
+import { findOccurrences, isFullyFreeSource, maskLine, parseRpg, RpgParse } from '../rpg/parser';
 import { layoutFor } from '../rpg/specLayout';
 import {
   alignDeclarations, autoCloseFor, callArgumentHints, callSnippet, clearChangeMarkers, closeBlock, embeddedSqlAt, ifToSelect, keywordCase,
-  procedureAt, procedureHeader, procedureStarts, prototypeFrom, RULER_MARK, rulerLine, sortDeclarations, surround, SurroundKind, toggleComments, wrapLine,
+  procedureHeader, procedureStarts, prototypeFrom, RULER_MARK, rulerLine, sortDeclarations, surround, SurroundKind, toggleComments, wrapLine,
 } from '../rpg/rpgProductivity';
 import { procedureDefinitions } from '../core/speed';
 import { docsArray } from './sourceIndexView';
@@ -24,14 +24,24 @@ import { memberUri } from './fileSystems';
 const RPG: vscode.DocumentSelector = [{ language: 'rpgle' }];
 const cfg = () => vscode.workspace.getConfiguration('vanthrex.editor');
 
-/** Parses cached per document version (the providers below run on every keystroke). */
-const parses = new Map<string, { v: number; p: RpgParse; text: string }>();
-function parsed(doc: vscode.TextDocument): RpgParse {
-  const k = doc.uri.toString(); const c = parses.get(k);
-  if (c && c.v === doc.version) { return c.p; }
-  const text = doc.getText(); const p = parseRpg(text);
-  parses.set(k, { v: doc.version, p, text });
-  return p;
+/** Facts about a document, computed once per version (the providers below run on every keystroke and cursor move). */
+interface DocFacts { v: number; text: string; p?: RpgParse; sigs?: ReturnType<typeof rpgSignatures>; fullyFree?: boolean; units?: Unit[] }
+const facts = new Map<string, DocFacts>();
+function factsOf(doc: vscode.TextDocument): DocFacts {
+  const k = doc.uri.toString(); const c = facts.get(k);
+  if (c && c.v === doc.version) { return c; }
+  const f: DocFacts = { v: doc.version, text: doc.getText() };
+  facts.set(k, f);
+  return f;
+}
+function parsed(doc: vscode.TextDocument): RpgParse { const f = factsOf(doc); return (f.p ??= parseRpg(f.text)); }
+function signatures(doc: vscode.TextDocument) { const f = factsOf(doc); return (f.sigs ??= rpgSignatures(f.text)); }
+function fullyFreeOf(doc: vscode.TextDocument): boolean { const f = factsOf(doc); return (f.fullyFree ??= isFullyFreeSource(f.text)); }
+/** Sources this big skip the per-line decorations (hints, lenses, column shading) to stay responsive. */
+const BIG = 40000;
+/** A provider never throws into VS Code: an unexpected source gives no result, and the error is logged once. */
+function guard<A extends unknown[], R>(empty: R, fn: (...a: A) => R): (...a: A) => R {
+  return (...a: A) => { try { return fn(...a); } catch (e) { logError(e); return empty; } };
 }
 
 const fullLines = (ed: vscode.TextEditor) => {
@@ -85,7 +95,7 @@ async function surroundCommand(kind?: SurroundKind): Promise<void> {
 async function toggleCommentCommand(): Promise<void> {
   const ed = vscode.window.activeTextEditor; if (!ed) { return; }
   const r = fullLines(ed);
-  await replaceLines(ed, r, toggleComments(ed.document.getText(r).split('\n'), isFullyFreeSource(ed.document.getText())));
+  await replaceLines(ed, r, toggleComments(ed.document.getText(r).split('\n'), fullyFreeOf(ed.document)));
 }
 
 async function keywordCaseCommand(): Promise<void> {
@@ -110,11 +120,12 @@ async function alignCommand(): Promise<void> {
 }
 
 async function wrapCommand(uri?: vscode.Uri, line?: number): Promise<void> {
-  const ed = vscode.window.activeTextEditor; if (!ed) { return; }
-  const doc = uri ? await vscode.workspace.openTextDocument(uri) : ed.document;
-  const free = isFullyFreeSource(doc.getText());
-  const width = free ? cfg().get<number>('wrapColumn', 100) : 80;
-  const from = line ?? ed.selection.start.line; const to = line ?? ed.selection.end.line;
+  const ed = vscode.window.activeTextEditor;
+  if (!uri && !ed) { return; }
+  const doc = uri ? await vscode.workspace.openTextDocument(uri) : ed!.document;
+  const free = fullyFreeOf(doc);
+  const width = free ? Math.max(40, cfg().get<number>('wrapColumn', 100)) : 80;
+  const from = Math.max(0, line ?? ed?.selection.start.line ?? 0); const to = Math.min(doc.lineCount - 1, line ?? ed?.selection.end.line ?? from);
   const edit = new vscode.WorkspaceEdit();
   for (let i = from; i <= to; i++) {
     const t = doc.lineAt(i).text;
@@ -160,7 +171,7 @@ async function headerCommand(): Promise<void> {
   const p = parsed(ed.document).procedures.find(x => ed.selection.active.line >= x.start && ed.selection.active.line <= x.end)
     ?? parsed(ed.document).procedures.find(x => x.start > ed.selection.active.line);
   if (!p) { vscode.window.showInformationMessage(vscode.l10n.t('Put the cursor in a procedure.')); return; }
-  const sig = rpgSignatures(text).find(s => s.name.toUpperCase() === p.name.toUpperCase());
+  const sig = signatures(ed.document).find(s => s.name.toUpperCase() === p.name.toUpperCase());
   const indent = /^\s*/.exec(ed.document.lineAt(p.start).text)![0];
   await ed.insertSnippet(new vscode.SnippetString(procedureHeader(p.name, sig?.params ?? [], sig?.returns ?? '', indent)), new vscode.Position(p.start, 0));
 }
@@ -172,8 +183,14 @@ async function formatSqlCommand(uri?: vscode.Uri, line?: number): Promise<void> 
   if (!at) { vscode.window.setStatusBarMessage(vscode.l10n.t('The cursor is not in an EXEC SQL statement.'), 3000); return; }
   const step = ' '.repeat(cfg().get<number>('rpgIndent', 2));
   const body = formatSql(at.sql, step).split('\n').map(l => `${at.indent}${step}${l}`).join('\n');
+  // Text after the ";" on the last line (a // comment, another statement) is kept.
+  const last = doc.lineAt(at.end).text; const semi = maskLine(last, true).lastIndexOf(';');
+  const rest = semi >= 0 ? last.slice(semi + 1).trimEnd() : '';
+  const range = new vscode.Range(at.start, 0, at.end, last.length);
+  const next = `${at.indent}exec sql\n${body};${rest}`;
+  if (doc.getText(range) === next) { vscode.window.setStatusBarMessage(vscode.l10n.t('The SQL is already formatted.'), 2000); return; }
   const edit = new vscode.WorkspaceEdit();
-  edit.replace(doc.uri, new vscode.Range(at.start, 0, at.end, doc.lineAt(at.end).text.length), `${at.indent}exec sql\n${body};`);
+  edit.replace(doc.uri, range, next);
   await vscode.workspace.applyEdit(edit);
 }
 
@@ -189,6 +206,7 @@ async function ibmDocs(): Promise<void> {
 async function addPrototype(manager: ConnectionManager, uri: vscode.Uri, name: string): Promise<void> {
   const conn = manager.require();
   const doc = await vscode.workspace.openTextDocument(uri);
+  if (parsed(doc).definitions.some(d => d.kind === 'prototype' && d.upper === name.toUpperCase())) { vscode.window.showInformationMessage(vscode.l10n.t('{0} already has a prototype in this source.', name)); return; }
   const { docs, types } = await docsArray(conn.profile.id);
   const defs = procedureDefinitions(docs, name);
   if (!defs.length) { vscode.window.showWarningMessage(vscode.l10n.t('{0} is not defined in the indexed sources. Index the library of its service program first.', name)); return; }
@@ -209,6 +227,9 @@ async function addPrototype(manager: ConnectionManager, uri: vscode.Uri, name: s
 
 class CheckFixes implements vscode.CodeActionProvider {
   provideCodeActions(doc: vscode.TextDocument, range: vscode.Range, ctx: vscode.CodeActionContext): vscode.CodeAction[] {
+    try { return this.actions(doc, ctx); } catch (e) { logError(e); return []; }
+  }
+  private actions(doc: vscode.TextDocument, ctx: vscode.CodeActionContext): vscode.CodeAction[] {
     const out: vscode.CodeAction[] = [];
     const fix = (title: string, d: vscode.Diagnostic, edit?: vscode.WorkspaceEdit, command?: vscode.Command, preferred = false) => {
       const a = new vscode.CodeAction(title, vscode.CodeActionKind.QuickFix);
@@ -249,9 +270,8 @@ class CheckFixes implements vscode.CodeActionProvider {
         case 'code-past-column-80': fix(vscode.l10n.t('Wrap the line before column 80'), d, undefined, { command: 'vanthrex.rpg.wrapLine', title: '', arguments: [doc.uri, line.lineNumber] }, true); break;
         case 'deprecated-opcode': {
           try {
-            const r = convertFixedToFree([line.text]);
-            const free = (r as unknown as { lines?: string[] }).lines;
-            if (free?.length && free.join('') !== line.text) { e.replace(doc.uri, line.range, free.join('\n')); fix(vscode.l10n.t('Convert this line to free form'), d, e, undefined, true); }
+            const free = convertFixedToFree([line.text]).lines;
+            if (free.length && !free.some(l => /\bTODO\b/.test(l)) && free.join('') !== line.text) { e.replace(doc.uri, line.range, free.join('\n')); fix(vscode.l10n.t('Convert this line to free form'), d, e, undefined, true); }
           } catch { /* not convertible alone */ }
           break;
         }
@@ -267,6 +287,9 @@ class CheckFixes implements vscode.CodeActionProvider {
 class RefactorActions implements vscode.CodeActionProvider {
   constructor(private readonly manager: ConnectionManager) {}
   provideCodeActions(doc: vscode.TextDocument, range: vscode.Range): vscode.CodeAction[] {
+    try { return this.actions(doc, range); } catch (e) { logError(e); return []; }
+  }
+  private actions(doc: vscode.TextDocument, range: vscode.Range): vscode.CodeAction[] {
     const out: vscode.CodeAction[] = [];
     const cmd = (title: string, command: string, kind: vscode.CodeActionKind, args: unknown[] = []) => { const a = new vscode.CodeAction(title, kind); a.command = { command, title, arguments: args }; out.push(a); };
     if (!range.isEmpty && range.end.line > range.start.line) {
@@ -275,8 +298,8 @@ class RefactorActions implements vscode.CodeActionProvider {
       const sel = doc.getText(range);
       if (/^\s*dcl-[sc]\b/im.test(sel)) { cmd(vscode.l10n.t('Align the declarations'), 'vanthrex.rpg.alignDeclarations', vscode.CodeActionKind.RefactorRewrite); cmd(vscode.l10n.t('Sort the declarations by name'), 'vanthrex.rpg.sortDeclarations', vscode.CodeActionKind.RefactorRewrite); }
     }
-    if (embeddedSqlAt(doc.getText(), range.start.line)) { cmd(vscode.l10n.t('Format the embedded SQL'), 'vanthrex.rpg.formatEmbeddedSql', vscode.CodeActionKind.RefactorRewrite, [doc.uri, range.start.line]); }
-    if (doc.lineAt(range.start.line).text.length > (isFullyFreeSource(doc.getText()) ? cfg().get<number>('wrapColumn', 100) : 80)) { cmd(vscode.l10n.t('Wrap the long line'), 'vanthrex.rpg.wrapLine', vscode.CodeActionKind.RefactorRewrite, [doc.uri, range.start.line]); }
+    if (embeddedSqlAt(factsOf(doc).text, range.start.line)) { cmd(vscode.l10n.t('Format the embedded SQL'), 'vanthrex.rpg.formatEmbeddedSql', vscode.CodeActionKind.RefactorRewrite, [doc.uri, range.start.line]); }
+    if (doc.lineAt(range.start.line).text.length > (fullyFreeOf(doc) ? cfg().get<number>('wrapColumn', 100) : 80)) { cmd(vscode.l10n.t('Wrap the long line'), 'vanthrex.rpg.wrapLine', vscode.CodeActionKind.RefactorRewrite, [doc.uri, range.start.line]); }
     // A call of a procedure that is neither declared nor prototyped here: take its prototype from the source index.
     const w = doc.getWordRangeAtPosition(range.start, /[A-Za-z$#@_][\w$#@]*/);
     if (w && this.manager.connection) {
@@ -306,8 +329,8 @@ function selectionRanges(doc: vscode.TextDocument, positions: vscode.Position[])
 }
 
 function inlayHints(doc: vscode.TextDocument, range: vscode.Range): vscode.InlayHint[] {
-  if (!cfg().get<boolean>('parameterNameHints', true)) { return []; }
-  const sigs = new Map(rpgSignatures(doc.getText()).filter(s => s.params.length > 1).map(s => [s.name.toUpperCase(), s.params.map(p => p.name)]));
+  if (!cfg().get<boolean>('parameterNameHints', true) || doc.lineCount > BIG) { return []; }
+  const sigs = new Map(signatures(doc).filter(s => s.params.length > 1).map(s => [s.name.toUpperCase(), s.params.map(p => p.name)]));
   if (!sigs.size) { return []; }
   const out: vscode.InlayHint[] = [];
   for (let i = range.start.line; i <= Math.min(range.end.line, doc.lineCount - 1); i++) {
@@ -322,7 +345,7 @@ function inlayHints(doc: vscode.TextDocument, range: vscode.Range): vscode.Inlay
 }
 
 function referenceLenses(doc: vscode.TextDocument): vscode.CodeLens[] {
-  if (!cfg().get<boolean>('referenceCodeLens', true)) { return []; }
+  if (!cfg().get<boolean>('referenceCodeLens', false) || doc.lineCount > BIG) { return []; }
   const text = doc.getText();
   const p = parsed(doc);
   const lenses: vscode.CodeLens[] = [];
@@ -344,6 +367,7 @@ function referenceLenses(doc: vscode.TextDocument): vscode.CodeLens[] {
 // Call hierarchy inside the source: procedures and subroutines.
 interface Unit { name: string; start: number; end: number; kind: vscode.SymbolKind }
 function units(doc: vscode.TextDocument): Unit[] {
+  const f = factsOf(doc); if (f.units) { return f.units; }
   const p = parsed(doc);
   const lines = doc.getText().split(/\r?\n/);
   const subs: Unit[] = [];
@@ -351,13 +375,16 @@ function units(doc: vscode.TextDocument): Unit[] {
     let e = d.line; while (e < lines.length - 1 && !/^\s*endsr\b/i.test(lines[e]) && !(/^.{5}[Cc]/.test(lines[e]) && lines[e].substring(25, 35).trim().toUpperCase() === 'ENDSR')) { e++; }
     subs.push({ name: d.name, start: d.line, end: e, kind: vscode.SymbolKind.Event });
   }
-  return [...p.procedures.map(x => ({ ...x, kind: vscode.SymbolKind.Function })), ...subs];
+  return (f.units = [...p.procedures.map(x => ({ ...x, kind: vscode.SymbolKind.Function })), ...subs]);
 }
 const item = (doc: vscode.TextDocument, u: Unit) => new vscode.CallHierarchyItem(u.kind, u.name, '', doc.uri, new vscode.Range(u.start, 0, u.end, doc.lineAt(u.end).text.length), new vscode.Range(u.start, 0, u.start, doc.lineAt(u.start).text.length));
 const callsIn = (text: string, u: Unit, name: string) => findOccurrences(text, name).filter(o => o.line > u.start && o.line <= u.end && o.line !== u.start);
 
 class CallHierarchy implements vscode.CallHierarchyProvider {
   prepareCallHierarchy(doc: vscode.TextDocument, pos: vscode.Position): vscode.CallHierarchyItem | undefined {
+    try { return this.prepare(doc, pos); } catch (e) { logError(e); return undefined; }
+  }
+  private prepare(doc: vscode.TextDocument, pos: vscode.Position): vscode.CallHierarchyItem | undefined {
     const w = doc.getWordRangeAtPosition(pos, /[A-Za-z$#@_][\w$#@]*/);
     const us = units(doc);
     const byName = w ? us.find(u => u.name.toUpperCase() === doc.getText(w).toUpperCase()) : undefined;
@@ -384,14 +411,18 @@ class CallHierarchy implements vscode.CallHierarchyProvider {
   }
 }
 
-async function workspaceSymbols(manager: ConnectionManager, query: string): Promise<vscode.SymbolInformation[]> {
+async function workspaceSymbols(manager: ConnectionManager, query: string, token?: vscode.CancellationToken): Promise<vscode.SymbolInformation[]> {
   const conn = manager.connection;
   if (!conn || query.length < 2) { return []; }
-  const { docs, types } = await docsArray(conn.profile.id);
+  let index: Awaited<ReturnType<typeof docsArray>>;
+  try { index = await docsArray(conn.profile.id); } catch (e) { logError(e); return []; }
+  if (token?.isCancellationRequested) { return []; }
+  const { docs, types } = index;
   const q = query.toUpperCase();
   const out: vscode.SymbolInformation[] = [];
   const re = /^\s*(dcl-proc|dcl-pr|dcl-ds|begsr)\s+([A-Za-z$#@_][\w$#@]*)/i;
   for (const [key, text] of docs) {
+    if (token?.isCancellationRequested) { return out; }
     if (!text.toUpperCase().includes(q)) { continue; }
     const [lib, file, member] = key.split('/');
     const lines = text.split('\n');
@@ -408,11 +439,14 @@ async function workspaceSymbols(manager: ConnectionManager, query: string): Prom
 
 class LocalCompletion implements vscode.CompletionItemProvider {
   provideCompletionItems(doc: vscode.TextDocument, pos: vscode.Position): vscode.CompletionItem[] {
+    try { return this.items(doc, pos); } catch (e) { logError(e); return []; }
+  }
+  private items(doc: vscode.TextDocument, pos: vscode.Position): vscode.CompletionItem[] {
     if (!cfg().get<boolean>('localCompletion', true)) { return []; }
     const before = doc.lineAt(pos.line).text.slice(0, pos.character);
     if (/%[A-Za-z]*$/.test(before) || /'[^']*$/.test(before.replace(/'[^']*'/g, '')) || /\/\//.test(before)) { return []; }
     const p = parsed(doc);
-    const sigs = new Map(rpgSignatures(doc.getText()).map(s => [s.name.toUpperCase(), s]));
+    const sigs = new Map(signatures(doc).map(s => [s.name.toUpperCase(), s]));
     const proc = p.procedures.find(x => pos.line >= x.start && pos.line <= x.end)?.name;
     const exsr = /\bexsr\s+[\w$#@]*$/i.test(before);
     const KIND: Record<string, vscode.CompletionItemKind> = { variable: vscode.CompletionItemKind.Variable, constant: vscode.CompletionItemKind.Constant, ds: vscode.CompletionItemKind.Struct, subfield: vscode.CompletionItemKind.Field,
@@ -453,16 +487,21 @@ function copyHover(copies: CopyResolver, doc: vscode.TextDocument, pos: vscode.P
 
 function autoClose(e: vscode.TextDocumentChangeEvent): void {
   if (e.document.languageId !== 'rpgle' || !cfg().get<boolean>('autoCloseBlocks', true) || e.contentChanges.length !== 1) { return; }
+  // Undo / redo replay old edits: never add a block end then.
+  if (e.reason === vscode.TextDocumentChangeReason.Undo || e.reason === vscode.TextDocumentChangeReason.Redo) { return; }
   const ch = e.contentChanges[0];
-  if (!/^\r?\n\s*$/.test(ch.text)) { return; }
+  if (!/^\r?\n\s*$/.test(ch.text) || !ch.range.isEmpty) { return; }
   const ed = vscode.window.activeTextEditor;
-  if (!ed || ed.document !== e.document) { return; }
+  if (!ed || ed.document !== e.document || ed.selections.length !== 1 || e.document.lineCount > BIG) { return; }
+  const version = e.document.version;
   const line = ch.range.start.line;
   const c = autoCloseFor(e.document.getText(), line);
   if (!c) { return; }
   const next = line + 1;
   const step = ' '.repeat(cfg().get<number>('rpgIndent', 2));
   setTimeout(() => {
+    // Only if nothing else changed meanwhile and the new line is still empty.
+    if (ed.document.version !== version || next >= ed.document.lineCount || ed.document.lineAt(next).text.trim()) { return; }
     void ed.edit(b => {
       const cur = ed.document.lineAt(next);
       b.replace(cur.range, `${c.indent}${step}\n${c.indent}${c.close}`);
@@ -482,7 +521,7 @@ function highlightColumns(ed: vscode.TextEditor | undefined): void {
   const line = ed.selection.active.line;
   const text = ed.document.lineAt(line).text;
   const layout = text.length > 6 && text[6] !== '*' ? layoutFor(text.padEnd(7), ed.document.languageId as 'rpgle' | 'dds') : undefined;
-  if (!layout || (ed.document.languageId === 'rpgle' && isFullyFreeSource(ed.document.getText()))) { ed.setDecorations(columnDecoration, []); ed.setDecorations(columnAlt, []); return; }
+  if (!layout || ed.document.lineCount > BIG || (ed.document.languageId === 'rpgle' && fullyFreeOf(ed.document))) { ed.setDecorations(columnDecoration, []); ed.setDecorations(columnAlt, []); return; }
   const a: vscode.DecorationOptions[] = []; const b: vscode.DecorationOptions[] = [];
   layout.fields.forEach((f, i) => {
     if (f.from - 1 >= text.length) { return; }
@@ -498,7 +537,9 @@ export function registerRpgProductivity(context: vscode.ExtensionContext, manage
   status.command = 'workbench.action.gotoSymbol';
   const updateStatus = (ed?: vscode.TextEditor) => {
     if (!ed || ed.document.languageId !== 'rpgle' || !cfg().get<boolean>('procedureInStatusBar', true)) { status.hide(); return; }
-    const p = procedureAt(ed.document.getText(), ed.selection.active.line);
+    const line = ed.selection.active.line;
+    const inner = units(ed.document).filter(u => line >= u.start && line <= u.end).sort((a, b) => (a.end - a.start) - (b.end - b.start))[0];
+    const p = inner ? (inner.kind === vscode.SymbolKind.Event ? `${inner.name} (${vscode.l10n.t('subroutine')})` : inner.name) : undefined;
     status.text = `$(symbol-method) ${p ?? vscode.l10n.t('main')}`; status.tooltip = vscode.l10n.t('Procedure or subroutine at the cursor — click to go to another one'); status.show();
   };
   let timer: NodeJS.Timeout | undefined;
@@ -522,20 +563,20 @@ export function registerRpgProductivity(context: vscode.ExtensionContext, manage
     vscode.commands.registerCommand('vanthrex.rpg.addPrototype', wrap((u: vscode.Uri, n: string) => addPrototype(manager, u, n))),
     vscode.languages.registerCodeActionsProvider(RPG, new CheckFixes(), { providedCodeActionKinds: [vscode.CodeActionKind.QuickFix] }),
     vscode.languages.registerCodeActionsProvider(RPG, new RefactorActions(manager), { providedCodeActionKinds: [vscode.CodeActionKind.RefactorRewrite, vscode.CodeActionKind.QuickFix] }),
-    vscode.languages.registerSelectionRangeProvider([{ language: 'rpgle' }, { language: 'cl' }], { provideSelectionRanges: selectionRanges }),
-    vscode.languages.registerInlayHintsProvider(RPG, { provideInlayHints: inlayHints }),
-    vscode.languages.registerCodeLensProvider(RPG, { provideCodeLenses: referenceLenses }),
+    vscode.languages.registerSelectionRangeProvider([{ language: 'rpgle' }, { language: 'cl' }], { provideSelectionRanges: guard([], selectionRanges) }),
+    vscode.languages.registerInlayHintsProvider(RPG, { provideInlayHints: guard([], inlayHints) }),
+    vscode.languages.registerCodeLensProvider(RPG, { provideCodeLenses: guard([], referenceLenses) }),
     vscode.languages.registerCallHierarchyProvider(RPG, new CallHierarchy()),
-    vscode.languages.registerWorkspaceSymbolProvider({ provideWorkspaceSymbols: q => workspaceSymbols(manager, q) }),
+    vscode.languages.registerWorkspaceSymbolProvider({ provideWorkspaceSymbols: (q, t) => workspaceSymbols(manager, q, t) }),
     vscode.languages.registerCompletionItemProvider(RPG, new LocalCompletion()),
-    vscode.languages.registerHoverProvider(RPG, { provideHover: (d, p) => copyHover(copies, d, p) }),
-    vscode.workspace.onDidChangeTextDocument(autoClose),
-    vscode.workspace.onDidCloseTextDocument(d => parses.delete(d.uri.toString())),
+    vscode.languages.registerHoverProvider(RPG, { provideHover: guard(undefined, (d: vscode.TextDocument, p: vscode.Position) => copyHover(copies, d, p)) }),
+    vscode.workspace.onDidChangeTextDocument(guard(undefined, autoClose)),
+    vscode.workspace.onDidCloseTextDocument(d => facts.delete(d.uri.toString())),
     vscode.window.onDidChangeTextEditorSelection(e => {
       if (timer) { clearTimeout(timer); }
-      timer = setTimeout(() => { updateStatus(e.textEditor); highlightColumns(e.textEditor); }, 150);
+      timer = setTimeout(guard(undefined, () => { updateStatus(e.textEditor); highlightColumns(e.textEditor); }), 150);
     }),
-    vscode.window.onDidChangeActiveTextEditor(ed => { updateStatus(ed); highlightColumns(ed); }),
+    vscode.window.onDidChangeActiveTextEditor(guard(undefined, (ed?: vscode.TextEditor) => { updateStatus(ed); highlightColumns(ed); })),
   );
   updateStatus(vscode.window.activeTextEditor);
 }

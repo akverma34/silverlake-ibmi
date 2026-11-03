@@ -1148,6 +1148,24 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** Less time looking up columns and syntax.
 - **How:** `vanthrex.editor.fixedColumnHighlight`, `docsRelease`.
 
+### 179. Checks for errors found late — new in 2.6
+
+- **What:** DCL-PR that does not match the DCL-PI, calls with the wrong number of arguments, CONST parameters changed, LEAVE / ITER outside a loop, loops that never end, hard-coded library names.
+- **Why:** Errors the compiler finds only at the end, and traps it never reports, shown while you type.
+- **How:** On by default in `vanthrex.lint.rules`; Ctrl+. on a prototype mismatch updates the DCL-PR.
+
+### 180. Binder source and prototype copybook — new in 2.6
+
+- **What:** STRPGMEXP and a guarded copybook of DCL-PR built from the exported procedures; an open binder source keeps its order.
+- **Why:** Service programs stay compatible and callers use the right prototypes.
+- **How:** Right-click in a NOMAIN module → *Generate Binder Source…* or *Generate a Prototype Copybook…*.
+
+### 181. Headers, join lines and unused declarations — new in 2.6
+
+- **What:** A header for every undocumented procedure, joining a statement split over lines, removing unused one-line declarations.
+- **Why:** Clean modules in seconds.
+- **How:** Command Palette → *Vanthrex RPG*.
+
 ## Keyboard shortcuts
 
 | Keys | Action |

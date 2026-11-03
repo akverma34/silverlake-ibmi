@@ -666,5 +666,16 @@
   "config.lint.rules.unused-procedure": "Prozeduren, die weder exportiert noch aufgerufen werden.",
   "config.lint.rules.long-parameter-list": "Prozeduren mit mehr als 8 Parametern.",
   "config.lint.rules.cursor-not-closed": "SQL-Cursor, die geöffnet, aber nie geschlossen werden.",
-  "config.lint.rules.commented-out-code": "Große Blöcke auskommentierten Codes."
+  "config.lint.rules.commented-out-code": "Große Blöcke auskommentierten Codes.",
+  "command.rpg.binderSource": "Binder-Quelle aus den Exporten generieren",
+  "command.rpg.prototypeCopybook": "Prototyp-Copybook aus den Exporten generieren",
+  "command.rpg.documentAll": "Jeder Prozedur eine Kopfzeile hinzufügen",
+  "command.rpg.joinLines": "Zeilen einer Anweisung verbinden",
+  "command.rpg.removeUnusedDeclarations": "Nicht verwendete Deklarationen entfernen…",
+  "config.lint.rules.prototype-mismatch": "Ein DCL-PR, dessen Parameter oder Rückgabewert nicht mit dem DCL-PI derselben Prozedur übereinstimmen.",
+  "config.lint.rules.call-argument-count": "Ein Aufruf mit weniger Argumenten als den erforderlichen Parametern oder mit mehr, als die Prozedur hat.",
+  "config.lint.rules.assign-to-const": "Ein CONST-Parameter, der geändert wird (die Kompilierung schlägt mit RNF5346 fehl).",
+  "config.lint.rules.infinite-loop": "DOW- / DOU-Schleifen mit einer konstanten Bedingung ohne LEAVE oder RETURN darin.",
+  "config.lint.rules.leave-outside-loop": "LEAVE oder ITER außerhalb einer DOW-, DOU- oder FOR-Schleife.",
+  "config.lint.rules.hardcoded-library": "Ein Bibliotheksname in EXTFILE / EXTDESC / EXTNAME oder in eingebettetem SQL (verwenden Sie die Bibliotheksliste)."
 }

@@ -99,6 +99,7 @@ import { registerQuickOpen } from './features/quickOpenView';
 import { registerSpeed } from './features/speedView';
 import { registerProductivity } from './features/productivityView';
 import { registerRpgProductivity } from './features/rpgProductivityView';
+import { registerRpgModuleTools } from './features/rpgModuleView';
 
 let manager: ConnectionManager | undefined;
 
@@ -237,6 +238,7 @@ export function activate(context: vscode.ExtensionContext): void {
   step('speed', () => registerSpeed(context, m));
   step('productivity', () => registerProductivity(context, m));
   step('rpg productivity', () => registerRpgProductivity(context, m));
+  step('rpg module tools', () => registerRpgModuleTools(context));
 
   if (failures.length) {
     vscode.window.showErrorMessage(vscode.l10n.t('Vanthrex started with problems: {0}', failures.join(' | ')), vscode.l10n.t('Show Log'))

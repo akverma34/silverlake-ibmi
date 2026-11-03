@@ -3137,5 +3137,17 @@
   "(main)": "(主)",
   "line(s)": "行",
   "main": "主",
-  "Procedure or subroutine at the cursor — click to go to another one": "光标所在的过程或子例程 — 单击可转到其他过程或子例程"
+  "Procedure or subroutine at the cursor — click to go to another one": "光标所在的过程或子例程 — 单击可转到其他过程或子例程",
+  "The SQL is already formatted.": "SQL 已格式化。",
+  "{0} already has a prototype in this source.": "{0} 在此源中已有原型。",
+  "$(new-file) New binder source": "$(new-file) 新建绑定程序源",
+  "Update {0}": "更新 {0}",
+  "Binder source of {0}": "{0} 的绑定程序源",
+  "Binder source updated: check it, then save.": "绑定程序源已更新：请检查，然后保存。",
+  "Every procedure already has a comment above it.": "每个过程上方都已有注释。",
+  "Header added to {0} procedure(s): replace the TODO lines.": "已向 {0} 个过程添加头部注释：请替换 TODO 行。",
+  "No unused one-line DCL-S or DCL-C to remove.": "没有可删除的未使用单行 DCL-S 或 DCL-C。",
+  "Remove {0} unused declaration(s)?": "删除 {0} 个未使用的声明？",
+  "{0} declaration(s) removed (Ctrl+Z to undo).": "已删除 {0} 个声明 (按 Ctrl+Z 撤销)。",
+  "Update the prototype of {0} from its procedure interface": "根据过程接口更新 {0} 的原型"
 }
