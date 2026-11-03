@@ -139,6 +139,8 @@ Open **File → Preferences → Settings** and search for *Vanthrex*, or edit `s
 | `vanthrex.editor.inlineSuggestions` | boolean | `true` | Suggestions while you type in RPG and CL, shown in grey and accepted with **Tab**: the next statement you usually write (IF %FOUND after CHAIN, SQLCODE test after embedded SQL, OPEN and FETCH after DECLARE CURSOR, MONMSG after CHKOBJ / DLTF…), the type of a new variable from its name and from the variables already declared, the file of %FOUND / %EOF and the parameters of a call. Offline: nothing is sent anywhere. |
 | `vanthrex.ai.inlineSuggestions` | boolean | `false` | Also ask the AI model for a suggestion when you pause typing and no offline suggestion applies (RPG, CL, SQL, DDS). The code around the cursor goes through the Vanthrex guard first (secrets and personal data replaced, denied libraries and protected systems never sent) and every request is in the audit trail. |
 | `vanthrex.ai.inlineDelay` | number | `500` | Pause in milliseconds before an AI suggestion is requested. |
+| `vanthrex.lint.cl` | boolean | `true` | Check CL sources while you type: undeclared and unused variables, GOTO to a missing label, DO / SELECT / SUBR not closed, DCL after the first command, literals too long, text in *DEC variables, hard-coded libraries. |
+| `vanthrex.lint.sql` | boolean | `true` | Check SQL scripts while you type: UPDATE / DELETE without WHERE, DROP / TRUNCATE, = NULL instead of IS NULL, SELECT INTO without WHERE. |
 
 ## RPG check rules
 

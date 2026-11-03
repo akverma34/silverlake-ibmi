@@ -6096,6 +6096,66 @@
               "type": "boolean",
               "default": true,
               "description": "%config.lint.rules.undefined-subroutine%"
+            },
+            "cl-undeclared-variable": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.cl-undeclared-variable%"
+            },
+            "cl-unused-variable": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.cl-unused-variable%"
+            },
+            "cl-undefined-label": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.cl-undefined-label%"
+            },
+            "cl-unbalanced-block": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.cl-unbalanced-block%"
+            },
+            "cl-dcl-after-command": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.cl-dcl-after-command%"
+            },
+            "cl-value-too-long": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.cl-value-too-long%"
+            },
+            "cl-text-in-decimal": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.cl-text-in-decimal%"
+            },
+            "cl-hardcoded-library": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.cl-hardcoded-library%"
+            },
+            "sql-without-where": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.sql-without-where%"
+            },
+            "sql-irreversible": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.sql-irreversible%"
+            },
+            "sql-equals-null": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.sql-equals-null%"
+            },
+            "sql-select-into-many": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.sql-select-into-many%"
             }
           },
           "additionalProperties": false
@@ -6904,6 +6964,16 @@
           "minimum": 150,
           "maximum": 3000,
           "markdownDescription": "%config.ai.inlineDelay%"
+        },
+        "vanthrex.lint.cl": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "%config.lint.cl%"
+        },
+        "vanthrex.lint.sql": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "%config.lint.sql%"
         }
       }
     },

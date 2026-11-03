@@ -3161,5 +3161,9 @@
   "Create subroutine {0}": "サブルーチン {0} を作成",
   "Compare with 0": "0 と比較",
   "Convert with {0}": "{0} で変換",
-  "Nothing to toggle here (*ON / *OFF, AND / OR, = / <>, SETLL / SETGT…).": "ここには切り替えるものがありません (*ON / *OFF, AND / OR, = / <>, SETLL / SETGT…)。"
+  "Nothing to toggle here (*ON / *OFF, AND / OR, = / <>, SETLL / SETGT…).": "ここには切り替えるものがありません (*ON / *OFF, AND / OR, = / <>, SETLL / SETGT…)。",
+  "Declare {0}": "{0} を宣言",
+  "Remove the unused DCL": "未使用の DCL を削除",
+  "Add WHERE 1 = 1 (every row on purpose)": "WHERE 1 = 1 を追加 (意図的にすべての行)",
+  "Turn off the \"{0}\" check": "\"{0}\" チェックをオフにする"
 }

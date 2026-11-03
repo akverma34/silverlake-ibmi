@@ -690,5 +690,19 @@
   "config.lint.rules.blank-compare-numeric": "Ein numerisches Feld, das mit *BLANKS oder einem leeren Literal verglichen wird.",
   "config.lint.rules.char-to-numeric": "Ein Textliteral, das einem numerischen Feld zugewiesen wird.",
   "config.lint.rules.undeclared-host-variable": "Eine SQL-Hostvariable (:name), die in der Quelle nicht deklariert ist.",
-  "config.lint.rules.undefined-subroutine": "EXSR einer Unterroutine, die nicht in der Quelle enthalten ist."
+  "config.lint.rules.undefined-subroutine": "EXSR einer Unterroutine, die nicht in der Quelle enthalten ist.",
+  "config.lint.cl": "CL-Quellen während der Eingabe prüfen: nicht deklarierte und nicht verwendete Variablen, GOTO zu einer fehlenden Marke, nicht geschlossene DO / SELECT / SUBR, DCL nach dem ersten Befehl, zu lange Literale, Text in *DEC-Variablen, fest codierte Bibliotheken.",
+  "config.lint.sql": "SQL-Skripte während der Eingabe prüfen: UPDATE / DELETE ohne WHERE, DROP / TRUNCATE, = NULL statt IS NULL, SELECT INTO ohne WHERE.",
+  "config.lint.rules.cl-undeclared-variable": "CL-Variablen, die verwendet, aber nicht deklariert werden (DCL).",
+  "config.lint.rules.cl-unused-variable": "CL-Variablen, die deklariert, aber nie verwendet werden.",
+  "config.lint.rules.cl-undefined-label": "GOTO zu einer Marke, die nicht im Programm enthalten ist.",
+  "config.lint.rules.cl-unbalanced-block": "DO / DOWHILE / DOUNTIL / DOFOR / SELECT / SUBR ohne zugehöriges END (oder ein END zu viel).",
+  "config.lint.rules.cl-dcl-after-command": "DCL, DCLF oder COPYRIGHT nach dem ersten Befehl (sie müssen zuerst stehen).",
+  "config.lint.rules.cl-value-too-long": "Ein Literal, das länger ist als die *CHAR-Variable, in die es gestellt wird (es wird abgeschnitten).",
+  "config.lint.rules.cl-text-in-decimal": "Text, der keine Zahl ist, in einer *DEC- oder *INT-Variablen.",
+  "config.lint.rules.cl-hardcoded-library": "Ein Bibliotheksname in einem Befehl (verwenden Sie die Bibliotheksliste).",
+  "config.lint.rules.sql-without-where": "UPDATE oder DELETE ohne WHERE (alle Zeilen der Tabelle werden geändert).",
+  "config.lint.rules.sql-irreversible": "DROP oder TRUNCATE (kann nicht rückgängig gemacht werden).",
+  "config.lint.rules.sql-equals-null": "= NULL oder <> NULL, was nie wahr ist (verwenden Sie IS NULL / IS NOT NULL).",
+  "config.lint.rules.sql-select-into-many": "SELECT INTO ohne Schlüsselbedingung oder FETCH FIRST 1 ROW ONLY (SQLCODE -811, wenn mehrere Zeilen übereinstimmen)."
 }

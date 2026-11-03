@@ -4,6 +4,7 @@
 // and tolerant: a check that cannot understand a statement says nothing rather than guessing.
 import { isFixedLine, isFullyFreeSource, maskLine, parseRpg } from './parser';
 import type { LintFinding, LintSeverity } from './lint';
+import { checkSqlStatement, SqlRule } from '../core/sqlChecks';
 
 export type SafetyRule = 'prototype-mismatch' | 'call-argument-count' | 'assign-to-const' | 'infinite-loop' | 'leave-outside-loop' | 'hardcoded-library';
 
@@ -218,4 +219,34 @@ export function safetyLint(text: string, opts: SafetyOptions = {}): LintFinding[
   });
 
   return out.sort((a, b) => a.line - b.line || a.start - b.start);
+}
+
+/** The SQL checks (UPDATE / DELETE without WHERE, = NULL, DROP, SELECT INTO of several rows) on embedded SQL. */
+export function embeddedSqlLint(text: string, enabled: (rule: SqlRule) => boolean = () => true): LintFinding[] {
+  const out: LintFinding[] = [];
+  const lines = text.split(/\r?\n/);
+  const fullyFree = isFullyFreeSource(text);
+  const masked = lines.map(l => (isFixedLine(l, fullyFree) ? '' : maskLine(l, fullyFree)));
+  for (let i = 0; i < lines.length; i++) {
+    const at = masked[i].search(/\bexec\s+sql\b/i);
+    if (at < 0) { continue; }
+    // The statement, line by line, with where each line starts in the joined text.
+    const starts: number[] = []; let sql = ''; let j = i;
+    for (; j < lines.length && j < i + 60; j++) {
+      const part = j === i ? masked[j].slice(at) : masked[j];
+      starts.push(sql.length);
+      sql += part + '\n';
+      if (masked[j].includes(';')) { break; }
+    }
+    const head = /^exec\s+sql\s+/i.exec(sql)?.[0].length ?? 0;
+    const body = sql.slice(head).replace(/;[\s\S]*$/, '');
+    for (const f of checkSqlStatement(body, enabled)) {
+      const off = f.offset + head;
+      let k = starts.length - 1; while (k > 0 && starts[k] > off) { k--; }
+      const col = off - starts[k] + (k === 0 ? at : 0);
+      out.push({ rule: f.rule, severity: f.severity, line: i + k, start: col, end: col + f.length, message: f.message });
+    }
+    i = j;
+  }
+  return out;
 }

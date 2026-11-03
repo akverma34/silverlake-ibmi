@@ -1184,6 +1184,18 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** flip a condition in one key.
 - **How:** Ctrl+Alt+Shift+T.
 
+### 185. CL checks — new in 2.6
+
+- **What:** undeclared and unused variables, GOTO to a missing label, blocks not closed, DCL after a command, literals too long, text in *DEC variables, hard-coded libraries — with quick fixes.
+- **Why:** CL compile errors and run-time MCH1202 found while typing.
+- **How:** on by default (`vanthrex.lint.cl`); Ctrl+. for the fixes.
+
+### 186. SQL checks — new in 2.6
+
+- **What:** UPDATE / DELETE without WHERE, DROP / TRUNCATE, = NULL, SELECT INTO without WHERE — in SQL scripts and in embedded SQL.
+- **Why:** the statements that change every row or fail with -811, caught before they run.
+- **How:** on by default (`vanthrex.lint.sql`).
+
 ## Keyboard shortcuts
 
 | Keys | Action |

@@ -3161,5 +3161,9 @@
   "Create subroutine {0}": "创建子例程 {0}",
   "Compare with 0": "与 0 比较",
   "Convert with {0}": "使用 {0} 转换",
-  "Nothing to toggle here (*ON / *OFF, AND / OR, = / <>, SETLL / SETGT…).": "此处没有可切换的内容 (*ON / *OFF, AND / OR, = / <>, SETLL / SETGT…)。"
+  "Nothing to toggle here (*ON / *OFF, AND / OR, = / <>, SETLL / SETGT…).": "此处没有可切换的内容 (*ON / *OFF, AND / OR, = / <>, SETLL / SETGT…)。",
+  "Declare {0}": "声明 {0}",
+  "Remove the unused DCL": "删除未使用的 DCL",
+  "Add WHERE 1 = 1 (every row on purpose)": "添加 WHERE 1 = 1 (有意针对所有行)",
+  "Turn off the \"{0}\" check": "关闭 \"{0}\" 检查"
 }

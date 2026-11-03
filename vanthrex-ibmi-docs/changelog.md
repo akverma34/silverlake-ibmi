@@ -8,7 +8,7 @@ nav_order: 90
 
 ## 2.6.0 (not released yet)
 
-**Daily RPG development** — about 95 small features for the code you write every day. Everything works on the open source, with no round trip to the IBM i, so it is instant and works offline.
+**Daily RPG development** — more than 100 small features for the code you write every day. Everything works on the open source, with no round trip to the IBM i, so it is instant and works offline.
 
 **19 new code checks** (each one can be switched off in `vanthrex.lint.rules`)
 
@@ -53,6 +53,20 @@ nav_order: 90
 - **CL**: the MONMSG that usually follows a command, with its message (CHKOBJ → CPF9801, DLTF → CPF2105, CRTLIB → CPF2111, ADDLIBLE → CPF2103… 29 commands), DCL for the PGM PARM parameters not declared yet, and a TYPE / LEN from the variable name.
 - Nothing is suggested inside a comment or a literal, in the middle of a line, or in fixed-format specs. **Turn IBM i Suggestions On or Off** (`vanthrex.editor.inlineSuggestions`).
 - **AI suggestions (off by default)**: `vanthrex.ai.inlineSuggestions` also asks your AI model when you pause typing (`vanthrex.ai.inlineDelay`, 500 ms) and no offline suggestion applies, in RPG, CL, SQL and DDS. The code around the cursor goes through the same guard as the chat (secrets and personal data replaced, denied libraries and protected systems never sent, every request in the audit trail); after three failures in a row it stops until turned on again. **AI: Turn Suggestions While Typing On or Off** asks for confirmation first.
+
+**CL checks while you type** (`vanthrex.lint.cl`, each one also in `vanthrex.lint.rules`)
+
+- Variables used but not declared (quick fix: a DCL with a type from the name) and declared but never used (quick fix: remove the DCL).
+- GOTO to a label that does not exist; DO / DOWHILE / DOUNTIL / DOFOR / SELECT / SUBR not closed, or an ENDDO too many.
+- DCL / DCLF after the first command; a literal longer than the `*CHAR` variable (it is cut); text that is not a number put in a `*DEC` / `*INT` variable (MCH1202 at run time).
+- Library names written in commands (QSYS, QTEMP, QGPL… are fine). A DCLF or INCLUDE turns the undeclared-variable check off, since they bring variables the source does not show.
+
+**SQL checks** in SQL scripts (`vanthrex.lint.sql`) and in embedded SQL in RPG
+
+- UPDATE or DELETE without WHERE (quick fix in scripts: WHERE 1 = 1 when every row is meant), DROP / TRUNCATE flagged as irreversible, `= NULL` / `<> NULL` that is never true, SELECT INTO without WHERE (SQLCODE -811).
+- Statements inside CREATE PROCEDURE / FUNCTION / TRIGGER are left alone; text in literals and comments is ignored.
+
+**More snippets**: CL RCVF loop, DOWHILE, SELECT / WHEN / OTHERWISE, create-if-missing with CHKOBJ, OVRDBF … DLTOVR, SBMJOB, RTVJOBA, SUBR; SQL safe UPDATE (COUNT first), duplicate keys, table sizes, columns of a table, programs using a file.
 
 **7 checks on how variables are used** (from their declared type, free and fixed form; also in `vanthrex.lint.rules`)
 

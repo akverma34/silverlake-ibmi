@@ -690,5 +690,19 @@
   "config.lint.rules.blank-compare-numeric": "*BLANKS またはブランクのリテラルと比較される数値フィールド。",
   "config.lint.rules.char-to-numeric": "数値フィールドに割り当てられるテキスト・リテラル。",
   "config.lint.rules.undeclared-host-variable": "ソースで宣言されていない SQL ホスト変数 (:name)。",
-  "config.lint.rules.undefined-subroutine": "ソースにないサブルーチンの EXSR。"
+  "config.lint.rules.undefined-subroutine": "ソースにないサブルーチンの EXSR。",
+  "config.lint.cl": "入力中に CL ソースをチェックします: 未宣言および未使用の変数、存在しないラベルへの GOTO、閉じられていない DO / SELECT / SUBR、最初のコマンドの後の DCL、長すぎるリテラル、*DEC 変数内のテキスト、ハードコーディングされたライブラリー。",
+  "config.lint.sql": "入力中に SQL スクリプトをチェックします: WHERE のない UPDATE / DELETE、DROP / TRUNCATE、IS NULL の代わりの = NULL、WHERE のない SELECT INTO。",
+  "config.lint.rules.cl-undeclared-variable": "使用されているが宣言 (DCL) されていない CL 変数。",
+  "config.lint.rules.cl-unused-variable": "宣言されているが使用されない CL 変数。",
+  "config.lint.rules.cl-undefined-label": "プログラム内にないラベルへの GOTO。",
+  "config.lint.rules.cl-unbalanced-block": "END のない (または END が多すぎる) DO / DOWHILE / DOUNTIL / DOFOR / SELECT / SUBR。",
+  "config.lint.rules.cl-dcl-after-command": "最初のコマンドの後にある DCL、DCLF、または COPYRIGHT (これらは最初に記述する必要があります)。",
+  "config.lint.rules.cl-value-too-long": "格納先の *CHAR 変数より長いリテラル (切り捨てられます)。",
+  "config.lint.rules.cl-text-in-decimal": "*DEC または *INT 変数に格納される、数値ではないテキスト。",
+  "config.lint.rules.cl-hardcoded-library": "コマンドに記述されたライブラリー名 (ライブラリー・リストを使用してください)。",
+  "config.lint.rules.sql-without-where": "WHERE のない UPDATE または DELETE (テーブルのすべての行が変更されます)。",
+  "config.lint.rules.sql-irreversible": "DROP または TRUNCATE (元に戻せません)。",
+  "config.lint.rules.sql-equals-null": "常に真にならない = NULL または <> NULL (IS NULL / IS NOT NULL を使用してください)。",
+  "config.lint.rules.sql-select-into-many": "キー条件または FETCH FIRST 1 ROW ONLY のない SELECT INTO (複数の行が一致すると SQLCODE -811)。"
 }

@@ -690,5 +690,19 @@
   "config.lint.rules.blank-compare-numeric": "Zone numérique comparée à *BLANKS ou à un littéral à blanc.",
   "config.lint.rules.char-to-numeric": "Littéral texte affecté à une zone numérique.",
   "config.lint.rules.undeclared-host-variable": "Variable hôte SQL (:nom) non déclarée dans le source.",
-  "config.lint.rules.undefined-subroutine": "EXSR d'un sous-programme absent du source."
+  "config.lint.rules.undefined-subroutine": "EXSR d'un sous-programme absent du source.",
+  "config.lint.cl": "Vérifier les sources CL pendant la saisie : variables non déclarées et inutilisées, GOTO vers une étiquette manquante, DO / SELECT / SUBR non fermés, DCL après la première commande, littéraux trop longs, texte dans des variables *DEC, bibliothèques codées en dur.",
+  "config.lint.sql": "Vérifier les scripts SQL pendant la saisie : UPDATE / DELETE sans WHERE, DROP / TRUNCATE, = NULL au lieu de IS NULL, SELECT INTO sans WHERE.",
+  "config.lint.rules.cl-undeclared-variable": "Variables CL utilisées mais non déclarées (DCL).",
+  "config.lint.rules.cl-unused-variable": "Variables CL déclarées mais jamais utilisées.",
+  "config.lint.rules.cl-undefined-label": "GOTO vers une étiquette absente du programme.",
+  "config.lint.rules.cl-unbalanced-block": "DO / DOWHILE / DOUNTIL / DOFOR / SELECT / SUBR sans son END (ou un END en trop).",
+  "config.lint.rules.cl-dcl-after-command": "DCL, DCLF ou COPYRIGHT après la première commande (ils doivent venir en premier).",
+  "config.lint.rules.cl-value-too-long": "Littéral plus long que la variable *CHAR dans laquelle il est placé (il est tronqué).",
+  "config.lint.rules.cl-text-in-decimal": "Texte qui n'est pas un nombre placé dans une variable *DEC ou *INT.",
+  "config.lint.rules.cl-hardcoded-library": "Nom de bibliothèque écrit dans une commande (utilisez la liste de bibliothèques).",
+  "config.lint.rules.sql-without-where": "UPDATE ou DELETE sans WHERE (toutes les lignes de la table sont modifiées).",
+  "config.lint.rules.sql-irreversible": "DROP ou TRUNCATE (irréversible).",
+  "config.lint.rules.sql-equals-null": "= NULL ou <> NULL, qui n'est jamais vrai (utilisez IS NULL / IS NOT NULL).",
+  "config.lint.rules.sql-select-into-many": "SELECT INTO sans condition de clé ni FETCH FIRST 1 ROW ONLY (SQLCODE -811 lorsque plusieurs lignes correspondent)."
 }

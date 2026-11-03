@@ -690,5 +690,19 @@
   "config.lint.rules.blank-compare-numeric": "与 *BLANKS 或空白字面值比较的数字字段。",
   "config.lint.rules.char-to-numeric": "赋给数字字段的文本字面值。",
   "config.lint.rules.undeclared-host-variable": "未在源中声明的 SQL 主变量 (:name)。",
-  "config.lint.rules.undefined-subroutine": "调用源中不存在的子例程的 EXSR。"
+  "config.lint.rules.undefined-subroutine": "调用源中不存在的子例程的 EXSR。",
+  "config.lint.cl": "在键入时检查 CL 源：未声明和未使用的变量、跳转到不存在标签的 GOTO、未闭合的 DO / SELECT / SUBR、第一个命令之后的 DCL、过长的字面值、*DEC 变量中的文本、硬编码的库。",
+  "config.lint.sql": "在键入时检查 SQL 脚本：没有 WHERE 的 UPDATE / DELETE、DROP / TRUNCATE、用 = NULL 代替 IS NULL、没有 WHERE 的 SELECT INTO。",
+  "config.lint.rules.cl-undeclared-variable": "已使用但未声明 (DCL) 的 CL 变量。",
+  "config.lint.rules.cl-unused-variable": "已声明但从未使用的 CL 变量。",
+  "config.lint.rules.cl-undefined-label": "跳转到程序中不存在的标签的 GOTO。",
+  "config.lint.rules.cl-unbalanced-block": "缺少 END (或多出一个 END) 的 DO / DOWHILE / DOUNTIL / DOFOR / SELECT / SUBR。",
+  "config.lint.rules.cl-dcl-after-command": "位于第一个命令之后的 DCL、DCLF 或 COPYRIGHT (它们必须放在最前面)。",
+  "config.lint.rules.cl-value-too-long": "比其所放入的 *CHAR 变量更长的字面值 (会被截断)。",
+  "config.lint.rules.cl-text-in-decimal": "放入 *DEC 或 *INT 变量中的非数字文本。",
+  "config.lint.rules.cl-hardcoded-library": "写在命令中的库名 (请使用库列表)。",
+  "config.lint.rules.sql-without-where": "没有 WHERE 的 UPDATE 或 DELETE (表中的所有行都会被更改)。",
+  "config.lint.rules.sql-irreversible": "DROP 或 TRUNCATE (无法撤销)。",
+  "config.lint.rules.sql-equals-null": "= NULL 或 <> NULL，其结果永远不为真 (请使用 IS NULL / IS NOT NULL)。",
+  "config.lint.rules.sql-select-into-many": "没有键条件或 FETCH FIRST 1 ROW ONLY 的 SELECT INTO (多行匹配时返回 SQLCODE -811)。"
 }

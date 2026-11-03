@@ -55,5 +55,86 @@
       "ERROR:       RCVMSG     MSGTYPE(*LAST) MSGDTA(&MSGDTA) MSGID(&MSGID) MSGF(&MSGF) SNDMSGFLIB(&MSGFLIB)",
       "             SNDPGMMSG  MSGID(&MSGID) MSGF(&MSGFLIB/&MSGF) MSGDTA(&MSGDTA) MSGTYPE(*ESCAPE)"
     ]
+  },
+  "RCVF loop": {
+    "prefix": "rcvf",
+    "description": "Read a declared file to the end",
+    "body": [
+      "             DCLF       FILE(${1:FILE})",
+      "",
+      "READ:        RCVF",
+      "             MONMSG     MSGID(CPF0864) EXEC(GOTO CMDLBL(EOF))",
+      "             $0",
+      "             GOTO       CMDLBL(READ)",
+      "EOF:"
+    ]
+  },
+  "DOWHILE loop": {
+    "prefix": "dowhile",
+    "description": "DOWHILE … ENDDO",
+    "body": [
+      "             DOWHILE    COND(${1:&COUNT *LT 10})",
+      "               $0",
+      "             ENDDO"
+    ]
+  },
+  "SELECT WHEN": {
+    "prefix": "select",
+    "description": "SELECT / WHEN / OTHERWISE",
+    "body": [
+      "             SELECT",
+      "             WHEN       COND(${1:&A *EQ '1'}) THEN(DO)",
+      "               $0",
+      "             ENDDO",
+      "             OTHERWISE  CMD(DO)",
+      "             ENDDO",
+      "             ENDSELECT"
+    ]
+  },
+  "Create if missing": {
+    "prefix": "chkobj-create",
+    "description": "Check an object and create it when it does not exist",
+    "body": [
+      "             CHKOBJ     OBJ(${1:QTEMP}/${2:WORK}) OBJTYPE(*FILE)",
+      "             MONMSG     MSGID(CPF9801) EXEC(DO)",
+      "               CRTPF      FILE(${1}/${2}) RCDLEN(${3:100})",
+      "             ENDDO"
+    ]
+  },
+  "Override and delete": {
+    "prefix": "ovrdbf",
+    "description": "OVRDBF … call … DLTOVR",
+    "body": [
+      "             OVRDBF     FILE(${1:FILE}) TOFILE(${2:*LIBL}/${3:FILE}) OVRSCOPE(*CALLLVL)",
+      "             CALL       PGM(${4:PGM})",
+      "             DLTOVR     FILE(${1})",
+      "             MONMSG     MSGID(CPF9841)"
+    ]
+  },
+  "Submit job": {
+    "prefix": "sbmjob",
+    "description": "Submit a command to batch",
+    "body": [
+      "             SBMJOB     CMD(CALL PGM(${1:PGM})) JOB(${2:JOBNAME}) JOBQ(${3:QBATCH})"
+    ]
+  },
+  "Job attributes": {
+    "prefix": "rtvjoba",
+    "description": "Retrieve the user, job and number",
+    "body": [
+      "             DCL        VAR(&USER) TYPE(*CHAR) LEN(10)",
+      "             DCL        VAR(&JOB) TYPE(*CHAR) LEN(10)",
+      "             DCL        VAR(&NBR) TYPE(*CHAR) LEN(6)",
+      "             RTVJOBA    JOB(&JOB) USER(&USER) NBR(&NBR)"
+    ]
+  },
+  "Subroutine": {
+    "prefix": "subr",
+    "description": "SUBR … ENDSUBR (CALLSUBR to run it)",
+    "body": [
+      "             SUBR       SUBR(${1:NAME})",
+      "               $0",
+      "             ENDSUBR"
+    ]
   }
 }

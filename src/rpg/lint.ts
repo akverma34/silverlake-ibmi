@@ -1,7 +1,8 @@
 // RPG code checks (pure, unit tested). Returns findings; the extension turns them into diagnostics.
 import { findOccurrences, isFixedLine, maskLine, parseRpg } from './parser';
 import { DAILY_RULES, DailyRule, dailyLint } from './rpgProductivity';
-import { SAFETY_RULES, SafetyRule, safetyLint } from './rpgSafetyChecks';
+import { embeddedSqlLint, SAFETY_RULES, SafetyRule, safetyLint } from './rpgSafetyChecks';
+import { SQL_RULES, SqlRule } from '../core/sqlChecks';
 import { DATA_RULES, DataRule, dataLint } from './rpgDataChecks';
 
 export type LintSeverity = 'error' | 'warning' | 'info' | 'hint';
@@ -25,7 +26,7 @@ export interface LintOptions {
 
 export type LintRule =
   | 'unused-definition' | 'goto' | 'program-end' | 'long-procedure'
-  | 'numbered-indicator' | 'empty-on-error' | 'select-star' | 'mixed-format' | 'tag' | DailyRule | SafetyRule | DataRule;
+  | 'numbered-indicator' | 'empty-on-error' | 'select-star' | 'mixed-format' | 'tag' | DailyRule | SafetyRule | DataRule | SqlRule;
 
 export const LINT_RULES: Record<LintRule, string> = {
   'unused-definition': 'Variables, constants and subroutines that are declared but never used',
@@ -40,6 +41,7 @@ export const LINT_RULES: Record<LintRule, string> = {
   ...DAILY_RULES,
   ...SAFETY_RULES,
   ...DATA_RULES,
+  ...SQL_RULES,
 };
 
 export function lintRpg(text: string, options: LintOptions = {}): LintFinding[] {
@@ -160,6 +162,7 @@ export function lintRpg(text: string, options: LintOptions = {}): LintFinding[] 
   const on = (r: string) => options.rules?.[r as LintRule] !== false;
   try { findings.push(...dailyLint(text, { enabled: on, maxNesting: options.maxNesting, isInclude: options.isInclude })); } catch { /* keep the other findings */ }
   try { findings.push(...safetyLint(text, { enabled: on })); } catch { /* keep the other findings */ }
+  try { findings.push(...embeddedSqlLint(text, on)); } catch { /* keep the other findings */ }
   try { findings.push(...dataLint(text, { enabled: r => on(r) && !(options.isInclude && (r === 'undeclared-host-variable' || r === 'undefined-subroutine')) })); } catch { /* keep the other findings */ }
   return findings;
 }

@@ -690,5 +690,19 @@
   "config.lint.rules.blank-compare-numeric": "A numeric field compared with *BLANKS or a blank literal.",
   "config.lint.rules.char-to-numeric": "A text literal assigned to a numeric field.",
   "config.lint.rules.undeclared-host-variable": "An SQL host variable (:name) that is not declared in the source.",
-  "config.lint.rules.undefined-subroutine": "EXSR of a subroutine that is not in the source."
+  "config.lint.rules.undefined-subroutine": "EXSR of a subroutine that is not in the source.",
+  "config.lint.cl": "Check CL sources while you type: undeclared and unused variables, GOTO to a missing label, DO / SELECT / SUBR not closed, DCL after the first command, literals too long, text in *DEC variables, hard-coded libraries.",
+  "config.lint.sql": "Check SQL scripts while you type: UPDATE / DELETE without WHERE, DROP / TRUNCATE, = NULL instead of IS NULL, SELECT INTO without WHERE.",
+  "config.lint.rules.cl-undeclared-variable": "CL variables used but not declared (DCL).",
+  "config.lint.rules.cl-unused-variable": "CL variables declared but never used.",
+  "config.lint.rules.cl-undefined-label": "GOTO to a label that is not in the program.",
+  "config.lint.rules.cl-unbalanced-block": "DO / DOWHILE / DOUNTIL / DOFOR / SELECT / SUBR without its END (or an END too many).",
+  "config.lint.rules.cl-dcl-after-command": "DCL, DCLF or COPYRIGHT after the first command (they must come first).",
+  "config.lint.rules.cl-value-too-long": "A literal longer than the *CHAR variable it is put in (it is cut).",
+  "config.lint.rules.cl-text-in-decimal": "Text that is not a number put in a *DEC or *INT variable.",
+  "config.lint.rules.cl-hardcoded-library": "A library name written in a command (use the library list).",
+  "config.lint.rules.sql-without-where": "UPDATE or DELETE without WHERE (every row of the table is changed).",
+  "config.lint.rules.sql-irreversible": "DROP or TRUNCATE (cannot be undone).",
+  "config.lint.rules.sql-equals-null": "= NULL or <> NULL, which is never true (use IS NULL / IS NOT NULL).",
+  "config.lint.rules.sql-select-into-many": "SELECT INTO without a key condition or FETCH FIRST 1 ROW ONLY (SQLCODE -811 when several rows match)."
 }

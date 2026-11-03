@@ -3161,5 +3161,9 @@
   "Create subroutine {0}": "Crea la subroutine {0}",
   "Compare with 0": "Confronta con 0",
   "Convert with {0}": "Converti con {0}",
-  "Nothing to toggle here (*ON / *OFF, AND / OR, = / <>, SETLL / SETGT…).": "Niente da alternare qui (*ON / *OFF, AND / OR, = / <>, SETLL / SETGT…)."
+  "Nothing to toggle here (*ON / *OFF, AND / OR, = / <>, SETLL / SETGT…).": "Niente da alternare qui (*ON / *OFF, AND / OR, = / <>, SETLL / SETGT…).",
+  "Declare {0}": "Dichiara {0}",
+  "Remove the unused DCL": "Rimuovi la DCL inutilizzata",
+  "Add WHERE 1 = 1 (every row on purpose)": "Aggiungi WHERE 1 = 1 (tutte le righe intenzionalmente)",
+  "Turn off the \"{0}\" check": "Disattiva il controllo \"{0}\""
 }

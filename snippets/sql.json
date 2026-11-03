@@ -77,5 +77,56 @@
     "body": [
       "SELECT * FROM QSYS2.SYSTEM_STATUS_INFO;"
     ]
+  },
+  "Safe update": {
+    "prefix": "update-safe",
+    "description": "UPDATE with WHERE, checked first with a COUNT",
+    "body": [
+      "-- 1. How many rows will change?",
+      "SELECT COUNT(*) FROM ${1:LIB}.${2:TABLE} WHERE ${3:KEY} = ${4:value};",
+      "-- 2. Change them",
+      "UPDATE ${1}.${2} SET ${5:COL} = ${6:value} WHERE ${3} = ${4};"
+    ]
+  },
+  "Duplicate rows": {
+    "prefix": "duplicates",
+    "description": "Rows with the same key more than once",
+    "body": [
+      "SELECT ${1:KEY}, COUNT(*) AS N",
+      "  FROM ${2:LIB}.${3:TABLE}",
+      "  GROUP BY ${1}",
+      "  HAVING COUNT(*) > 1",
+      "  ORDER BY N DESC;"
+    ]
+  },
+  "Table size": {
+    "prefix": "table-size",
+    "description": "Rows and size of the tables of a library",
+    "body": [
+      "SELECT TABLE_NAME, NUMBER_ROWS, DATA_SIZE / 1048576 AS MB",
+      "  FROM QSYS2.SYSTABLESTAT",
+      "  WHERE TABLE_SCHEMA = '${1:LIB}'",
+      "  ORDER BY DATA_SIZE DESC;"
+    ]
+  },
+  "Columns of a table": {
+    "prefix": "columns",
+    "description": "Columns of a table with their type and text",
+    "body": [
+      "SELECT COLUMN_NAME, DATA_TYPE, LENGTH, NUMERIC_SCALE, IS_NULLABLE, COLUMN_TEXT",
+      "  FROM QSYS2.SYSCOLUMNS",
+      "  WHERE TABLE_SCHEMA = '${1:LIB}' AND TABLE_NAME = '${2:TABLE}'",
+      "  ORDER BY ORDINAL_POSITION;"
+    ]
+  },
+  "Programs using a file": {
+    "prefix": "where-used-file",
+    "description": "Programs of a library that use a file (DSPPGMREF into QTEMP)",
+    "body": [
+      "CALL QSYS2.QCMDEXC('DSPPGMREF PGM(${1:LIB}/*ALL) OUTPUT(*OUTFILE) OUTFILE(QTEMP/REFS)');",
+      "SELECT WHLIB, WHPNAM, WHFNAM, WHOTYP",
+      "  FROM QTEMP.REFS",
+      "  WHERE WHFNAM = '${2:FILE}';"
+    ]
   }
 }
