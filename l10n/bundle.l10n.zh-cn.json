@@ -3149,5 +3149,12 @@
   "No unused one-line DCL-S or DCL-C to remove.": "没有可删除的未使用单行 DCL-S 或 DCL-C。",
   "Remove {0} unused declaration(s)?": "删除 {0} 个未使用的声明？",
   "{0} declaration(s) removed (Ctrl+Z to undo).": "已删除 {0} 个声明 (按 Ctrl+Z 撤销)。",
-  "Update the prototype of {0} from its procedure interface": "根据过程接口更新 {0} 的原型"
+  "Update the prototype of {0} from its procedure interface": "根据过程接口更新 {0} 的原型",
+  "Vanthrex suggests the next IBM i code as you type.": "Vanthrex 会在您键入时建议下一段 IBM i 代码。",
+  "IBM i suggestions on (Tab accepts).": "IBM i 建议已开启 (按 Tab 接受)。",
+  "IBM i suggestions off.": "IBM i 建议已关闭。",
+  "Turn on": "开启",
+  "AI suggestions send the code around the cursor (about 100 lines) to your AI model when you pause typing, through the Vanthrex guard (secrets and personal data replaced, protected systems and denied libraries never sent). Turn on?": "AI 建议会在您暂停键入时，通过 Vanthrex 防护将光标周围的代码 (约 100 行) 发送给您的 AI 模型 (机密和个人数据会被替换，受保护的系统和被拒绝的库永远不会发送)。是否开启？",
+  "AI suggestions on.": "AI 建议已开启。",
+  "AI suggestions off.": "AI 建议已关闭。"
 }

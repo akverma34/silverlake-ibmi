@@ -677,5 +677,10 @@
   "config.lint.rules.assign-to-const": "被修改的 CONST 参数 (编译会因 RNF5346 失败)。",
   "config.lint.rules.infinite-loop": "条件为常量且内部没有 LEAVE 或 RETURN 的 DOW / DOU 循环。",
   "config.lint.rules.leave-outside-loop": "位于 DOW、DOU 或 FOR 循环之外的 LEAVE 或 ITER。",
-  "config.lint.rules.hardcoded-library": "在 EXTFILE / EXTDESC / EXTNAME 或嵌入式 SQL 中写入的库名 (请使用库列表)。"
+  "config.lint.rules.hardcoded-library": "在 EXTFILE / EXTDESC / EXTNAME 或嵌入式 SQL 中写入的库名 (请使用库列表)。",
+  "command.toggleInlineSuggestions": "开启或关闭 IBM i 建议",
+  "command.ai.toggleInlineSuggestions": "AI: 开启或关闭键入时建议",
+  "config.editor.inlineSuggestions": "在 RPG 和 CL 中键入时的建议，以灰色显示，按 **Tab** 接受：您通常接下来编写的语句 (CHAIN 后的 IF %FOUND、嵌入式 SQL 后的 SQLCODE 测试、DECLARE CURSOR 后的 OPEN 和 FETCH、CHKOBJ / DLTF 后的 MONMSG…)、根据名称和已声明变量推断的新变量类型、%FOUND / %EOF 的文件以及调用的参数。离线：不会发送任何内容。",
+  "config.ai.inlineSuggestions": "当您暂停键入且没有适用的离线建议时，同时向 AI 模型请求建议 (RPG、CL、SQL、DDS)。光标周围的代码会先经过 Vanthrex 防护 (机密和个人数据会被替换，被拒绝的库和受保护的系统永远不会发送)，并且每个请求都会记录在审计跟踪中。",
+  "config.ai.inlineDelay": "请求 AI 建议之前的暂停时间 (毫秒)。"
 }

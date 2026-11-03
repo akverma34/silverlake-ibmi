@@ -1166,6 +1166,12 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** Clean modules in seconds.
 - **How:** Command Palette → *Vanthrex RPG*.
 
+### 182. Suggestions while you type — new in 2.6
+
+- **What:** grey text with the next statement you usually write (IF %FOUND after CHAIN, SQLCODE test, OPEN / FETCH, MONMSG after CL commands), variable types from names, the file of %FOUND / %EOF and call parameters; AI suggestions when turned on.
+- **Why:** less typing and fewer forgotten checks, offline and instant.
+- **How:** type, then **Tab** to accept. `vanthrex.editor.inlineSuggestions` (on), `vanthrex.ai.inlineSuggestions` (off).
+
 ## Keyboard shortcuts
 
 | Keys | Action |

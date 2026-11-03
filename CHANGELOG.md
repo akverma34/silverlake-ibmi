@@ -2,7 +2,7 @@
 
 ## 2.6.0 (not released yet)
 
-**Daily RPG development** — about 75 small features for the code you write every day. Everything works on the open source, with no round trip to the IBM i, so it is instant and works offline.
+**Daily RPG development** — about 85 small features for the code you write every day. Everything works on the open source, with no round trip to the IBM i, so it is instant and works offline.
 
 **19 new code checks** (each one can be switched off in `vanthrex.lint.rules`)
 
@@ -38,6 +38,15 @@
 - Hover on `/COPY` and `/INCLUDE` shows the start of the member.
 - Fixed-format RPG: the column fields of the current line are shaded with their name on hover.
 - **Open IBM Documentation for the Word** under the cursor (release in `vanthrex.editor.docsRelease`).
+
+**Suggestions while you type** (grey text, **Tab** accepts, Esc ignores)
+
+- **The next statement you usually write**, offline and instant: `IF %FOUND(file)` after CHAIN, `READE` / `READ` after SETLL, `EXEC SQL OPEN` after DECLARE CURSOR and `FETCH NEXT` after OPEN, an SQLCODE test after SELECT INTO / INSERT / UPDATE / DELETE / FETCH, `DCL-PI` after `DCL-PROC`, CTL-OPT right after `**FREE`.
+- **The type of a new variable** from its name and from the variables already declared (`dcl-s custName` → the type of `shipName`; `…Date` → `date`, `…Total` → `packed(11:2)`, `is…` → `ind`, `…Count` → `int(10)`, `…Stmt` → `varchar(3000)`).
+- **The file of `%FOUND(` / `%EOF(` / `%EQUAL(`** from the last CHAIN, SETLL or READ, **the parameters of a call** (`calc(` → `custNo: amount);`), `*INLR = *ON;`, the usual CTL-OPT, DCL-F and DCL-DS keywords.
+- **CL**: the MONMSG that usually follows a command, with its message (CHKOBJ → CPF9801, DLTF → CPF2105, CRTLIB → CPF2111, ADDLIBLE → CPF2103… 29 commands), DCL for the PGM PARM parameters not declared yet, and a TYPE / LEN from the variable name.
+- Nothing is suggested inside a comment or a literal, in the middle of a line, or in fixed-format specs. **Turn IBM i Suggestions On or Off** (`vanthrex.editor.inlineSuggestions`).
+- **AI suggestions (off by default)**: `vanthrex.ai.inlineSuggestions` also asks your AI model when you pause typing (`vanthrex.ai.inlineDelay`, 500 ms) and no offline suggestion applies, in RPG, CL, SQL and DDS. The code around the cursor goes through the same guard as the chat (secrets and personal data replaced, denied libraries and protected systems never sent, every request in the audit trail); after three failures in a row it stops until turned on again. **AI: Turn Suggestions While Typing On or Off** asks for confirmation first.
 
 **6 checks for errors found late** (also in `vanthrex.lint.rules`)
 

@@ -7,7 +7,7 @@ parent: "Reference"
 
 # Commands
 
-All 440 commands contributed by Vanthrex for IBM i 2.6.0. Run any of them from the
+All 442 commands contributed by Vanthrex for IBM i 2.6.0. Run any of them from the
 Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-click menus and view toolbars.
 
 | Command | ID | Keys |
@@ -46,6 +46,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | AI: Review My Changes | `vanthrex.ai.changes` |  |
 | AI: Review This Code | `vanthrex.ai.review` |  |
 | AI: Show Audit Trail | `vanthrex.ai.showAudit` |  |
+| AI: Turn Suggestions While Typing On or Off | `vanthrex.ai.toggleInlineSuggestions` |  |
 | AI: Why Did This Job Fail? | `vanthrex.ai.jobLog` |  |
 | AI: Write CL from a Description… | `vanthrex.ai.cl` |  |
 | AI: Write SQL from a Description… | `vanthrex.ai.sql` |  |
@@ -410,6 +411,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Toggle Bookmark | `vanthrex.bookmark.toggle` | Ctrl+Alt+B |
 | Toggle RPG Comment | `vanthrex.rpg.toggleComment` | Ctrl+/ |
 | Toggle Source Dates (SEU) | `vanthrex.toggleSourceDates` | Ctrl+Alt+D |
+| Turn IBM i Suggestions On or Off | `vanthrex.toggleInlineSuggestions` |  |
 | Turn Live Alerts On/Off | `vanthrex.alerts.toggle` |  |
 | Turn Off a Code Check | `vanthrex.disableLintRule` |  |
 | Turn SQL Error Logging On or Off… | `vanthrex.sqlErrorLog.settings` |  |

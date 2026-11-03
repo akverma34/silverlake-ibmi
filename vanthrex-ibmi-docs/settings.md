@@ -136,6 +136,9 @@ Open **File → Preferences → Settings** and search for *Vanthrex*, or edit `s
 | `vanthrex.editor.wrapColumn` | number | `100` | Column at which **Wrap Long Line** splits free-form RPG. Column-limited sources always wrap at 80. |
 | `vanthrex.editor.docsRelease` | string | `"7.5"` | IBM i release used by **Open IBM Documentation for the Word**. |
 | `vanthrex.lint.maxNesting` | number | `6` | Deepest block nesting before the `deep-nesting` check reports it. |
+| `vanthrex.editor.inlineSuggestions` | boolean | `true` | Suggestions while you type in RPG and CL, shown in grey and accepted with **Tab**: the next statement you usually write (IF %FOUND after CHAIN, SQLCODE test after embedded SQL, OPEN and FETCH after DECLARE CURSOR, MONMSG after CHKOBJ / DLTF…), the type of a new variable from its name and from the variables already declared, the file of %FOUND / %EOF and the parameters of a call. Offline: nothing is sent anywhere. |
+| `vanthrex.ai.inlineSuggestions` | boolean | `false` | Also ask the AI model for a suggestion when you pause typing and no offline suggestion applies (RPG, CL, SQL, DDS). The code around the cursor goes through the Vanthrex guard first (secrets and personal data replaced, denied libraries and protected systems never sent) and every request is in the audit trail. |
+| `vanthrex.ai.inlineDelay` | number | `500` | Pause in milliseconds before an AI suggestion is requested. |
 
 ## RPG check rules
 

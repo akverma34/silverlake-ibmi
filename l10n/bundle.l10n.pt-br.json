@@ -3149,5 +3149,12 @@
   "No unused one-line DCL-S or DCL-C to remove.": "Nenhuma DCL-S ou DCL-C de uma linha não utilizada para remover.",
   "Remove {0} unused declaration(s)?": "Remover {0} declaração(ões) não utilizada(s)?",
   "{0} declaration(s) removed (Ctrl+Z to undo).": "{0} declaração(ões) removida(s) (Ctrl+Z para desfazer).",
-  "Update the prototype of {0} from its procedure interface": "Atualizar o protótipo de {0} a partir da sua interface de procedimento"
+  "Update the prototype of {0} from its procedure interface": "Atualizar o protótipo de {0} a partir da sua interface de procedimento",
+  "Vanthrex suggests the next IBM i code as you type.": "O Vanthrex sugere o próximo código IBM i enquanto você digita.",
+  "IBM i suggestions on (Tab accepts).": "Sugestões do IBM i ativadas (Tab aceita).",
+  "IBM i suggestions off.": "Sugestões do IBM i desativadas.",
+  "Turn on": "Ativar",
+  "AI suggestions send the code around the cursor (about 100 lines) to your AI model when you pause typing, through the Vanthrex guard (secrets and personal data replaced, protected systems and denied libraries never sent). Turn on?": "As sugestões de IA enviam o código ao redor do cursor (cerca de 100 linhas) ao seu modelo de IA quando você pausa a digitação, através da proteção do Vanthrex (segredos e dados pessoais substituídos, sistemas protegidos e bibliotecas negadas nunca enviados). Ativar?",
+  "AI suggestions on.": "Sugestões de IA ativadas.",
+  "AI suggestions off.": "Sugestões de IA desativadas."
 }

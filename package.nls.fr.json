@@ -677,5 +677,10 @@
   "config.lint.rules.assign-to-const": "Paramètre CONST modifié (la compilation échoue avec RNF5346).",
   "config.lint.rules.infinite-loop": "Boucles DOW / DOU sur une condition constante sans LEAVE ni RETURN à l'intérieur.",
   "config.lint.rules.leave-outside-loop": "LEAVE ou ITER en dehors d'une boucle DOW, DOU ou FOR.",
-  "config.lint.rules.hardcoded-library": "Nom de bibliothèque écrit dans EXTFILE / EXTDESC / EXTNAME ou dans du SQL intégré (utilisez la liste de bibliothèques)."
+  "config.lint.rules.hardcoded-library": "Nom de bibliothèque écrit dans EXTFILE / EXTDESC / EXTNAME ou dans du SQL intégré (utilisez la liste de bibliothèques).",
+  "command.toggleInlineSuggestions": "Activer ou désactiver les suggestions IBM i",
+  "command.ai.toggleInlineSuggestions": "IA : Activer ou désactiver les suggestions pendant la saisie",
+  "config.editor.inlineSuggestions": "Suggestions pendant la saisie en RPG et CL, affichées en gris et acceptées avec **Tab** : l'instruction suivante que vous écrivez habituellement (IF %FOUND après CHAIN, test de SQLCODE après du SQL intégré, OPEN et FETCH après DECLARE CURSOR, MONMSG après CHKOBJ / DLTF…), le type d'une nouvelle variable d'après son nom et les variables déjà déclarées, le fichier de %FOUND / %EOF et les paramètres d'un appel. Hors ligne : rien n'est envoyé nulle part.",
+  "config.ai.inlineSuggestions": "Demander aussi une suggestion au modèle d'IA lorsque vous faites une pause dans la saisie et qu'aucune suggestion hors ligne ne s'applique (RPG, CL, SQL, DDS). Le code autour du curseur passe d'abord par la protection Vanthrex (secrets et données personnelles remplacés, bibliothèques refusées et systèmes protégés jamais envoyés) et chaque requête figure dans la piste d'audit.",
+  "config.ai.inlineDelay": "Pause en millisecondes avant qu'une suggestion IA soit demandée."
 }

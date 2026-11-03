@@ -677,5 +677,10 @@
   "config.lint.rules.assign-to-const": "変更される CONST パラメーター (コンパイルは RNF5346 で失敗します)。",
   "config.lint.rules.infinite-loop": "LEAVE も RETURN も含まない、定数条件の DOW / DOU ループ。",
   "config.lint.rules.leave-outside-loop": "DOW、DOU、または FOR ループの外にある LEAVE または ITER。",
-  "config.lint.rules.hardcoded-library": "EXTFILE / EXTDESC / EXTNAME または組み込み SQL に記述されたライブラリー名 (ライブラリー・リストを使用してください)。"
+  "config.lint.rules.hardcoded-library": "EXTFILE / EXTDESC / EXTNAME または組み込み SQL に記述されたライブラリー名 (ライブラリー・リストを使用してください)。",
+  "command.toggleInlineSuggestions": "IBM i の提案のオン/オフ",
+  "command.ai.toggleInlineSuggestions": "AI: 入力中の提案のオン/オフ",
+  "config.editor.inlineSuggestions": "RPG および CL での入力中の提案です。灰色で表示され、**Tab** で確定します: 通常次に記述するステートメント (CHAIN の後の IF %FOUND、組み込み SQL の後の SQLCODE テスト、DECLARE CURSOR の後の OPEN と FETCH、CHKOBJ / DLTF の後の MONMSG…)、名前と宣言済みの変数から推測した新しい変数の型、%FOUND / %EOF のファイル、呼び出しのパラメーター。オフライン: どこにも何も送信されません。",
+  "config.ai.inlineSuggestions": "入力を一時停止し、オフラインの提案が該当しない場合に、AI モデルにも提案を要求します (RPG、CL、SQL、DDS)。カーソル周辺のコードはまず Vanthrex ガードを通過し (シークレットと個人データは置き換えられ、拒否されたライブラリーと保護されたシステムは送信されません)、すべての要求は監査証跡に記録されます。",
+  "config.ai.inlineDelay": "AI 提案を要求するまでの一時停止時間 (ミリ秒)。"
 }

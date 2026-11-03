@@ -677,5 +677,10 @@
   "config.lint.rules.assign-to-const": "A CONST parameter that is changed (the compile fails with RNF5346).",
   "config.lint.rules.infinite-loop": "DOW / DOU loops on a constant condition with no LEAVE or RETURN inside.",
   "config.lint.rules.leave-outside-loop": "LEAVE or ITER outside a DOW, DOU or FOR loop.",
-  "config.lint.rules.hardcoded-library": "A library name written in EXTFILE / EXTDESC / EXTNAME or in embedded SQL (use the library list)."
+  "config.lint.rules.hardcoded-library": "A library name written in EXTFILE / EXTDESC / EXTNAME or in embedded SQL (use the library list).",
+  "command.toggleInlineSuggestions": "Turn IBM i Suggestions On or Off",
+  "command.ai.toggleInlineSuggestions": "AI: Turn Suggestions While Typing On or Off",
+  "config.editor.inlineSuggestions": "Suggestions while you type in RPG and CL, shown in grey and accepted with **Tab**: the next statement you usually write (IF %FOUND after CHAIN, SQLCODE test after embedded SQL, OPEN and FETCH after DECLARE CURSOR, MONMSG after CHKOBJ / DLTF…), the type of a new variable from its name and from the variables already declared, the file of %FOUND / %EOF and the parameters of a call. Offline: nothing is sent anywhere.",
+  "config.ai.inlineSuggestions": "Also ask the AI model for a suggestion when you pause typing and no offline suggestion applies (RPG, CL, SQL, DDS). The code around the cursor goes through the Vanthrex guard first (secrets and personal data replaced, denied libraries and protected systems never sent) and every request is in the audit trail.",
+  "config.ai.inlineDelay": "Pause in milliseconds before an AI suggestion is requested."
 }

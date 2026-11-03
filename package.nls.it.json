@@ -677,5 +677,10 @@
   "config.lint.rules.assign-to-const": "Un parametro CONST che viene modificato (la compilazione non riesce con RNF5346).",
   "config.lint.rules.infinite-loop": "Cicli DOW / DOU su una condizione costante senza LEAVE o RETURN all'interno.",
   "config.lint.rules.leave-outside-loop": "LEAVE o ITER al di fuori di un ciclo DOW, DOU o FOR.",
-  "config.lint.rules.hardcoded-library": "Un nome di libreria scritto in EXTFILE / EXTDESC / EXTNAME o nell'SQL incorporato (usa l'elenco librerie)."
+  "config.lint.rules.hardcoded-library": "Un nome di libreria scritto in EXTFILE / EXTDESC / EXTNAME o nell'SQL incorporato (usa l'elenco librerie).",
+  "command.toggleInlineSuggestions": "Attiva o disattiva i suggerimenti IBM i",
+  "command.ai.toggleInlineSuggestions": "IA: Attiva o disattiva i suggerimenti durante la digitazione",
+  "config.editor.inlineSuggestions": "Suggerimenti durante la digitazione in RPG e CL, mostrati in grigio e accettati con **Tab**: l'istruzione successiva che scrivi di solito (IF %FOUND dopo CHAIN, test di SQLCODE dopo l'SQL incorporato, OPEN e FETCH dopo DECLARE CURSOR, MONMSG dopo CHKOBJ / DLTF…), il tipo di una nuova variabile in base al nome e alle variabili già dichiarate, il file di %FOUND / %EOF e i parametri di una chiamata. Offline: non viene inviato nulla.",
+  "config.ai.inlineSuggestions": "Chiedi anche un suggerimento al modello di IA quando fai una pausa nella digitazione e non si applica alcun suggerimento offline (RPG, CL, SQL, DDS). Il codice attorno al cursore passa prima per la protezione Vanthrex (segreti e dati personali sostituiti, librerie negate e sistemi protetti mai inviati) e ogni richiesta viene registrata nella traccia di controllo.",
+  "config.ai.inlineDelay": "Pausa in millisecondi prima della richiesta di un suggerimento IA."
 }

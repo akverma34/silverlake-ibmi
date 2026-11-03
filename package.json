@@ -2702,6 +2702,18 @@
         "title": "%command.rpg.removeUnusedDeclarations%",
         "category": "Vanthrex RPG",
         "icon": "$(trash)"
+      },
+      {
+        "command": "vanthrex.toggleInlineSuggestions",
+        "title": "%command.toggleInlineSuggestions%",
+        "category": "Vanthrex",
+        "icon": "$(lightbulb)"
+      },
+      {
+        "command": "vanthrex.ai.toggleInlineSuggestions",
+        "title": "%command.ai.toggleInlineSuggestions%",
+        "category": "Vanthrex",
+        "icon": "$(sparkle)"
       }
     ],
     "menus": {
@@ -6824,6 +6836,23 @@
           "minimum": 2,
           "maximum": 20,
           "markdownDescription": "%config.lint.maxNesting%"
+        },
+        "vanthrex.editor.inlineSuggestions": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "%config.editor.inlineSuggestions%"
+        },
+        "vanthrex.ai.inlineSuggestions": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "%config.ai.inlineSuggestions%"
+        },
+        "vanthrex.ai.inlineDelay": {
+          "type": "number",
+          "default": 500,
+          "minimum": 150,
+          "maximum": 3000,
+          "markdownDescription": "%config.ai.inlineDelay%"
         }
       }
     },

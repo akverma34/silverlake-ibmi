@@ -3149,5 +3149,12 @@
   "No unused one-line DCL-S or DCL-C to remove.": "削除する未使用の 1 行の DCL-S または DCL-C はありません。",
   "Remove {0} unused declaration(s)?": "未使用の宣言 {0} 個を削除しますか?",
   "{0} declaration(s) removed (Ctrl+Z to undo).": "{0} 個の宣言を削除しました (Ctrl+Z で元に戻す)。",
-  "Update the prototype of {0} from its procedure interface": "プロシージャー・インターフェースから {0} のプロトタイプを更新"
+  "Update the prototype of {0} from its procedure interface": "プロシージャー・インターフェースから {0} のプロトタイプを更新",
+  "Vanthrex suggests the next IBM i code as you type.": "Vanthrex は入力中に次の IBM i コードを提案します。",
+  "IBM i suggestions on (Tab accepts).": "IBM i の提案がオンになりました (Tab で確定)。",
+  "IBM i suggestions off.": "IBM i の提案がオフになりました。",
+  "Turn on": "オンにする",
+  "AI suggestions send the code around the cursor (about 100 lines) to your AI model when you pause typing, through the Vanthrex guard (secrets and personal data replaced, protected systems and denied libraries never sent). Turn on?": "AI 提案では、入力を一時停止したときに、カーソル周辺のコード (約 100 行) が Vanthrex ガードを経由して AI モデルに送信されます (シークレットと個人データは置き換えられ、保護されたシステムと拒否されたライブラリーは送信されません)。オンにしますか?",
+  "AI suggestions on.": "AI 提案がオンになりました。",
+  "AI suggestions off.": "AI 提案がオフになりました。"
 }
