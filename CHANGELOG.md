@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.6.0 (not released yet)
+## 2.6.0
 
 **Daily RPG development** — about 150 small features for the code you write every day. Everything works on the open source, with no round trip to the IBM i, so it is instant and works offline.
 
