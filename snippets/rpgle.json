@@ -200,5 +200,152 @@
     "body": [
       "snd-msg ${1|*info,*escape,*diag,*notify,*comp|} ${2:'message'};"
     ]
+  },
+  "psds": {
+    "prefix": "psds",
+    "description": "Program status data structure",
+    "body": [
+      "dcl-ds psds psds qualified;",
+      "  program *proc;",
+      "  status *status;",
+      "  msgId char(7) pos(40);",
+      "  msgText char(80) pos(91);",
+      "  job char(10) pos(244);",
+      "  user char(10) pos(254);",
+      "  jobNumber zoned(6) pos(264);",
+      "  currentUser char(10) pos(358);",
+      "end-ds;",
+      "$0"
+    ]
+  },
+  "infds": {
+    "prefix": "infds",
+    "description": "File information data structure",
+    "body": [
+      "dcl-ds ${1:file}Info qualified;",
+      "  status *status;",
+      "  opcode *opcode;",
+      "  routine *routine;",
+      "  rrn int(10) pos(397);",
+      "end-ds;",
+      "$0"
+    ]
+  },
+  "nomain module": {
+    "prefix": "nomain",
+    "description": "Service program module skeleton",
+    "body": [
+      "**free",
+      "ctl-opt nomain option(*srcstmt: *nodebugio);",
+      "",
+      "/copy ${1:QPROTOSRC},${2:MODULE}_P",
+      "",
+      "dcl-proc ${3:name} export;",
+      "  dcl-pi *n ${4:int(10)};",
+      "    ${5:parm} ${6:char(10)} const;",
+      "  end-pi;",
+      "",
+      "  $0",
+      "  return 0;",
+      "end-proc;"
+    ]
+  },
+  "dcl-proc monitor": {
+    "prefix": "dcl-proc-monitor",
+    "description": "Procedure with error handling",
+    "body": [
+      "dcl-proc ${1:name};",
+      "  dcl-pi *n ind;",
+      "    ${2:parm} ${3:char(10)} const;",
+      "  end-pi;",
+      "",
+      "  monitor;",
+      "    $0",
+      "  on-error;",
+      "    return *off;",
+      "  endmon;",
+      "  return *on;",
+      "end-proc;"
+    ]
+  },
+  "exec sql insert": {
+    "prefix": "exec sql insert",
+    "description": "Embedded SQL INSERT with SQLCODE test",
+    "body": [
+      "exec sql insert into ${1:table} (${2:col1}, ${3:col2})",
+      "  values (:${4:host1}, :${5:host2});",
+      "if sqlcode < 0;",
+      "  $0",
+      "endif;"
+    ]
+  },
+  "exec sql update": {
+    "prefix": "exec sql update",
+    "description": "Embedded SQL UPDATE with SQLCODE test",
+    "body": [
+      "exec sql update ${1:table}",
+      "  set ${2:col} = :${3:host}",
+      "  where ${4:key} = :${5:keyHost};",
+      "if sqlcode < 0 or sqlcode = 100;",
+      "  $0",
+      "endif;"
+    ]
+  },
+  "qcmdexc": {
+    "prefix": "qcmdexc",
+    "description": "Run a CL command with QCMDEXC",
+    "body": [
+      "dcl-pr qcmdexc extpgm('QCMDEXC');",
+      "  cmd char(3000) const options(*varsize);",
+      "  len packed(15:5) const;",
+      "end-pr;",
+      "dcl-s cmd varchar(3000);",
+      "",
+      "cmd = '${1:DLTOVR FILE(*ALL)}';",
+      "monitor;",
+      "  qcmdexc(cmd: %len(cmd));",
+      "on-error;",
+      "  $0",
+      "endmon;"
+    ]
+  },
+  "data-into json": {
+    "prefix": "data-into",
+    "description": "DATA-INTO from JSON with YAJLINTO",
+    "body": [
+      "data-into ${1:ds} %data(${2:jsonText}: 'case=any allowmissing=yes allowextra=yes')",
+      "  %parser('YAJLINTO');",
+      "$0"
+    ]
+  },
+  "date arithmetic": {
+    "prefix": "date-math",
+    "description": "Date arithmetic and difference",
+    "body": [
+      "dcl-s ${1:today} date inz(*sys);",
+      "dcl-s ${2:due} date;",
+      "dcl-s ${3:days} int(10);",
+      "",
+      "${2} = ${1} + %days(${4:30});",
+      "${3} = %diff(${2}: ${1}: *days);",
+      "$0"
+    ]
+  },
+  "sql cursor loop": {
+    "prefix": "for-each-sql",
+    "description": "SQL cursor loop with close",
+    "body": [
+      "exec sql declare ${1:c1} cursor for",
+      "  select ${2:col} from ${3:table};",
+      "exec sql open ${1};",
+      "dow 1 = 1;",
+      "  exec sql fetch next from ${1} into :${4:host};",
+      "  if sqlcode <> 0;",
+      "    leave;",
+      "  endif;",
+      "  $0",
+      "enddo;",
+      "exec sql close ${1};"
+    ]
   }
 }

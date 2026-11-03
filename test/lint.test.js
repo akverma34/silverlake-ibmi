@@ -5,7 +5,7 @@ const { lintRpg } = require('../out/rpg/lint');
 const rules = f => f.map(x => x.rule);
 
 test('clean program has no findings', () => {
-  const src = `**free\ndcl-s name varchar(20);\nname = 'A';\ndsply name;\n*inlr = *on;\n`;
+  const src = `**free\nctl-opt dftactgrp(*no);\ndcl-s name varchar(20);\ndcl-s copy varchar(20);\nname = 'A';\ncopy = name;\n*inlr = *on;\n`;
   assert.deepStrictEqual(lintRpg(src), []);
 });
 

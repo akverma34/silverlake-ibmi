@@ -21,6 +21,7 @@ export function registerRpgLint(context: vscode.ExtensionContext): void {
     const findings = lintRpg(doc.getText(), {
       rules: config().get<Partial<Record<LintRule, boolean>>>('lint.rules', {}),
       maxProcedureLines: config().get<number>('lint.maxProcedureLines', 200),
+      maxNesting: config().get<number>('lint.maxNesting', 6),
       isInclude: /\.(rpgleinc|rpginc)$/i.test(doc.uri.path) || /\/Q?CPYSRC\//i.test(doc.uri.path),
     });
     collection.set(doc.uri, findings.map(f => {
@@ -28,7 +29,7 @@ export function registerRpgLint(context: vscode.ExtensionContext): void {
       const d = new vscode.Diagnostic(new vscode.Range(line, f.start, line, f.end), f.message, SEVERITY[f.severity]);
       d.source = 'Vanthrex';
       d.code = f.rule;
-      if (f.rule === 'unused-definition') { d.tags = [vscode.DiagnosticTag.Unnecessary]; }
+      if (f.rule === 'unused-definition' || f.rule === 'unused-parameter' || f.rule === 'unused-procedure' || f.rule === 'unreachable-code') { d.tags = [vscode.DiagnosticTag.Unnecessary]; }
       return d;
     }));
   };

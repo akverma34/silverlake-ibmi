@@ -6,6 +6,45 @@ nav_order: 90
 
 # Changelog
 
+## 2.6.0 (not released yet)
+
+**Daily RPG development** — 55 small features for the code you write every day. Everything works on the open source, with no round trip to the IBM i, so it is instant and works offline.
+
+**19 new code checks** (each one can be switched off in `vanthrex.lint.rules`)
+
+- Old fixed-format operation codes (MOVE, Z-ADD, CAT, SCAN…) with their free-form equivalent, and a quick fix that converts the line.
+- CHAIN not followed by `%FOUND`, embedded SQL whose SQLCODE / SQLSTATE is never tested, cursors opened but never closed.
+- `DSPLY` left in the code, statements after RETURN / LEAVE / ITER that never run, empty IF / DOW / FOR / MONITOR blocks, SELECT without OTHER.
+- A literal longer than the field it is assigned to, a name declared twice, blocks nested deeper than `vanthrex.lint.maxNesting` (6).
+- Procedures: input parameters that could be CONST, unused parameters, a return value with no RETURN, procedures neither exported nor called, more than 8 parameters.
+- Free-form programs without CTL-OPT, code after column 80 in column-limited sources, large blocks of commented-out code.
+- Quick fixes for most of them: add CONST, remove the DSPLY or unreachable line, insert CTL-OPT, an `IF NOT %FOUND`, an SQLCODE test or OTHER, wrap the long line.
+
+**Editing**
+
+- **Close the Open Block** (Ctrl+Alt+.) and automatic `ENDIF` / `ENDDO` / `ENDFOR` / `ENDSL` / `ENDMON` / `ENDSR` / `END-PROC` on Enter (`vanthrex.editor.autoCloseBlocks`).
+- **Surround With…** (Ctrl+Alt+W): IF, MONITOR, DOW, FOR, SELECT, BEGSR or a comment around the selection.
+- **Convert IF / ELSEIF to SELECT / WHEN**.
+- **Toggle RPG Comment** (Ctrl+/): `//` in free form, `*` in column 7 in fixed form.
+- **Change Keyword Case…**: operation codes and keywords to lower or upper case, names and literals untouched.
+- **Sort Declarations by Name** and **Align Declarations** for a block of DCL-S / DCL-C.
+- **Wrap Long Line** at `vanthrex.editor.wrapColumn` (80 in column-limited sources), **Insert Column Ruler**, **Clear Change Markers** (columns 1-5).
+- **Format Embedded SQL** under the cursor, in place.
+- **Insert Procedure Skeleton…** and a documentation header from the procedure interface.
+- **Add DCL-PR From the Source Index**: the prototype of a procedure of another member, built from its DCL-PI.
+- Expand selection by statement and block (Shift+Alt+→) in RPG and CL.
+- 10 new snippets: PSDS, INFDS, NOMAIN module, procedure with MONITOR, SQL INSERT / UPDATE with SQLCODE test, SQL cursor loop, QCMDEXC, DATA-INTO JSON, date arithmetic.
+
+**Navigation and help**
+
+- **Go to Next / Previous Procedure** (Ctrl+Alt+PageDown / PageUp) and the current procedure in the status bar.
+- Parameter names shown before call arguments (inlay hints), reference counts above procedures (`vanthrex.editor.referenceCodeLens`, off by default).
+- **Call hierarchy** (Shift+Alt+H) for procedures and subroutines; procedures of all indexed sources in **Go to Symbol in Workspace** (Ctrl+T).
+- Completion of the names declared in the source, procedure calls with their parameters, and subroutines after EXSR.
+- Hover on `/COPY` and `/INCLUDE` shows the start of the member.
+- Fixed-format RPG: the column fields of the current line are shaded with their name on hover.
+- **Open IBM Documentation for the Word** under the cursor (release in `vanthrex.editor.docsRelease`).
+
 ## 2.5.0
 
 **AI with your data protected**

@@ -1,5 +1,6 @@
 // RPG code checks (pure, unit tested). Returns findings; the extension turns them into diagnostics.
 import { findOccurrences, isFixedLine, maskLine, parseRpg } from './parser';
+import { DAILY_RULES, DailyRule, dailyLint } from './rpgProductivity';
 
 export type LintSeverity = 'error' | 'warning' | 'info' | 'hint';
 
@@ -15,13 +16,14 @@ export interface LintFinding {
 export interface LintOptions {
   rules?: Partial<Record<LintRule, boolean>>;
   maxProcedureLines?: number;
+  maxNesting?: number;
   /** /COPY members: declarations are used elsewhere and there is no main program. */
   isInclude?: boolean;
 }
 
 export type LintRule =
   | 'unused-definition' | 'goto' | 'program-end' | 'long-procedure'
-  | 'numbered-indicator' | 'empty-on-error' | 'select-star' | 'mixed-format' | 'tag';
+  | 'numbered-indicator' | 'empty-on-error' | 'select-star' | 'mixed-format' | 'tag' | DailyRule;
 
 export const LINT_RULES: Record<LintRule, string> = {
   'unused-definition': 'Variables, constants and subroutines that are declared but never used',
@@ -33,6 +35,7 @@ export const LINT_RULES: Record<LintRule, string> = {
   'empty-on-error': 'ON-ERROR blocks that silently swallow errors',
   'select-star': 'SELECT * in embedded SQL',
   'mixed-format': 'Fixed-format calculation specs in a free-format source',
+  ...DAILY_RULES,
 };
 
 export function lintRpg(text: string, options: LintOptions = {}): LintFinding[] {
@@ -147,5 +150,6 @@ export function lintRpg(text: string, options: LintOptions = {}): LintFinding[] 
     }
   }
 
+  findings.push(...dailyLint(text, { enabled: r => options.rules?.[r] !== false, maxNesting: options.maxNesting, isInclude: options.isInclude }));
   return findings;
 }

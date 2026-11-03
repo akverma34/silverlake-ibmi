@@ -49,7 +49,7 @@ async function* allDocs(system: string): AsyncGenerator<[string, string, string]
   }
 }
 
-async function docsArray(system: string): Promise<{ docs: [string, string][]; types: Map<string, string> }> {
+export async function docsArray(system: string): Promise<{ docs: [string, string][]; types: Map<string, string> }> {
   const docs: [string, string][] = []; const types = new Map<string, string>();
   for await (const [k, t, ty] of allDocs(system)) { docs.push([k, t]); types.set(k, ty); }
   return { docs, types };

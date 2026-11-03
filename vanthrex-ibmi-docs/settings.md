@@ -127,6 +127,15 @@ Open **File → Preferences → Settings** and search for *Vanthrex*, or edit `s
 | `vanthrex.editor.referenceLinks` | boolean | `true` | Make IBM i references clickable in sources, spooled files and logs: LIB/FILE(MBR), PGM(LIB/OBJ), IFS paths, message IDs and job names. |
 | `vanthrex.macros` | array | `[]` | CL macros for **Run a CL Macro**: a name and a list of CL commands. `${NAME}` asks for a value when the macro runs (`${LIB:MYLIB}` with a default); `${USER}`, `${CURLIB}`, `${DATE}` and `${TIME}` are filled in. The commands run in order and stop at the first error. |
 | `vanthrex.editor.fileFieldHelp` | boolean | `true` | In RPG, hovering a declared file shows its fields from Db2, hovering a field shows its type and text, field names are completed and Ctrl+click on a file opens its DDS source. |
+| `vanthrex.editor.autoCloseBlocks` | boolean | `true` | In RPG, pressing Enter after `IF`, `DOW`, `FOR`, `SELECT`, `MONITOR`, `BEGSR` or `DCL-PROC` adds the matching `END…` line when it is missing. |
+| `vanthrex.editor.parameterNameHints` | boolean | `true` | In RPG, shows the parameter names before the arguments of procedure calls (inlay hints). |
+| `vanthrex.editor.referenceCodeLens` | boolean | `false` | In RPG, shows the number of references above each procedure and subroutine. |
+| `vanthrex.editor.localCompletion` | boolean | `true` | In RPG, completes the names declared in the source: variables, constants, procedures (with their parameters) and subroutines after `EXSR`. |
+| `vanthrex.editor.procedureInStatusBar` | boolean | `true` | In RPG, shows the procedure or subroutine the cursor is in, in the status bar. |
+| `vanthrex.editor.fixedColumnHighlight` | boolean | `true` | In fixed-format RPG, shades every other column field of the current line and shows its name on hover. |
+| `vanthrex.editor.wrapColumn` | number | `100` | Column at which **Wrap Long Line** splits free-form RPG. Column-limited sources always wrap at 80. |
+| `vanthrex.editor.docsRelease` | string | `"7.5"` | IBM i release used by **Open IBM Documentation for the Word**. |
+| `vanthrex.lint.maxNesting` | number | `6` | Deepest block nesting before the `deep-nesting` check reports it. |
 
 ## RPG check rules
 

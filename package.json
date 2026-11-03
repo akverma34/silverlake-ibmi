@@ -2,7 +2,7 @@
   "name": "vanthrex-ibmi",
   "displayName": "%displayName%",
   "description": "%description%",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "publisher": "gauravgupta0612",
   "license": "MIT",
   "icon": "media/icon.png",
@@ -2576,6 +2576,102 @@
         "title": "%command.sourceSet.delete%",
         "category": "Vanthrex",
         "icon": "$(trash)"
+      },
+      {
+        "command": "vanthrex.rpg.closeBlock",
+        "title": "%command.rpg.closeBlock%",
+        "category": "Vanthrex RPG",
+        "icon": "$(bracket)"
+      },
+      {
+        "command": "vanthrex.rpg.ifToSelect",
+        "title": "%command.rpg.ifToSelect%",
+        "category": "Vanthrex RPG",
+        "icon": "$(list-tree)"
+      },
+      {
+        "command": "vanthrex.rpg.surround",
+        "title": "%command.rpg.surround%",
+        "category": "Vanthrex RPG",
+        "icon": "$(symbol-snippet)"
+      },
+      {
+        "command": "vanthrex.rpg.toggleComment",
+        "title": "%command.rpg.toggleComment%",
+        "category": "Vanthrex RPG",
+        "icon": "$(comment)"
+      },
+      {
+        "command": "vanthrex.rpg.keywordCase",
+        "title": "%command.rpg.keywordCase%",
+        "category": "Vanthrex RPG",
+        "icon": "$(case-sensitive)"
+      },
+      {
+        "command": "vanthrex.rpg.sortDeclarations",
+        "title": "%command.rpg.sortDeclarations%",
+        "category": "Vanthrex RPG",
+        "icon": "$(sort-precedence)"
+      },
+      {
+        "command": "vanthrex.rpg.alignDeclarations",
+        "title": "%command.rpg.alignDeclarations%",
+        "category": "Vanthrex RPG",
+        "icon": "$(list-flat)"
+      },
+      {
+        "command": "vanthrex.rpg.wrapLine",
+        "title": "%command.rpg.wrapLine%",
+        "category": "Vanthrex RPG",
+        "icon": "$(word-wrap)"
+      },
+      {
+        "command": "vanthrex.rpg.ruler",
+        "title": "%command.rpg.ruler%",
+        "category": "Vanthrex RPG",
+        "icon": "$(symbol-ruler)"
+      },
+      {
+        "command": "vanthrex.rpg.clearChangeMarkers",
+        "title": "%command.rpg.clearChangeMarkers%",
+        "category": "Vanthrex RPG",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "vanthrex.rpg.nextProcedure",
+        "title": "%command.rpg.nextProcedure%",
+        "category": "Vanthrex RPG",
+        "icon": "$(arrow-down)"
+      },
+      {
+        "command": "vanthrex.rpg.previousProcedure",
+        "title": "%command.rpg.previousProcedure%",
+        "category": "Vanthrex RPG",
+        "icon": "$(arrow-up)"
+      },
+      {
+        "command": "vanthrex.rpg.procedureHeader",
+        "title": "%command.rpg.procedureHeader%",
+        "category": "Vanthrex RPG",
+        "icon": "$(symbol-method)"
+      },
+      {
+        "command": "vanthrex.rpg.formatEmbeddedSql",
+        "title": "%command.rpg.formatEmbeddedSql%",
+        "category": "Vanthrex RPG",
+        "icon": "$(database)"
+      },
+      {
+        "command": "vanthrex.rpg.ibmDocs",
+        "title": "%command.rpg.ibmDocs%",
+        "category": "Vanthrex RPG",
+        "icon": "$(book)"
+      },
+      {
+        "command": "vanthrex.rpg.addPrototype",
+        "title": "%command.rpg.addPrototype%",
+        "category": "Vanthrex RPG",
+        "icon": "$(symbol-interface)"
       }
     ],
     "menus": {
@@ -3960,6 +4056,36 @@
           "command": "vanthrex.bookmark.toggle",
           "when": "resourceScheme =~ /^vanthrex-(member|ifs)$/",
           "group": "vanthrex@18"
+        },
+        {
+          "command": "vanthrex.rpg.surround",
+          "when": "editorLangId == rpgle && editorHasSelection",
+          "group": "vanthrex-rpg@1"
+        },
+        {
+          "command": "vanthrex.rpg.ifToSelect",
+          "when": "editorLangId == rpgle && editorHasSelection",
+          "group": "vanthrex-rpg@2"
+        },
+        {
+          "command": "vanthrex.rpg.formatEmbeddedSql",
+          "when": "editorLangId == rpgle",
+          "group": "vanthrex-rpg@3"
+        },
+        {
+          "command": "vanthrex.rpg.procedureHeader",
+          "when": "editorLangId == rpgle",
+          "group": "vanthrex-rpg@4"
+        },
+        {
+          "command": "vanthrex.rpg.keywordCase",
+          "when": "editorLangId == rpgle",
+          "group": "vanthrex-rpg@5"
+        },
+        {
+          "command": "vanthrex.rpg.ibmDocs",
+          "when": "editorLangId =~ /^(rpgle|cl|sql|dds)$/",
+          "group": "vanthrex-rpg@6"
         }
       ],
       "commandPalette": [
@@ -4901,6 +5027,70 @@
         {
           "command": "vanthrex.runSelection",
           "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.rpg.closeBlock",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.rpg.ifToSelect",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.rpg.surround",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.rpg.toggleComment",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.rpg.keywordCase",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.rpg.sortDeclarations",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.rpg.alignDeclarations",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.rpg.wrapLine",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.rpg.ruler",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.rpg.clearChangeMarkers",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.rpg.nextProcedure",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.rpg.previousProcedure",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.rpg.procedureHeader",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.rpg.formatEmbeddedSql",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.rpg.ibmDocs",
+          "when": "editorLangId =~ /^(rpgle|cl|sql|dds)$/"
+        },
+        {
+          "command": "vanthrex.rpg.addPrototype",
+          "when": "false"
         }
       ],
       "vanthrex.ai": [
@@ -5276,6 +5466,36 @@
         "key": "ctrl+alt+r",
         "mac": "cmd+alt+r",
         "when": "editorTextFocus && vanthrex.connected"
+      },
+      {
+        "command": "vanthrex.rpg.closeBlock",
+        "key": "ctrl+alt+.",
+        "mac": "cmd+alt+.",
+        "when": "editorTextFocus && editorLangId == rpgle"
+      },
+      {
+        "command": "vanthrex.rpg.toggleComment",
+        "key": "ctrl+/",
+        "mac": "cmd+/",
+        "when": "editorTextFocus && editorLangId == rpgle"
+      },
+      {
+        "command": "vanthrex.rpg.nextProcedure",
+        "key": "ctrl+alt+pagedown",
+        "mac": "cmd+alt+pagedown",
+        "when": "editorTextFocus && editorLangId == rpgle"
+      },
+      {
+        "command": "vanthrex.rpg.previousProcedure",
+        "key": "ctrl+alt+pageup",
+        "mac": "cmd+alt+pageup",
+        "when": "editorTextFocus && editorLangId == rpgle"
+      },
+      {
+        "command": "vanthrex.rpg.surround",
+        "key": "ctrl+alt+w",
+        "mac": "cmd+alt+w",
+        "when": "editorTextFocus && editorLangId == rpgle && editorHasSelection"
       }
     ],
     "languages": [
@@ -5628,6 +5848,101 @@
               "type": "boolean",
               "default": true,
               "description": "%config.lint.rules.mixed-format%"
+            },
+            "deprecated-opcode": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.deprecated-opcode%"
+            },
+            "missing-ctl-opt": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.missing-ctl-opt%"
+            },
+            "chain-without-found": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.chain-without-found%"
+            },
+            "unchecked-sql": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.unchecked-sql%"
+            },
+            "dsply": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.dsply%"
+            },
+            "deep-nesting": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.deep-nesting%"
+            },
+            "literal-too-long": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.literal-too-long%"
+            },
+            "unreachable-code": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.unreachable-code%"
+            },
+            "duplicate-declaration": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.duplicate-declaration%"
+            },
+            "empty-block": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.empty-block%"
+            },
+            "select-without-other": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.select-without-other%"
+            },
+            "missing-const": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.missing-const%"
+            },
+            "unused-parameter": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.unused-parameter%"
+            },
+            "code-past-column-80": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.code-past-column-80%"
+            },
+            "missing-return": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.missing-return%"
+            },
+            "unused-procedure": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.unused-procedure%"
+            },
+            "long-parameter-list": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.long-parameter-list%"
+            },
+            "cursor-not-closed": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.cursor-not-closed%"
+            },
+            "commented-out-code": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.commented-out-code%"
             }
           },
           "additionalProperties": false
@@ -6364,6 +6679,61 @@
           "type": "boolean",
           "default": true,
           "markdownDescription": "%config.editor.fileFieldHelp%"
+        },
+        "vanthrex.editor.autoCloseBlocks": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "%config.editor.autoCloseBlocks%"
+        },
+        "vanthrex.editor.parameterNameHints": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "%config.editor.parameterNameHints%"
+        },
+        "vanthrex.editor.referenceCodeLens": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "%config.editor.referenceCodeLens%"
+        },
+        "vanthrex.editor.localCompletion": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "%config.editor.localCompletion%"
+        },
+        "vanthrex.editor.procedureInStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "%config.editor.procedureInStatusBar%"
+        },
+        "vanthrex.editor.fixedColumnHighlight": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "%config.editor.fixedColumnHighlight%"
+        },
+        "vanthrex.editor.wrapColumn": {
+          "type": "number",
+          "default": 100,
+          "minimum": 40,
+          "maximum": 200,
+          "markdownDescription": "%config.editor.wrapColumn%"
+        },
+        "vanthrex.editor.docsRelease": {
+          "type": "string",
+          "default": "7.5",
+          "enum": [
+            "7.3",
+            "7.4",
+            "7.5",
+            "7.6"
+          ],
+          "markdownDescription": "%config.editor.docsRelease%"
+        },
+        "vanthrex.lint.maxNesting": {
+          "type": "number",
+          "default": 6,
+          "minimum": 2,
+          "maximum": 20,
+          "markdownDescription": "%config.lint.maxNesting%"
         }
       }
     },

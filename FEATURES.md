@@ -1082,6 +1082,72 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 
 - **What:** *Save the Open Sources as a Set…* and *Open a Saved Set of Sources…*.
 
+### 168. Daily code checks — new in 2.6
+
+- **What:** 19 new checks: old operation codes, CHAIN without %FOUND, unchecked SQL, cursors not closed, DSPLY, unreachable code, empty blocks, SELECT without OTHER, literals too long, duplicate names, deep nesting, CONST parameters, unused parameters and procedures, missing RETURN, long parameter lists, missing CTL-OPT, code past column 80, commented-out code.
+- **Why:** Mistakes found while typing, before the compile.
+- **How:** On by default; switch each one in `vanthrex.lint.rules`. Most have a quick fix (Ctrl+.).
+
+### 169. Close blocks — new in 2.6
+
+- **What:** Ctrl+Alt+. writes the END of the open block; Enter after IF, DOW, FOR, SELECT, MONITOR, BEGSR or DCL-PROC adds it.
+- **Why:** No more missing ENDIF.
+- **How:** `vanthrex.editor.autoCloseBlocks`.
+
+### 170. Surround With — new in 2.6
+
+- **What:** Ctrl+Alt+W puts IF, MONITOR, DOW, FOR, SELECT, BEGSR or a comment around the selection.
+- **Why:** Add error handling in one key.
+- **How:** Select lines, press Ctrl+Alt+W.
+
+### 171. IF to SELECT — new in 2.6
+
+- **What:** IF / ELSEIF / ELSE becomes SELECT / WHEN / OTHER.
+- **Why:** Cleaner long condition chains.
+- **How:** Select the IF block, Ctrl+. → *Convert IF / ELSEIF to SELECT*.
+
+### 172. Comments and keyword case — new in 2.6
+
+- **What:** Ctrl+/ toggles `//` (free) or `*` (fixed); *Change Keyword Case…* lower- or upper-cases operation codes.
+- **Why:** Team style in one command.
+- **How:** Command Palette → *Vanthrex RPG*.
+
+### 173. Declarations — new in 2.6
+
+- **What:** *Sort Declarations by Name* and *Align Declarations*.
+- **Why:** Readable D-specs in free form.
+- **How:** Select DCL-S / DCL-C lines.
+
+### 174. Long lines, ruler and markers — new in 2.6
+
+- **What:** *Wrap Long Line*, *Insert Column Ruler*, *Clear Change Markers* (columns 1-5).
+- **Why:** Respect column 80 and tidy old sources.
+- **How:** Command Palette, or the quick fix on *code-past-column-80*.
+
+### 175. Embedded SQL — new in 2.6
+
+- **What:** *Format Embedded SQL* formats the EXEC SQL under the cursor.
+- **Why:** Readable SQL inside RPG.
+- **How:** Right-click → *Format Embedded SQL*.
+
+### 176. Procedures — new in 2.6
+
+- **What:** Skeleton and header, next / previous procedure (Ctrl+Alt+PageDown / PageUp), current procedure in the status bar, DCL-PR from the source index.
+- **Why:** Move and write procedures faster.
+- **How:** Command Palette or Ctrl+. on a call.
+
+### 177. Calls and references — new in 2.6
+
+- **What:** Parameter names before arguments, reference counts, call hierarchy (Shift+Alt+H), workspace symbols (Ctrl+T), local completion with call snippets.
+- **Why:** See what a call passes and who calls what.
+- **How:** `vanthrex.editor.parameterNameHints`, `referenceCodeLens`, `localCompletion`.
+
+### 178. Fixed format and docs — new in 2.6
+
+- **What:** Column fields shaded with their names, /COPY peek on hover, IBM documentation for the word, 10 new snippets.
+- **Why:** Less time looking up columns and syntax.
+- **How:** `vanthrex.editor.fixedColumnHighlight`, `docsRelease`.
+
 ## Keyboard shortcuts
 
 | Keys | Action |
@@ -1101,6 +1167,10 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 | Ctrl+Alt+J | Go to anything (members, objects, recent) |
 | Ctrl+Alt+Shift+F | Instant search in indexed sources |
 | Ctrl+Alt+R | Run the selection as CL or SQL |
+| Ctrl+Alt+. | Close the open RPG block |
+| Ctrl+Alt+W | Surround the selection with IF, MONITOR, DOW… |
+| Ctrl+/ | Toggle RPG comment |
+| Ctrl+Alt+PageDown / PageUp | Next / previous procedure |
 | Ctrl+Alt+B / Ctrl+Alt+Shift+B | Toggle a bookmark / list bookmarks |
 | Ctrl+Alt+O | Search objects |
 | Ctrl+Alt+F | Search source code |
