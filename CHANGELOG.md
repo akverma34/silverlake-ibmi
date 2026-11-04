@@ -1,6 +1,8 @@
 # Changelog
 
-## 2.6.1 (not released yet)
+## 3.0.0
+
+**Vanthrex 3.0 — everything for IBM i development in one extension.** AS/400 GO menus and green-screen commands, one-step import from Code for IBM i, team setup files, team coding standards and a code health report for whole libraries, on top of the 2.6 suggestions, checks and Developer Toolbox.
 
 - **GO menus, AS/400 style** (`GO MAIN`, `GO PROGRAMMER`, `GO SYSTEM`, `GO FILE`, `GO USER`, `GO CMN`, `GO SECURITY`, `GO PROBLEM`; Ctrl+Alt+Shift+M, the quick menu, or type `GO` on the command line): the IBM i menus with their option numbers. Type a number, any command, or `GO <menu>` on the *Selection or command* line; Back works like F12.
 - **Work with My Jobs**: the active jobs of the signed-on user.

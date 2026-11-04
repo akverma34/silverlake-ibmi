@@ -748,7 +748,7 @@
   "command.dev.copyMarkdown": "Als Markdown kopieren",
   "command.dev.copyLineRef": "Verweis auf diese Zeile kopieren",
   "command.dev.copyCompile": "Kompilierbefehl kopieren",
-  "command.dev.whatsNew": "Neuerungen in 2.6",
+  "command.dev.whatsNew": "Neuerungen in 3.0",
   "config.editor.toolboxButton": "Die Schaltfläche **$(tools) IBM i** in der Statusleiste für RPG-, CL-, SQL- und DDS-Quellen anzeigen: Sie öffnet die Tools, die zur Datei und zur Auswahl passen (auch **Ctrl+Alt+A**).",
   "config.editor.sizeHovers": "Beim Zeigen auf ein Literal wird seine Länge angezeigt (Bytes bei X'…'-Hexadezimalliteralen); beim Zeigen auf eine deklarierte RPG-Variable wird ihre Speichergröße angezeigt.",
   "command.importCodeForIbmi": "Mein Code for IBM i-Setup importieren (Verbindungen, Bibliothekslisten, Aktionen)…",

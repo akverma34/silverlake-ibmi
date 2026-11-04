@@ -748,7 +748,7 @@
   "command.dev.copyMarkdown": "复制为 Markdown",
   "command.dev.copyLineRef": "复制对此行的引用",
   "command.dev.copyCompile": "复制编译命令",
-  "command.dev.whatsNew": "2.6 版新增功能",
+  "command.dev.whatsNew": "3.0 版新增功能",
   "config.editor.toolboxButton": "在 RPG、CL、SQL 和 DDS 源的状态栏中显示 **$(tools) IBM i** 按钮：它会打开适用于该文件和所选内容的工具 (也可按 **Ctrl+Alt+A**)。",
   "config.editor.sizeHovers": "悬停在字面值上会显示其长度 (对于 X'…' 十六进制字面值显示字节数)；悬停在已声明的 RPG 变量上会显示其存储大小。",
   "command.importCodeForIbmi": "导入我的 Code for IBM i 设置 (连接、库列表、操作)…",

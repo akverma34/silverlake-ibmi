@@ -3270,7 +3270,6 @@
   "Copy the compile command": "复制编译命令",
   "No compile command is known for type {0}.": "类型 {0} 没有已知的编译命令。",
   "Help": "帮助",
-  "What is new in 2.6": "2.6 版新增功能",
   "Every new feature, with its shortcut": "每项新功能及其快捷键",
   "Close the Open Block (ENDIF, ENDDO…)": "关闭未闭合的块 (ENDIF、ENDDO…)",
   "Surround With (IF, MONITOR, DOW, FOR…)…": "包围 (IF、MONITOR、DOW、FOR…)…",
@@ -3368,5 +3367,6 @@
   "{0} commands": "{0} 命令",
   "Green-screen commands that open a screen here. Right-click one to prompt it (F4).": "在此处打开屏幕的绿屏命令。右键单击某个命令可对其进行提示 (F4)。",
   "$(list-ordered) GO menus (MAIN, PROGRAMMER, SYSTEM…)": "$(list-ordered) GO 菜单 (MAIN、PROGRAMMER、SYSTEM…)",
-  "$(person) Work with my jobs": "$(person) 处理我的作业"
+  "$(person) Work with my jobs": "$(person) 处理我的作业",
+  "What is new in 3.0": "3.0 版新增功能"
 }

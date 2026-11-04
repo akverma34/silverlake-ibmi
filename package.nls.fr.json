@@ -748,7 +748,7 @@
   "command.dev.copyMarkdown": "Copier en Markdown",
   "command.dev.copyLineRef": "Copier une référence à cette ligne",
   "command.dev.copyCompile": "Copier la commande de compilation",
-  "command.dev.whatsNew": "Nouveautés de la version 2.6",
+  "command.dev.whatsNew": "Nouveautés de la version 3.0",
   "config.editor.toolboxButton": "Afficher le bouton **$(tools) IBM i** dans la barre d'état pour les sources RPG, CL, SQL et DDS : il ouvre les outils adaptés au fichier et à la sélection (également **Ctrl+Alt+A**).",
   "config.editor.sizeHovers": "Le survol d'un littéral affiche sa longueur (en octets pour les littéraux hexadécimaux X'…') ; le survol d'une variable RPG déclarée affiche sa taille de stockage.",
   "command.importCodeForIbmi": "Importer ma configuration Code for IBM i (connexions, listes de bibliothèques, actions)…",

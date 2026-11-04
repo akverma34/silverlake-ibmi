@@ -3270,7 +3270,6 @@
   "Copy the compile command": "コンパイル・コマンドをコピー",
   "No compile command is known for type {0}.": "タイプ {0} のコンパイル・コマンドは不明です。",
   "Help": "ヘルプ",
-  "What is new in 2.6": "2.6 の新機能",
   "Every new feature, with its shortcut": "すべての新機能とそのショートカット",
   "Close the Open Block (ENDIF, ENDDO…)": "開いているブロックを閉じる (ENDIF、ENDDO…)",
   "Surround With (IF, MONITOR, DOW, FOR…)…": "囲む (IF、MONITOR、DOW、FOR…)…",
@@ -3368,5 +3367,6 @@
   "{0} commands": "{0} コマンド",
   "Green-screen commands that open a screen here. Right-click one to prompt it (F4).": "ここで画面を開くグリーン・スクリーン・コマンドです。右クリックするとプロンプト (F4) が表示されます。",
   "$(list-ordered) GO menus (MAIN, PROGRAMMER, SYSTEM…)": "$(list-ordered) GO メニュー (MAIN、PROGRAMMER、SYSTEM…)",
-  "$(person) Work with my jobs": "$(person) 自分のジョブの処理"
+  "$(person) Work with my jobs": "$(person) 自分のジョブの処理",
+  "What is new in 3.0": "3.0 の新機能"
 }

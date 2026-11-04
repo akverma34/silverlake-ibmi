@@ -7,7 +7,7 @@ parent: "Reference"
 
 # Commands
 
-All 500 commands contributed by Vanthrex for IBM i 2.6.1. Run any of them from the
+All 500 commands contributed by Vanthrex for IBM i 3.0.0. Run any of them from the
 Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-click menus and view toolbars.
 
 | Command | ID | Keys |
@@ -483,7 +483,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Watch This Job (Notify When It Ends) | `vanthrex.watchJob` |  |
 | What Changed (Release Notes)… | `vanthrex.changeReport` |  |
 | What Depends on This File? | `vanthrex.tableDependents` |  |
-| What is new in 2.6 | `vanthrex.dev.whatsNew` |  |
+| What is new in 3.0 | `vanthrex.dev.whatsNew` |  |
 | What Is This Job Doing? | `vanthrex.jobDetails` |  |
 | Where Used… | `vanthrex.whereUsed` |  |
 | Who Calls Each Exported Procedure?… | `vanthrex.procedureCallers` |  |

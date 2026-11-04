@@ -2528,7 +2528,6 @@
   "Copy the compile command": "Copy the compile command",
   "No compile command is known for type {0}.": "No compile command is known for type {0}.",
   "Help": "Help",
-  "What is new in 2.6": "What is new in 2.6",
   "Every new feature, with its shortcut": "Every new feature, with its shortcut",
   "Close the Open Block (ENDIF, ENDDO…)": "Close the Open Block (ENDIF, ENDDO…)",
   "Surround With (IF, MONITOR, DOW, FOR…)…": "Surround With (IF, MONITOR, DOW, FOR…)…",
@@ -3359,5 +3358,6 @@
   "Sent to the AI in this session (newest first; sizes only, never the content)": "Sent to the AI in this session (newest first; sizes only, never the content)",
   "Nothing was sent to the AI yet.": "Nothing was sent to the AI yet.",
   "Open a file first.": "Open a file first.",
-  "{0}: on your computer ↔ what the AI sees": "{0}: on your computer ↔ what the AI sees"
+  "{0}: on your computer ↔ what the AI sees": "{0}: on your computer ↔ what the AI sees",
+  "What is new in 3.0": "What is new in 3.0"
 }

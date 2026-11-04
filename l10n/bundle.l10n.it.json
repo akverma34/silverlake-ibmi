@@ -3270,7 +3270,6 @@
   "Copy the compile command": "Copia il comando di compilazione",
   "No compile command is known for type {0}.": "Nessun comando di compilazione noto per il tipo {0}.",
   "Help": "Guida",
-  "What is new in 2.6": "Novità della versione 2.6",
   "Every new feature, with its shortcut": "Ogni nuova funzionalità, con la relativa scorciatoia",
   "Close the Open Block (ENDIF, ENDDO…)": "Chiudi il blocco aperto (ENDIF, ENDDO…)",
   "Surround With (IF, MONITOR, DOW, FOR…)…": "Racchiudi con (IF, MONITOR, DOW, FOR…)…",
@@ -3368,5 +3367,6 @@
   "{0} commands": "Comandi {0}",
   "Green-screen commands that open a screen here. Right-click one to prompt it (F4).": "Comandi green-screen che aprono qui una schermata. Fai clic con il pulsante destro su uno per richiamarne il prompt (F4).",
   "$(list-ordered) GO menus (MAIN, PROGRAMMER, SYSTEM…)": "$(list-ordered) Menu GO (MAIN, PROGRAMMER, SYSTEM…)",
-  "$(person) Work with my jobs": "$(person) Gestisci i miei lavori"
+  "$(person) Work with my jobs": "$(person) Gestisci i miei lavori",
+  "What is new in 3.0": "Novità della versione 3.0"
 }

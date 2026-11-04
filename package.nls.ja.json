@@ -748,7 +748,7 @@
   "command.dev.copyMarkdown": "Markdown としてコピー",
   "command.dev.copyLineRef": "この行への参照をコピー",
   "command.dev.copyCompile": "コンパイル・コマンドをコピー",
-  "command.dev.whatsNew": "2.6 の新機能",
+  "command.dev.whatsNew": "3.0 の新機能",
   "config.editor.toolboxButton": "RPG、CL、SQL、DDS ソースのステータス・バーに **$(tools) IBM i** ボタンを表示します: ファイルと選択範囲に適したツールを開きます (**Ctrl+Alt+A** でも可)。",
   "config.editor.sizeHovers": "リテラルにカーソルを合わせると長さが表示され (X'…' 16 進リテラルの場合はバイト数)、宣言された RPG 変数にカーソルを合わせるとストレージ・サイズが表示されます。",
   "command.importCodeForIbmi": "Code for IBM i の設定をインポート (接続、ライブラリー・リスト、アクション)…",
