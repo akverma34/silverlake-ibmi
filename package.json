@@ -106,6 +106,11 @@
           "name": "%views.vanthrex.messages.name%",
           "when": "vanthrex.connected",
           "visibility": "collapsed"
+        },
+        {
+          "id": "vanthrex.menus",
+          "name": "%views.vanthrex.menus.name%",
+          "when": "vanthrex.connected"
         }
       ]
     },
@@ -2998,6 +3003,47 @@
         "title": "%command.codeHealth%",
         "category": "Vanthrex",
         "icon": "$(pulse)"
+      },
+      {
+        "command": "vanthrex.goMenu",
+        "title": "%command.goMenu%",
+        "category": "Vanthrex",
+        "icon": "$(list-ordered)"
+      },
+      {
+        "command": "vanthrex.myJobs",
+        "title": "%command.myJobs%",
+        "category": "Vanthrex",
+        "icon": "$(person)"
+      },
+      {
+        "command": "vanthrex.menus.run",
+        "title": "%command.menus.run%",
+        "category": "Vanthrex"
+      },
+      {
+        "command": "vanthrex.menus.prompt",
+        "title": "%command.menus.prompt%",
+        "category": "Vanthrex",
+        "icon": "$(terminal-cmd)"
+      },
+      {
+        "command": "vanthrex.menus.addFavorite",
+        "title": "%command.menus.addFavorite%",
+        "category": "Vanthrex",
+        "icon": "$(star-empty)"
+      },
+      {
+        "command": "vanthrex.menus.removeFavorite",
+        "title": "%command.menus.removeFavorite%",
+        "category": "Vanthrex",
+        "icon": "$(star-full)"
+      },
+      {
+        "command": "vanthrex.menus.clearRecent",
+        "title": "%command.menus.clearRecent%",
+        "category": "Vanthrex",
+        "icon": "$(clear-all)"
       }
     ],
     "menus": {
@@ -3216,6 +3262,16 @@
           "command": "vanthrex.clOnSystems",
           "when": "view == vanthrex.connections && vanthrex.multipleConnections",
           "group": "1_connections@8"
+        },
+        {
+          "command": "vanthrex.goMenu",
+          "when": "view == vanthrex.menus",
+          "group": "navigation@0"
+        },
+        {
+          "command": "vanthrex.commandLine",
+          "when": "view == vanthrex.menus",
+          "group": "navigation@1"
         }
       ],
       "view/item/context": [
@@ -4063,6 +4119,46 @@
           "command": "vanthrex.rebuildImpacted",
           "when": "view == vanthrex.libraries && viewItem == object.file",
           "group": "0_info@12"
+        },
+        {
+          "command": "vanthrex.menus.prompt",
+          "when": "view == vanthrex.menus && viewItem =~ /^menu\\.(item|fav)\\.command$/",
+          "group": "inline@1"
+        },
+        {
+          "command": "vanthrex.menus.addFavorite",
+          "when": "view == vanthrex.menus && viewItem =~ /^menu\\.item\\./",
+          "group": "inline@2"
+        },
+        {
+          "command": "vanthrex.menus.removeFavorite",
+          "when": "view == vanthrex.menus && viewItem =~ /^menu\\.fav\\./",
+          "group": "inline@2"
+        },
+        {
+          "command": "vanthrex.menus.clearRecent",
+          "when": "view == vanthrex.menus && viewItem == menu.recent",
+          "group": "inline"
+        },
+        {
+          "command": "vanthrex.menus.prompt",
+          "when": "view == vanthrex.menus && viewItem =~ /^menu\\.(item|fav)\\.command$/",
+          "group": "0_menu@1"
+        },
+        {
+          "command": "vanthrex.menus.addFavorite",
+          "when": "view == vanthrex.menus && viewItem =~ /^menu\\.item\\./",
+          "group": "0_menu@2"
+        },
+        {
+          "command": "vanthrex.menus.removeFavorite",
+          "when": "view == vanthrex.menus && viewItem =~ /^menu\\.fav\\./",
+          "group": "0_menu@2"
+        },
+        {
+          "command": "vanthrex.goMenu",
+          "when": "view == vanthrex.connections && viewItem == connection.active",
+          "group": "0_5250@2"
         }
       ],
       "editor/title": [
@@ -5636,6 +5732,34 @@
         {
           "command": "vanthrex.codeHealth",
           "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.menus.run",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.menus.prompt",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.menus.addFavorite",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.menus.removeFavorite",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.menus.clearRecent",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.goMenu",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.myJobs",
+          "when": "vanthrex.connected"
         }
       ],
       "vanthrex.ai": [
@@ -6053,6 +6177,12 @@
         "key": "ctrl+alt+a",
         "mac": "cmd+alt+a",
         "when": "editorTextFocus"
+      },
+      {
+        "command": "vanthrex.goMenu",
+        "key": "ctrl+alt+shift+m",
+        "mac": "cmd+alt+shift+m",
+        "when": "vanthrex.connected"
       }
     ],
     "languages": [

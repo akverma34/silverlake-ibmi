@@ -3354,5 +3354,19 @@
   "Import Coding Standards from rpglint.json…": "从 rpglint.json 导入编码标准…",
   "Import My Code for IBM i Setup (Connections, Library Lists, Actions)…": "导入我的 Code for IBM i 设置 (连接、库列表、操作)…",
   "Export a Team Setup File…": "导出团队设置文件…",
-  "Import a Team Setup File…": "导入团队设置文件…"
+  "Import a Team Setup File…": "导入团队设置文件…",
+  "Find a Member…": "查找成员…",
+  "There is no menu {0} here. Try GO MAIN.": "此处没有菜单 {0}。请尝试 GO MAIN。",
+  "Display a menu (GO)": "显示菜单 (GO)",
+  "Pick a menu": "选择菜单",
+  "Selection or command: type a number, a command or GO <menu> — Esc = F3 Exit": "选项或命令：输入数字、命令或 GO <menu> — Esc = F3 Exit",
+  "Selection {0} is not valid on menu {1}.": "选项 {0} 在菜单 {1} 中无效。",
+  "Works on the RPG source open in the editor.": "作用于编辑器中打开的 RPG 源。",
+  "Works on the source open in the editor.": "作用于编辑器中打开的源。",
+  "Favorites": "收藏夹",
+  "5250 commands (A–Z)": "5250 命令 (A–Z)",
+  "{0} commands": "{0} 命令",
+  "Green-screen commands that open a screen here. Right-click one to prompt it (F4).": "在此处打开屏幕的绿屏命令。右键单击某个命令可对其进行提示 (F4)。",
+  "$(list-ordered) GO menus (MAIN, PROGRAMMER, SYSTEM…)": "$(list-ordered) GO 菜单 (MAIN、PROGRAMMER、SYSTEM…)",
+  "$(person) Work with my jobs": "$(person) 处理我的作业"
 }

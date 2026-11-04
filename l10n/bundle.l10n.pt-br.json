@@ -3354,5 +3354,19 @@
   "Import Coding Standards from rpglint.json…": "Importar padrões de codificação do rpglint.json…",
   "Import My Code for IBM i Setup (Connections, Library Lists, Actions)…": "Importar minha configuração do Code for IBM i (conexões, listas de bibliotecas, ações)…",
   "Export a Team Setup File…": "Exportar um arquivo de configuração da equipe…",
-  "Import a Team Setup File…": "Importar um arquivo de configuração da equipe…"
+  "Import a Team Setup File…": "Importar um arquivo de configuração da equipe…",
+  "Find a Member…": "Localizar um membro…",
+  "There is no menu {0} here. Try GO MAIN.": "Não há nenhum menu {0} aqui. Tente GO MAIN.",
+  "Display a menu (GO)": "Exibir um menu (GO)",
+  "Pick a menu": "Escolha um menu",
+  "Selection or command: type a number, a command or GO <menu> — Esc = F3 Exit": "Seleção ou comando: digite um número, um comando ou GO <menu> — Esc = F3 Exit",
+  "Selection {0} is not valid on menu {1}.": "A seleção {0} não é válida no menu {1}.",
+  "Works on the RPG source open in the editor.": "Funciona na origem RPG aberta no editor.",
+  "Works on the source open in the editor.": "Funciona na origem aberta no editor.",
+  "Favorites": "Favoritos",
+  "5250 commands (A–Z)": "Comandos 5250 (A–Z)",
+  "{0} commands": "Comandos {0}",
+  "Green-screen commands that open a screen here. Right-click one to prompt it (F4).": "Comandos de tela verde que abrem uma tela aqui. Clique com o botão direito em um deles para exibir o prompt (F4).",
+  "$(list-ordered) GO menus (MAIN, PROGRAMMER, SYSTEM…)": "$(list-ordered) Menus GO (MAIN, PROGRAMMER, SYSTEM…)",
+  "$(person) Work with my jobs": "$(person) Trabalhar com meus jobs"
 }

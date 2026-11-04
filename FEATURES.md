@@ -1202,25 +1202,34 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** nobody has to remember command names: open the menu and type a word.
 - **How:** Ctrl+Alt+A, the IBM i button in the status bar, or right-click.
 
-### 188. Import from Code for IBM i — new in 2.6.1
+### 188. GO menus and more green-screen commands — new in 2.6.1
+
+- **What:** the IBM i menus (`GO MAIN`, `GO PROGRAMMER`, `GO SYSTEM`, `GO FILE`, `GO USER`, `GO CMN`, `GO SECURITY`, `GO PROBLEM`) with their option numbers, **Work with My Jobs**, and about 30 more 5250 commands on the command line (`DSPPFM`, `UPDDTA`, `WRKDTAQ`, `WRKMSGF`, `STRDBG`, `WRKJRN`, `WRKLNK`, `WRKPGM`, `SIGNOFF`…) that open the matching screen.
+- **Why:** after years on a green screen, you type what you already know and land on the right tool — no new command names to learn.
+- **AS/400 Menus view:** the same menus in the side bar, plus every supported 5250 command A to Z by area. Click to open, right-click → *Prompt on Command Line (F4)* to add parameters.
+- **GO RPG:** 28 RPG tools in one menu — compile, code checks, fixed → free, subroutine → procedure, prototypes and binder source, flowchart, DS layout, RPGUnit, debug. Tools that work on the open source tell you when no RPG source is open.
+- **Favorites and Recent:** star what you use most (☆ button or right-click); the last 8 used are at the top of the view.
+- **How:** Ctrl+Alt+Shift+M (or `GO` on the command line, Ctrl+Alt+K). Type an option number, any command, or `GO <menu>` on the *Selection or command* line; Back works like F12, Esc like F3.
+
+### 189. Import from Code for IBM i — new in 2.6.1
 
 - **What:** connections, library lists, profiles and compile actions from your Code for IBM i settings, in one step.
 - **Why:** switch to Vanthrex (or try it next to Code for IBM i) without typing your setup again.
 - **How:** *Import My Code for IBM i Setup…* in the Command Palette or the Developer Toolbox (Setup).
 
-### 189. Team setup file — new in 2.6.1
+### 190. Team setup file — new in 2.6.1
 
 - **What:** connections (no user names or passwords), library sets, macros, compile actions, checks, standards and AI privacy settings in one JSON file.
 - **Why:** a new team member is ready in a minute, with the same setup as everyone else.
 - **How:** *Export a Team Setup File…* / *Import a Team Setup File…*.
 
-### 190. Team coding standards — new in 2.6.1
+### 191. Team coding standards — new in 2.6.1
 
 - **What:** 17 standards a team can turn on (upper-case constants, QUALIFIED data structures, no globals in procedures, indentation, naming pattern…), checked while you type; rpglint.json can be imported.
 - **Why:** the same rules for everyone, without a separate linter.
 - **How:** *Team Coding Standards…* (saved in the workspace settings), or *Import Coding Standards from rpglint.json…*.
 
-### 191. Code health report — new in 2.6.1
+### 192. Code health report — new in 2.6.1
 
 - **What:** every check on every indexed member of a library, with a score, the worst members first and findings by check.
 - **Why:** a quality gate for a whole application before a release.

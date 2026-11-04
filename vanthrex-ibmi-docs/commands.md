@@ -7,7 +7,7 @@ parent: "Reference"
 
 # Commands
 
-All 493 commands contributed by Vanthrex for IBM i 2.6.1. Run any of them from the
+All 500 commands contributed by Vanthrex for IBM i 2.6.1. Run any of them from the
 Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-click menus and view toolbars.
 
 | Command | ID | Keys |
@@ -25,6 +25,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Add Library… | `vanthrex.addLibrary` |  |
 | Add Message Description… | `vanthrex.messageFile.add` |  |
 | Add Note to This Line… | `vanthrex.notes.add` |  |
+| Add to Favorites | `vanthrex.menus.addFavorite` |  |
 | Add User to Authorization List… | `vanthrex.secadm.addAutlEntry` |  |
 | AI: Ask the IBM i Assistant… | `vanthrex.ai.open` |  |
 | AI: Change the Selected Code… | `vanthrex.ai.edit` | Ctrl+Alt+E |
@@ -89,6 +90,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Clear Change Markers (Columns 1-5) | `vanthrex.rpg.clearChangeMarkers` |  |
 | Clear Compile History | `vanthrex.compileHistory.clear` |  |
 | Clear Data Queue… | `vanthrex.clearDataQueue` |  |
+| Clear Recent | `vanthrex.menus.clearRecent` |  |
 | Clear SQL History | `vanthrex.clearSqlHistory` |  |
 | Clear the Member Cache | `vanthrex.memberCache.clear` |  |
 | Close the Open Block (ENDIF, ENDDO…) | `vanthrex.rpg.closeBlock` | Ctrl+Alt+. |
@@ -235,6 +237,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Git: Get Changes from IBM i | `vanthrex.git.download` |  |
 | Git: History of This Member… | `vanthrex.git.memberHistory` |  |
 | Git: Upload Changed Files to IBM i | `vanthrex.git.upload` |  |
+| GO Menus (AS/400 Style)… | `vanthrex.goMenu` | Ctrl+Alt+Shift+M |
 | Go to Anything (Members, Objects, Recent)… | `vanthrex.goToAnything` | Ctrl+Alt+J |
 | Go to IFS Directory… | `vanthrex.ifsChangeRoot` |  |
 | Go to Line | `vanthrex.gotoLine` |  |
@@ -316,6 +319,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Objects Built from This Source | `vanthrex.builtFrom` |  |
 | Objects Hidden in the Library List | `vanthrex.shadowedObjects` |  |
 | Objects Out of Sync with Source | `vanthrex.outOfSync` |  |
+| Open | `vanthrex.menus.run` |  |
 | Open 5250 Session | `vanthrex.open5250` |  |
 | Open a Saved Set of Sources… | `vanthrex.sourceSet.open` |  |
 | Open ALTER Script | `vanthrex.compareStructure.script` |  |
@@ -351,6 +355,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Promotion Log | `vanthrex.promotionLog` |  |
 | Prompt (F4) | `vanthrex.prompt` | F4 |
 | Prompt and Run CL Command (F4)… | `vanthrex.promptCl` |  |
+| Prompt on Command Line (F4) | `vanthrex.menus.prompt` |  |
 | PTF & System Health | `vanthrex.systemHealth` |  |
 | Re-bind All Failing Objects | `vanthrex.signatureCheck.rebindAll` |  |
 | Re-bind to the Current Signature | `vanthrex.signatureCheck.rebind` |  |
@@ -369,6 +374,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Remove blank lines | `vanthrex.dev.removeBlank` |  |
 | Remove Connection | `vanthrex.deleteConnection` |  |
 | Remove EVAL and CALLP | `vanthrex.dev.removeEval` |  |
+| Remove from Favorites | `vanthrex.menus.removeFavorite` |  |
 | Remove Library from List | `vanthrex.removeLibrary` |  |
 | Remove Message | `vanthrex.removeMessage` |  |
 | Remove the Local Source Index | `vanthrex.index.clear` |  |
@@ -492,6 +498,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Work with Job Schedule Entries | `vanthrex.wrkJobSchedule` |  |
 | Work with Message Descriptions | `vanthrex.messageFile` |  |
 | Work with Message Queue… | `vanthrex.messageQueue` |  |
+| Work with My Jobs | `vanthrex.myJobs` |  |
 | Work with Output Queues | `vanthrex.wrkOutputQueues` |  |
 | Work with Save Files | `vanthrex.wrkSaveFiles` |  |
 | Work with Subsystems | `vanthrex.wrkSubsystems` |  |

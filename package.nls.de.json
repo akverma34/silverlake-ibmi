@@ -774,5 +774,13 @@
   "config.standards.prototypeExt": "Prototypen mit EXTPGM oder EXTPROC.",
   "config.standards.directiveCase": "Compilerdirektiven (/COPY, /IF…) in einheitlicher Schreibweise.",
   "config.standards.namePattern": "Namen, die dem Teammuster folgen.",
-  "config.standards.maxProcedureLines": "Prozeduren nicht länger als das Teamlimit."
+  "config.standards.maxProcedureLines": "Prozeduren nicht länger als das Teamlimit.",
+  "views.vanthrex.menus.name": "AS/400-Menüs",
+  "command.goMenu": "GO-Menüs (AS/400-Stil)…",
+  "command.myJobs": "Mit meinen Jobs arbeiten",
+  "command.menus.run": "Öffnen",
+  "command.menus.prompt": "In der Befehlszeile anzeigen (F4)",
+  "command.menus.addFavorite": "Zu Favoriten hinzufügen",
+  "command.menus.removeFavorite": "Aus Favoriten entfernen",
+  "command.menus.clearRecent": "Zuletzt verwendet leeren"
 }

@@ -774,5 +774,13 @@
   "config.standards.prototypeExt": "EXTPGM または EXTPROC 付きのプロトタイプ。",
   "config.standards.directiveCase": "コンパイラー指示 (/COPY、/IF…) の大文字/小文字を統一。",
   "config.standards.namePattern": "チームのパターンに従う名前。",
-  "config.standards.maxProcedureLines": "チームの上限を超えない長さのプロシージャー。"
+  "config.standards.maxProcedureLines": "チームの上限を超えない長さのプロシージャー。",
+  "views.vanthrex.menus.name": "AS/400 メニュー",
+  "command.goMenu": "GO メニュー (AS/400 スタイル)…",
+  "command.myJobs": "自分のジョブの処理",
+  "command.menus.run": "開く",
+  "command.menus.prompt": "コマンド行でプロンプト (F4)",
+  "command.menus.addFavorite": "お気に入りに追加",
+  "command.menus.removeFavorite": "お気に入りから削除",
+  "command.menus.clearRecent": "最近使用した項目をクリア"
 }

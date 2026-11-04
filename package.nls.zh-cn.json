@@ -774,5 +774,13 @@
   "config.standards.prototypeExt": "使用 EXTPGM 或 EXTPROC 的原型。",
   "config.standards.directiveCase": "编译器指令 (/COPY、/IF…) 大小写统一。",
   "config.standards.namePattern": "遵循团队模式的名称。",
-  "config.standards.maxProcedureLines": "过程长度不超过团队限制。"
+  "config.standards.maxProcedureLines": "过程长度不超过团队限制。",
+  "views.vanthrex.menus.name": "AS/400 菜单",
+  "command.goMenu": "GO 菜单（AS/400 样式）…",
+  "command.myJobs": "处理我的作业",
+  "command.menus.run": "打开",
+  "command.menus.prompt": "在命令行中提示 (F4)",
+  "command.menus.addFavorite": "添加到收藏夹",
+  "command.menus.removeFavorite": "从收藏夹中删除",
+  "command.menus.clearRecent": "清除最近使用"
 }

@@ -3354,5 +3354,19 @@
   "Import Coding Standards from rpglint.json…": "rpglint.json からコーディング標準をインポート…",
   "Import My Code for IBM i Setup (Connections, Library Lists, Actions)…": "Code for IBM i の設定をインポート (接続、ライブラリー・リスト、アクション)…",
   "Export a Team Setup File…": "チーム設定ファイルのエクスポート…",
-  "Import a Team Setup File…": "チーム設定ファイルのインポート…"
+  "Import a Team Setup File…": "チーム設定ファイルのインポート…",
+  "Find a Member…": "メンバーの検索…",
+  "There is no menu {0} here. Try GO MAIN.": "ここにはメニュー {0} がありません。GO MAIN を試してください。",
+  "Display a menu (GO)": "メニューの表示 (GO)",
+  "Pick a menu": "メニューを選択",
+  "Selection or command: type a number, a command or GO <menu> — Esc = F3 Exit": "選択またはコマンド: 番号、コマンド、または GO <menu> を入力 — Esc = F3 Exit",
+  "Selection {0} is not valid on menu {1}.": "選択 {0} はメニュー {1} では無効です。",
+  "Works on the RPG source open in the editor.": "エディターで開いている RPG ソースに対して動作します。",
+  "Works on the source open in the editor.": "エディターで開いているソースに対して動作します。",
+  "Favorites": "お気に入り",
+  "5250 commands (A–Z)": "5250 コマンド (A–Z)",
+  "{0} commands": "{0} コマンド",
+  "Green-screen commands that open a screen here. Right-click one to prompt it (F4).": "ここで画面を開くグリーン・スクリーン・コマンドです。右クリックするとプロンプト (F4) が表示されます。",
+  "$(list-ordered) GO menus (MAIN, PROGRAMMER, SYSTEM…)": "$(list-ordered) GO メニュー (MAIN、PROGRAMMER、SYSTEM…)",
+  "$(person) Work with my jobs": "$(person) 自分のジョブの処理"
 }

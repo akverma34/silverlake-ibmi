@@ -2,6 +2,14 @@
 
 ## 2.6.1 (not released yet)
 
+- **GO menus, AS/400 style** (`GO MAIN`, `GO PROGRAMMER`, `GO SYSTEM`, `GO FILE`, `GO USER`, `GO CMN`, `GO SECURITY`, `GO PROBLEM`; Ctrl+Alt+Shift+M, the quick menu, or type `GO` on the command line): the IBM i menus with their option numbers. Type a number, any command, or `GO <menu>` on the *Selection or command* line; Back works like F12.
+- **Work with My Jobs**: the active jobs of the signed-on user.
+- **GO RPG — RPG Development menu**: 28 RPG tools in one place (compile, code checks, fixed → free, subroutine → procedure, prototypes, binder source, flowchart, DS layout, RPGUnit, debug, where used…), open first in the AS/400 Menus view.
+- **Favorites and Recent** in the AS/400 Menus view: star any option or command (inline button or right-click); the last 8 you used are listed at the top.
+- **Reliable clicks**: tools that work on the open source now say "Open an RPG source first" (with *Find a Member…*) instead of silently doing nothing; the view is built in memory, so it opens instantly and keeps what is expanded.
+- **AS/400 Menus view** in the side bar: every GO menu with its numbered options, and all 5250 commands that open a screen, A to Z by area (jobs, database, objects, security…). Click to open; right-click or the inline button to prompt the command on the command line (F4).
+- **About 30 more green-screen commands** on the 5250-style command line open the matching screen: `DSPPFM`, `UPDDTA` / `STRDFU`, `STRQRY` / `WRKQRY`, `WRKDTAQ`, `WRKDTAARA`, `EDTDTAARA`, `WRKMSGF` / `WRKMSGD`, `WRKBNDDIR`, `STRDBG`, `WRKJRN`, `DSPJRN`, `WRKAUTL`, `EDTOBJAUT`, `DSPLOG`, `WRKPTF`, `WRKSYSACT`, `EDTLIBL`, `WRKLNK`, `WRKLIB`, `WRKF` / `WRKPGM` / `WRKSRVPGM` / `WRKMOD` / `WRKCMD`, `SIGNOFF` and `GO`.
+
 **Everything in Vanthrex, for one person or a whole team**
 
 - **Import My Code for IBM i Setup**: connections (host, port, user, SSH key), library lists, current library, home folder, library list profiles (as Vanthrex library list sets) and compile actions (variables such as `&OPENLIB`, `&OPENSPF`, `&OPENMBR`, `&BUILDLIB` converted), from your Code for IBM i settings and the workspace `.vscode/actions.json`. You choose what to import; passwords are never read — you type each one at the first connection. Both extensions can stay installed while you try Vanthrex.
