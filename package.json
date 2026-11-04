@@ -2,7 +2,7 @@
   "name": "vanthrex-ibmi",
   "displayName": "%displayName%",
   "description": "%description%",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "publisher": "gauravgupta0612",
   "license": "MIT",
   "icon": "media/icon.png",
@@ -3044,6 +3044,12 @@
         "title": "%command.menus.clearRecent%",
         "category": "Vanthrex",
         "icon": "$(clear-all)"
+      },
+      {
+        "command": "vanthrex.copyLink",
+        "title": "%command.copyLink%",
+        "category": "Vanthrex",
+        "icon": "$(link)"
       }
     ],
     "menus": {
@@ -4523,6 +4529,11 @@
           "command": "vanthrex.dev.toolbox",
           "when": "editorLangId =~ /^(rpgle|cl|sql|dds)$/",
           "group": "vanthrex@0"
+        },
+        {
+          "command": "vanthrex.copyLink",
+          "when": "resourceScheme =~ /^vanthrex-(member|ifs)/",
+          "group": "vanthrex@19"
         }
       ],
       "commandPalette": [
@@ -5760,6 +5771,10 @@
         {
           "command": "vanthrex.myJobs",
           "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.copyLink",
+          "when": "resourceScheme =~ /^vanthrex-(member|ifs)/"
         }
       ],
       "vanthrex.ai": [
@@ -6755,6 +6770,46 @@
               "type": "boolean",
               "default": true,
               "description": "%config.lint.rules.sql-select-into-many%"
+            },
+            "dds-name-too-long": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.dds-name-too-long%"
+            },
+            "dds-duplicate-name": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.dds-duplicate-name%"
+            },
+            "dds-missing-length": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.dds-missing-length%"
+            },
+            "dds-decimals": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.dds-decimals%"
+            },
+            "dds-length-limit": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.dds-length-limit%"
+            },
+            "dds-key-not-in-record": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.dds-key-not-in-record%"
+            },
+            "dds-off-screen": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.dds-off-screen%"
+            },
+            "dds-overlap": {
+              "type": "boolean",
+              "default": true,
+              "description": "%config.lint.rules.dds-overlap%"
             }
           },
           "additionalProperties": false
@@ -7665,6 +7720,26 @@
               "description": "%config.standards.maxProcedureLines%"
             }
           }
+        },
+        "vanthrex.lint.dds": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "%config.lint.dds%"
+        },
+        "vanthrex.editor.semanticHighlighting": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "%config.editor.semanticHighlighting%"
+        },
+        "vanthrex.editor.indentOnType": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "%config.editor.indentOnType%"
+        },
+        "vanthrex.editor.terminalLinks": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "%config.editor.terminalLinks%"
         }
       }
     },
@@ -8020,6 +8095,11 @@
           "icon": "terminal-linux"
         }
       ]
+    },
+    "configurationDefaults": {
+      "[rpgle]": {
+        "editor.formatOnType": true
+      }
     }
   },
   "scripts": {

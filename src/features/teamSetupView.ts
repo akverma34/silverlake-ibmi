@@ -4,6 +4,7 @@
 import * as vscode from 'vscode';
 import { checkSqlScript } from '../core/sqlChecks';
 import { clLint } from '../core/clChecks';
+import { ddsKind, ddsLint } from '../core/ddsChecks';
 import { summarize, MemberFindings } from '../core/codeHealth';
 import { errorMessage, logError } from '../core/log';
 import { ConnectionManager } from '../core/manager';
@@ -152,6 +153,7 @@ async function codeHealth(manager: ConnectionManager): Promise<void> {
         if (/^(RPGLE|SQLRPGLE|RPGLEINC|RPGINC)$/.test(type)) { findings = lintRpg(text, { rules: rules, standards, isInclude: /INC$/.test(type) }); }
         else if (/^(CLLE|CLP|CL)$/.test(type)) { findings = clLint(text, on); }
         else if (type === 'SQL') { findings = checkSqlScript(text, on); }
+        else if (/^(PF|LF|DSPF|PRTF)$/.test(type)) { findings = ddsLint(text, ddsKind(type), on); }
         else { continue; }
       } catch (e) { logError(e); continue; }
       out.push({ key, type, lines: text.split('\n').length, findings });
@@ -163,7 +165,7 @@ async function codeHealth(manager: ConnectionManager): Promise<void> {
   const open = (key: string, type: string) => { const [l, f, m] = key.split('/'); return { label: vscode.l10n.t('Open'), command: 'vscode.open', args: [memberUri(l, f, m, type.toLowerCase())] }; };
   showReport('code-health', {
     title: vscode.l10n.t('Code health — {0}', pick.lib === '*' ? vscode.l10n.t('all indexed libraries') : pick.lib),
-    subtitle: vscode.l10n.t('Every check of Vanthrex (RPG, CL, SQL and your team standards) on the indexed copy of each member: run it before a release, compare it after.'),
+    subtitle: vscode.l10n.t('Every check of Vanthrex (RPG, CL, SQL, DDS and your team standards) on the indexed copy of each member: run it before a release, compare it after.'),
     facts: [[vscode.l10n.t('Score'), `${s.score} / 100 (${s.grade})`], [vscode.l10n.t('Members checked'), s.members], [vscode.l10n.t('Lines'), s.lines], [vscode.l10n.t('Errors'), s.errors], [vscode.l10n.t('Warnings'), s.warnings], [vscode.l10n.t('Findings'), s.findings]],
     tables: [
       { title: vscode.l10n.t('Members to look at first'), columns: [vscode.l10n.t('Member'), vscode.l10n.t('Type'), vscode.l10n.t('Lines'), vscode.l10n.t('Errors'), vscode.l10n.t('Warnings'), vscode.l10n.t('Other'), vscode.l10n.t('Score')], rows: s.worst.map(w => [w.key, w.type, w.lines, w.errors, w.warnings, w.infos, w.score]), rowActions: s.worst.map(w => open(w.key, w.type)), filter: true },

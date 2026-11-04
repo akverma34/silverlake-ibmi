@@ -782,5 +782,18 @@
   "command.menus.prompt": "Prompt on Command Line (F4)",
   "command.menus.addFavorite": "Add to Favorites",
   "command.menus.removeFavorite": "Remove from Favorites",
-  "command.menus.clearRecent": "Clear Recent"
+  "command.menus.clearRecent": "Clear Recent",
+  "command.copyLink": "Copy a Link That Opens This Line",
+  "config.lint.dds": "Check DDS sources (PF, LF, DSPF, PRTF) while you type: names longer than 10 characters, duplicate fields or record formats, missing lengths, decimals and length limits, key fields not in the record, display fields outside the screen or on top of each other.",
+  "config.editor.semanticHighlighting": "Colour RPG names by what they are: parameters, constants (read-only), data structures and subfields, procedures, files and subroutines; globals used inside a procedure are marked.",
+  "config.editor.indentOnType": "In free-form RPG, typing the `;` of ENDIF, ENDDO, ELSE, WHEN, END-PROC… moves the line to the indentation of its opener.",
+  "config.editor.terminalLinks": "In every terminal, LIB/FILE(MEMBER), message IDs (CPF9801, MCH1210…) and IFS paths become links: click to open the member or file, or explain the message.",
+  "config.lint.rules.dds-name-too-long": "Record format and field names longer than 10 characters.",
+  "config.lint.rules.dds-duplicate-name": "A field declared twice in a record format, or a record format declared twice.",
+  "config.lint.rules.dds-missing-length": "A field with no length, no reference (R) and no REF / REFFLD.",
+  "config.lint.rules.dds-decimals": "More decimal positions than the length of the field.",
+  "config.lint.rules.dds-length-limit": "A length beyond what the data type allows.",
+  "config.lint.rules.dds-key-not-in-record": "A key field (K) that is not a field of the record format.",
+  "config.lint.rules.dds-off-screen": "A display field or constant outside the screen size (DSPSIZ).",
+  "config.lint.rules.dds-overlap": "Two display fields or constants of a record format on top of each other."
 }

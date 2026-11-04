@@ -782,5 +782,18 @@
   "command.menus.prompt": "Solicitar na linha de comandos (F4)",
   "command.menus.addFavorite": "Adicionar aos favoritos",
   "command.menus.removeFavorite": "Remover dos favoritos",
-  "command.menus.clearRecent": "Limpar recentes"
+  "command.menus.clearRecent": "Limpar recentes",
+  "command.copyLink": "Copiar um link que abre esta linha",
+  "config.lint.dds": "Verificar as origens DDS (PF, LF, DSPF, PRTF) enquanto você digita: nomes com mais de 10 caracteres, campos ou formatos de registro duplicados, comprimentos ausentes, decimais e limites de comprimento, campos-chave fora do registro, campos de exibição fora da tela ou sobrepostos.",
+  "config.editor.semanticHighlighting": "Colorir os nomes RPG de acordo com o que são: parâmetros, constantes (somente leitura), estruturas de dados e subcampos, procedimentos, arquivos e sub-rotinas; variáveis globais usadas dentro de um procedimento são marcadas.",
+  "config.editor.indentOnType": "Em RPG de formato livre, digitar o `;` de ENDIF, ENDDO, ELSE, WHEN, END-PROC… move a linha para o recuo da sua abertura.",
+  "config.editor.terminalLinks": "Em todos os terminais, LIB/FILE(MEMBER), IDs de mensagem (CPF9801, MCH1210…) e caminhos do IFS se tornam links: clique para abrir o membro ou arquivo, ou explicar a mensagem.",
+  "config.lint.rules.dds-name-too-long": "Nomes de formatos de registro e de campos com mais de 10 caracteres.",
+  "config.lint.rules.dds-duplicate-name": "Um campo declarado duas vezes em um formato de registro, ou um formato de registro declarado duas vezes.",
+  "config.lint.rules.dds-missing-length": "Um campo sem comprimento, sem referência (R) e sem REF / REFFLD.",
+  "config.lint.rules.dds-decimals": "Mais posições decimais do que o comprimento do campo.",
+  "config.lint.rules.dds-length-limit": "Um comprimento além do que o tipo de dados permite.",
+  "config.lint.rules.dds-key-not-in-record": "Um campo-chave (K) que não é um campo do formato de registro.",
+  "config.lint.rules.dds-off-screen": "Um campo de exibição ou constante fora do tamanho da tela (DSPSIZ).",
+  "config.lint.rules.dds-overlap": "Dois campos de exibição ou constantes de um formato de registro sobrepostos."
 }

@@ -782,5 +782,18 @@
   "command.menus.prompt": "在命令行中提示 (F4)",
   "command.menus.addFavorite": "添加到收藏夹",
   "command.menus.removeFavorite": "从收藏夹中删除",
-  "command.menus.clearRecent": "清除最近使用"
+  "command.menus.clearRecent": "清除最近使用",
+  "command.copyLink": "复制可打开此行的链接",
+  "config.lint.dds": "在键入时检查 DDS 源 (PF、LF、DSPF、PRTF)：长度超过 10 个字符的名称、重复的字段或记录格式、缺少长度、小数位和长度限制、不在记录中的键字段、超出屏幕或相互重叠的显示字段。",
+  "config.editor.semanticHighlighting": "按类别为 RPG 名称着色：参数、常量 (只读)、数据结构和子字段、过程、文件和子例程；在过程中使用的全局变量会被标记。",
+  "config.editor.indentOnType": "在自由格式 RPG 中，键入 ENDIF、ENDDO、ELSE、WHEN、END-PROC… 的 `;` 时，该行会移动到其起始语句的缩进位置。",
+  "config.editor.terminalLinks": "在每个终端中，LIB/FILE(MEMBER)、消息 ID (CPF9801、MCH1210…) 和 IFS 路径都会变为链接：单击可打开成员或文件，或解释该消息。",
+  "config.lint.rules.dds-name-too-long": "长度超过 10 个字符的记录格式名称和字段名称。",
+  "config.lint.rules.dds-duplicate-name": "在记录格式中声明了两次的字段，或声明了两次的记录格式。",
+  "config.lint.rules.dds-missing-length": "没有长度、没有引用 (R) 且没有 REF / REFFLD 的字段。",
+  "config.lint.rules.dds-decimals": "小数位数多于字段长度。",
+  "config.lint.rules.dds-length-limit": "超出数据类型允许范围的长度。",
+  "config.lint.rules.dds-key-not-in-record": "不是记录格式字段的键字段 (K)。",
+  "config.lint.rules.dds-off-screen": "超出屏幕大小 (DSPSIZ) 的显示字段或常量。",
+  "config.lint.rules.dds-overlap": "记录格式中相互重叠的两个显示字段或常量。"
 }

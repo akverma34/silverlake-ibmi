@@ -782,5 +782,18 @@
   "command.menus.prompt": "Invite dans la ligne de commande (F4)",
   "command.menus.addFavorite": "Ajouter aux favoris",
   "command.menus.removeFavorite": "Retirer des favoris",
-  "command.menus.clearRecent": "Effacer les récents"
+  "command.menus.clearRecent": "Effacer les récents",
+  "command.copyLink": "Copier un lien qui ouvre cette ligne",
+  "config.lint.dds": "Vérifier les sources DDS (PF, LF, DSPF, PRTF) pendant la saisie : noms de plus de 10 caractères, zones ou formats d'enregistrement en double, longueurs manquantes, décimales et limites de longueur, zones clés absentes de l'enregistrement, zones d'affichage hors de l'écran ou superposées.",
+  "config.editor.semanticHighlighting": "Colorer les noms RPG selon leur nature : paramètres, constantes (lecture seule), structures de données et sous-zones, procédures, fichiers et sous-programmes ; les variables globales utilisées dans une procédure sont signalées.",
+  "config.editor.indentOnType": "En RPG en format libre, taper le `;` de ENDIF, ENDDO, ELSE, WHEN, END-PROC… aligne la ligne sur l'indentation de son ouverture.",
+  "config.editor.terminalLinks": "Dans chaque terminal, LIB/FILE(MEMBER), les ID de message (CPF9801, MCH1210…) et les chemins IFS deviennent des liens : cliquez pour ouvrir le membre ou le fichier, ou expliquer le message.",
+  "config.lint.rules.dds-name-too-long": "Noms de formats d'enregistrement et de zones de plus de 10 caractères.",
+  "config.lint.rules.dds-duplicate-name": "Zone déclarée deux fois dans un format d'enregistrement, ou format d'enregistrement déclaré deux fois.",
+  "config.lint.rules.dds-missing-length": "Zone sans longueur, sans référence (R) et sans REF / REFFLD.",
+  "config.lint.rules.dds-decimals": "Plus de positions décimales que la longueur de la zone.",
+  "config.lint.rules.dds-length-limit": "Longueur supérieure à ce que le type de données autorise.",
+  "config.lint.rules.dds-key-not-in-record": "Zone clé (K) qui n'est pas une zone du format d'enregistrement.",
+  "config.lint.rules.dds-off-screen": "Zone d'affichage ou constante hors de la taille de l'écran (DSPSIZ).",
+  "config.lint.rules.dds-overlap": "Deux zones d'affichage ou constantes d'un format d'enregistrement superposées."
 }

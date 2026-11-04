@@ -5,6 +5,7 @@ import * as vscode from 'vscode';
 import { clDeclaration, clDeclarationLine, clLint, ClRule, CL_RULES } from '../core/clChecks';
 import { logError } from '../core/log';
 import { checkSqlScript, SqlRule, SQL_RULES } from '../core/sqlChecks';
+import { ddsKind, ddsLint, DDS_RULES } from '../core/ddsChecks';
 
 const SEVERITY = { error: vscode.DiagnosticSeverity.Error, warning: vscode.DiagnosticSeverity.Warning, info: vscode.DiagnosticSeverity.Information, hint: vscode.DiagnosticSeverity.Hint };
 const config = () => vscode.workspace.getConfiguration('vanthrex');
@@ -15,12 +16,18 @@ export function registerClSqlChecks(context: vscode.ExtensionContext): void {
   const visible = (doc: vscode.TextDocument) => vscode.window.visibleTextEditors.some(e => e.document === doc);
   const run = (doc: vscode.TextDocument) => {
     try {
-      if (!['cl', 'sql'].includes(doc.languageId) || !visible(doc)) { return; }
+      if (!['cl', 'sql', 'dds'].includes(doc.languageId) || !visible(doc)) { return; }
       const rules = config().get<Record<string, boolean>>('lint.rules', {});
       const on = (r: string) => rules[r] !== false;
-      if (!config().get<boolean>('lint.enabled', true) || !config().get<boolean>(doc.languageId === 'cl' ? 'lint.cl' : 'lint.sql', true) || doc.getText().length > 2_000_000) { collection.delete(doc.uri); return; }
+      if (!config().get<boolean>('lint.enabled', true) || !config().get<boolean>(doc.languageId === 'cl' ? 'lint.cl' : doc.languageId === 'dds' ? 'lint.dds' : 'lint.sql', true) || doc.getText().length > 2_000_000) { collection.delete(doc.uri); return; }
       const diags: vscode.Diagnostic[] = [];
-      if (doc.languageId === 'cl') {
+      if (doc.languageId === 'dds') {
+        for (const f of ddsLint(doc.getText(), ddsKind(doc.uri.path), on)) {
+          const line = Math.min(f.line, doc.lineCount - 1);
+          const d = new vscode.Diagnostic(new vscode.Range(line, f.start, line, Math.min(f.end, Math.max(f.start + 1, doc.lineAt(line).text.length))), f.message, SEVERITY[f.severity]);
+          d.source = 'Vanthrex'; d.code = f.rule; diags.push(d);
+        }
+      } else if (doc.languageId === 'cl') {
         for (const f of clLint(doc.getText(), on)) {
           const line = Math.min(f.line, doc.lineCount - 1);
           const d = new vscode.Diagnostic(new vscode.Range(line, f.start, line, f.end), f.message, SEVERITY[f.severity]);
@@ -39,7 +46,7 @@ export function registerClSqlChecks(context: vscode.ExtensionContext): void {
     } catch (e) { logError(e); }
   };
   const schedule = (doc: vscode.TextDocument) => {
-    if (!['cl', 'sql'].includes(doc.languageId)) { return; }
+    if (!['cl', 'sql', 'dds'].includes(doc.languageId)) { return; }
     const key = doc.uri.toString();
     clearTimeout(timers.get(key));
     timers.set(key, setTimeout(() => { timers.delete(key); run(doc); }, 400));
@@ -51,12 +58,12 @@ export function registerClSqlChecks(context: vscode.ExtensionContext): void {
     vscode.workspace.onDidChangeTextDocument(e => schedule(e.document)),
     vscode.workspace.onDidCloseTextDocument(d => { collection.delete(d.uri); clearTimeout(timers.get(d.uri.toString())); timers.delete(d.uri.toString()); }),
     vscode.workspace.onDidChangeConfiguration(e => { if (e.affectsConfiguration('vanthrex.lint')) { vscode.window.visibleTextEditors.forEach(ed => run(ed.document)); } }),
-    vscode.languages.registerCodeActionsProvider([{ language: 'cl' }, { language: 'sql' }], {
+    vscode.languages.registerCodeActionsProvider([{ language: 'cl' }, { language: 'sql' }, { language: 'dds' }], {
       provideCodeActions(doc, _r, ctx) {
         const out: vscode.CodeAction[] = [];
         try {
-          for (const d of ctx.diagnostics.filter(x => x.source === 'Vanthrex' && (String(x.code) in CL_RULES || String(x.code) in SQL_RULES))) {
-            const rule = String(d.code) as ClRule | SqlRule;
+          for (const d of ctx.diagnostics.filter(x => x.source === 'Vanthrex' && (String(x.code) in CL_RULES || String(x.code) in SQL_RULES || String(x.code) in DDS_RULES))) {
+            const rule = String(d.code) as ClRule | SqlRule | keyof typeof DDS_RULES;
             const fix = (title: string, build: (e: vscode.WorkspaceEdit) => void, preferred = true) => {
               const a = new vscode.CodeAction(title, vscode.CodeActionKind.QuickFix); a.edit = new vscode.WorkspaceEdit(); build(a.edit); a.diagnostics = [d]; a.isPreferred = preferred; out.push(a);
             };
