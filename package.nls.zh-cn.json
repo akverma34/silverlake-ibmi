@@ -1,6 +1,6 @@
 {
-  "displayName": "Vanthrex for IBM i",
-  "description": "友好的一体化 VS Code IBM i 工作台，内置 AI 助手 (@vanthrex)：多系统连接向导、库和 IFS 浏览器、编辑并编译（内联显示错误）、调用图和影响分析、支持自动完成和解释的 Db2 for i SQL、表数据编辑器、调试器、系统仪表板、作业和消息、RPG 导航、固定格式到自由格式转换以及代码检查。",
+  "displayName": "Vanthrex – IBM i 开发工具 (RPG、CL、SQL)",
+  "description": "在 VS Code 中进行现代 IBM i (AS400) 开发：浏览库、源成员、IFS 和假脱机文件，编辑和编译 RPGLE、CL 和 SQL 并显示内联错误，提供 F4 提示、RPG 依赖关系分析和调用图、40 多项带快速修复的代码检查、键入时建议，以及确保数据隐私的 AI 助手。",
   "viewsContainers.vanthrex.title": "Vanthrex for IBM i",
   "views.vanthrex.connections.name": "连接",
   "views.vanthrex.libraries.name": "库和源",

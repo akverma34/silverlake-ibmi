@@ -1,6 +1,6 @@
 {
-  "displayName": "Vanthrex for IBM i",
-  "description": "AI アシスタント (@vanthrex) を備えた、VS Code 用の使いやすいオールインワン IBM i ワークベンチ: 複数システム対応の接続ウィザード、ライブラリーと IFS のブラウザー、インライン・エラー表示付きの編集とコンパイル、呼び出しグラフと影響分析、オートコンプリートと Explain 対応の Db2 for i SQL、表データ・エディター、デバッガー、システム・ダッシュボード、ジョブとメッセージ、RPG ナビゲーション、固定形式から自由形式への変換、コード・チェック。",
+  "displayName": "Vanthrex – IBM i 開発ツール (RPG、CL、SQL)",
+  "description": "VS Code でのモダンな IBM i (AS400) 開発: ライブラリー、ソース・メンバー、IFS、スプール・ファイルを参照し、インライン・エラー表示付きで RPGLE、CL、SQL を編集およびコンパイルできます。F4 プロンプト、RPG 依存関係分析と呼び出しグラフ、クイック・フィックス付きの 40 以上のコード・チェック、入力中の提案、データのプライバシーを守る AI アシスタントを備えています。",
   "viewsContainers.vanthrex.title": "Vanthrex for IBM i",
   "views.vanthrex.connections.name": "接続",
   "views.vanthrex.libraries.name": "ライブラリーとソース",

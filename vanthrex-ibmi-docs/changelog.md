@@ -6,6 +6,11 @@ nav_order: 90
 
 # Changelog
 
+## 2.6.1 (not released yet)
+
+- Marketplace listing: clearer name (*Vanthrex – IBM i Development Tools (RPG, CL, SQL)*) and description, 30 search keywords (IBM i, AS400, iSeries, RPGLE, ILE RPG, SQLRPGLE, CL, Db2 for i, IFS, DSPPGMREF, F4 prompt, PDM, SEU, fixed to free…) and the Linters, Formatters and Notebooks categories.
+- README: install command (`code --install-extension gauravgupta0612.vanthrex-ibmi`), installs and license badges, and who the extension is for.
+
 ## 2.6.0
 
 **Daily RPG development** — about 150 small features for the code you write every day. Everything works on the open source, with no round trip to the IBM i, so it is instant and works offline.

@@ -1,6 +1,6 @@
 {
-  "displayName": "Vanthrex for IBM i",
-  "description": "A friendly, all-in-one IBM i workbench for VS Code with an AI assistant (@vanthrex): connection wizard for several systems, library & IFS browser, edit and compile with inline errors, call graph & impact analysis, Db2 for i SQL with autocomplete and explain, table data editor, debugger, system dashboard, jobs & messages, RPG navigation, fixed-to-free conversion and code checks.",
+  "displayName": "Vanthrex – IBM i Development Tools (RPG, CL, SQL)",
+  "description": "Modern IBM i (AS400) development in VS Code: browse libraries, source members, IFS and spooled files, edit and compile RPGLE, CL and SQL with inline errors, F4 prompting, RPG dependency analysis and call graph, 40+ code checks with quick fixes, suggestions as you type and an AI assistant that keeps your data private.",
   "viewsContainers.vanthrex.title": "Vanthrex for IBM i",
   "views.vanthrex.connections.name": "Connections",
   "views.vanthrex.libraries.name": "Libraries & Source",

@@ -12,6 +12,23 @@ An all-in-one IBM i workbench for VS Code, built to be easy for first-time users
 
 [![Docs](https://img.shields.io/badge/docs-online-blue)](https://gauravgupta0612.github.io/vanthrex-ibmi-docs/) [![Marketplace](https://img.shields.io/visual-studio-marketplace/v/gauravgupta0612.vanthrex-ibmi?label=Marketplace)](https://marketplace.visualstudio.com/items?itemName=gauravgupta0612.vanthrex-ibmi)
 
+[![Installs](https://img.shields.io/visual-studio-marketplace/i/gauravgupta0612.vanthrex-ibmi?label=Installs)](https://marketplace.visualstudio.com/items?itemName=gauravgupta0612.vanthrex-ibmi) [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+## Install
+
+From the **[Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=gauravgupta0612.vanthrex-ibmi)**, or in a terminal:
+
+```
+code --install-extension gauravgupta0612.vanthrex-ibmi
+```
+
+Then open the **Vanthrex** view in the activity bar and choose **Add IBM i Connection…** (host, user, password or SSH key). Nothing else is needed on your computer.
+
+## Who it is for
+
+Developers and teams working with **IBM i (AS400, iSeries)**: **RPGLE** and **free-form RPG**, **ILE RPG**, **SQLRPGLE**, **CL / CLLE**, **DDS**, **Db2 for i** SQL, the **IFS** and source physical files, who want a modern **VS Code** workflow instead of (or next to) PDM and SEU: browse and edit members, compile with inline errors, **F4 prompting**, **RPG dependency analysis** (call graph, where used, DSPPGMREF), **fixed to free** conversion and **IBM i modernization** with an **AI assistant** that keeps your data private.
+
+
 ## Highlights
 
 | Area | What you get |
