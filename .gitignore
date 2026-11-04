@@ -16,3 +16,6 @@ push-release-tag.bat
 
 # Internal material (not published)
 showcase/
+
+# The documentation site is its own repository (github.com/gauravgupta0612/vanthrex-ibmi-docs)
+vanthrex-ibmi-docs/
