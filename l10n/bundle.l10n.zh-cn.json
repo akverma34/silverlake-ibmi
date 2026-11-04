@@ -3368,7 +3368,7 @@
   "Green-screen commands that open a screen here. Right-click one to prompt it (F4).": "在此处打开屏幕的绿屏命令。右键单击某个命令可对其进行提示 (F4)。",
   "$(list-ordered) GO menus (MAIN, PROGRAMMER, SYSTEM…)": "$(list-ordered) GO 菜单 (MAIN、PROGRAMMER、SYSTEM…)",
   "$(person) Work with my jobs": "$(person) 处理我的作业",
-  "What is new in 3.0": "3.0 版新增功能",
+  "What is new in 3.1": "3.1 版新增功能",
   "Every check of Vanthrex (RPG, CL, SQL, DDS and your team standards) on the indexed copy of each member: run it before a release, compare it after.": "对每个成员的已索引副本执行 Vanthrex 的所有检查 (RPG、CL、SQL、DDS 和您的团队标准)：在发布前运行，发布后进行比较。",
   "The link is for the system {0}, which is not one of your connections.": "该链接针对系统 {0}，它不是您的连接之一。",
   "Connect": "连接",

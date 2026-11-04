@@ -1,6 +1,8 @@
 **
 !dist/**
-!media/**
+!media/*.svg
+!media/*.png
+!media/walkthrough/**
 !syntaxes/**
 !snippets/**
 !package.json
@@ -11,4 +13,3 @@
 !package.nls*.json
 !language-configuration*.json
 dist/**/*.map
-media/screenshots/**

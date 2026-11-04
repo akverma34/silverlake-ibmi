@@ -176,7 +176,7 @@ export function dailyLint(text: string, opts: DailyOptions = {}): LintFinding[] 
   const seen = new Map<string, number>();
   for (const d of parse.definitions) {
     if (!['variable', 'constant', 'ds', 'file', 'prototype', 'procedure', 'subroutine'].includes(d.kind)) { continue; }
-    const k = `${d.procedure ?? ''}|${d.kind === 'procedure' || d.kind === 'prototype' ? 'P' : d.kind === 'subroutine' ? 'S' : 'V'}|${d.upper}`;
+    const k = `${d.procedure ?? ''}|${d.kind === 'procedure' ? 'P' : d.kind === 'prototype' ? 'R' : d.kind === 'subroutine' ? 'S' : 'V'}|${d.upper}`;
     if (seen.has(k)) { push('duplicate-declaration', 'error', d.line, d.column, d.column + d.name.length, `${d.name} is already declared on line ${seen.get(k)! + 1}.`); }
     else { seen.set(k, d.line); }
   }

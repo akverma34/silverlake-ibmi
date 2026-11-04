@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.1.0 (not released yet)
+## 3.1.0
 
 **More power in the editor**
 
@@ -11,6 +11,11 @@
 - **END lines indented as you type** (`vanthrex.editor.indentOnType`): typing the `;` of ENDIF, ENDDO, ELSE, WHEN, OTHER, ON-ERROR, END-PROC… moves the line under its opener.
 - **Links that open a member at a line**: *Copy a Link That Opens This Line* (right-click, or Ctrl+Alt+A → Copy) gives a `vscode://…` link for tickets, chats and e-mails; whoever clicks it, with Vanthrex installed, opens the same member (or IFS file) at the same line, on the named system after a confirmation.
 - **Clickable IBM i references in every terminal** (`vanthrex.editor.terminalLinks`): `LIB/FILE(MEMBER)` opens the member, message IDs such as `CPF9801` or `MCH1210` are explained, IFS paths open the file — in the PASE terminal, build output, and any other terminal.
+
+**Fixes**
+
+- A prototype (`DCL-PR`) and the procedure with the same name (`DCL-PROC`) are no longer reported as a duplicate declaration.
+- The README and the documentation now have screenshots, and the documentation is organised by area (Getting started, Features, What's new, Reference, Help).
 
 ## 3.0.0
 

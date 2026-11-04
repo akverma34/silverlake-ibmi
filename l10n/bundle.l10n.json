@@ -2535,7 +2535,7 @@
   "Copy the compile command": "Copy the compile command",
   "No compile command is known for type {0}.": "No compile command is known for type {0}.",
   "Help": "Help",
-  "What is new in 3.0": "What is new in 3.0",
+  "What is new in 3.1": "What is new in 3.1",
   "Every new feature, with its shortcut": "Every new feature, with its shortcut",
   "Close the Open Block (ENDIF, ENDDO…)": "Close the Open Block (ENDIF, ENDDO…)",
   "Surround With (IF, MONITOR, DOW, FOR…)…": "Surround With (IF, MONITOR, DOW, FOR…)…",
