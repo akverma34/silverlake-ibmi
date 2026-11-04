@@ -11,3 +11,4 @@
 !package.nls*.json
 !language-configuration*.json
 dist/**/*.map
+media/screenshots/**

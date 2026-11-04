@@ -19,6 +19,32 @@
 
 Offline install: download the `.vsix` from [Releases](https://github.com/gauravgupta0612/silverlake-ibmi/releases), then **Extensions** → `…` → **Install from VSIX…**. What the IBM i needs is in [Requirements](#requirements-on-the-ibm-i).
 
+## See it in action
+
+**Checks while you type, with the fix one click away** — more than 50 checks for RPG, CL and SQL, shown in *Problems*:
+
+![RPG checks in the editor and the Problems view](media/screenshots/rpg-checks.png)
+
+**Quick fixes** — `Ctrl+.` on a warning adds the missing code for you:
+
+![Quick fix: add an IF NOT %FOUND test after CHAIN](media/screenshots/quick-fix.png)
+
+**Suggestions while you type** — the next line an IBM i developer would write, accepted with `Tab`:
+
+![Suggestion after CHAIN: if %found](media/screenshots/suggestions.png)
+
+**Every tool in one menu** — `Ctrl+Alt+A` shows the tools that fit the file you are in:
+
+![Developer Toolbox](media/screenshots/developer-toolbox.png)
+
+| CL checks | SQL checks |
+|---|---|
+| ![CL checks](media/screenshots/cl-checks.png) | ![SQL checks](media/screenshots/sql-checks.png) |
+| **Connect in a minute** | **Team coding standards** |
+| ![Add an IBM i connection](media/screenshots/add-connection.png) | ![Team coding standards](media/screenshots/team-standards.png) |
+
+More in the [screenshot gallery](https://gauravgupta0612.github.io/vanthrex-ibmi-docs/screenshots.html).
+
 ## Why teams use it
 
 - **Fewer errors reach production.** More than 50 checks run while you type in RPG, CL and SQL — prototypes that no longer match, wrong argument counts, `%SUBST` or array index out of range, numeric overflow, `UPDATE` / `DELETE` without `WHERE`, undeclared CL variables — most with a one-click fix.
