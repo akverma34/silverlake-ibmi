@@ -44,8 +44,10 @@ Offline install: download the `.vsix` from [Releases](https://github.com/gauravg
 | ![Add an IBM i connection](media/screenshots/add-connection.png) | ![Team coding standards](media/screenshots/team-standards.png) |
 | **DDS checks (new in 3.1)** | **Format Document for CL (new in 3.1)** |
 | ![DDS checks](media/screenshots/dds-checks.png) | ![Format Document for CL](media/screenshots/cl-format-compare.png) |
+| **Fixed → free in one command** | **Flowchart of a procedure** |
+| ![Fixed format converted to free](media/screenshots/fixed-to-free-compare.png) | ![Flowchart of a procedure](media/screenshots/flowchart.png) |
 
-More in the [screenshot gallery](https://gauravgupta0612.github.io/vanthrex-ibmi-docs/screenshots.html).
+More in the [screenshot gallery](https://gauravgupta0612.github.io/vanthrex-ibmi-docs/screenshots.html), and [try it with example sources](https://gauravgupta0612.github.io/vanthrex-ibmi-docs/examples.html) — no IBM i needed.
 
 ## Why teams use it
 
