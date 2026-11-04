@@ -7,7 +7,7 @@ parent: "Reference"
 
 # Commands
 
-All 487 commands contributed by Vanthrex for IBM i 2.6.0. Run any of them from the
+All 493 commands contributed by Vanthrex for IBM i 2.6.1. Run any of them from the
 Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-click menus and view toolbars.
 
 | Command | ID | Keys |
@@ -92,6 +92,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Clear SQL History | `vanthrex.clearSqlHistory` |  |
 | Clear the Member Cache | `vanthrex.memberCache.clear` |  |
 | Close the Open Block (ENDIF, ENDDO…) | `vanthrex.rpg.closeBlock` | Ctrl+Alt+. |
+| Code Health Report of a Library… | `vanthrex.codeHealth` |  |
 | Code Metrics | `vanthrex.codeMetrics` |  |
 | Columns Close to Their Limit… | `vanthrex.capacityCheck` |  |
 | Command Line (5250 Style) | `vanthrex.commandLine` | Ctrl+Alt+K |
@@ -184,6 +185,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | Explain Message ID… | `vanthrex.explainMessage` |  |
 | Explain SQL (Performance) | `vanthrex.explainSql` |  |
 | Explain SQLCODE / SQLSTATE / RPG Status… | `vanthrex.explainCode` |  |
+| Export a Team Setup File… | `vanthrex.team.export` |  |
 | Export Data Differences (CSV)… | `vanthrex.exportDataCompare` |  |
 | Export Notebook to Markdown | `vanthrex.notebook.exportMarkdown` |  |
 | Export Query Result (Excel, CSV, JSON)… | `vanthrex.exportQuery` |  |
@@ -250,7 +252,10 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | IBM i: Work with… | `vanthrex.workWith` |  |
 | IFS Folders by Size… | `vanthrex.ifsStorage` |  |
 | Impact Analysis (Who Uses This?)… | `vanthrex.impactAnalysis` |  |
+| Import a Team Setup File… | `vanthrex.team.import` |  |
+| Import Coding Standards from rpglint.json… | `vanthrex.standards.importRpglint` |  |
 | Import CSV or Excel into Table… | `vanthrex.importData` |  |
+| Import My Code for IBM i Setup (Connections, Library Lists, Actions)… | `vanthrex.importCodeForIbmi` |  |
 | Index Advisor | `vanthrex.indexAdvisor` |  |
 | Index Source Libraries for Instant Search… | `vanthrex.index.build` |  |
 | Indicator Usage | `vanthrex.indicatorUsage` |  |
@@ -446,6 +451,7 @@ Command Palette (**Ctrl+Shift+P**, type *Vanthrex*). Most are also on right-clic
 | System Tracker (Everything in One Place) | `vanthrex.systemTracker` | Ctrl+Alt+T |
 | Table Statistics | `vanthrex.tableStatistics` |  |
 | Take a Library Snapshot | `vanthrex.librarySnapshot` |  |
+| Team Coding Standards… | `vanthrex.standards.edit` |  |
 | Time This SQL Statement (Several Runs) | `vanthrex.sqlBenchmark` |  |
 | TODO and FIXME Notes in Open Sources… | `vanthrex.sourceNotes` |  |
 | Toggle Bookmark | `vanthrex.bookmark.toggle` | Ctrl+Alt+B |

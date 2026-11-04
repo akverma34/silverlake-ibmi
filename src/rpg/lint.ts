@@ -4,6 +4,7 @@ import { DAILY_RULES, DailyRule, dailyLint } from './rpgProductivity';
 import { embeddedSqlLint, SAFETY_RULES, SafetyRule, safetyLint } from './rpgSafetyChecks';
 import { SQL_RULES, SqlRule } from '../core/sqlChecks';
 import { DATA_RULES, DataRule, dataLint } from './rpgDataChecks';
+import { Standards, standardsLint } from './rpgStandards';
 
 export type LintSeverity = 'error' | 'warning' | 'info' | 'hint';
 
@@ -20,6 +21,8 @@ export interface LintOptions {
   rules?: Partial<Record<LintRule, boolean>>;
   maxProcedureLines?: number;
   maxNesting?: number;
+  /** Team coding standards (all off unless set). */
+  standards?: Standards;
   /** /COPY members: declarations are used elsewhere and there is no main program. */
   isInclude?: boolean;
 }
@@ -164,5 +167,6 @@ export function lintRpg(text: string, options: LintOptions = {}): LintFinding[] 
   try { findings.push(...safetyLint(text, { enabled: on })); } catch { /* keep the other findings */ }
   try { findings.push(...embeddedSqlLint(text, on)); } catch { /* keep the other findings */ }
   try { findings.push(...dataLint(text, { enabled: r => on(r) && !(options.isInclude && (r === 'undeclared-host-variable' || r === 'undefined-subroutine')) })); } catch { /* keep the other findings */ }
+  if (options.standards) { try { findings.push(...standardsLint(text, options.standards).filter(f => options.rules?.[f.rule as LintRule] !== false)); } catch { /* keep the other findings */ } }
   return findings;
 }

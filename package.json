@@ -86,11 +86,6 @@
           "when": "vanthrex.connected"
         },
         {
-          "id": "vanthrex.menus",
-          "name": "%views.vanthrex.menus.name%",
-          "when": "vanthrex.connected"
-        },
-        {
           "id": "vanthrex.ifs",
           "name": "%views.vanthrex.ifs.name%",
           "when": "vanthrex.connected"
@@ -1927,47 +1922,6 @@
         "icon": "$(terminal-cmd)"
       },
       {
-        "command": "vanthrex.goMenu",
-        "title": "%command.goMenu%",
-        "category": "Vanthrex",
-        "icon": "$(list-ordered)"
-      },
-      {
-        "command": "vanthrex.myJobs",
-        "title": "%command.myJobs%",
-        "category": "Vanthrex",
-        "icon": "$(person)"
-      },
-      {
-        "command": "vanthrex.menus.run",
-        "title": "%command.menus.run%",
-        "category": "Vanthrex"
-      },
-      {
-        "command": "vanthrex.menus.prompt",
-        "title": "%command.menus.prompt%",
-        "category": "Vanthrex",
-        "icon": "$(terminal-cmd)"
-      },
-      {
-        "command": "vanthrex.menus.addFavorite",
-        "title": "%command.menus.addFavorite%",
-        "category": "Vanthrex",
-        "icon": "$(star-empty)"
-      },
-      {
-        "command": "vanthrex.menus.removeFavorite",
-        "title": "%command.menus.removeFavorite%",
-        "category": "Vanthrex",
-        "icon": "$(star-full)"
-      },
-      {
-        "command": "vanthrex.menus.clearRecent",
-        "title": "%command.menus.clearRecent%",
-        "category": "Vanthrex",
-        "icon": "$(clear-all)"
-      },
-      {
         "command": "vanthrex.commandLine.key",
         "title": "%command.commandLine.key%",
         "category": "Vanthrex"
@@ -3008,20 +2962,46 @@
         "command": "vanthrex.dev.whatsNew",
         "title": "%command.dev.whatsNew%",
         "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.importCodeForIbmi",
+        "title": "%command.importCodeForIbmi%",
+        "category": "Vanthrex",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "vanthrex.team.export",
+        "title": "%command.team.export%",
+        "category": "Vanthrex",
+        "icon": "$(export)"
+      },
+      {
+        "command": "vanthrex.team.import",
+        "title": "%command.team.import%",
+        "category": "Vanthrex",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "vanthrex.standards.edit",
+        "title": "%command.standards.edit%",
+        "category": "Vanthrex",
+        "icon": "$(checklist)"
+      },
+      {
+        "command": "vanthrex.standards.importRpglint",
+        "title": "%command.standards.importRpglint%",
+        "category": "Vanthrex",
+        "icon": "$(checklist)"
+      },
+      {
+        "command": "vanthrex.codeHealth",
+        "title": "%command.codeHealth%",
+        "category": "Vanthrex",
+        "icon": "$(pulse)"
       }
     ],
     "menus": {
       "view/title": [
-        {
-          "command": "vanthrex.goMenu",
-          "when": "view == vanthrex.menus",
-          "group": "navigation@0"
-        },
-        {
-          "command": "vanthrex.commandLine",
-          "when": "view == vanthrex.menus",
-          "group": "navigation@1"
-        },
         {
           "command": "vanthrex.systemTracker",
           "when": "view == vanthrex.connections && vanthrex.connected",
@@ -3239,41 +3219,6 @@
         }
       ],
       "view/item/context": [
-        {
-          "command": "vanthrex.menus.prompt",
-          "when": "view == vanthrex.menus && viewItem =~ /^menu\\.(item|fav)\\.command$/",
-          "group": "inline@1"
-        },
-        {
-          "command": "vanthrex.menus.addFavorite",
-          "when": "view == vanthrex.menus && viewItem =~ /^menu\\.item\\./",
-          "group": "inline@2"
-        },
-        {
-          "command": "vanthrex.menus.removeFavorite",
-          "when": "view == vanthrex.menus && viewItem =~ /^menu\\.fav\\./",
-          "group": "inline@2"
-        },
-        {
-          "command": "vanthrex.menus.clearRecent",
-          "when": "view == vanthrex.menus && viewItem == menu.recent",
-          "group": "inline"
-        },
-        {
-          "command": "vanthrex.menus.prompt",
-          "when": "view == vanthrex.menus && viewItem =~ /^menu\\.(item|fav)\\.command$/",
-          "group": "0_menu@1"
-        },
-        {
-          "command": "vanthrex.menus.addFavorite",
-          "when": "view == vanthrex.menus && viewItem =~ /^menu\\.item\\./",
-          "group": "0_menu@2"
-        },
-        {
-          "command": "vanthrex.menus.removeFavorite",
-          "when": "view == vanthrex.menus && viewItem =~ /^menu\\.fav\\./",
-          "group": "0_menu@2"
-        },
         {
           "command": "vanthrex.connect",
           "when": "view == vanthrex.connections && viewItem == connection",
@@ -3945,11 +3890,6 @@
           "group": "0_5250@2"
         },
         {
-          "command": "vanthrex.goMenu",
-          "when": "view == vanthrex.connections && viewItem == connection.active",
-          "group": "0_5250@2"
-        },
-        {
           "command": "vanthrex.wrkactjob",
           "when": "view == vanthrex.connections && viewItem == connection.active",
           "group": "0_5250@3"
@@ -4490,26 +4430,6 @@
         }
       ],
       "commandPalette": [
-        {
-          "command": "vanthrex.menus.run",
-          "when": "false"
-        },
-        {
-          "command": "vanthrex.menus.prompt",
-          "when": "false"
-        },
-        {
-          "command": "vanthrex.menus.addFavorite",
-          "when": "false"
-        },
-        {
-          "command": "vanthrex.menus.removeFavorite",
-          "when": "false"
-        },
-        {
-          "command": "vanthrex.menus.clearRecent",
-          "when": "false"
-        },
         {
           "command": "vanthrex.connect",
           "when": "false"
@@ -5095,14 +5015,6 @@
         },
         {
           "command": "vanthrex.commandLine",
-          "when": "vanthrex.connected"
-        },
-        {
-          "command": "vanthrex.goMenu",
-          "when": "vanthrex.connected"
-        },
-        {
-          "command": "vanthrex.myJobs",
           "when": "vanthrex.connected"
         },
         {
@@ -5720,6 +5632,10 @@
         {
           "command": "vanthrex.dev.whatsNew",
           "when": "editorIsOpen"
+        },
+        {
+          "command": "vanthrex.codeHealth",
+          "when": "vanthrex.connected"
         }
       ],
       "vanthrex.ai": [
@@ -6035,12 +5951,6 @@
         "command": "vanthrex.commandLine",
         "key": "ctrl+alt+k",
         "mac": "cmd+alt+k",
-        "when": "vanthrex.connected"
-      },
-      {
-        "command": "vanthrex.goMenu",
-        "key": "ctrl+alt+shift+m",
-        "mac": "cmd+alt+shift+m",
         "when": "vanthrex.connected"
       },
       {
@@ -7543,6 +7453,88 @@
           "type": "boolean",
           "default": true,
           "markdownDescription": "%config.editor.sizeHovers%"
+        },
+        "vanthrex.standards": {
+          "type": "object",
+          "default": {},
+          "markdownDescription": "%config.standards%",
+          "properties": {
+            "uppercaseConstants": {
+              "type": "boolean",
+              "description": "%config.standards.uppercaseConstants%"
+            },
+            "variableCase": {
+              "type": "boolean",
+              "description": "%config.standards.variableCase%"
+            },
+            "qualifiedDs": {
+              "type": "boolean",
+              "description": "%config.standards.qualifiedDs%"
+            },
+            "noGlobalsInProcedures": {
+              "type": "boolean",
+              "description": "%config.standards.noGlobalsInProcedures%"
+            },
+            "noGlobalSubroutines": {
+              "type": "boolean",
+              "description": "%config.standards.noGlobalSubroutines%"
+            },
+            "noLocalSubroutines": {
+              "type": "boolean",
+              "description": "%config.standards.noLocalSubroutines%"
+            },
+            "noOccurs": {
+              "type": "boolean",
+              "description": "%config.standards.noOccurs%"
+            },
+            "noCtdata": {
+              "type": "boolean",
+              "description": "%config.standards.noCtdata%"
+            },
+            "noSqlJoins": {
+              "type": "boolean",
+              "description": "%config.standards.noSqlJoins%"
+            },
+            "noExecuteImmediate": {
+              "type": "boolean",
+              "description": "%config.standards.noExecuteImmediate%"
+            },
+            "procedureDescription": {
+              "type": "boolean",
+              "description": "%config.standards.procedureDescription%"
+            },
+            "conditionParens": {
+              "type": "boolean",
+              "description": "%config.standards.conditionParens%"
+            },
+            "prototypeExt": {
+              "type": "boolean",
+              "description": "%config.standards.prototypeExt%"
+            },
+            "indent": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 8,
+              "description": "%config.standards.indent%"
+            },
+            "directiveCase": {
+              "type": "string",
+              "enum": [
+                "upper",
+                "lower"
+              ],
+              "description": "%config.standards.directiveCase%"
+            },
+            "namePattern": {
+              "type": "string",
+              "description": "%config.standards.namePattern%"
+            },
+            "maxProcedureLines": {
+              "type": "number",
+              "minimum": 10,
+              "description": "%config.standards.maxProcedureLines%"
+            }
+          }
         }
       }
     },

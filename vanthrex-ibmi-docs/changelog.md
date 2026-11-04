@@ -8,6 +8,13 @@ nav_order: 90
 
 ## 2.6.1 (not released yet)
 
+**Everything in Vanthrex, for one person or a whole team**
+
+- **Import My Code for IBM i Setup**: connections (host, port, user, SSH key), library lists, current library, home folder, library list profiles (as Vanthrex library list sets) and compile actions (variables such as `&OPENLIB`, `&OPENSPF`, `&OPENMBR`, `&BUILDLIB` converted), from your Code for IBM i settings and the workspace `.vscode/actions.json`. You choose what to import; passwords are never read — you type each one at the first connection. Both extensions can stay installed while you try Vanthrex.
+- **Team setup file**: export the connections (without user names, passwords or key paths), library list sets, CL macros, compile actions, checks, team standards and AI privacy settings to one JSON file; colleagues import it, type their user profile once, and work with the same setup.
+- **Team coding standards** (`vanthrex.standards`, all off until chosen): constants in upper case, names written as declared, QUALIFIED data structures, no globals in procedures, no global or local subroutines, no OCCURS or CTDATA, no SQL joins or EXECUTE IMMEDIATE in programs, a description above each procedure, conditions in parentheses, indentation, prototypes with EXTPGM / EXTPROC, directive case, a naming pattern and a procedure size limit — checked while you type. **Import Coding Standards from rpglint.json** reads the rules a team already uses with Code for IBM i.
+- **Code Health Report of a Library**: every Vanthrex check (RPG, CL, SQL and your standards) on every indexed member of a library — or all of them — in seconds and offline: a score and grade, the members to look at first (click to open), and the findings by check, with CSV and Excel export. Run it before a release and compare after.
+
 - Marketplace listing: clearer name (*Vanthrex – IBM i Development Tools (RPG, CL, SQL)*) and description, 30 search keywords (IBM i, AS400, iSeries, RPGLE, ILE RPG, SQLRPGLE, CL, Db2 for i, IFS, DSPPGMREF, F4 prompt, PDM, SEU, fixed to free…) and the Linters, Formatters and Notebooks categories.
 - README rewritten for new visitors: install and connect in three steps (with `code --install-extension gauravgupta0612.vanthrex-ibmi`), why teams use it, what you can do by task, who it is for, the new shortcuts, and where to get help; the full feature table by version stays below.
 

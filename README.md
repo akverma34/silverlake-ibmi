@@ -15,6 +15,8 @@
 2. **Connect:** click the **Vanthrex** icon in the activity bar → **Add IBM i Connection…** → host, user, password or SSH key → **Test connection**.
 3. **Work:** open a member from *Libraries & Source*, edit, save with `Ctrl+S`, compile with `Ctrl+Alt+C`. Press **`Ctrl+Alt+A`** at any time to see every tool that fits the file you are in.
 
+**Coming from Code for IBM i?** Run **Import My Code for IBM i Setup…**: your connections, library lists and compile actions are ready in Vanthrex in one step. A team can share its whole setup with **Export a Team Setup File…**.
+
 Offline install: download the `.vsix` from [Releases](https://github.com/gauravgupta0612/silverlake-ibmi/releases), then **Extensions** → `…` → **Install from VSIX…**. What the IBM i needs is in [Requirements](#requirements-on-the-ibm-i).
 
 ## Why teams use it
@@ -33,7 +35,7 @@ Offline install: download the `.vsix` from [Releases](https://github.com/gauravg
 | **Explore the system** | Libraries & source, IFS, spooled files, PDM in one screen, object and source search, Go to Anything (`Ctrl+Alt+J`), System Tracker and dashboard, jobs, messages and a 5250 session in one click. |
 | **Write RPG, CL and SQL** | Free and fixed format, outline, go to definition into /COPY members, rename, F4 prompters, column hints, fixed → free conversion, snippets, suggestions while typing, Surround With, IF → SELECT, toggle value and the [Developer Toolbox](https://gauravgupta0612.github.io/vanthrex-ibmi-docs/features-2-6.html). |
 | **Compile and fix** | `Ctrl+Alt+C` with the right command for the source type, errors inline and in *Problems*, compile history, objects out of date with their source, local Git folders deployed to the IFS. |
-| **Check quality** | Code checks with quick fixes, metrics with grades, unused code and copybooks, binder source and prototype copybooks from the exports. |
+| **Check quality** | Code checks with quick fixes, team coding standards (or your rpglint.json), a code health report of a whole library, metrics with grades, unused code and copybooks, binder source and prototype copybooks from the exports. |
 | **Work with Db2 for i** | SQL with autocomplete, results grid, Explain and index advisor, table data editor, generate DDL, compare data between systems, export to Excel / CSV / JSON. |
 | **Understand dependencies** | Call graph (programs, service programs, files), where used, callers of each exported procedure, signature checks, CRUD matrix and database diagrams. |
 | **Run and debug** | Run CL with your library list, call a program with its real parameter types, step-through debugging of RPG, COBOL and CL. |

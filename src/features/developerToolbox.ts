@@ -227,6 +227,12 @@ const EXISTING: { id: string; label: string; group: string; langs: Lang[]; selec
   { id: 'vanthrex.rpg.prototypeCopybook', label: vscode.l10n.t('Generate a Prototype Copybook From the Exports'), group: 'Generate', langs: ['rpgle'] }, { id: 'vanthrex.rpg.removeUnusedDeclarations', label: vscode.l10n.t('Remove Unused Declarations…'), group: 'Fix all', langs: ['rpgle'] },
   { id: 'vanthrex.rpg.clearChangeMarkers', label: vscode.l10n.t('Clear Change Markers (Columns 1-5)'), group: 'Edit', langs: ['rpgle'] }, { id: 'vanthrex.rpg.ruler', label: vscode.l10n.t('Insert Column Ruler'), group: 'Edit', langs: ['rpgle'] },
   { id: 'vanthrex.rpg.ibmDocs', label: vscode.l10n.t('Open IBM Documentation for the Word'), group: 'Help', langs: ['rpgle', 'cl', 'sql', 'dds'] }, { id: 'vanthrex.toggleInlineSuggestions', label: vscode.l10n.t('Turn IBM i Suggestions On or Off'), group: 'Help', langs: ['any'] },
+  { id: 'vanthrex.codeHealth', label: vscode.l10n.t('Code Health Report of a Library…'), group: 'Check', langs: ['any'] },
+  { id: 'vanthrex.standards.edit', label: vscode.l10n.t('Team Coding Standards…'), group: 'Check', langs: ['any'] },
+  { id: 'vanthrex.standards.importRpglint', label: vscode.l10n.t('Import Coding Standards from rpglint.json…'), group: 'Check', langs: ['any'] },
+  { id: 'vanthrex.importCodeForIbmi', label: vscode.l10n.t('Import My Code for IBM i Setup (Connections, Library Lists, Actions)…'), group: 'Setup', langs: ['any'] },
+  { id: 'vanthrex.team.export', label: vscode.l10n.t('Export a Team Setup File…'), group: 'Setup', langs: ['any'] },
+  { id: 'vanthrex.team.import', label: vscode.l10n.t('Import a Team Setup File…'), group: 'Setup', langs: ['any'] },
   { id: 'vanthrex.formatSql', label: vscode.l10n.t('Format SQL'), group: 'SQL', langs: ['sql'] },
 ];
 

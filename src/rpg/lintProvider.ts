@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { LINT_RULES, LintRule, LintSeverity, lintRpg } from './lint';
+import { Standards } from './rpgStandards';
 
 const SEVERITY: Record<LintSeverity, vscode.DiagnosticSeverity> = {
   error: vscode.DiagnosticSeverity.Error,
@@ -22,6 +23,7 @@ export function registerRpgLint(context: vscode.ExtensionContext): void {
       rules: config().get<Partial<Record<LintRule, boolean>>>('lint.rules', {}),
       maxProcedureLines: config().get<number>('lint.maxProcedureLines', 200),
       maxNesting: config().get<number>('lint.maxNesting', 6),
+      standards: config().get<Standards>('standards', {}),
       isInclude: /\.(rpgleinc|rpginc)$/i.test(doc.uri.path) || /\/Q?CPYSRC\//i.test(doc.uri.path),
     });
     collection.set(doc.uri, findings.map(f => {
@@ -45,7 +47,7 @@ export function registerRpgLint(context: vscode.ExtensionContext): void {
     vscode.workspace.onDidChangeTextDocument(e => schedule(e.document)),
     vscode.workspace.onDidCloseTextDocument(d => collection.delete(d.uri)),
     vscode.workspace.onDidChangeConfiguration(e => {
-      if (e.affectsConfiguration('vanthrex.lint')) { vscode.window.visibleTextEditors.forEach(ed => run(ed.document)); }
+      if (e.affectsConfiguration('vanthrex.lint') || e.affectsConfiguration('vanthrex.standards')) { vscode.window.visibleTextEditors.forEach(ed => run(ed.document)); }
     }),
     vscode.commands.registerCommand('vanthrex.lintCurrent', () => {
       const doc = vscode.window.activeTextEditor?.document;

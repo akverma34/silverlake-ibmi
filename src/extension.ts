@@ -104,6 +104,7 @@ import { registerInlineSuggestions } from './features/inlineSuggestionsView';
 import { registerRpgDataFixes } from './features/rpgDataFixesView';
 import { registerClSqlChecks } from './features/clSqlChecksView';
 import { registerDeveloperToolbox } from './features/developerToolbox';
+import { registerTeamSetup } from './features/teamSetupView';
 
 let manager: ConnectionManager | undefined;
 
@@ -247,6 +248,7 @@ export function activate(context: vscode.ExtensionContext): void {
   step('rpg data fixes', () => registerRpgDataFixes(context));
   step('cl and sql checks', () => registerClSqlChecks(context));
   step('developer toolbox', () => registerDeveloperToolbox(context, m));
+  step('team setup', () => registerTeamSetup(context, m));
 
   if (failures.length) {
     vscode.window.showErrorMessage(vscode.l10n.t('Vanthrex started with problems: {0}', failures.join(' | ')), vscode.l10n.t('Show Log'))
