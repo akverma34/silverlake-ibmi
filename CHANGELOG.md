@@ -3,7 +3,7 @@
 ## 2.6.1 (not released yet)
 
 - Marketplace listing: clearer name (*Vanthrex – IBM i Development Tools (RPG, CL, SQL)*) and description, 30 search keywords (IBM i, AS400, iSeries, RPGLE, ILE RPG, SQLRPGLE, CL, Db2 for i, IFS, DSPPGMREF, F4 prompt, PDM, SEU, fixed to free…) and the Linters, Formatters and Notebooks categories.
-- README: install command (`code --install-extension gauravgupta0612.vanthrex-ibmi`), installs and license badges, and who the extension is for.
+- README rewritten for new visitors: install and connect in three steps (with `code --install-extension gauravgupta0612.vanthrex-ibmi`), why teams use it, what you can do by task, who it is for, the new shortcuts, and where to get help; the full feature table by version stays below.
 
 ## 2.6.0
 

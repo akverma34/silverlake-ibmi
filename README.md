@@ -1,35 +1,54 @@
-# Vanthrex for IBM i
+# Vanthrex – IBM i Development Tools for VS Code
 
-[![CI](https://github.com/gauravgupta0612/silverlake-ibmi/actions/workflows/ci.yml/badge.svg)](https://github.com/gauravgupta0612/silverlake-ibmi/actions/workflows/ci.yml)
+**Modern IBM i (AS400) development in Visual Studio Code.** Browse libraries, source members and the IFS, edit and compile RPGLE, CL and SQL with errors on the right line, understand programs with a call graph, catch mistakes while you type, and get help from an AI assistant that keeps your data private. Free and open source.
 
-An all-in-one IBM i workbench for VS Code, built to be easy for first-time users. Connect with a guided form, browse libraries and the IFS, edit and compile with inline errors, run Db2 for i SQL in a sortable grid, read spooled files and get help writing RPG, all from one sidebar — now with an **AI assistant (`@vanthrex`)**, an interactive **call graph**, **several systems at once** and **SQL Explain**.
+[![Marketplace](https://img.shields.io/visual-studio-marketplace/v/gauravgupta0612.vanthrex-ibmi?label=Marketplace)](https://marketplace.visualstudio.com/items?itemName=gauravgupta0612.vanthrex-ibmi) [![Installs](https://img.shields.io/visual-studio-marketplace/i/gauravgupta0612.vanthrex-ibmi?label=Installs)](https://marketplace.visualstudio.com/items?itemName=gauravgupta0612.vanthrex-ibmi) [![Docs](https://img.shields.io/badge/docs-online-blue)](https://gauravgupta0612.github.io/vanthrex-ibmi-docs/) [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE) [![CI](https://github.com/gauravgupta0612/silverlake-ibmi/actions/workflows/ci.yml/badge.svg)](https://github.com/gauravgupta0612/silverlake-ibmi/actions/workflows/ci.yml)
 
-> 📖 **Documentation:** [https://gauravgupta0612.github.io/vanthrex-ibmi-docs/](https://gauravgupta0612.github.io/vanthrex-ibmi-docs/) — installation, setup, every feature, commands, settings, troubleshooting and FAQ ([docs repository](https://github.com/gauravgupta0612/vanthrex-ibmi-docs)).
->
-> 📘 New here? Read the **[Feature Guide](FEATURES.md)** for why and how to use every feature.
+## Install in one minute
 
-> **Vanthrex** = *vanguard* + *T-Rex*: a powerful, modern workbench for one of the most dependable platforms.
+1. **Install** from the **[VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=gauravgupta0612.vanthrex-ibmi)**, or in a terminal:
 
-[![Docs](https://img.shields.io/badge/docs-online-blue)](https://gauravgupta0612.github.io/vanthrex-ibmi-docs/) [![Marketplace](https://img.shields.io/visual-studio-marketplace/v/gauravgupta0612.vanthrex-ibmi?label=Marketplace)](https://marketplace.visualstudio.com/items?itemName=gauravgupta0612.vanthrex-ibmi)
+   ```
+   code --install-extension gauravgupta0612.vanthrex-ibmi
+   ```
 
-[![Installs](https://img.shields.io/visual-studio-marketplace/i/gauravgupta0612.vanthrex-ibmi?label=Installs)](https://marketplace.visualstudio.com/items?itemName=gauravgupta0612.vanthrex-ibmi) [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+2. **Connect:** click the **Vanthrex** icon in the activity bar → **Add IBM i Connection…** → host, user, password or SSH key → **Test connection**.
+3. **Work:** open a member from *Libraries & Source*, edit, save with `Ctrl+S`, compile with `Ctrl+Alt+C`. Press **`Ctrl+Alt+A`** at any time to see every tool that fits the file you are in.
 
-## Install
+Offline install: download the `.vsix` from [Releases](https://github.com/gauravgupta0612/silverlake-ibmi/releases), then **Extensions** → `…` → **Install from VSIX…**. What the IBM i needs is in [Requirements](#requirements-on-the-ibm-i).
 
-From the **[Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=gauravgupta0612.vanthrex-ibmi)**, or in a terminal:
+## Why teams use it
 
-```
-code --install-extension gauravgupta0612.vanthrex-ibmi
-```
+- **Fewer errors reach production.** More than 50 checks run while you type in RPG, CL and SQL — prototypes that no longer match, wrong argument counts, `%SUBST` or array index out of range, numeric overflow, `UPDATE` / `DELETE` without `WHERE`, undeclared CL variables — most with a one-click fix.
+- **Faster everyday work.** Suggestions while you type (`IF %FOUND` after `CHAIN`, an SQLCODE test after embedded SQL, `MONMSG` after `CHKOBJ`…), code generated from data structures and tables, fix-all commands and one menu (`Ctrl+Alt+A`) for every tool.
+- **Understand any application.** Call graph and impact analysis, where used, who calls each exported procedure, flowcharts of procedures, data structure layouts and database diagrams.
+- **Easier for new developers.** A modern editor with outline, go to definition, hovers that explain codes and messages, F4 prompters and guided forms, next to familiar PDM options and SEU-style source dates.
+- **Safe with production and with AI.** Connections marked *Production* ask before every change; the AI never sees passwords, keys, personal data or host names, production stays limited to metadata, and every AI request is logged.
+- **No licence cost**, and the interface in English, French, Spanish, German, Italian, Portuguese (Brazil), Japanese and Simplified Chinese.
 
-Then open the **Vanthrex** view in the activity bar and choose **Add IBM i Connection…** (host, user, password or SSH key). Nothing else is needed on your computer.
+## What you can do
+
+| You want to… | Vanthrex gives you |
+|---|---|
+| **Explore the system** | Libraries & source, IFS, spooled files, PDM in one screen, object and source search, Go to Anything (`Ctrl+Alt+J`), System Tracker and dashboard, jobs, messages and a 5250 session in one click. |
+| **Write RPG, CL and SQL** | Free and fixed format, outline, go to definition into /COPY members, rename, F4 prompters, column hints, fixed → free conversion, snippets, suggestions while typing, Surround With, IF → SELECT, toggle value and the [Developer Toolbox](https://gauravgupta0612.github.io/vanthrex-ibmi-docs/features-2-6.html). |
+| **Compile and fix** | `Ctrl+Alt+C` with the right command for the source type, errors inline and in *Problems*, compile history, objects out of date with their source, local Git folders deployed to the IFS. |
+| **Check quality** | Code checks with quick fixes, metrics with grades, unused code and copybooks, binder source and prototype copybooks from the exports. |
+| **Work with Db2 for i** | SQL with autocomplete, results grid, Explain and index advisor, table data editor, generate DDL, compare data between systems, export to Excel / CSV / JSON. |
+| **Understand dependencies** | Call graph (programs, service programs, files), where used, callers of each exported procedure, signature checks, CRUD matrix and database diagrams. |
+| **Run and debug** | Run CL with your library list, call a program with its real parameter types, step-through debugging of RPG, COBOL and CL. |
+| **Operate the system** | Work with subsystems, job queues, output queues, user profiles, system values, journals, authorities, storage and live alerts. |
+| **Use AI safely** | `@vanthrex` in the chat: explain, document, review, modernize, write tests, fix compile errors, write SQL against your real tables — with your data protected. |
+
+> **New in 2.6:** suggestions while you type, 44 new checks for RPG, CL and SQL, and the **Developer Toolbox** (`Ctrl+Alt+A`). See [what is new](https://gauravgupta0612.github.io/vanthrex-ibmi-docs/features-2-6.html) and the [changelog](CHANGELOG.md).
 
 ## Who it is for
 
-Developers and teams working with **IBM i (AS400, iSeries)**: **RPGLE** and **free-form RPG**, **ILE RPG**, **SQLRPGLE**, **CL / CLLE**, **DDS**, **Db2 for i** SQL, the **IFS** and source physical files, who want a modern **VS Code** workflow instead of (or next to) PDM and SEU: browse and edit members, compile with inline errors, **F4 prompting**, **RPG dependency analysis** (call graph, where used, DSPPGMREF), **fixed to free** conversion and **IBM i modernization** with an **AI assistant** that keeps your data private.
+Developers and teams working with **IBM i (AS400, iSeries)**: **RPGLE** and **free-form RPG**, **ILE RPG**, **SQLRPGLE**, **CL / CLLE**, **DDS**, **Db2 for i** SQL, the **IFS** and source physical files — RPG developers, technical leads, IBM i consultants and administrators who want a modern **VS Code** workflow instead of, or next to, PDM and SEU, and teams working on **IBM i modernization**.
 
+## All features by area and version
 
-## Highlights
+Every feature with *why* and *how* is in the **[Feature Guide](FEATURES.md)** and the **[documentation](https://gauravgupta0612.github.io/vanthrex-ibmi-docs/)**.
 
 | Area | What you get |
 |---|---|
@@ -101,13 +120,6 @@ Developers and teams working with **IBM i (AS400, iSeries)**: **RPGLE** and **fr
   2. **Mapepire daemon**, if you already run one (port 8076).
   3. **db2util** (`yum install db2util`).
 
-## Install
-
-- **From the Marketplace:** in VS Code, open **Extensions** (Ctrl+Shift+X), search for **Vanthrex for IBM i** and click **Install**.
-- **Offline:** download the `.vsix` from [Releases](https://github.com/gauravgupta0612/silverlake-ibmi/releases), then **Extensions** → `…` → **Install from VSIX…**.
-
-Then click the Vanthrex icon in the activity bar, then **Add IBM i Connection**.
-
 ## Build from source
 
 ```bash
@@ -148,7 +160,13 @@ Press `F5` to start an Extension Development Host (launch settings are in `.vsco
 
 | Keys | Action |
 |---|---|
+| `Ctrl+Alt+A` | Developer Toolbox: the tools for this source |
+| `Tab` | Accept the grey suggestion while typing |
 | `Ctrl+Alt+I` | IBM i quick menu |
+| `Ctrl+Alt+J` | Go to anything (members, objects, recent) |
+| `Ctrl+Alt+W` | Surround the selection with IF, MONITOR, DOW… |
+| `Ctrl+Alt+.` | Close the open RPG block |
+| `Ctrl+Alt+Shift+T` | Toggle value (*ON / *OFF, AND / OR, = / <>) |
 | `Ctrl+Alt+C` | Compile |
 | `Ctrl+Enter` | Run SQL statement (in .sql files) |
 | `Ctrl+Alt+L` | Run CL command |
@@ -161,7 +179,7 @@ Press `F5` to start an Extension Development Host (launch settings are in `.vsco
 | `Ctrl+Alt+G` | Debug the program of the current source |
 | `@vanthrex` in the chat | Ask the IBM i AI assistant |
 
-## Known limitations (v0.6)
+## Known limitations
 
 - **Where used** builds its cross-reference with DSPPGMREF in QTEMP, so it needs a Mapepire SQL engine (not db2util). Scanning large libraries takes a while.
 - The table data editor writes each change straight away (no commitment control). Rows are identified by relative record number, so don't reorganize a file while editing it.
@@ -171,6 +189,19 @@ Press `F5` to start an Extension Development Host (launch settings are in `.vsco
 - Generate SQL (DDL) needs a Mapepire SQL engine. Extract to procedure works on free-form calculations and does not create parameters.
 - The debugger needs the IBM i Debug Service (PTF) and IBM's IBM i Debug extension; it debugs programs started in a batch job (service entry points are planned).
 - The fixed → free converter does not convert I and O specs or primary/table files; anything it can't convert safely is marked `// TODO`.
-- The AI assistant needs a chat model in VS Code (for example GitHub Copilot Chat); the code you ask about is sent to that model.
+- The AI assistant needs a chat model in VS Code (for example GitHub Copilot Chat). The code you ask about is sent to that model after Vanthrex hides passwords, keys, personal data and host names; AI suggestions while typing are off unless you turn them on.
 - The call graph and SQL Explain need a Mapepire SQL engine.
 - Interactive (5250) commands such as `WRKACTJOB` can't run from the CL runner; use their `OUTPUT(*PRINT)` form or the IBM i Services SQL snippets.
+
+## Documentation, feedback and support
+
+- **Documentation:** [gauravgupta0612.github.io/vanthrex-ibmi-docs](https://gauravgupta0612.github.io/vanthrex-ibmi-docs/) — installation, setup, every feature, commands, settings, troubleshooting and FAQ.
+- **Feature Guide:** [FEATURES.md](FEATURES.md) — why and how to use every feature.
+- **Questions and ideas:** the *Q & A* tab of the Marketplace page, or [GitHub issues](https://github.com/gauravgupta0612/silverlake-ibmi/issues) for bugs and feature requests.
+- If Vanthrex helps you, a **rating on the Marketplace** helps other IBM i developers find it.
+
+> **Vanthrex** = *vanguard* + *T-Rex*: a powerful, modern workbench for one of the most dependable platforms.
+
+## License
+
+[MIT](LICENSE) — free for personal and commercial use.
