@@ -784,5 +784,18 @@
   "command.menus.prompt": "コマンド行でプロンプト (F4)",
   "command.menus.addFavorite": "お気に入りに追加",
   "command.menus.removeFavorite": "お気に入りから削除",
-  "command.menus.clearRecent": "最近使用した項目をクリア"
+  "command.menus.clearRecent": "最近使用した項目をクリア",
+  "command.copyLink": "この行を開くリンクをコピー",
+  "config.lint.dds": "入力中に DDS ソース (PF、LF、DSPF、PRTF) をチェックします: 10 文字を超える名前、重複したフィールドまたはレコード様式、欠落した長さ、小数部と長さの制限、レコードにないキー・フィールド、画面外または重なり合った表示フィールド。",
+  "config.editor.semanticHighlighting": "RPG の名前を種類別に色分けします: パラメーター、定数 (読み取り専用)、データ構造とサブフィールド、プロシージャー、ファイル、サブルーチン。プロシージャー内で使用されるグローバル変数はマークされます。",
+  "config.editor.indentOnType": "フリー形式の RPG で ENDIF、ENDDO、ELSE、WHEN、END-PROC… の `;` を入力すると、その行が対応する開始行のインデントに移動します。",
+  "config.editor.terminalLinks": "すべてのターミナルで、LIB/FILE(MEMBER)、メッセージ ID (CPF9801、MCH1210…)、IFS パスがリンクになります: クリックするとメンバーやファイルが開くか、メッセージの説明が表示されます。",
+  "config.lint.rules.dds-name-too-long": "10 文字を超えるレコード様式名とフィールド名。",
+  "config.lint.rules.dds-duplicate-name": "レコード様式内で 2 回宣言されたフィールド、または 2 回宣言されたレコード様式。",
+  "config.lint.rules.dds-missing-length": "長さ、参照 (R)、REF / REFFLD のいずれもないフィールド。",
+  "config.lint.rules.dds-decimals": "フィールドの長さより多い小数部桁数。",
+  "config.lint.rules.dds-length-limit": "データ・タイプで許可される範囲を超える長さ。",
+  "config.lint.rules.dds-key-not-in-record": "レコード様式のフィールドではないキー・フィールド (K)。",
+  "config.lint.rules.dds-off-screen": "画面サイズ (DSPSIZ) の外にある表示フィールドまたは定数。",
+  "config.lint.rules.dds-overlap": "レコード様式内で重なり合う 2 つの表示フィールドまたは定数。"
 }

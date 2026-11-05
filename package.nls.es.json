@@ -784,5 +784,18 @@
   "command.menus.prompt": "Solicitar en la línea de mandatos (F4)",
   "command.menus.addFavorite": "Añadir a favoritos",
   "command.menus.removeFavorite": "Quitar de favoritos",
-  "command.menus.clearRecent": "Borrar recientes"
+  "command.menus.clearRecent": "Borrar recientes",
+  "command.copyLink": "Copiar un enlace que abre esta línea",
+  "config.lint.dds": "Comprobar las fuentes DDS (PF, LF, DSPF, PRTF) mientras escribe: nombres de más de 10 caracteres, campos o formatos de registro duplicados, longitudes que faltan, decimales y límites de longitud, campos clave que no están en el registro, campos de pantalla fuera de la pantalla o superpuestos.",
+  "config.editor.semanticHighlighting": "Colorear los nombres RPG según lo que son: parámetros, constantes (solo lectura), estructuras de datos y subcampos, procedimientos, archivos y subrutinas; se marcan las variables globales usadas dentro de un procedimiento.",
+  "config.editor.indentOnType": "En RPG de formato libre, al escribir el `;` de ENDIF, ENDDO, ELSE, WHEN, END-PROC… la línea se mueve a la sangría de su apertura.",
+  "config.editor.terminalLinks": "En todos los terminales, LIB/FILE(MEMBER), los ID de mensaje (CPF9801, MCH1210…) y las vías de acceso del IFS se convierten en enlaces: haga clic para abrir el miembro o el archivo, o para explicar el mensaje.",
+  "config.lint.rules.dds-name-too-long": "Nombres de formatos de registro y de campos de más de 10 caracteres.",
+  "config.lint.rules.dds-duplicate-name": "Un campo declarado dos veces en un formato de registro, o un formato de registro declarado dos veces.",
+  "config.lint.rules.dds-missing-length": "Un campo sin longitud, sin referencia (R) y sin REF / REFFLD.",
+  "config.lint.rules.dds-decimals": "Más posiciones decimales que la longitud del campo.",
+  "config.lint.rules.dds-length-limit": "Una longitud superior a la que permite el tipo de datos.",
+  "config.lint.rules.dds-key-not-in-record": "Un campo clave (K) que no es un campo del formato de registro.",
+  "config.lint.rules.dds-off-screen": "Un campo de pantalla o una constante fuera del tamaño de pantalla (DSPSIZ).",
+  "config.lint.rules.dds-overlap": "Dos campos de pantalla o constantes de un formato de registro superpuestos."
 }

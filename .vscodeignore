@@ -1,6 +1,8 @@
 **
 !dist/**
-!media/**
+!media/*.svg
+!media/*.png
+!media/walkthrough/**
 !syntaxes/**
 !snippets/**
 !package.json

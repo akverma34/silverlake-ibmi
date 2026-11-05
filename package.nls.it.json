@@ -784,5 +784,18 @@
   "command.menus.prompt": "Richiedi nella riga comandi (F4)",
   "command.menus.addFavorite": "Aggiungi ai preferiti",
   "command.menus.removeFavorite": "Rimuovi dai preferiti",
-  "command.menus.clearRecent": "Cancella recenti"
+  "command.menus.clearRecent": "Cancella recenti",
+  "command.copyLink": "Copia un link che apre questa riga",
+  "config.lint.dds": "Controlla i sorgenti DDS (PF, LF, DSPF, PRTF) durante la digitazione: nomi più lunghi di 10 caratteri, campi o formati record duplicati, lunghezze mancanti, decimali e limiti di lunghezza, campi chiave non presenti nel record, campi video fuori dallo schermo o sovrapposti.",
+  "config.editor.semanticHighlighting": "Colora i nomi RPG in base a ciò che sono: parametri, costanti (sola lettura), strutture dati e sottocampi, procedure, file e subroutine; le variabili globali usate all'interno di una procedura vengono evidenziate.",
+  "config.editor.indentOnType": "In RPG a formato libero, digitando il `;` di ENDIF, ENDDO, ELSE, WHEN, END-PROC… la riga viene spostata al rientro della relativa apertura.",
+  "config.editor.terminalLinks": "In ogni terminale, LIB/FILE(MEMBER), gli ID messaggio (CPF9801, MCH1210…) e i percorsi IFS diventano link: fai clic per aprire il membro o il file, o per spiegare il messaggio.",
+  "config.lint.rules.dds-name-too-long": "Nomi di formati record e di campi più lunghi di 10 caratteri.",
+  "config.lint.rules.dds-duplicate-name": "Un campo dichiarato due volte in un formato record, o un formato record dichiarato due volte.",
+  "config.lint.rules.dds-missing-length": "Un campo senza lunghezza, senza riferimento (R) e senza REF / REFFLD.",
+  "config.lint.rules.dds-decimals": "Più posizioni decimali della lunghezza del campo.",
+  "config.lint.rules.dds-length-limit": "Una lunghezza superiore a quella consentita dal tipo di dati.",
+  "config.lint.rules.dds-key-not-in-record": "Un campo chiave (K) che non è un campo del formato record.",
+  "config.lint.rules.dds-off-screen": "Un campo video o una costante al di fuori delle dimensioni dello schermo (DSPSIZ).",
+  "config.lint.rules.dds-overlap": "Due campi video o costanti di un formato record sovrapposti."
 }

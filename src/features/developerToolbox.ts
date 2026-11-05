@@ -210,8 +210,8 @@ function tools(manager: ConnectionManager): Tool[] {
       run: async ed => { const doc = ed.document; const m = memberOf(doc); const line = ed.selection.active.line + 1; await copied(m ? `${m.lib}/${m.file}(${m.member}) ${vscode.l10n.t('line {0}', line)}` : `${vscode.workspace.asRelativePath(doc.uri)}:${line}`, vscode.l10n.t('The reference')); } },
     { id: 'copyCompile', group: vscode.l10n.t('Copy'), langs: ['rpgle', 'cl', 'sql', 'dds'], label: vscode.l10n.t('Copy the compile command'), detail: 'CRTBNDRPG, CRTSQLRPGI, CRTBNDCL, CRTPF, CRTDSPF…',
       run: async ed => { const m = memberOf(ed.document); const base = path.basename(ed.document.uri.path); const parts = m ?? { lib: 'LIB', file: 'QSRC', member: base.replace(/\.[^.]*$/, ''), type: base.split('.').pop() ?? '' }; const cmd = compileCommand(parts.lib, parts.file, parts.member, parts.type); if (!cmd) { throw new Error(vscode.l10n.t('No compile command is known for type {0}.', parts.type)); } await copied(cmd, cmd.split(' ')[0]); } },
-    { id: 'whatsNew', group: vscode.l10n.t('Help'), langs: ['any'], label: vscode.l10n.t('What is new in 3.0'), detail: vscode.l10n.t('Every new feature, with its shortcut'),
-      run: async () => { await vscode.env.openExternal(vscode.Uri.parse('https://gauravgupta0612.github.io/vanthrex-ibmi-docs/features-3-0.html')); } },
+    { id: 'whatsNew', group: vscode.l10n.t('Help'), langs: ['any'], label: vscode.l10n.t('What is new in 3.1'), detail: vscode.l10n.t('Every new feature, with its shortcut'),
+      run: async () => { await vscode.env.openExternal(vscode.Uri.parse('https://gauravgupta0612.github.io/vanthrex-ibmi-docs/features-3-1.html')); } },
   ];
 }
 
@@ -227,6 +227,7 @@ const EXISTING: { id: string; label: string; group: string; langs: Lang[]; selec
   { id: 'vanthrex.rpg.prototypeCopybook', label: vscode.l10n.t('Generate a Prototype Copybook From the Exports'), group: 'Generate', langs: ['rpgle'] }, { id: 'vanthrex.rpg.removeUnusedDeclarations', label: vscode.l10n.t('Remove Unused Declarations…'), group: 'Fix all', langs: ['rpgle'] },
   { id: 'vanthrex.rpg.clearChangeMarkers', label: vscode.l10n.t('Clear Change Markers (Columns 1-5)'), group: 'Edit', langs: ['rpgle'] }, { id: 'vanthrex.rpg.ruler', label: vscode.l10n.t('Insert Column Ruler'), group: 'Edit', langs: ['rpgle'] },
   { id: 'vanthrex.rpg.ibmDocs', label: vscode.l10n.t('Open IBM Documentation for the Word'), group: 'Help', langs: ['rpgle', 'cl', 'sql', 'dds'] }, { id: 'vanthrex.toggleInlineSuggestions', label: vscode.l10n.t('Turn IBM i Suggestions On or Off'), group: 'Help', langs: ['any'] },
+  { id: 'vanthrex.copyLink', label: vscode.l10n.t('Copy a Link That Opens This Line'), group: 'Copy', langs: ['rpgle', 'cl', 'sql', 'dds'] },
   { id: 'vanthrex.codeHealth', label: vscode.l10n.t('Code Health Report of a Library…'), group: 'Check', langs: ['any'] },
   { id: 'vanthrex.standards.edit', label: vscode.l10n.t('Team Coding Standards…'), group: 'Check', langs: ['any'] },
   { id: 'vanthrex.standards.importRpglint', label: vscode.l10n.t('Import Coding Standards from rpglint.json…'), group: 'Check', langs: ['any'] },

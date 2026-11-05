@@ -19,6 +19,36 @@
 
 Offline install: download the `.vsix` from [Releases](https://github.com/gauravgupta0612/silverlake-ibmi/releases), then **Extensions** → `…` → **Install from VSIX…**. What the IBM i needs is in [Requirements](#requirements-on-the-ibm-i).
 
+## See it in action
+
+**Checks while you type, with the fix one click away** — more than 50 checks for RPG, CL and SQL, shown in *Problems*:
+
+![RPG checks in the editor and the Problems view](media/screenshots/rpg-checks.png)
+
+**Quick fixes** — `Ctrl+.` on a warning adds the missing code for you:
+
+![Quick fix: add an IF NOT %FOUND test after CHAIN](media/screenshots/quick-fix.png)
+
+**Suggestions while you type** — the next line an IBM i developer would write, accepted with `Tab`:
+
+![Suggestion after CHAIN: if %found](media/screenshots/suggestions.png)
+
+**Every tool in one menu** — `Ctrl+Alt+A` shows the tools that fit the file you are in:
+
+![Developer Toolbox](media/screenshots/developer-toolbox.png)
+
+| CL checks | SQL checks |
+|---|---|
+| ![CL checks](media/screenshots/cl-checks.png) | ![SQL checks](media/screenshots/sql-checks.png) |
+| **Connect in a minute** | **Team coding standards** |
+| ![Add an IBM i connection](media/screenshots/add-connection.png) | ![Team coding standards](media/screenshots/team-standards.png) |
+| **DDS checks (new in 3.1)** | **Format Document for CL (new in 3.1)** |
+| ![DDS checks](media/screenshots/dds-checks.png) | ![Format Document for CL](media/screenshots/cl-format-compare.png) |
+| **Fixed → free in one command** | **Flowchart of a procedure** |
+| ![Fixed format converted to free](media/screenshots/fixed-to-free-compare.png) | ![Flowchart of a procedure](media/screenshots/flowchart.png) |
+
+More in the [screenshot gallery](https://gauravgupta0612.github.io/vanthrex-ibmi-docs/screenshots.html), and [try it with example sources](https://gauravgupta0612.github.io/vanthrex-ibmi-docs/examples.html) — no IBM i needed.
+
 ## Why teams use it
 
 - **Fewer errors reach production.** More than 50 checks run while you type in RPG, CL and SQL — prototypes that no longer match, wrong argument counts, `%SUBST` or array index out of range, numeric overflow, `UPDATE` / `DELETE` without `WHERE`, undeclared CL variables — most with a one-click fix.
@@ -42,7 +72,7 @@ Offline install: download the `.vsix` from [Releases](https://github.com/gauravg
 | **Operate the system** | Work with subsystems, job queues, output queues, user profiles, system values, journals, authorities, storage and live alerts. |
 | **Use AI safely** | `@vanthrex` in the chat: explain, document, review, modernize, write tests, fix compile errors, write SQL against your real tables — with your data protected. |
 
-> **New in 3.0:** AS/400 **GO menus** and green-screen commands, **import from Code for IBM i** in one step, **team setup files**, **team coding standards** and a **code health report** for whole libraries. Since 2.6: suggestions while you type, 44 new checks for RPG, CL and SQL and the **Developer Toolbox** (`Ctrl+Alt+A`). See [what is new in 3.0](https://gauravgupta0612.github.io/vanthrex-ibmi-docs/features-3-0.html), [in 2.6](https://gauravgupta0612.github.io/vanthrex-ibmi-docs/features-2-6.html) and the [changelog](CHANGELOG.md).
+> **New in 3.1:** **DDS checks while you type** (PF, LF, DSPF, PRTF), **Format Document for CL**, **RPG semantic highlighting**, DCL-PROC / END-PROC names edited together, END lines indented as you type, **links that open a member at a line** and clickable members, message IDs and IFS paths in the terminal. **In 3.0:** AS/400 GO menus, import from Code for IBM i, team setup files, team coding standards and a code health report. See [what is new in 3.1](https://gauravgupta0612.github.io/vanthrex-ibmi-docs/features-3-1.html), [in 3.0](https://gauravgupta0612.github.io/vanthrex-ibmi-docs/features-3-0.html) and the [changelog](CHANGELOG.md).
 
 ## Who it is for
 
@@ -105,6 +135,7 @@ Every feature with *why* and *how* is in the **[Feature Guide](FEATURES.md)** an
 | **Modernize, data quality & audits** *(2.5)* | A clickable flowchart of any procedure, matching IF / ELSE / END highlighted, SQL procedures over RPG and CL programs, DDS to SQL DDL, CRUD statements for a table, Expand SELECT *, Extract to constant, change-log entries, SQLCODE / SQLSTATE / RPG status explained on hover, packed / EBCDIC / date converters, data profiles, orphan rows, columns close to overflow, unused objects, SQL timing, adopted-authority audit, the job schedule by day, objects hidden in the library list and NetServer shares. |
 | **Speed** *(2.5)* | Members that did not change open instantly from a local cache, sources indexed in a few round trips and searched as you type in milliseconds, Go to Anything (Ctrl+Alt+J) over members, objects and recent items, a warm-up right after connecting, batch compile and rebuilds in parallel, Go to Definition into other members and service programs, clickable IBM i references everywhere and a speed test with advice. |
 | **Flexible workflow** *(2.5)* | Copy, CSV and Excel on every report table, file and field help in RPG from Db2 (hover, completion, Ctrl+click to the DDS), SQL watches in the status bar with alerts, CL macros with variables, bookmarks on member lines, saved sets of open sources, and Run Selection as CL or SQL (Ctrl+Alt+R). |
+| **More power in the editor** *(3.1)* | DDS checks while you type (PF, LF, DSPF, PRTF), Format Document for CL, RPG semantic highlighting, DCL-PROC / END-PROC names edited together, END lines indented as you type, links that open a member at a line, and clickable members, message IDs and IFS paths in every terminal. |
 | **Everything in Vanthrex** *(3.0)* | AS/400 GO menus (MAIN, PROGRAMMER, RPG…) and an AS/400 Menus view with favorites, about 30 more green-screen commands, import of your Code for IBM i connections, library lists and actions, team setup files, 17 team coding standards (or your rpglint.json) and a code health report of a whole library. |
 | **Developer Toolbox** *(2.6)* | Ctrl+Alt+A opens the tools that fit the file and the selection: RPG rewrites, SQL from a data structure, COUNT before UPDATE / DELETE, fix-all commands, compile command, CL error handler, Markdown copy and more. |
 | **Daily RPG development** *(2.6)* | Suggestions while you type (Tab accepts: IF %FOUND after CHAIN, SQLCODE tests, OPEN / FETCH, MONMSG after CL commands, variable types, call parameters; AI optional), 44 new code checks with quick fixes, in RPG, CL and SQL (UPDATE / DELETE without WHERE, undeclared CL variables, %SUBST or array index out of range, numeric overflow, undeclared SQL host variables, prototype not matching its interface, wrong argument count, CONST parameter changed, endless loops, CHAIN without %FOUND, unchecked SQL, cursors not closed, unreachable code…), close blocks and auto END, Surround With, IF→SELECT, comment toggle, keyword case, sorted and aligned declarations, wrap at column 80, embedded SQL formatting, parameter-name hints, call hierarchy, next / previous procedure, local completion, binder source and prototype copybook from the exports, headers for every procedure and 16 new snippets. |

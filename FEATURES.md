@@ -1235,13 +1235,49 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** a quality gate for a whole application before a release.
 - **How:** *Code Health Report of a Library…* (index the library first).
 
-### 193. Library Space Map — new
+### 193. DDS checks — new in 3.1
+
+- **What:** names, duplicates, lengths, decimals, key fields, positions outside the screen and overlapping display fields in PF, LF, DSPF and PRTF sources.
+- **Why:** DDS errors usually show up only at CRTPF / CRTDSPF time — now while you type.
+- **How:** on by default (`vanthrex.lint.dds`).
+
+### 194. Format CL — new in 3.1
+
+- **What:** Format Document lays CL out like the prompter (columns 1, 14 and 25, `+` continuations before column 80).
+- **Why:** readable CL that looks the same for everyone, without SEU.
+- **How:** Shift+Alt+F in a CL source.
+
+### 195. RPG semantic highlighting — new in 3.1
+
+- **What:** parameters, constants, data structures, subfields, procedures, files and subroutines in their own colours; globals used in procedures marked.
+- **Why:** see at a glance what a name is.
+- **How:** on by default (`vanthrex.editor.semanticHighlighting`).
+
+### 196. Names edited together and END lines indented — new in 3.1
+
+- **What:** DCL-PROC / END-PROC and DCL-DS / END-DS names change together; END, ELSE and WHEN lines move under their opener when you type `;`.
+- **Why:** fewer small edits and a tidy source.
+- **How:** just type (`vanthrex.editor.indentOnType`).
+
+### 197. Links to a line — new in 3.1
+
+- **What:** a `vscode://` link that opens a member or IFS file at a line, on the right system.
+- **Why:** share the exact place in a ticket or a chat.
+- **How:** right-click → *Copy a Link That Opens This Line*.
+
+### 198. Clickable terminal output — new in 3.1
+
+- **What:** members, message IDs and IFS paths in any terminal are links.
+- **Why:** from a compile or a PASE command straight to the source or the message help.
+- **How:** Ctrl+click in the terminal (`vanthrex.editor.terminalLinks`).
+
+### 199. Library Space Map — new
 
 - **What:** a treemap of every object in a library, sized by disk space and coloured by kind or by when it was last used, with totals and the largest objects.
 - **Why:** see at once what fills a library and what has not been used for a year — before a clean-up, a save or a migration.
 - **How:** right-click a library → *Library Space Map*, or *Library Space Map (Visual)…* in the command palette. Click a tile for the object information.
 
-### 194. Batch Job Timeline — new
+### 200. Batch Job Timeline — new
 
 - **What:** the batch jobs of the last hours or days as bars on a time axis, coloured by how they ended, one lane per overlapping job.
 - **Why:** see the night schedule, what overlapped, what failed and what ran longest — without reading the history log.

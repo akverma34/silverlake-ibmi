@@ -784,5 +784,18 @@
   "command.menus.prompt": "In der Befehlszeile anzeigen (F4)",
   "command.menus.addFavorite": "Zu Favoriten hinzufügen",
   "command.menus.removeFavorite": "Aus Favoriten entfernen",
-  "command.menus.clearRecent": "Zuletzt verwendet leeren"
+  "command.menus.clearRecent": "Zuletzt verwendet leeren",
+  "command.copyLink": "Link kopieren, der diese Zeile öffnet",
+  "config.lint.dds": "DDS-Quellen (PF, LF, DSPF, PRTF) während der Eingabe prüfen: Namen mit mehr als 10 Zeichen, doppelte Felder oder Satzformate, fehlende Längen, Dezimalstellen und Längenbegrenzungen, Schlüsselfelder, die nicht im Satz sind, Anzeigefelder außerhalb des Bildschirms oder übereinander.",
+  "config.editor.semanticHighlighting": "RPG-Namen nach ihrer Art einfärben: Parameter, Konstanten (schreibgeschützt), Datenstrukturen und Unterfelder, Prozeduren, Dateien und Unterroutinen; in einer Prozedur verwendete globale Variablen werden markiert.",
+  "config.editor.indentOnType": "In RPG im freien Format verschiebt die Eingabe des `;` von ENDIF, ENDDO, ELSE, WHEN, END-PROC… die Zeile auf die Einrückung ihres öffnenden Befehls.",
+  "config.editor.terminalLinks": "In jedem Terminal werden LIB/FILE(MEMBER), Nachrichten-IDs (CPF9801, MCH1210…) und IFS-Pfade zu Links: Klicken, um die Teildatei oder Datei zu öffnen oder die Nachricht zu erklären.",
+  "config.lint.rules.dds-name-too-long": "Satzformat- und Feldnamen mit mehr als 10 Zeichen.",
+  "config.lint.rules.dds-duplicate-name": "Ein in einem Satzformat zweimal deklariertes Feld oder ein zweimal deklariertes Satzformat.",
+  "config.lint.rules.dds-missing-length": "Ein Feld ohne Länge, ohne Referenz (R) und ohne REF / REFFLD.",
+  "config.lint.rules.dds-decimals": "Mehr Dezimalstellen als die Länge des Felds.",
+  "config.lint.rules.dds-length-limit": "Eine Länge über dem, was der Datentyp erlaubt.",
+  "config.lint.rules.dds-key-not-in-record": "Ein Schlüsselfeld (K), das kein Feld des Satzformats ist.",
+  "config.lint.rules.dds-off-screen": "Ein Anzeigefeld oder eine Konstante außerhalb der Bildschirmgröße (DSPSIZ).",
+  "config.lint.rules.dds-overlap": "Zwei Anzeigefelder oder Konstanten eines Satzformats, die übereinander liegen."
 }

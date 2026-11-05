@@ -127,3 +127,9 @@ test('tolerant on empty and odd input', () => {
     assert.doesNotThrow(() => d.closeBlock(t, 0));
   }
 });
+
+test('a prototype and its procedure may have the same name', () => {
+  const src = '**free\nctl-opt;\ndcl-pr calc int(10);\n  a int(10) const;\nend-pr;\ndcl-proc calc export;\n  dcl-pi *n int(10);\n    a int(10) const;\n  end-pi;\n  return a;\nend-proc;\n';
+  assert.ok(!d.dailyLint(src).some(f => f.rule === 'duplicate-declaration'));
+  assert.ok(d.dailyLint(src + 'dcl-pr calc int(10);\nend-pr;\n').some(f => f.rule === 'duplicate-declaration'));
+});
