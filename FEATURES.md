@@ -1235,6 +1235,18 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** a quality gate for a whole application before a release.
 - **How:** *Code Health Report of a Library…* (index the library first).
 
+### 193. Library Space Map — new
+
+- **What:** a treemap of every object in a library, sized by disk space and coloured by kind or by when it was last used, with totals and the largest objects.
+- **Why:** see at once what fills a library and what has not been used for a year — before a clean-up, a save or a migration.
+- **How:** right-click a library → *Library Space Map*, or *Library Space Map (Visual)…* in the command palette. Click a tile for the object information.
+
+### 194. Batch Job Timeline — new
+
+- **What:** the batch jobs of the last hours or days as bars on a time axis, coloured by how they ended, one lane per overlapping job.
+- **Why:** see the night schedule, what overlapped, what failed and what ran longest — without reading the history log.
+- **How:** *Batch Job Timeline (Visual)* in the command palette or the quick menu. Click a bar for the job log, right-click for its run history.
+
 ## Keyboard shortcuts
 
 | Keys | Action |

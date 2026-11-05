@@ -543,6 +543,8 @@
   "command.sourceNotes": "已打开源中的 TODO 和 FIXME 注释…",
   "command.reportToCsv": "将报表转换为 CSV (Excel)…",
   "command.jobRunHistory": "作业运行历史（每次运行的耗时）…",
+  "command.spaceMap": "库空间图（可视化）…",
+  "command.jobTimeline": "批处理作业时间线（可视化）",
   "command.findMessageInJobLogs": "在作业日志中查找消息…",
   "config.editor.checkCharacters": "打开或保存源时，为会导致编译或 CCSID 转换失败的字符（制表符、控制字符、不间断空格、弯引号、转换中丢失的字符）添加下划线。",
   "config.csvSeparator": "**将报表转换为 CSV** 写入的 CSV 文件的分隔符(对于设置为使用逗号作为小数分隔符的电子表格，请使用 `;`)。",

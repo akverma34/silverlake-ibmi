@@ -6,6 +6,13 @@ nav_order: 90
 
 # Changelog
 
+## Unreleased
+
+**Visual insights — see a library and a night of batch work at a glance.**
+
+- **Library Space Map**: every object of a library as a tile sized by its disk space (a treemap), grouped and coloured by kind — programs, files, source files, save files, journals, data objects. Switch to *Colour by last used* to see what has not been used for a year, type to highlight objects, click a kind in the legend to hide it, click a tile for the object information. Totals, the biggest kind, the space not used for a year and the 15 largest objects are listed under the map. Right-click a library → *Library Space Map*, or from the quick menu.
+- **Batch Job Timeline**: the batch jobs of the last 6 hours to 7 days as bars on a time axis (from the history log), green when they ended normally, red when abnormally, blue while still running; overlapping jobs get their own lane, so you see what ran at the same time. Filter by job name (`ORD*`) or user; click a bar for the job log, right-click for its run history. Tiles show runs, failures, jobs still running, the longest run and the CPU used; the failed and the longest runs are listed below.
+
 ## 3.0.0
 
 **Vanthrex 3.0 — everything for IBM i development in one extension.** AS/400 GO menus and green-screen commands, one-step import from Code for IBM i, team setup files, team coding standards and a code health report for whole libraries, on top of the 2.6 suggestions, checks and Developer Toolbox.

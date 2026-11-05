@@ -543,6 +543,8 @@
   "command.sourceNotes": "Notes TODO et FIXME dans les sources ouvertes…",
   "command.reportToCsv": "État vers CSV (Excel)…",
   "command.jobRunHistory": "Historique d'exécution d'un travail (durée de chaque exécution)…",
+  "command.spaceMap": "Carte de l'espace de la bibliothèque (visuel)…",
+  "command.jobTimeline": "Chronologie des travaux batch (visuel)",
   "command.findMessageInJobLogs": "Rechercher un message dans les historiques des travaux…",
   "config.editor.checkCharacters": "Souligner les caractères qui font échouer une compilation ou une conversion de CCSID (tabulations, caractères de contrôle, espaces insécables, guillemets typographiques, caractères perdus lors d'une conversion) à l'ouverture ou à l'enregistrement d'une source.",
   "config.csvSeparator": "Séparateur des fichiers CSV écrits par **État vers CSV** (`;` pour les tableurs configurés avec la virgule comme séparateur décimal).",

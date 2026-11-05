@@ -543,6 +543,8 @@
   "command.sourceNotes": "TODO- und FIXME-Notizen in geöffneten Quellen…",
   "command.reportToCsv": "Bericht nach CSV (Excel)…",
   "command.jobRunHistory": "Ausführungsverlauf eines Jobs (Dauer jeder Ausführung)…",
+  "command.spaceMap": "Bibliotheks-Speicherkarte (grafisch)…",
+  "command.jobTimeline": "Zeitachse der Batch-Jobs (grafisch)",
   "command.findMessageInJobLogs": "Nachricht in Joblogs suchen…",
   "config.editor.checkCharacters": "Zeichen unterstreichen, die eine Kompilierung oder CCSID-Umsetzung stören (Tabulatoren, Steuerzeichen, geschützte Leerzeichen, typografische Anführungszeichen, bei einer Umsetzung verlorene Zeichen), wenn eine Quelle geöffnet oder gespeichert wird.",
   "config.csvSeparator": "Trennzeichen der CSV-Dateien, die **Bericht nach CSV** schreibt (`;` für Tabellenkalkulationen, die das Komma als Dezimaltrennzeichen verwenden).",
