@@ -9,6 +9,12 @@
 - **Embedded SQL Statement Statistics**: every SQL statement in the programs of a library (or one program), from QSYS2.SYSPROGRAMSTMTSTAT — how often it ran, total, average and longest time, how often its access plan was rebuilt — slowest first, with hints for statements never run, rebuilt on most runs or reading SELECT *. Right-click a library or a program, or use the command palette.
 - **VS Code tasks for IBM i**: a `vanthrex` task type for `tasks.json` that runs a CL command (with extra libraries on the library list) or a PASE command (in an IFS folder) over the connection, with the Code for IBM i style variables &CURLIB, &USER, &HOST, &NAME, &EXT, &FILENAME and &RELATIVEPATH. Run Task offers ready-made tasks: compile RPG from the IFS, build with makei, show the library list. Bind a task to a key or run it before a launch, like any other task.
 
+## 3.2.1
+
+**Fixes**
+
+- **IFS Space Map**: opening it on a folder such as `/home/USER` failed with `SQL0443 INVALID OMIT_LIST PARAMETER SPECIFIED`. The file systems to leave out (QSYS.LIB, QNTC, QFileSvr.400, QOPT, QDLS) are now passed only when they are inside the folder, that is from `/`; and if a system still refuses the list, the map is read again without it.
+
 ## 3.2.0
 
 **Visual insights — see a library and a night of batch work at a glance.**

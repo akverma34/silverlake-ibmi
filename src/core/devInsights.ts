@@ -68,10 +68,15 @@ export function createIndexSql(a: Pick<Advice, 'schema' | 'table' | 'keys' | 'ty
 
 const OMIT = ['/QSYS.LIB', '/QNTC', '/QFileSvr.400', '/QOPT', '/QDLS'];
 
-/** Every stream file under a folder with its size (up to `max`). QSYS.LIB and the network file systems are left out unless asked for. */
-export function ifsSizesSql(path: string, max = 50000): string {
+/**
+ * Every stream file under a folder with its size (up to `max`). When the folder contains QSYS.LIB or the network
+ * file systems (that is, from "/"), they are left out. OMIT_LIST only takes paths below the start folder: IBM i
+ * rejects others with SQL0443 "INVALID OMIT_LIST PARAMETER", so nothing is omitted for /home/USER and the like.
+ */
+export function ifsSizesSql(path: string, max = 50000, omitSystem = true): string {
   const p = normalizePath(path);
-  const omit = OMIT.filter(o => !p.toUpperCase().startsWith(o.toUpperCase()));
+  const inside = (o: string) => p === '/' || o.toUpperCase().startsWith(p.toUpperCase() + '/');
+  const omit = omitSystem ? OMIT.filter(inside) : [];
   return `SELECT CAST(PATH_NAME AS VARCHAR(4000)) AS P, COALESCE(DATA_SIZE, 0) AS SZ ` +
     `FROM TABLE(QSYS2.IFS_OBJECT_STATISTICS(START_PATH_NAME => ${sqlString(p)}, SUBTREE_DIRECTORIES => 'YES', OBJECT_TYPE_LIST => '*ALLSTMF'` +
     `${omit.length ? `, OMIT_LIST => ${sqlString(omit.join(' '))}` : ''})) X FETCH FIRST ${Math.max(1, Math.floor(max))} ROWS ONLY`;

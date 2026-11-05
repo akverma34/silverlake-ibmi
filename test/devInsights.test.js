@@ -27,11 +27,15 @@ test('index advisor: SQL, keys, condensing and CREATE INDEX', () => {
 });
 
 test('IFS space map: SQL, children and breadcrumb', () => {
-  const sql = d.ifsSizesSql('/home/me/');
-  assert.match(sql, /START_PATH_NAME => '\/home\/me'/);
+  const sql = d.ifsSizesSql('/');
+  assert.match(sql, /START_PATH_NAME => '\/'/);
   assert.match(sql, /OMIT_LIST => '\/QSYS\.LIB \/QNTC/);
-  assert.doesNotMatch(d.ifsSizesSql('/QSYS.LIB/MYLIB.LIB'), /\/QSYS\.LIB \//);
+  assert.doesNotMatch(d.ifsSizesSql('/QSYS.LIB/MYLIB.LIB'), /OMIT_LIST/);
+  // Paths outside the start folder are refused by IBM i (SQL0443), so none are passed for a home folder.
+  assert.doesNotMatch(d.ifsSizesSql('/home/GGUPTA'), /OMIT_LIST/);
+  assert.match(d.ifsSizesSql('/home/me/'), /START_PATH_NAME => '\/home\/me'/);
   assert.match(d.ifsSizesSql("/it's"), /'\/it''s'/);
+  assert.doesNotMatch(d.ifsSizesSql('/', 100, false), /OMIT_LIST/);
   assert.throws(() => d.normalizePath('/a/../etc'), /not a valid path/);
   assert.strictEqual(d.normalizePath('home//me/'), '/home/me');
   const files = [
