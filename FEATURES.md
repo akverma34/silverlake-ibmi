@@ -1283,6 +1283,24 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** see the night schedule, what overlapped, what failed and what ran longest — without reading the history log.
 - **How:** *Batch Job Timeline (Visual)* in the command palette or the quick menu. Click a bar for the job log, right-click for its run history.
 
+### 201. Index Advice Chart — new
+
+- **What:** the indexes the Db2 optimizer advised for a library, merged and ranked, with the CREATE INDEX for each.
+- **Why:** find the index that makes a slow screen or batch job fast, without reading SYSIXADV by hand.
+- **How:** right-click a library → *Index Advice Chart*. *CREATE INDEX…* opens the statement in an SQL editor; nothing runs by itself.
+
+### 202. IFS Space Map — new
+
+- **What:** a treemap of everything below an IFS folder, sized by disk space and coloured by kind; click to go into folders.
+- **Why:** find the logs, archives and old exports that fill the IFS.
+- **How:** right-click a folder in the IFS view → *IFS Space Map*, or *IFS Space Map (Visual)…* in the command palette.
+
+### 203. Source Change Calendar — new
+
+- **What:** a year of member changes as a heat map, one square per day, with the members of each day and changes by source type.
+- **Why:** see when an application was worked on, what changed before a problem started, and what was touched in a release.
+- **How:** right-click a library or a source file → *Source Change Calendar*. Click a day, then a member to open it.
+
 ## Keyboard shortcuts
 
 | Keys | Action |
