@@ -284,7 +284,7 @@ ${longest.length ? `<h3>${escapeHtml(t('Longest runs'))}</h3><table>${head}${lon
   }
 }
 
-function page(title: string, body: string, css = '', script = ''): string {
+export function page(title: string, body: string, css = '', script = ''): string {
   const n = nonce();
   const refresh = `const r = document.getElementById('refresh'); if (r) r.onclick = () => vscode.postMessage({ type: 'refresh' });`;
   return `<!DOCTYPE html><html><head><meta charset="UTF-8">${CSP(n)}<meta name="viewport" content="width=device-width, initial-scale=1.0">` +

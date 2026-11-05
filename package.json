@@ -2302,6 +2302,24 @@
         "icon": "$(timeline-view-icon)"
       },
       {
+        "command": "vanthrex.indexAdviceChart",
+        "title": "%command.indexAdviceChart%",
+        "category": "Vanthrex",
+        "icon": "$(lightbulb-sparkle)"
+      },
+      {
+        "command": "vanthrex.ifsSpaceMap",
+        "title": "%command.ifsSpaceMap%",
+        "category": "Vanthrex",
+        "icon": "$(graph)"
+      },
+      {
+        "command": "vanthrex.changeCalendar",
+        "title": "%command.changeCalendar%",
+        "category": "Vanthrex",
+        "icon": "$(calendar)"
+      },
+      {
         "command": "vanthrex.findMessageInJobLogs",
         "title": "%command.findMessageInJobLogs%",
         "category": "Vanthrex",
@@ -3326,6 +3344,26 @@
         {
           "command": "vanthrex.spaceMap",
           "when": "view == vanthrex.libraries && viewItem == library",
+          "group": "3@1"
+        },
+        {
+          "command": "vanthrex.indexAdviceChart",
+          "when": "view == vanthrex.libraries && viewItem == library",
+          "group": "3@2"
+        },
+        {
+          "command": "vanthrex.changeCalendar",
+          "when": "view == vanthrex.libraries && viewItem == library",
+          "group": "3@3"
+        },
+        {
+          "command": "vanthrex.changeCalendar",
+          "when": "view == vanthrex.libraries && viewItem == srcfile",
+          "group": "3@1"
+        },
+        {
+          "command": "vanthrex.ifsSpaceMap",
+          "when": "view == vanthrex.ifs && viewItem == ifs.dir",
           "group": "3@1"
         },
         {
@@ -5339,6 +5377,18 @@
         },
         {
           "command": "vanthrex.jobTimeline",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.indexAdviceChart",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.ifsSpaceMap",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.changeCalendar",
           "when": "vanthrex.connected"
         },
         {
