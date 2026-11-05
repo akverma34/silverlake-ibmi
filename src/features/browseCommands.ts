@@ -191,6 +191,8 @@ export function registerBrowseCommands(
       { label: vscode.l10n.t('$(lightbulb-sparkle) Index advice chart (visual)…'), cmd: 'vanthrex.indexAdviceChart' },
       { label: vscode.l10n.t('$(graph) IFS space map (visual)…'), cmd: 'vanthrex.ifsSpaceMap' },
       { label: vscode.l10n.t('$(calendar) Source change calendar (visual)…'), cmd: 'vanthrex.changeCalendar' },
+      { label: vscode.l10n.t('$(pulse) Active jobs map (visual)'), cmd: 'vanthrex.jobsMap' },
+      { label: vscode.l10n.t('$(flame) Journal activity heat map (visual)…'), cmd: 'vanthrex.journalHeatMap' },
       { label: vscode.l10n.t('$(search) Find a message in job logs…'), cmd: 'vanthrex.findMessageInJobLogs' },
       { label: vscode.l10n.t('$(book) Document a library (Markdown)…'), cmd: 'vanthrex.documentLibrary' },
       { label: vscode.l10n.t('$(table) CRUD matrix of a library…'), cmd: 'vanthrex.crudMatrix' },

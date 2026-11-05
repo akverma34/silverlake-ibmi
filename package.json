@@ -2320,6 +2320,18 @@
         "icon": "$(calendar)"
       },
       {
+        "command": "vanthrex.jobsMap",
+        "title": "%command.jobsMap%",
+        "category": "Vanthrex",
+        "icon": "$(pulse)"
+      },
+      {
+        "command": "vanthrex.journalHeatMap",
+        "title": "%command.journalHeatMap%",
+        "category": "Vanthrex",
+        "icon": "$(flame)"
+      },
+      {
         "command": "vanthrex.findMessageInJobLogs",
         "title": "%command.findMessageInJobLogs%",
         "category": "Vanthrex",
@@ -5389,6 +5401,14 @@
         },
         {
           "command": "vanthrex.changeCalendar",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.jobsMap",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.journalHeatMap",
           "when": "vanthrex.connected"
         },
         {
