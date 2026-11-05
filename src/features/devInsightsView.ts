@@ -120,7 +120,8 @@ async function ifsSpaceMap(manager: ConnectionManager, a: unknown): Promise<void
     panel.title = t('IFS Space Map: {0}', base);
     panel.webview.html = page(t('IFS Space Map: {0}', base), `<div class="empty">${escapeHtml(t('Adding up the sizes below {0}… (large folders take a while)', base))}</div>`);
     try {
-      const rows = await conn.rows<Row>(ifsSizesSql(base, MAX), MAX);
+      // Some releases refuse the list of file systems to leave out (SQL0443 on OMIT_LIST): read without it then.
+      const rows = await conn.rows<Row>(ifsSizesSql(base, MAX), MAX).catch(e => /OMIT_LIST|SQL0443/i.test(errorMessage(e)) ? conn.rows<Row>(ifsSizesSql(base, MAX, false), MAX) : Promise.reject(e));
       files = rows.map(r => ({ path: str(r, 'P'), size: num(r, 'SZ') })); truncated = rows.length >= MAX;
       render();
     } catch (e) { logError(e); panel.webview.html = page(t('IFS Space Map: {0}', base), `<div class="err">${escapeHtml(errorMessage(e))}</div><div class="bar"><button id="refresh">${escapeHtml(t('Refresh'))}</button></div>`); }
