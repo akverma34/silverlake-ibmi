@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.2.1 (not released yet)
+## 3.2.1
 
 **Fixes**
 
