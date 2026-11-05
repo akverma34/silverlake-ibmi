@@ -1301,6 +1301,18 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** see when an application was worked on, what changed before a problem started, and what was touched in a release.
 - **How:** right-click a library or a source file → *Source Change Calendar*. Click a day, then a member to open it.
 
+### 204. Active Jobs Map — new
+
+- **What:** every active job as a tile in its subsystem, sized by CPU, temporary storage, threads or I/O, coloured by status.
+- **Why:** spot at once the job waiting for a reply, the one in a lock wait and the one eating the CPU.
+- **How:** *Active Jobs Map (Visual)* in the command palette or the quick menu. Click for the job log, right-click for Work with Active Jobs.
+
+### 205. Journal Activity Heat Map — new
+
+- **What:** the tables a journal saw change, hour by hour, with inserts, updates and deletes per table.
+- **Why:** see which program run touched which tables and when — before digging into the journal entries.
+- **How:** *Journal Activity Heat Map (Visual)…* and type LIBRARY/JOURNAL. Click a table for its journal entries.
+
 ## Keyboard shortcuts
 
 | Keys | Action |
