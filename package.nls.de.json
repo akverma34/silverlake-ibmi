@@ -548,6 +548,8 @@
   "command.indexAdviceChart": "Diagramm der Indexempfehlungen (grafisch)…",
   "command.ifsSpaceMap": "IFS-Speicherkarte (grafisch)…",
   "command.changeCalendar": "Kalender der Quelländerungen (grafisch)…",
+  "command.jobsMap": "Karte der aktiven Jobs (grafisch)",
+  "command.journalHeatMap": "Heatmap der Journalaktivität (grafisch)…",
   "command.findMessageInJobLogs": "Nachricht in Joblogs suchen…",
   "config.editor.checkCharacters": "Zeichen unterstreichen, die eine Kompilierung oder CCSID-Umsetzung stören (Tabulatoren, Steuerzeichen, geschützte Leerzeichen, typografische Anführungszeichen, bei einer Umsetzung verlorene Zeichen), wenn eine Quelle geöffnet oder gespeichert wird.",
   "config.csvSeparator": "Trennzeichen der CSV-Dateien, die **Bericht nach CSV** schreibt (`;` für Tabellenkalkulationen, die das Komma als Dezimaltrennzeichen verwenden).",

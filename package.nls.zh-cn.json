@@ -548,6 +548,8 @@
   "command.indexAdviceChart": "索引建议图表（可视化）…",
   "command.ifsSpaceMap": "IFS 空间图（可视化）…",
   "command.changeCalendar": "源代码更改日历（可视化）…",
+  "command.jobsMap": "活动作业图（可视化）",
+  "command.journalHeatMap": "日志活动热图（可视化）…",
   "command.findMessageInJobLogs": "在作业日志中查找消息…",
   "config.editor.checkCharacters": "打开或保存源时，为会导致编译或 CCSID 转换失败的字符（制表符、控制字符、不间断空格、弯引号、转换中丢失的字符）添加下划线。",
   "config.csvSeparator": "**将报表转换为 CSV** 写入的 CSV 文件的分隔符(对于设置为使用逗号作为小数分隔符的电子表格，请使用 `;`)。",

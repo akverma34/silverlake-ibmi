@@ -89,6 +89,7 @@ import { registerSourceHelpers } from './features/sourceHelpersView';
 import { registerJobHistory } from './features/jobHistoryView';
 import { registerVisuals } from './features/visualsView';
 import { registerDevInsights } from './features/devInsightsView';
+import { registerSystemVisuals } from './features/systemVisualsView';
 import { registerDbCare } from './features/dbCareView';
 import { registerSqlGen } from './features/sqlGenView';
 import { registerDevTools } from './features/devToolsView';
@@ -237,6 +238,7 @@ export function activate(context: vscode.ExtensionContext): void {
   step('job history', () => registerJobHistory(context, m));
   step('visual insights', () => registerVisuals(context, m));
   step('developer insights', () => registerDevInsights(context, m));
+  step('system visuals', () => registerSystemVisuals(context, m));
   step('database care', () => registerDbCare(context, m));
   step('sql generators', () => registerSqlGen(context, m));
   step('developer converters', () => registerDevTools(context, m));

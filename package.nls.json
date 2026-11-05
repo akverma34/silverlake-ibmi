@@ -548,6 +548,8 @@
   "command.indexAdviceChart": "Index Advice Chart (Visual)…",
   "command.ifsSpaceMap": "IFS Space Map (Visual)…",
   "command.changeCalendar": "Source Change Calendar (Visual)…",
+  "command.jobsMap": "Active Jobs Map (Visual)",
+  "command.journalHeatMap": "Journal Activity Heat Map (Visual)…",
   "command.findMessageInJobLogs": "Find a Message in Job Logs…",
   "config.editor.checkCharacters": "Underline characters that break a compile or a CCSID conversion (tabs, control characters, no-break spaces, curly quotes, characters lost in a conversion) when a source is opened or saved.",
   "config.csvSeparator": "Separator of CSV files written by **Report to CSV** (`;` for spreadsheets set up for a comma as decimal separator).",
