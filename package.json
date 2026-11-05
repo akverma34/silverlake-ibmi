@@ -60,6 +60,40 @@
     "onStartupFinished"
   ],
   "contributes": {
+    "taskDefinitions": [
+      {
+        "type": "vanthrex",
+        "required": [
+          "command"
+        ],
+        "properties": {
+          "command": {
+            "type": "string",
+            "description": "%task.command%"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "cl",
+              "pase"
+            ],
+            "default": "cl",
+            "description": "%task.kind%"
+          },
+          "libraries": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "%task.libraries%"
+          },
+          "cwd": {
+            "type": "string",
+            "description": "%task.cwd%"
+          }
+        }
+      }
+    ],
     "viewsContainers": {
       "activitybar": [
         {
@@ -2332,6 +2366,24 @@
         "icon": "$(flame)"
       },
       {
+        "command": "vanthrex.auditJournalMap",
+        "title": "%command.auditJournalMap%",
+        "category": "Vanthrex",
+        "icon": "$(shield)"
+      },
+      {
+        "command": "vanthrex.diskUnitsMap",
+        "title": "%command.diskUnitsMap%",
+        "category": "Vanthrex",
+        "icon": "$(server)"
+      },
+      {
+        "command": "vanthrex.sqlStatementStats",
+        "title": "%command.sqlStatementStats%",
+        "category": "Vanthrex",
+        "icon": "$(dashboard)"
+      },
+      {
         "command": "vanthrex.findMessageInJobLogs",
         "title": "%command.findMessageInJobLogs%",
         "category": "Vanthrex",
@@ -3357,6 +3409,11 @@
           "command": "vanthrex.spaceMap",
           "when": "view == vanthrex.libraries && viewItem == library",
           "group": "3@1"
+        },
+        {
+          "command": "vanthrex.sqlStatementStats",
+          "when": "view == vanthrex.libraries && (viewItem == library || viewItem =~ /^object\\.(pgm|srvpgm)$/)",
+          "group": "3@9"
         },
         {
           "command": "vanthrex.indexAdviceChart",
@@ -5409,6 +5466,18 @@
         },
         {
           "command": "vanthrex.journalHeatMap",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.auditJournalMap",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.diskUnitsMap",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.sqlStatementStats",
           "when": "vanthrex.connected"
         },
         {

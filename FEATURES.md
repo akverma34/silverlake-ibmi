@@ -1313,6 +1313,30 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** see which program run touched which tables and when — before digging into the journal entries.
 - **How:** *Journal Activity Heat Map (Visual)…* and type LIBRARY/JOURNAL. Click a table for its journal entries.
 
+### 206. Security Audit Journal — new
+
+- **What:** QAUDJRN hour by hour, one row per entry type, with the users with the most entries and the latest failures and security changes.
+- **Why:** see at once who failed to sign on, who hit an authority failure and who changed an authority, a profile or a system value — without DSPAUDJRNE or an outfile.
+- **How:** *Security Audit Journal (Visual)* in the command palette or the quick menu. Click an event for the job log of its job. Needs *AUDIT or *ALLOBJ.
+
+### 207. Disk Units Map — new
+
+- **What:** every disk unit by ASP, filled to its % used, with how busy its disk arm is.
+- **Why:** spot a full ASP, an unbalanced unit or a busy disk arm before the system slows down.
+- **How:** *Disk Units Map (Visual)* in the command palette or the quick menu.
+
+### 208. Embedded SQL Statement Statistics — new
+
+- **What:** the run statistics of every SQL statement in the programs of a library or of one program (QSYS2.SYSPROGRAMSTMTSTAT).
+- **Why:** find the embedded SQL that takes the time, the statements that never run and those whose access plan is rebuilt again and again.
+- **How:** right-click a library or a program, or *Embedded SQL Statement Statistics…* and type LIBRARY or LIBRARY/PROGRAM.
+
+### 209. VS Code tasks for IBM i — new
+
+- **What:** a `vanthrex` task type: `{ "type": "vanthrex", "command": "CRTBNDRPG PGM(&CURLIB/&NAME) SRCSTMF('&RELATIVEPATH')" }` runs on the IBM i; `"kind": "pase"` runs a PASE command, in `"cwd"` when given.
+- **Why:** the usual VS Code way to build — Run Task, a key binding, a task before debugging — with Code for IBM i style variables.
+- **How:** *Terminal → Run Task… → vanthrex* for the ready-made tasks, or add your own in `.vscode/tasks.json`.
+
 ## Keyboard shortcuts
 
 | Keys | Action |
