@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+**System and security insights — what Code for IBM i and Db2 for i users had to look for elsewhere.**
+
+- **Security Audit Journal**: the security audit journal (QAUDJRN) of the last 6 hours to 7 days as a heat map, one row per entry type and one square per hour — authority and sign-on failures in red, changes to authorities, profiles and system values in orange, other activity in blue. Next to it, the users with the most entries (with their AF and PW counts) and the latest failures and security changes; click one for the job log of its job. Needs *AUDIT or *ALLOBJ.
+- **Disk Units Map**: every disk unit grouped by ASP, drawn as a can filled to its % used, with a bar for how busy its disk arm is; orange from 80 % used or 40 % busy, red from 90 % or 60 %. Says when the units of an ASP are filled unevenly (STRASPBAL balances them) and when a disk arm is so busy that jobs wait.
+- **Embedded SQL Statement Statistics**: every SQL statement in the programs of a library (or one program), from QSYS2.SYSPROGRAMSTMTSTAT — how often it ran, total, average and longest time, how often its access plan was rebuilt — slowest first, with hints for statements never run, rebuilt on most runs or reading SELECT *. Right-click a library or a program, or use the command palette.
+- **VS Code tasks for IBM i**: a `vanthrex` task type for `tasks.json` that runs a CL command (with extra libraries on the library list) or a PASE command (in an IFS folder) over the connection, with the Code for IBM i style variables &CURLIB, &USER, &HOST, &NAME, &EXT, &FILENAME and &RELATIVEPATH. Run Task offers ready-made tasks: compile RPG from the IFS, build with makei, show the library list. Bind a task to a key or run it before a launch, like any other task.
+
 ## 3.2.0
 
 **Visual insights — see a library and a night of batch work at a glance.**
