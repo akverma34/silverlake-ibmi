@@ -6,7 +6,7 @@ import { isValidSystemName } from './util';
 
 // ---------------------------------------------------------------- Library Space Map
 
-export interface SpaceObject { name: string; type: string; attribute: string; size: number; text: string; lastUsedDays?: number }
+export interface SpaceObject { name: string; type: string; attribute: string; size: number; text: string; lastUsedDays?: number; createdDays?: number }
 export interface Rect { x: number; y: number; w: number; h: number }
 
 /** One row per object of a library: name, type, attribute, size, text and days since last used (null = never). */
@@ -15,7 +15,8 @@ export function spaceMapSql(library: string): string {
   if (!isValidSystemName(l)) { throw new Error(`"${library}" is not a valid library name.`); }
   // Source physical files have attribute PF like data files; SYSTABLES (FILE_TYPE 'S') tells them apart.
   return `SELECT O.OBJNAME AS NAME, O.OBJTYPE AS TYPE, CASE WHEN T.FILE_TYPE = 'S' THEN 'PF-SRC' ELSE COALESCE(O.OBJATTRIBUTE, '') END AS ATTR, ` +
-    `COALESCE(O.OBJSIZE, 0) AS SIZE, COALESCE(O.OBJTEXT, '') AS TEXT, DAYS(CURRENT DATE) - DAYS(O.LAST_USED_TIMESTAMP) AS UNUSED ` +
+    `COALESCE(O.OBJSIZE, 0) AS SIZE, COALESCE(O.OBJTEXT, '') AS TEXT, DAYS(CURRENT DATE) - DAYS(O.LAST_USED_TIMESTAMP) AS UNUSED, ` +
+    `DAYS(CURRENT DATE) - DAYS(O.OBJCREATED) AS CREATED ` +
     `FROM TABLE(QSYS2.OBJECT_STATISTICS('${l}', '*ALL')) O LEFT JOIN QSYS2.SYSTABLES T ` +
     `ON O.OBJTYPE = '*FILE' AND T.SYSTEM_TABLE_SCHEMA = '${l}' AND T.SYSTEM_TABLE_NAME = O.OBJNAME ` +
     `ORDER BY O.OBJSIZE DESC FETCH FIRST 5000 ROWS ONLY`;
@@ -38,6 +39,14 @@ export function spaceGroup(type: string, attribute: string): SpaceGroup {
 export function ageBand(days: number | undefined): 0 | 1 | 2 | 3 {
   if (days === undefined || days === null || !isFinite(days)) { return 3; }
   return days <= 30 ? 0 : days <= 180 ? 1 : days <= 365 ? 2 : 3;
+}
+
+/**
+ * Days that count for the "last used" colour: the days since last used, or — for an object never used — the days
+ * since it was created, so an object created last week is not shown as "not used for over a year".
+ */
+export function idleDays(o: Pick<SpaceObject, 'lastUsedDays' | 'createdDays'>): number | undefined {
+  return o.lastUsedDays ?? o.createdDays;
 }
 
 /** Totals per group, biggest first (empty groups left out). */
@@ -100,11 +109,12 @@ export function timelineSql(hours: number, opts: { user?: string; jobName?: stri
   const u = opts.user?.trim().toUpperCase(); const j = opts.jobName?.trim().toUpperCase();
   if (u && !NAME.test(u)) { throw new Error(`"${opts.user}" is not a valid user name.`); }
   if (j && !NAME.test(j)) { throw new Error(`"${opts.jobName}" is not a valid job name.`); }
-  const like = (v: string | undefined) => v ? v.replace(/\*/g, '%') : '%';
+  // _ and % are LIKE wildcards but valid in names: escape them, then * (the user's wildcard) becomes %.
+  const like = (v: string | undefined) => v ? v.replace(/[\\_%]/g, c => '\\' + c).replace(/\*/g, '%') : '%';
   return `SELECT MESSAGE_ID AS ID, VARCHAR_FORMAT(MESSAGE_TIMESTAMP, 'YYYY-MM-DD HH24:MI:SS') AS TS, FROM_JOB AS JOB, COALESCE(MESSAGE_TEXT, '') AS TEXT, ` +
     `VARCHAR_FORMAT(CURRENT TIMESTAMP, 'YYYY-MM-DD HH24:MI:SS') AS NOW ` +
     `FROM TABLE(QSYS2.HISTORY_LOG_INFO(START_TIME => CURRENT TIMESTAMP - ${h} HOURS)) H WHERE MESSAGE_ID IN ('CPF1124', 'CPF1164') ` +
-    `AND FROM_JOB LIKE '%/${like(u)}/${like(j)}' ORDER BY MESSAGE_TIMESTAMP FETCH FIRST 20000 ROWS ONLY`;
+    `AND FROM_JOB LIKE '%/${like(u)}/${like(j)}' ESCAPE '\\' ORDER BY MESSAGE_TIMESTAMP FETCH FIRST 20000 ROWS ONLY`;
 }
 
 /** "YYYY-MM-DD HH:MM:SS" (server time, no zone) as milliseconds; the same reading is used everywhere, so it stays consistent. */

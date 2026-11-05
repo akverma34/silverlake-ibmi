@@ -3501,5 +3501,6 @@
   "Sep": "9月",
   "Oct": "10月",
   "Nov": "11月",
-  "Dec": "12月"
+  "Dec": "12月",
+  "Never used, created {0} days ago": "未使用 ({0} 日前に作成)"
 }

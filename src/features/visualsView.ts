@@ -7,7 +7,7 @@ import { errorMessage, logError } from '../core/log';
 import { ConnectionManager } from '../core/manager';
 import { formatBytes } from '../core/storage';
 import { isValidSystemName } from '../core/util';
-import { ageBand, SPACE_GROUPS, SpaceGroup, spaceGroup, spaceMapSql, SpaceObject, spaceSummary, squarify, timelineLayout, timelineSql, timeTicks, tsMillis } from '../core/visuals';
+import { ageBand, idleDays, SPACE_GROUPS, SpaceGroup, spaceGroup, spaceMapSql, SpaceObject, spaceSummary, squarify, timelineLayout, timelineSql, timeTicks, tsMillis } from '../core/visuals';
 import { escapeHtml, nonce } from './webviewUtil';
 
 type Row = Record<string, unknown>;
@@ -53,16 +53,18 @@ class SpaceMap {
   private hidden = new Set<SpaceGroup>();
 
   static open(manager: ConnectionManager, library: string): void {
-    const open = SpaceMap.panels.get(library);
+    // One page per system and library: the same library on DEV and PROD are two different maps.
+    const key = `${manager.require().profile.name}|${library}`;
+    const open = SpaceMap.panels.get(key);
     if (open) { open.panel.reveal(); return; }
-    SpaceMap.panels.set(library, new SpaceMap(manager, library));
+    SpaceMap.panels.set(key, new SpaceMap(manager, library, key));
   }
 
   private readonly panel: vscode.WebviewPanel;
 
-  private constructor(private readonly manager: ConnectionManager, private readonly library: string) {
+  private constructor(private readonly manager: ConnectionManager, private readonly library: string, key: string) {
     this.panel = vscode.window.createWebviewPanel('vanthrex.spaceMap', vscode.l10n.t('Space Map: {0}', library), vscode.ViewColumn.Active, { enableScripts: true, retainContextWhenHidden: true });
-    this.panel.onDidDispose(() => SpaceMap.panels.delete(library));
+    this.panel.onDidDispose(() => SpaceMap.panels.delete(key));
     this.panel.webview.onDidReceiveMessage(m => void this.message(m));
     void this.load();
   }
@@ -87,8 +89,8 @@ class SpaceMap {
       const conn = this.manager.require();
       const rows = await conn.rows<Row>(spaceMapSql(this.library), 5000);
       this.objects = rows.map(r => {
-        const unused = r.UNUSED === null || r.UNUSED === undefined ? undefined : Number(r.UNUSED);
-        return { name: str(r, 'NAME'), type: str(r, 'TYPE'), attribute: str(r, 'ATTR'), size: Number(r.SIZE) || 0, text: str(r, 'TEXT'), lastUsedDays: unused };
+        const days = (k: string) => r[k] === null || r[k] === undefined || !isFinite(Number(r[k])) ? undefined : Number(r[k]);
+        return { name: str(r, 'NAME'), type: str(r, 'TYPE'), attribute: str(r, 'ATTR'), size: Number(r.SIZE) || 0, text: str(r, 'TEXT'), lastUsedDays: days('UNUSED'), createdDays: days('CREATED') };
       });
       this.render();
     } catch (e) {
@@ -103,7 +105,7 @@ class SpaceMap {
     const total = all.reduce((a, o) => a + o.size, 0);
     const summary = spaceSummary(all);
     const shown = all.filter(o => !this.hidden.has(spaceGroup(o.type, o.attribute)) && o.size > 0);
-    const old = all.filter(o => ageBand(o.lastUsedDays) === 3);
+    const old = all.filter(o => ageBand(idleDays(o)) === 3);
     const oldSize = old.reduce((a, o) => a + o.size, 0);
     // Two levels: one block per group, then the objects inside it, so each colour forms one area.
     const groups = summary.filter(s => !this.hidden.has(s.group));
@@ -118,10 +120,10 @@ class SpaceMap {
         if (r.w < 0.4 || r.h < 0.4) { return; }
         const pct = (n: number, of: number) => `${(n / of * 100).toFixed(3)}%`;
         const tip = `${this.library}/${o.name} ${o.type} ${o.attribute}\n${formatBytes(o.size)} (${(o.size / Math.max(1, total) * 100).toFixed(1)}%)` +
-          `${o.text ? `\n${o.text}` : ''}\n${o.lastUsedDays === undefined ? t('Never used') : t('Last used {0} days ago', o.lastUsedDays)}`;
+          `${o.text ? `\n${o.text}` : ''}\n${o.lastUsedDays === undefined ? (o.createdDays === undefined ? t('Never used') : t('Never used, created {0} days ago', o.createdDays)) : t('Last used {0} days ago', o.lastUsedDays)}`;
         const label = r.w > 46 && r.h > 16 ? `<span>${escapeHtml(o.name)}${r.h > 30 ? `<small>${escapeHtml(formatBytes(o.size))}</small>` : ''}</span>` : '';
         tiles += `<div class="t" data-name="${escapeHtml(o.name)}" data-type="${escapeHtml(o.type)}" data-find="${escapeHtml(`${o.name} ${o.type} ${o.attribute} ${o.text}`.toUpperCase())}" ` +
-          `style="left:${pct(r.x, MAP_W)};top:${pct(r.y, MAP_H)};width:${pct(r.w, MAP_W)};height:${pct(r.h, MAP_H)};--g:${GROUP_COLOR[g.group]};--a:${AGE_COLOR[ageBand(o.lastUsedDays)]}" title="${escapeHtml(tip)}">${label}</div>`;
+          `style="left:${pct(r.x, MAP_W)};top:${pct(r.y, MAP_H)};width:${pct(r.w, MAP_W)};height:${pct(r.h, MAP_H)};--g:${GROUP_COLOR[g.group]};--a:${AGE_COLOR[ageBand(idleDays(o))]}" title="${escapeHtml(tip)}">${label}</div>`;
       });
     });
     const legend = SPACE_GROUPS.filter(g => summary.some(s => s.group === g)).map(g => {

@@ -69,3 +69,17 @@ test('job timeline: SQL, lanes, states and ticks', () => {
   assert.ok(t.length <= 12 && t.length >= 5);
   assert.strictEqual(v.timeTicks(start, start + 7 * 86400000, 700).every(x => x.day), true);
 });
+
+test('timeline: _ in a job name is matched literally, * is the wildcard', () => {
+  const sql = v.timelineSql(24, { jobName: 'ORD_EXT*', user: 'BATCH_1' });
+  assert.match(sql, /LIKE '%\/BATCH\\_1\/ORD\\_EXT%' ESCAPE '\\'/);
+  assert.match(v.timelineSql(24), /LIKE '%\/%\/%' ESCAPE/);
+});
+
+test('space map: an object never used counts from its creation date', () => {
+  assert.strictEqual(v.idleDays({ lastUsedDays: 400, createdDays: 900 }), 400);
+  assert.strictEqual(v.idleDays({ lastUsedDays: undefined, createdDays: 5 }), 5);
+  assert.strictEqual(v.ageBand(v.idleDays({ createdDays: 5 })), 0);
+  assert.strictEqual(v.ageBand(v.idleDays({})), 3);
+  assert.match(v.spaceMapSql('LIB'), /OBJCREATED/);
+});

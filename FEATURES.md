@@ -1271,31 +1271,31 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** from a compile or a PASE command straight to the source or the message help.
 - **How:** Ctrl+click in the terminal (`vanthrex.editor.terminalLinks`).
 
-### 199. Library Space Map — new
+### 199. Library Space Map — new in 3.2
 
-- **What:** a treemap of every object in a library, sized by disk space and coloured by kind or by when it was last used, with totals and the largest objects.
+- **What:** a treemap of every object in a library, sized by disk space and coloured by kind or by when it was last used (or created, for objects never used), with totals and the largest objects.
 - **Why:** see at once what fills a library and what has not been used for a year — before a clean-up, a save or a migration.
 - **How:** right-click a library → *Library Space Map*, or *Library Space Map (Visual)…* in the command palette. Click a tile for the object information.
 
-### 200. Batch Job Timeline — new
+### 200. Batch Job Timeline — new in 3.2
 
 - **What:** the batch jobs of the last hours or days as bars on a time axis, coloured by how they ended, one lane per overlapping job.
 - **Why:** see the night schedule, what overlapped, what failed and what ran longest — without reading the history log.
 - **How:** *Batch Job Timeline (Visual)* in the command palette or the quick menu. Click a bar for the job log, right-click for its run history.
 
-### 201. Index Advice Chart — new
+### 201. Index Advice Chart — new in 3.2
 
 - **What:** the indexes the Db2 optimizer advised for a library, merged and ranked, with the CREATE INDEX for each.
 - **Why:** find the index that makes a slow screen or batch job fast, without reading SYSIXADV by hand.
 - **How:** right-click a library → *Index Advice Chart*. *CREATE INDEX…* opens the statement in an SQL editor; nothing runs by itself.
 
-### 202. IFS Space Map — new
+### 202. IFS Space Map — new in 3.2
 
 - **What:** a treemap of everything below an IFS folder, sized by disk space and coloured by kind; click to go into folders.
 - **Why:** find the logs, archives and old exports that fill the IFS.
 - **How:** right-click a folder in the IFS view → *IFS Space Map*, or *IFS Space Map (Visual)…* in the command palette.
 
-### 203. Source Change Calendar — new
+### 203. Source Change Calendar — new in 3.2
 
 - **What:** a year of member changes as a heat map, one square per day, with the members of each day and changes by source type.
 - **Why:** see when an application was worked on, what changed before a problem started, and what was touched in a release.

@@ -3501,5 +3501,6 @@
   "Sep": "set",
   "Oct": "out",
   "Nov": "nov",
-  "Dec": "dez"
+  "Dec": "dez",
+  "Never used, created {0} days ago": "Nunca usado, criado há {0} dias"
 }
