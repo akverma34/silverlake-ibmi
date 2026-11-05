@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.2.0 (not released yet)
+## 3.2.0
 
 **Visual insights — see a library and a night of batch work at a glance.**
 

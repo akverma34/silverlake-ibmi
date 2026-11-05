@@ -3368,7 +3368,7 @@
   "Green-screen commands that open a screen here. Right-click one to prompt it (F4).": "Comandos de tela verde que abrem uma tela aqui. Clique com o botão direito em um deles para exibir o prompt (F4).",
   "$(list-ordered) GO menus (MAIN, PROGRAMMER, SYSTEM…)": "$(list-ordered) Menus GO (MAIN, PROGRAMMER, SYSTEM…)",
   "$(person) Work with my jobs": "$(person) Trabalhar com meus jobs",
-  "What is new in 3.1": "Novidades da versão 3.1",
+  "What is new in 3.2": "Novidades da versão 3.2",
   "Every check of Vanthrex (RPG, CL, SQL, DDS and your team standards) on the indexed copy of each member: run it before a release, compare it after.": "Todas as verificações do Vanthrex (RPG, CL, SQL, DDS e os padrões da sua equipe) na cópia indexada de cada membro: execute-o antes de um release e compare depois.",
   "The link is for the system {0}, which is not one of your connections.": "O link é para o sistema {0}, que não é uma das suas conexões.",
   "Connect": "Conectar",

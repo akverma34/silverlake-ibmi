@@ -210,8 +210,8 @@ function tools(manager: ConnectionManager): Tool[] {
       run: async ed => { const doc = ed.document; const m = memberOf(doc); const line = ed.selection.active.line + 1; await copied(m ? `${m.lib}/${m.file}(${m.member}) ${vscode.l10n.t('line {0}', line)}` : `${vscode.workspace.asRelativePath(doc.uri)}:${line}`, vscode.l10n.t('The reference')); } },
     { id: 'copyCompile', group: vscode.l10n.t('Copy'), langs: ['rpgle', 'cl', 'sql', 'dds'], label: vscode.l10n.t('Copy the compile command'), detail: 'CRTBNDRPG, CRTSQLRPGI, CRTBNDCL, CRTPF, CRTDSPF…',
       run: async ed => { const m = memberOf(ed.document); const base = path.basename(ed.document.uri.path); const parts = m ?? { lib: 'LIB', file: 'QSRC', member: base.replace(/\.[^.]*$/, ''), type: base.split('.').pop() ?? '' }; const cmd = compileCommand(parts.lib, parts.file, parts.member, parts.type); if (!cmd) { throw new Error(vscode.l10n.t('No compile command is known for type {0}.', parts.type)); } await copied(cmd, cmd.split(' ')[0]); } },
-    { id: 'whatsNew', group: vscode.l10n.t('Help'), langs: ['any'], label: vscode.l10n.t('What is new in 3.1'), detail: vscode.l10n.t('Every new feature, with its shortcut'),
-      run: async () => { await vscode.env.openExternal(vscode.Uri.parse('https://gauravgupta0612.github.io/vanthrex-ibmi-docs/features-3-1.html')); } },
+    { id: 'whatsNew', group: vscode.l10n.t('Help'), langs: ['any'], label: vscode.l10n.t('What is new in 3.2'), detail: vscode.l10n.t('Every new feature, with its shortcut'),
+      run: async () => { await vscode.env.openExternal(vscode.Uri.parse('https://gauravgupta0612.github.io/vanthrex-ibmi-docs/features-3-2.html')); } },
   ];
 }
 
