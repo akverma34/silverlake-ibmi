@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+**Visual insights — see a library and a night of batch work at a glance.**
+
+- **Library Space Map**: every object of a library as a tile sized by its disk space (a treemap), grouped and coloured by kind — programs, files, source files, save files, journals, data objects. Switch to *Colour by last used* to see what has not been used for a year, type to highlight objects, click a kind in the legend to hide it, click a tile for the object information. Totals, the biggest kind, the space not used for a year and the 15 largest objects are listed under the map. Right-click a library → *Library Space Map*, or from the quick menu.
+- **Batch Job Timeline**: the batch jobs of the last 6 hours to 7 days as bars on a time axis (from the history log), green when they ended normally, red when abnormally, blue while still running; overlapping jobs get their own lane, so you see what ran at the same time. Filter by job name (`ORD*`) or user; click a bar for the job log, right-click for its run history. Tiles show runs, failures, jobs still running, the longest run and the CPU used; the failed and the longest runs are listed below.
+
 ## 3.1.0
 
 **More power in the editor**

@@ -543,6 +543,8 @@
   "command.sourceNotes": "Notas TODO e FIXME nas Origens Abertas…",
   "command.reportToCsv": "Relatório para CSV (Excel)…",
   "command.jobRunHistory": "Histórico de Execuções de Job (Quanto Tempo Cada Execução Levou)…",
+  "command.spaceMap": "Mapa de Espaço da Biblioteca (Visual)…",
+  "command.jobTimeline": "Linha do Tempo de Jobs em Lote (Visual)",
   "command.findMessageInJobLogs": "Localizar uma Mensagem nos Logs de Job…",
   "config.editor.checkCharacters": "Sublinhar caracteres que quebram uma compilação ou uma conversão de CCSID (tabulações, caracteres de controle, espaços não separáveis, aspas curvas, caracteres perdidos em uma conversão) quando uma origem é aberta ou salva.",
   "config.csvSeparator": "Separador dos arquivos CSV gravados por **Relatório para CSV** (`;` para planilhas configuradas com vírgula como separador decimal).",

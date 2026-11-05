@@ -2290,6 +2290,18 @@
         "icon": "$(history)"
       },
       {
+        "command": "vanthrex.spaceMap",
+        "title": "%command.spaceMap%",
+        "category": "Vanthrex",
+        "icon": "$(graph)"
+      },
+      {
+        "command": "vanthrex.jobTimeline",
+        "title": "%command.jobTimeline%",
+        "category": "Vanthrex",
+        "icon": "$(timeline-view-icon)"
+      },
+      {
         "command": "vanthrex.findMessageInJobLogs",
         "title": "%command.findMessageInJobLogs%",
         "category": "Vanthrex",
@@ -3310,6 +3322,11 @@
           "command": "vanthrex.setCurrentLibrary",
           "when": "view == vanthrex.libraries && viewItem == library",
           "group": "1@2"
+        },
+        {
+          "command": "vanthrex.spaceMap",
+          "when": "view == vanthrex.libraries && viewItem == library",
+          "group": "3@1"
         },
         {
           "command": "vanthrex.removeLibrary",
@@ -5314,6 +5331,14 @@
         },
         {
           "command": "vanthrex.jobRunHistory",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.spaceMap",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.jobTimeline",
           "when": "vanthrex.connected"
         },
         {

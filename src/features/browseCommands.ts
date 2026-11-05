@@ -186,6 +186,8 @@ export function registerBrowseCommands(
       { label: vscode.l10n.t('$(sparkle) AI: write CL from a description…'), cmd: 'vanthrex.ai.cl' },
       { label: vscode.l10n.t('$(shield) AI privacy and security'), cmd: 'vanthrex.ai.privacy' },
       { label: vscode.l10n.t('$(history) Job run history (how long each run took)…'), cmd: 'vanthrex.jobRunHistory' },
+      { label: vscode.l10n.t('$(timeline-view-icon) Batch job timeline (visual)'), cmd: 'vanthrex.jobTimeline' },
+      { label: vscode.l10n.t('$(graph) Library space map (visual)…'), cmd: 'vanthrex.spaceMap' },
       { label: vscode.l10n.t('$(search) Find a message in job logs…'), cmd: 'vanthrex.findMessageInJobLogs' },
       { label: vscode.l10n.t('$(book) Document a library (Markdown)…'), cmd: 'vanthrex.documentLibrary' },
       { label: vscode.l10n.t('$(table) CRUD matrix of a library…'), cmd: 'vanthrex.crudMatrix' },
