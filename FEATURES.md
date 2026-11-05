@@ -1337,6 +1337,24 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** the usual VS Code way to build — Run Task, a key binding, a task before debugging — with Code for IBM i style variables.
 - **How:** *Terminal → Run Task… → vanthrex* for the ready-made tasks, or add your own in `.vscode/tasks.json`.
 
+### 210. Lock Wait Chains — new
+
+- **What:** the jobs waiting for an object or row lock, the jobs holding it, and the head blockers at the start of each chain.
+- **Why:** when users say "it hangs", find the one job that holds everybody up — without WRKOBJLCK on object after object.
+- **How:** *Lock Wait Chains (Visual)* in the command palette or the quick menu. Click a job for its job log, right-click for Work with Active Jobs.
+
+### 211. Limits Watch — new
+
+- **What:** the objects, jobs and IFS directories closest to an IBM i limit (QSYS2.SYSLIMITS), as % of the maximum.
+- **Why:** a table that reaches its row limit or a job that runs out of locks stops production; see it coming.
+- **How:** *Limits Watch (Visual)* in the command palette or the quick menu.
+
+### 212. Security Scorecard — new
+
+- **What:** a 0–100 score of the security system values and the enabled profiles, with what to look at first.
+- **Why:** a quick security health check before an audit, or after a change of system values.
+- **How:** *Security Scorecard (Visual)* in the command palette or the quick menu. *SECADM or *ALLOBJ shows every profile.
+
 ## Keyboard shortcuts
 
 | Keys | Action |

@@ -2384,6 +2384,24 @@
         "icon": "$(dashboard)"
       },
       {
+        "command": "vanthrex.lockWaitChains",
+        "title": "%command.lockWaitChains%",
+        "category": "Vanthrex",
+        "icon": "$(lock)"
+      },
+      {
+        "command": "vanthrex.limitsWatch",
+        "title": "%command.limitsWatch%",
+        "category": "Vanthrex",
+        "icon": "$(warning)"
+      },
+      {
+        "command": "vanthrex.securityScorecard",
+        "title": "%command.securityScorecard%",
+        "category": "Vanthrex",
+        "icon": "$(verified)"
+      },
+      {
         "command": "vanthrex.findMessageInJobLogs",
         "title": "%command.findMessageInJobLogs%",
         "category": "Vanthrex",
@@ -5478,6 +5496,18 @@
         },
         {
           "command": "vanthrex.sqlStatementStats",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.lockWaitChains",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.limitsWatch",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.securityScorecard",
           "when": "vanthrex.connected"
         },
         {
