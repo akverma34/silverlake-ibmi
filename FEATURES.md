@@ -1361,6 +1361,16 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** the first thing to open in the morning or when users say "the system is slow": you see at once whether it is the disks, a lock, an unanswered message or a limit, instead of opening five screens.
 - **How:** *System Health Overview (Visual)* in the command palette or the quick menu (Ctrl+Alt+I). Tick *Refresh every minute* to keep it on a second screen. Each card is read on its own: one you are not authorized to read shows why, the others still work.
 
+### 214. Developer Toolbox: 50 more tools — new in 3.3
+
+- **What:** 50 new tools in the Developer Toolbox (Ctrl+Alt+A), each also a command of its own (*Vanthrex Tools: …*):
+  - **Text (any source, on the selection):** Sort the lines (A → Z); Sort the lines (Z → A); Remove duplicate lines; Reverse the lines; Trim the lines; Upper case (literals untouched); Lower case (literals untouched); Join the lines with commas; Split a comma list into lines; Quote each line; Number the lines; Count lines, words and characters; Text to an EBCDIC hex literal; EBCDIC hex literal to text; Put the lines in a comment box; Names to camelCase; Names to UPPER_SNAKE (SQL style); Align the selection as a table.
+  - **SQL (on the statement at the cursor):** SELECT → SELECT COUNT(*); Wrap in a common table expression (WITH); Add a row number column; Add paging (OFFSET … FETCH NEXT); Read without waiting for locks (WITH UR); CREATE TABLE → CREATE OR REPLACE TABLE; LABEL ON for every column of this CREATE TABLE; COMMENT ON for every column of this CREATE TABLE; INSERT from this CREATE TABLE; SELECT by key from this CREATE TABLE; UPDATE by key from this CREATE TABLE; MERGE (insert or update) from this CREATE TABLE; CREATE INDEX for this SELECT.
+  - **RPG:** CLEAR the selected variables; RESET the selected variables; Set the selected variables to empty; DSPLY the selected variables (for testing); DCL-S lines → a parameter list (DCL-PI); Parameter lines → DCL-S; Values → a SELECT / WHEN; Values → an array initialised with them; Insert a READ loop over a file; Insert an SQL cursor loop; Insert the program status data structure (PSDS); Insert a file information data structure (INFDS); Comment out with a date, author and reason.
+  - **CL:** Insert RTVJOBA with its variables; Insert CHKOBJ with MONMSG; Insert a RCVF loop over a file; Insert SNDPGMMSG (escape, completion…); Put the selection between OVRDBF and DLTOVR; Insert RTVSYSVAL with its variable.
+- **Why:** the small edits that eat a developer's day — sorting a list, quoting values for an IN list, writing the LABEL ON or MERGE for a new table, declaring a READ loop or a cursor loop, a CHKOBJ with its MONMSG — done in one step, the same way every time.
+- **How:** select the lines (or put the cursor in the SQL statement), press Ctrl+Alt+A and type a word of the tool. Tools that need a name (a file, a variable) ask for it; Ctrl+Z undoes any of them.
+
 ## Keyboard shortcuts
 
 | Keys | Action |
