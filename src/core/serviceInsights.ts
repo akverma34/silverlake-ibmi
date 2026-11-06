@@ -42,6 +42,7 @@ export const SERVICE_SQL = {
   security: `SELECT * FROM QSYS2.SECURITY_INFO`,
   certificateUsage: `SELECT * FROM QSYS2.CERTIFICATE_USAGE_INFO`,
   exitPoints: `SELECT * FROM QSYS2.EXIT_POINT_INFO`,
+  mtis: `SELECT * FROM TABLE(QSYS2.MTI_INFO()) X`,
 } as const;
 export type ServiceId = keyof typeof SERVICE_SQL;
 
@@ -122,3 +123,9 @@ export const FLAGS = {
   tapes: (r: Row): Flag => textFlag(r, /\b(ERROR|DAMAGED)\b/i, /\bEXPIRED\b/i),
   nvme: (r: Row): Flag => textFlag(r, /\b(FAILED|CRITICAL)\b/i, /\b(WARNING|DEGRADED)\b/i),
 };
+
+/** Maintained temporary indexes, the most used by queries first. */
+export function mtiTop(rows: Row[], max = 500): Row[] {
+  const uses = (r: Row) => Number(pick(r, 'QUERY_USE_COUNT', 'TIMES_USED', 'QUERY_STATISTICS_COUNT')) || 0;
+  return [...rows].sort((a, b) => uses(b) - uses(a)).slice(0, max);
+}

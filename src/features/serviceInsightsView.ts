@@ -5,12 +5,12 @@ import * as vscode from 'vscode';
 import { errorMessage, log, logError } from '../core/log';
 import { ConnectionManager } from '../core/manager';
 import {
-  attributes, bySubsystem, endedJobFlag, Flag, FLAGS, isJobName, jobServiceSql, Row, SERVICE_SQL, ServiceId, tableFrom, tempStorageTop,
+  attributes, bySubsystem, endedJobFlag, Flag, FLAGS, isJobName, jobServiceSql, Row, SERVICE_SQL, ServiceId, tableFrom, tempStorageTop, mtiTop,
 } from '../core/serviceInsights';
 import { Report, ReportTable, reportProgress, showReport } from './reportPanel';
 
 const t = (msg: string, ...args: Array<string | number | boolean>): string => vscode.l10n.t(msg, ...args);
-const COMMANDS = ['networkConfig', 'fixCurrency', 'hardwareStatus', 'subsystemSetup', 'saveMedia', 'systemDiagnostics', 'securityConfig', 'jobInternals'];
+const COMMANDS = ['networkConfig', 'fixCurrency', 'hardwareStatus', 'subsystemSetup', 'saveMedia', 'systemDiagnostics', 'securityConfig', 'jobInternals', 'temporaryIndexes'];
 const ALLOWED = new Set(COMMANDS.map(c => `vanthrex.${c}`));
 
 /** One section of a page: a service read as a table, or a one-row service read as attribute/value pairs. */
@@ -114,6 +114,12 @@ const systemDiagnostics = (m: ConnectionManager) => showPage(m, 'systemDiagnosti
   { id: 'collectionServices', title: t('Collection Services'), kind: 'attrs' },
 ], t('From QSYS2.PROBLEM_INFO, ENDED_JOB_INFO, SYSTMPSTG, WATCH_INFO, JVM_INFO and COLLECTION_SERVICES_INFO. Jobs that ended abnormally (end code 30 or more) are shown in red.'));
 
+const temporaryIndexes = (m: ConnectionManager) => showPage(m, 'temporaryIndexes', t('Maintained Temporary Indexes'), [
+  { id: 'mtis', title: t('Temporary indexes the query engine built'), shape: rows => mtiTop(rows),
+    prefer: ['TABLE_SCHEMA', 'TABLE_NAME', 'KEY_DEFINITION', 'QUERY_USE_COUNT', 'QUERY_STATISTICS_COUNT', 'LAST_QUERY_USE', 'MTI_SIZE', 'MTI_CREATE_TIME', 'CREATE_TIME', 'LAST_BUILD_START_TIME', 'REASON_CREATED', 'SPARSE'] },
+], t('From QSYS2.MTI_INFO, most used first. The query engine builds these indexes when no permanent index fits and drops them at IPL, so a query that runs often after an IPL pays for the rebuild: create a permanent index on the same keys (Index Advisor shows the CREATE INDEX).'),
+  l => t('{0} maintained temporary index(es).', l[0].rows.length));
+
 const securityConfig = (m: ConnectionManager) => showPage(m, 'securityConfig', t('Security Configuration'), [
   { id: 'security', title: t('Security attributes'), kind: 'attrs' },
   { id: 'certificateUsage', title: t('Certificates in use by applications') },
@@ -144,5 +150,6 @@ export function registerServiceInsights(context: vscode.ExtensionContext, manage
     vscode.commands.registerCommand('vanthrex.systemDiagnostics', guard(() => systemDiagnostics(manager))),
     vscode.commands.registerCommand('vanthrex.securityConfig', guard(() => securityConfig(manager))),
     vscode.commands.registerCommand('vanthrex.jobInternals', guard(a => jobInternals(manager, a))),
+    vscode.commands.registerCommand('vanthrex.temporaryIndexes', guard(() => temporaryIndexes(manager))),
   );
 }

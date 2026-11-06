@@ -1495,6 +1495,36 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** Walk through a change without scrolling.
 - **How:** Right-click in a member, or the command palette.
 
+### 232. Library Actions — new
+
+- **What:** Change the description of a library, copy it to a new library (CPYLIB), rename it, clear it or delete it. Clear and delete ask you to type the library name; IBM libraries (Q…, SYS…, #…) cannot be renamed, cleared or deleted from here, and the library list follows a rename or a delete.
+- **Why:** Manage libraries without a 5250 session.
+- **How:** Right-click a library in the Libraries view.
+
+### 233. Clear and Copy Table Data — new
+
+- **What:** Clear the rows of a table (CLRPFM, after typing its name), or copy its rows to another table: replace or add them, columns matched by name, or create the copy (CPYF).
+- **Why:** Reset test data or refresh a test table from production.
+- **How:** Right-click a file in the Libraries view.
+
+### 234. Generate CALL Statement — new
+
+- **What:** A ready-to-fill CALL (procedure), VALUES (scalar function) or SELECT … FROM TABLE() (table function), one named parameter per line with its mode and type, read from QSYS2.SYSROUTINES and SYSPARMS.
+- **Why:** Call a routine without looking up its parameters.
+- **How:** Right-click in an SQL file, the command palette or the quick menu.
+
+### 235. SQL from a JSON Sample — new
+
+- **What:** The selected (or copied) JSON turned into a VALUES JSON_OBJECT / JSON_ARRAY statement that returns it; replace the sample values with your columns.
+- **Why:** Build an API response in SQL from the JSON you were given.
+- **How:** Select JSON and right-click, or the command palette.
+
+### 236. Maintained Temporary Indexes — new
+
+- **What:** The temporary indexes the query engine maintains (QSYS2.MTI_INFO), most used first.
+- **Why:** An MTI that queries use a lot is rebuilt after every IPL; a permanent index on the same keys saves that work.
+- **How:** The command palette or the quick menu.
+
 ## Keyboard shortcuts
 
 | Keys | Action |

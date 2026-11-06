@@ -2570,6 +2570,66 @@
         "icon": "$(arrow-up)"
       },
       {
+        "command": "vanthrex.changeLibraryText",
+        "title": "%command.changeLibraryText%",
+        "category": "Vanthrex",
+        "icon": "$(note)"
+      },
+      {
+        "command": "vanthrex.copyLibrary",
+        "title": "%command.copyLibrary%",
+        "category": "Vanthrex",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "vanthrex.renameLibrary",
+        "title": "%command.renameLibrary%",
+        "category": "Vanthrex",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "vanthrex.clearLibrary",
+        "title": "%command.clearLibrary%",
+        "category": "Vanthrex",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "vanthrex.deleteLibrary",
+        "title": "%command.deleteLibrary%",
+        "category": "Vanthrex",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "vanthrex.clearTableData",
+        "title": "%command.clearTableData%",
+        "category": "Vanthrex",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "vanthrex.copyTableData",
+        "title": "%command.copyTableData%",
+        "category": "Vanthrex",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "vanthrex.generateCall",
+        "title": "%command.generateCall%",
+        "category": "Vanthrex",
+        "icon": "$(symbol-method)"
+      },
+      {
+        "command": "vanthrex.jsonToSql",
+        "title": "%command.jsonToSql%",
+        "category": "Vanthrex",
+        "icon": "$(json)"
+      },
+      {
+        "command": "vanthrex.temporaryIndexes",
+        "title": "%command.temporaryIndexes%",
+        "category": "Vanthrex",
+        "icon": "$(list-tree)"
+      },
+      {
         "command": "vanthrex.findMessageInJobLogs",
         "title": "%command.findMessageInJobLogs%",
         "category": "Vanthrex",
@@ -5045,6 +5105,41 @@
           "command": "vanthrex.ifsCopyPath",
           "when": "view == vanthrex.ifs && viewItem =~ /^ifs\\.(dir|file)$/",
           "group": "6_copy@1"
+        },
+        {
+          "command": "vanthrex.changeLibraryText",
+          "when": "view == vanthrex.libraries && viewItem == library",
+          "group": "9_library@2"
+        },
+        {
+          "command": "vanthrex.copyLibrary",
+          "when": "view == vanthrex.libraries && viewItem == library",
+          "group": "9_library@3"
+        },
+        {
+          "command": "vanthrex.renameLibrary",
+          "when": "view == vanthrex.libraries && viewItem == library",
+          "group": "9_library@4"
+        },
+        {
+          "command": "vanthrex.clearLibrary",
+          "when": "view == vanthrex.libraries && viewItem == library",
+          "group": "9_library@5"
+        },
+        {
+          "command": "vanthrex.deleteLibrary",
+          "when": "view == vanthrex.libraries && viewItem == library",
+          "group": "9_library@6"
+        },
+        {
+          "command": "vanthrex.clearTableData",
+          "when": "view == vanthrex.libraries && viewItem == object.file",
+          "group": "6_data@1"
+        },
+        {
+          "command": "vanthrex.copyTableData",
+          "when": "view == vanthrex.libraries && viewItem == object.file",
+          "group": "6_data@2"
         }
       ],
       "editor/title": [
@@ -5444,6 +5539,16 @@
           "command": "vanthrex.insertSharedSnippet",
           "when": "vanthrex.connected",
           "group": "vanthrex@9"
+        },
+        {
+          "command": "vanthrex.generateCall",
+          "when": "vanthrex.connected && editorLangId =~ /sql/",
+          "group": "vanthrex@10"
+        },
+        {
+          "command": "vanthrex.jsonToSql",
+          "when": "editorHasSelection && (editorLangId == json || editorLangId =~ /sql/)",
+          "group": "vanthrex@11"
         }
       ],
       "commandPalette": [
@@ -7249,6 +7354,46 @@
         {
           "command": "vanthrex.previousChangedBlock",
           "when": "resourceScheme == vanthrex-member"
+        },
+        {
+          "command": "vanthrex.changeLibraryText",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.copyLibrary",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.renameLibrary",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.clearLibrary",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.deleteLibrary",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.clearTableData",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.copyTableData",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.generateCall",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.jsonToSql",
+          "when": "true"
+        },
+        {
+          "command": "vanthrex.temporaryIndexes",
+          "when": "vanthrex.connected"
         }
       ],
       "vanthrex.ai": [
