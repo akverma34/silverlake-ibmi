@@ -2402,6 +2402,24 @@
         "icon": "$(verified)"
       },
       {
+        "command": "vanthrex.functionUsageMap",
+        "title": "%command.functionUsageMap%",
+        "category": "Vanthrex",
+        "icon": "$(key)"
+      },
+      {
+        "command": "vanthrex.userStorageMap",
+        "title": "%command.userStorageMap%",
+        "category": "Vanthrex",
+        "icon": "$(database)"
+      },
+      {
+        "command": "vanthrex.replyListCheck",
+        "title": "%command.replyListCheck%",
+        "category": "Vanthrex",
+        "icon": "$(comment-discussion)"
+      },
+      {
         "command": "vanthrex.findMessageInJobLogs",
         "title": "%command.findMessageInJobLogs%",
         "category": "Vanthrex",
@@ -5508,6 +5526,18 @@
         },
         {
           "command": "vanthrex.securityScorecard",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.functionUsageMap",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.userStorageMap",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.replyListCheck",
           "when": "vanthrex.connected"
         },
         {

@@ -1355,6 +1355,24 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** a quick security health check before an audit, or after a change of system values.
 - **How:** *Security Scorecard (Visual)* in the command palette or the quick menu. *SECADM or *ALLOBJ shows every profile.
 
+### 213. Function Usage Map — new
+
+- **What:** a grid of the IBM i functions (function usage IDs) by users and groups, allowed or denied, sensitive functions first.
+- **Why:** see at a glance who may administer the database, read every job log or use ODBC — without WRKFCNUSG function by function.
+- **How:** *Function Usage Map (Visual)* in the command palette or the quick menu.
+
+### 214. User Storage Map — new
+
+- **What:** the storage owned by each profile, its share of the total and its % of MAXSTG.
+- **Why:** find who fills the disk, and the profiles about to hit MAXSTG before their jobs fail to create objects.
+- **How:** *User Storage Map (Visual)* in the command palette or the quick menu.
+
+### 215. Reply List Check — new
+
+- **What:** the system reply list with message texts, *ANY entries, entries never reached and entries that dump the job.
+- **Why:** an automatic reply can silently answer messages an operator should see; a forgotten entry never takes effect.
+- **How:** *Reply List Check (Visual)* in the command palette or the quick menu.
+
 ## Keyboard shortcuts
 
 | Keys | Action |
