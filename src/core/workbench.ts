@@ -114,3 +114,85 @@ export function nextBlock(starts: number[], line: number, direction: 1 | -1): nu
   if (direction > 0) { return starts.find(s => s > line) ?? starts[0]; }
   return [...starts].reverse().find(s => s < line) ?? starts[starts.length - 1];
 }
+
+// ---------------------------------------------------------------- library and table actions
+
+const nm = (v: string, what: string): string => { const u = v.trim().toUpperCase(); if (!NAME.test(u)) { throw new Error(`Not a valid ${what} name: ${v}`); } return u; };
+
+/** CL for the library actions of the Libraries view. */
+export const libraryCommand = {
+  copy: (lib: string, to: string): string => `CPYLIB FROMLIB(${nm(lib, 'library')}) TOLIB(${nm(to, 'library')}) CRTLIB(*YES)`,
+  rename: (lib: string, to: string): string => `RNMOBJ OBJ(${nm(lib, 'library')}) OBJTYPE(*LIB) NEWOBJ(${nm(to, 'library')})`,
+  clear: (lib: string): string => `CLRLIB LIB(${nm(lib, 'library')})`,
+  remove: (lib: string): string => `DLTLIB LIB(${nm(lib, 'library')})`,
+};
+
+/** Libraries that must never be cleared, deleted or renamed from the editor. */
+export const isSystemLibrary = (lib: string): boolean => /^(Q|SYS)/i.test(lib.trim()) || /^#/.test(lib.trim());
+
+export type CopyMode = 'replace' | 'add' | 'create';
+/** CL to clear the data of a table (its first member). */
+export const clearDataCommand = (lib: string, file: string): string => `CLRPFM FILE(${nm(lib, 'library')}/${nm(file, 'file')})`;
+/** CL to copy the data of a table: replace or add the rows of an existing table (columns mapped by name), or create the copy. */
+export function copyDataCommand(lib: string, file: string, toLib: string, toFile: string, mode: CopyMode): string {
+  const from = `${nm(lib, 'library')}/${nm(file, 'file')}`; const to = `${nm(toLib, 'library')}/${nm(toFile, 'file')}`;
+  if (from === to) { throw new Error('Copy a table to another table, not to itself.'); }
+  return mode === 'create' ? `CPYF FROMFILE(${from}) TOFILE(${to}) MBROPT(*REPLACE) CRTFILE(*YES)`
+    : `CPYF FROMFILE(${from}) TOFILE(${to}) MBROPT(${mode === 'add' ? '*ADD' : '*REPLACE'}) FMTOPT(*MAP *DROP)`;
+}
+
+// ---------------------------------------------------------------- CALL statements
+
+export interface RoutineParam { position: number; name: string; mode: string; type: string }
+export type RoutineKind = 'procedure' | 'scalar' | 'table';
+
+/** Procedures and functions by name (schema.name, or the name alone in every schema). */
+export function routinesSql(text: string): string {
+  const [a, b] = text.trim().toUpperCase().split('.');
+  const where = b ? `ROUTINE_SCHEMA = ${sqlString(nm(a, 'schema'))} AND ROUTINE_NAME = ${sqlString(b.replace(/"/g, ''))}` : `ROUTINE_NAME = ${sqlString(a.replace(/"/g, ''))}`;
+  return `SELECT ROUTINE_SCHEMA AS S, ROUTINE_NAME AS N, SPECIFIC_NAME AS SN, ROUTINE_TYPE AS RT, COALESCE(FUNCTION_TYPE, '') AS FT FROM QSYS2.SYSROUTINES WHERE ${where} ORDER BY ROUTINE_SCHEMA FETCH FIRST 50 ROWS ONLY`;
+}
+
+/** Input parameters of a routine (not the result of a function nor the columns of a table function). */
+export function routineParamsSql(schema: string, specific: string): string {
+  return `SELECT ORDINAL_POSITION AS P, COALESCE(PARAMETER_NAME, '') AS N, COALESCE(PARAMETER_MODE, 'IN') AS M, DATA_TYPE AS T FROM QSYS2.SYSPARMS ` +
+    `WHERE SPECIFIC_SCHEMA = ${sqlString(nm(schema, 'schema'))} AND SPECIFIC_NAME = ${sqlString(specific.trim().toUpperCase())} AND COALESCE(ROW_TYPE, 'P') = 'P' ORDER BY ORDINAL_POSITION`;
+}
+
+export const routineKind = (routineType: string, functionType: string): RoutineKind =>
+  /PROC/i.test(routineType) ? 'procedure' : /^T/i.test(functionType.trim()) ? 'table' : 'scalar';
+
+/** A ready-to-fill CALL, VALUES or SELECT … FROM TABLE() with one line per parameter (named when the parameter has a name). */
+export function callStatement(schema: string, name: string, kind: RoutineKind, params: RoutineParam[]): string {
+  const id = (s: string) => /^[A-Z_$#@][A-Z0-9_$#@]*$/.test(s) ? s : `"${s.replace(/"/g, '""')}"`;
+  const target = `${id(schema)}.${id(name)}`;
+  const list = [...params].sort((a, b) => a.position - b.position);
+  const args = list.length ? `\n${list.map((p, i) => `  ${p.name ? `${id(p.name)} => ` : ''}?${i < list.length - 1 ? ',' : ''} -- ${p.mode} ${p.type}`).join('\n')}\n` : '';
+  if (kind === 'procedure') { return `CALL ${target}(${args});`; }
+  if (kind === 'table') { return `SELECT *\n  FROM TABLE(${target}(${args})) X;`; }
+  return `VALUES ${target}(${args});`;
+}
+
+// ---------------------------------------------------------------- JSON sample → SQL
+
+/** SQL that returns this JSON, built with JSON_OBJECT and JSON_ARRAY: replace the sample values with your columns. */
+export function jsonToSql(json: string): string {
+  const value = JSON.parse(json) as unknown;
+  const lit = (s: string) => `'${s.replace(/'/g, "''")}'`;
+  const pad = (n: number) => '  '.repeat(n);
+  const expr = (v: unknown, depth: number): string => {
+    if (v === null) { return 'NULL'; }
+    if (typeof v === 'string') { return lit(v); }
+    if (typeof v === 'number') { return String(v); }
+    if (typeof v === 'boolean') { return `${lit(String(v))} FORMAT JSON`; }
+    if (Array.isArray(v)) {
+      if (!v.length) { return `JSON_ARRAY()`; }
+      return `JSON_ARRAY(\n${v.map(x => pad(depth + 1) + expr(x, depth + 1)).join(',\n')}\n${pad(depth)})`;
+    }
+    const entries = Object.entries(v as Record<string, unknown>);
+    if (!entries.length) { return `JSON_OBJECT()`; }
+    const nulls = entries.some(([, x]) => x === null) ? ` NULL ON NULL` : '';
+    return `JSON_OBJECT(\n${entries.map(([k, x]) => `${pad(depth + 1)}KEY ${lit(k)} VALUE ${expr(x, depth + 1)}`).join(',\n')}${nulls}\n${pad(depth)})`;
+  };
+  return `VALUES ${expr(value, 0)};`;
+}

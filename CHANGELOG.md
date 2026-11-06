@@ -42,6 +42,11 @@
 - **Shared Snippets**: Save the selection (or the whole file) as a snippet in an IFS folder and insert snippets from it; point vanthrex.sharedSnippets.folder to a folder the team can write to so everyone shares them.
 - **Find IFS Files by Name**: Find stream files by name or pattern (*.rpgle, order…) under a folder and all its subfolders, and open one.
 - **Next and Previous Changed Block**: Jump to the next or previous block of lines changed since the highlight date (or not saved yet).
+- **Library Actions**: Change the description of a library, copy it to a new library (CPYLIB), rename it, clear it or delete it. Clear and delete ask you to type the library name; IBM libraries (Q…, SYS…, #…) cannot be renamed, cleared or deleted from here, and the library list follows a rename or a delete.
+- **Clear and Copy Table Data**: Clear the rows of a table (CLRPFM, after typing its name), or copy its rows to another table: replace or add them, columns matched by name, or create the copy (CPYF).
+- **Generate CALL Statement**: A ready-to-fill CALL (procedure), VALUES (scalar function) or SELECT … FROM TABLE() (table function), one named parameter per line with its mode and type, read from QSYS2.SYSROUTINES and SYSPARMS.
+- **SQL from a JSON Sample**: The selected (or copied) JSON turned into a VALUES JSON_OBJECT / JSON_ARRAY statement that returns it; replace the sample values with your columns.
+- **Maintained Temporary Indexes**: The temporary indexes the query engine maintains (QSYS2.MTI_INFO), most used first.
 
 ## 3.2.1
 

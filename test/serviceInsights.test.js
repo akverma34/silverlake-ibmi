@@ -40,3 +40,8 @@ test('flags, subsystem filter, ended jobs and temporary storage', () => {
   assert.deepStrictEqual([{ JOB_END_CODE: 0 }, { JOB_END_CODE: 20 }, { JOB_END_CODE: 40 }, { X: 'ended ABNORMALLY' }].map(s.endedJobFlag), [undefined, 'different', 'bad', 'bad']);
   assert.deepStrictEqual(s.tempStorageTop([{ N: 'a', BUCKET_CURRENT_SIZE: 5 }, { N: 'b', BUCKET_CURRENT_SIZE: 50 }, { N: 'c' }], 2).map(r => r.N), ['b', 'a']);
 });
+
+test('maintained temporary indexes: most used first', () => {
+  assert.match(s.SERVICE_SQL.mtis, /QSYS2\.MTI_INFO\(\)/);
+  assert.deepStrictEqual(s.mtiTop([{ K: 'a', QUERY_USE_COUNT: 2 }, { K: 'b', QUERY_USE_COUNT: 90 }, { K: 'c' }]).map(r => r.K), ['b', 'a', 'c']);
+});
