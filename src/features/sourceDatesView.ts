@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { MEMBER_SCHEME, sourceRecords, sourceRecordsChanged } from './fileSystems';
 import { SourceRecord, dateToSrcDate, diffLines, formatSeq, formatSrcDate, srcDateToDate } from '../core/sourceDates';
+import { blockStarts, nextBlock } from '../core/workbench';
 
 type Display = 'date' | 'seq-date' | 'off';
 
@@ -149,6 +150,27 @@ export function registerSourceDates(context: vscode.ExtensionContext): void {
         editor.revealRange(new vscode.Range(pos, pos), vscode.TextEditorRevealType.InCenter);
       }
     }),
+  );
+
+  /** Jump to the next / previous block of lines changed since the highlight date (or of unsaved changes when none is set). */
+  const jump = (direction: 1 | -1) => () => {
+    const editor = vscode.window.activeTextEditor;
+    const recs = editor && editor.document.uri.scheme === MEMBER_SCHEME ? currentRecords(editor.document) : undefined;
+    if (!editor || !recs) { vscode.window.showInformationMessage(vscode.l10n.t('Open a source member (with source dates available) first.')); return; }
+    const sinceDate = since.get(editor.document.uri.toString());
+    const marked = recs.map(r => !r || (sinceDate !== undefined && dateKey(r.date) >= dateKey(sinceDate)));
+    const line = nextBlock(blockStarts(marked), editor.selection.active.line, direction);
+    if (line === undefined) {
+      vscode.window.setStatusBarMessage(sinceDate ? vscode.l10n.t('No lines changed since the highlight date.') : vscode.l10n.t('No changed lines. Use "Highlight lines changed since…" first.'), 4000);
+      return;
+    }
+    const pos = new vscode.Position(line, 0);
+    editor.selection = new vscode.Selection(pos, pos);
+    editor.revealRange(new vscode.Range(pos, pos), vscode.TextEditorRevealType.InCenter);
+  };
+  context.subscriptions.push(
+    vscode.commands.registerCommand('vanthrex.nextChangedBlock', jump(1)),
+    vscode.commands.registerCommand('vanthrex.previousChangedBlock', jump(-1)),
   );
   renderAll();
 }

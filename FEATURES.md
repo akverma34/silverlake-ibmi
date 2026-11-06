@@ -1399,6 +1399,102 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** the code IBM i developers write again and again — IFS files, data areas and queues, job log messages, commit / rollback, JSON and CSV in RPG; a JSON array, a view, a safe preview of an UPDATE or DELETE, audit columns, a trigger, duplicates and IBM i Services queries in SQL; a CL program with error handling, retries, ALCOBJ, SBMJOB, save files — and the conversions you otherwise look up (date formats, hex, CCSIDs, SQL ↔ RPG types, system names).
 - **How:** put the cursor in the source (or select the variables, the command or the value), press Ctrl+Alt+A and type a word of the tool. Tools that need a name ask for it; Ctrl+Z undoes any of them.
 
+### 216. Network Configuration — new
+
+- **What:** TCP/IP of the connection, network attributes, the Telnet, SMTP and time (NTP) servers, HTTP servers, relational database entries and the subsystems server jobs are routed to (QSYS2.TCPIP_INFO, NETWORK_ATTRIBUTE_INFO, TELNET_SERVER_ATTRIBUTES, SMTP_ATTRIBUTES, TIME_PROTOCOL_INFO, HTTP_SERVER_INFO, RDB_ENTRY_INFO, SERVER_SBS_ROUTING).
+- **Why:** The network setup on one page instead of CFGTCP, CHGTELNA, DSPNETA and WRKRDBDIRE one after the other.
+- **How:** *Network Configuration* in the command palette or the quick menu.
+
+### 217. Fix Currency — new
+
+- **What:** firmware level against IBM's, defective PTFs installed and CVEs not yet fixed, plus the Electronic Service Agent status (QSYS2.FIRMWARE_CURRENCY, DEFECTIVE_PTF_CURRENCY, CVE_CURRENCY, ELECTRONIC_SERVICE_AGENT_INFO).
+- **Why:** Know whether the system needs fixes before a problem or an audit asks.
+- **How:** *Fix Currency* in the command palette or the quick menu.
+
+### 218. Hardware and Devices — new
+
+- **What:** the status of lines, controllers and devices, the hardware resources and NVMe devices, failed or damaged ones in red (QSYS2.CONFIGURATION_STATUS, HARDWARE_RESOURCE_INFO, NVME_INFO).
+- **Why:** Spot a failed line or a missing adapter without WRKCFGSTS and WRKHDWRSC.
+- **How:** *Hardware and Devices* in the command palette or the quick menu.
+
+### 219. Subsystem Setup — new
+
+- **What:** for one subsystem or all: autostart jobs, routing entries, prestart jobs, job queue entries, workstation and communications entries and pools (QSYS2.AUTOSTART_JOB_INFO, ROUTING_ENTRY_INFO, PRESTART_JOB_INFO, JOB_QUEUE_ENTRIES, WORKSTATION_INFO, COMMUNICATIONS_ENTRY_INFO, SUBSYSTEM_POOL_INFO).
+- **Why:** See how a subsystem is built without DSPSBSD and its seven menus.
+- **How:** *Subsystem Setup* in the command palette or the quick menu.
+
+### 220. Save Files and Tapes — new
+
+- **What:** save files with what and when they saved, tape cartridges and media libraries (QSYS2.SAVE_FILE_INFO, TAPE_CARTRIDGE_INFO, MEDIA_LIBRARY_INFO).
+- **Why:** Check the backups that exist and the media before a restore.
+- **How:** *Save Files and Tapes* in the command palette or the quick menu.
+
+### 221. System Diagnostics — new
+
+- **What:** problems logged, recently ended jobs (abnormal ends in red), the largest temporary storage buckets, active watches, Java virtual machines and Collection Services (QSYS2.PROBLEM_INFO, ENDED_JOB_INFO, SYSTMPSTG, WATCH_INFO, JVM_INFO, COLLECTION_SERVICES_INFO).
+- **Why:** One place to start when the system behaves oddly.
+- **How:** *System Diagnostics* in the command palette or the quick menu.
+
+### 222. Security Configuration — new
+
+- **What:** the security attributes, the certificates applications use and the exit points with their programs (QSYS2.SECURITY_INFO, CERTIFICATE_USAGE_INFO, EXIT_POINT_INFO).
+- **Why:** Review the security setup that system values do not show.
+- **How:** *Security Configuration* in the command palette or the quick menu.
+
+### 223. Job Internals — new
+
+- **What:** for one job: its open files, the IFS objects it uses and its database connections (QSYS2.OPEN_FILES, IFS_JOB_INFO, ACTIVE_DB_CONNECTIONS).
+- **Why:** See what a job is holding open when it hangs or locks something.
+- **How:** *Job Internals* in the command palette or the quick menu.
+
+### 224. Rename Member and Change Descriptions — new
+
+- **What:** Rename a member (RNMM) and change the description of a member (CHGPFM) or an object (CHGOBJD) from the Libraries view.
+- **Why:** Small everyday changes without a 5250 session.
+- **How:** Right-click a member or an object in the Libraries view.
+
+### 225. Library List Order and Clean-up — new
+
+- **What:** Move a library up or down in your library list, and remove the libraries that no longer exist.
+- **Why:** The order of the list decides which object is found; a deleted library left in the list breaks jobs.
+- **How:** Right-click a library (Move Up / Move Down); *Clean Up Library List* in the Libraries view menu, the command palette or the quick menu.
+
+### 226. Download Members to This PC — new
+
+- **What:** One member, a source file or every source file of a library to a local folder, laid out Library → File → Member, File → Member or all in one folder.
+- **Why:** A local copy for a backup, a review or a move to Git.
+- **How:** Right-click a member, a source file or a library.
+
+### 227. Replace a Member from a File on This PC — new
+
+- **What:** Upload a local file into a member: replace a member, or add one to a source file (the name and type come from the file name).
+- **Why:** Bring back code written or fixed outside the IBM i.
+- **How:** Right-click a member or a source file.
+
+### 228. Compare with an IFS File or a File on This PC — new
+
+- **What:** Compare the open member or file side by side with any IFS file or a local file.
+- **Why:** Check a member against a copy kept on the IFS or on the PC.
+- **How:** Right-click in the editor.
+
+### 229. Shared Snippets — new
+
+- **What:** Save the selection (or the whole file) as a snippet in an IFS folder and insert snippets from it; point vanthrex.sharedSnippets.folder to a folder the team can write to so everyone shares them.
+- **Why:** Reuse the team's proven code instead of copying it from old programs.
+- **How:** Right-click in the editor, or *Save as Shared Snippet* / *Insert Shared Snippet* in the command palette or the quick menu.
+
+### 230. Find IFS Files by Name — new
+
+- **What:** Find stream files by name or pattern (*.rpgle, order…) under a folder and all its subfolders, and open one.
+- **Why:** Find a file when you only remember part of its name.
+- **How:** Right-click a folder in the IFS view, the IFS view menu, the command palette or the quick menu. Right-click a file or folder to copy its path.
+
+### 231. Next and Previous Changed Block — new
+
+- **What:** Jump to the next or previous block of lines changed since the highlight date (or not saved yet).
+- **Why:** Walk through a change without scrolling.
+- **How:** Right-click in a member, or the command palette.
+
 ## Keyboard shortcuts
 
 | Keys | Action |
