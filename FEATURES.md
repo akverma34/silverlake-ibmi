@@ -1371,6 +1371,24 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** the small edits that eat a developer's day — sorting a list, quoting values for an IN list, writing the LABEL ON or MERGE for a new table, declaring a READ loop or a cursor loop, a CHKOBJ with its MONMSG — done in one step, the same way every time.
 - **How:** select the lines (or put the cursor in the SQL statement), press Ctrl+Alt+A and type a word of the tool. Tools that need a name (a file, a variable) ask for it; Ctrl+Z undoes any of them.
 
+### 215. Function Usage Map — new in 3.3
+
+- **What:** a grid of the IBM i functions (function usage IDs) by users and groups, allowed or denied, sensitive functions first.
+- **Why:** see at a glance who may administer the database, read every job log or use ODBC — without WRKFCNUSG function by function.
+- **How:** *Function Usage Map (Visual)* in the command palette or the quick menu.
+
+### 216. User Storage Map — new in 3.3
+
+- **What:** the storage owned by each profile, its share of the total and its % of MAXSTG.
+- **Why:** find who fills the disk, and the profiles about to hit MAXSTG before their jobs fail to create objects.
+- **How:** *User Storage Map (Visual)* in the command palette or the quick menu.
+
+### 217. Reply List Check — new in 3.3
+
+- **What:** the system reply list with message texts, *ANY entries, entries never reached and entries that dump the job.
+- **Why:** an automatic reply can silently answer messages an operator should see; a forgotten entry never takes effect.
+- **How:** *Reply List Check (Visual)* in the command palette or the quick menu.
+
 ## Keyboard shortcuts
 
 | Keys | Action |
