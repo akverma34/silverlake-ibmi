@@ -3100,6 +3100,256 @@
         "category": "Vanthrex Tools"
       },
       {
+        "command": "vanthrex.dev.rpgDateConv",
+        "title": "%command.dev.rpgDateConv%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.rpgIfsWrite",
+        "title": "%command.dev.rpgIfsWrite%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.rpgIfsRead",
+        "title": "%command.dev.rpgIfsRead%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.rpgCl",
+        "title": "%command.dev.rpgCl%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.rpgDataArea",
+        "title": "%command.dev.rpgDataArea%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.rpgDataQueue",
+        "title": "%command.dev.rpgDataQueue%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.rpgJobLog",
+        "title": "%command.dev.rpgJobLog%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.rpgElapsed",
+        "title": "%command.dev.rpgElapsed%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.rpgCommit",
+        "title": "%command.dev.rpgCommit%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.rpgLookup",
+        "title": "%command.dev.rpgLookup%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.rpgCsvLine",
+        "title": "%command.dev.rpgCsvLine%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.rpgJsonObject",
+        "title": "%command.dev.rpgJsonObject%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.rpgGetSet",
+        "title": "%command.dev.rpgGetSet%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.rpgRetry",
+        "title": "%command.dev.rpgRetry%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.rpgEmail",
+        "title": "%command.dev.rpgEmail%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.sqlToJson",
+        "title": "%command.dev.sqlToJson%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.sqlCreateView",
+        "title": "%command.dev.sqlCreateView%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.sqlCreateTableAs",
+        "title": "%command.dev.sqlCreateTableAs%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.sqlDeleteToSelect",
+        "title": "%command.dev.sqlDeleteToSelect%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.sqlUpdateToSelect",
+        "title": "%command.dev.sqlUpdateToSelect%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.sqlAuditColumns",
+        "title": "%command.dev.sqlAuditColumns%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.sqlIdentity",
+        "title": "%command.dev.sqlIdentity%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.sqlDrop",
+        "title": "%command.dev.sqlDrop%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.sqlProcedure",
+        "title": "%command.dev.sqlProcedure%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.sqlFunction",
+        "title": "%command.dev.sqlFunction%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.sqlAuditTrigger",
+        "title": "%command.dev.sqlAuditTrigger%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.sqlDuplicates",
+        "title": "%command.dev.sqlDuplicates%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.sqlLastDays",
+        "title": "%command.dev.sqlLastDays%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.sqlWhoLocks",
+        "title": "%command.dev.sqlWhoLocks%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.sqlTableSize",
+        "title": "%command.dev.sqlTableSize%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.clProgram",
+        "title": "%command.dev.clProgram%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.clRetry",
+        "title": "%command.dev.clRetry%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.clAllocate",
+        "title": "%command.dev.clAllocate%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.clSubmit",
+        "title": "%command.dev.clSubmit%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.clCopyFile",
+        "title": "%command.dev.clCopyFile%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.clSaveSavf",
+        "title": "%command.dev.clSaveSavf%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.clConvertDate",
+        "title": "%command.dev.clConvertDate%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.clRunSql",
+        "title": "%command.dev.clRunSql%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.clAskUser",
+        "title": "%command.dev.clAskUser%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.clObjectInfo",
+        "title": "%command.dev.clObjectInfo%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.ibmiDate",
+        "title": "%command.dev.ibmiDate%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.ibmiToday",
+        "title": "%command.dev.ibmiToday%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.ibmiHex",
+        "title": "%command.dev.ibmiHex%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.ibmiSystemName",
+        "title": "%command.dev.ibmiSystemName%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.ibmiCcsid",
+        "title": "%command.dev.ibmiCcsid%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.ibmiMessage",
+        "title": "%command.dev.ibmiMessage%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.ibmiSqlToRpg",
+        "title": "%command.dev.ibmiSqlToRpg%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.ibmiRpgToSql",
+        "title": "%command.dev.ibmiRpgToSql%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.ibmiDuration",
+        "title": "%command.dev.ibmiDuration%",
+        "category": "Vanthrex Tools"
+      },
+      {
+        "command": "vanthrex.dev.ibmiNumericInfo",
+        "title": "%command.dev.ibmiNumericInfo%",
+        "category": "Vanthrex Tools"
+      },
+      {
         "command": "vanthrex.dev.whatsNew",
         "title": "%command.dev.whatsNew%",
         "category": "Vanthrex Tools"
@@ -5785,7 +6035,8 @@
           "when": "vanthrex.connected"
         },
         {
-          "command": "vanthrex.healthOverview",          "when": "vanthrex.connected"
+          "command": "vanthrex.healthOverview",
+          "when": "vanthrex.connected"
         },
         {
           "command": "vanthrex.functionUsageMap",
@@ -6218,6 +6469,206 @@
         {
           "command": "vanthrex.dev.copyCompile",
           "when": "editorLangId == rpgle || editorLangId == cl || editorLangId == sql || editorLangId == dds"
+        },
+        {
+          "command": "vanthrex.dev.rpgDateConv",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.rpgIfsWrite",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.rpgIfsRead",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.rpgCl",
+          "when": "(editorLangId == rpgle) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.rpgDataArea",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.rpgDataQueue",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.rpgJobLog",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.rpgElapsed",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.rpgCommit",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.rpgLookup",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.rpgCsvLine",
+          "when": "(editorLangId == rpgle) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.rpgJsonObject",
+          "when": "(editorLangId == rpgle) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.rpgGetSet",
+          "when": "(editorLangId == rpgle) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.rpgRetry",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.rpgEmail",
+          "when": "editorLangId == rpgle"
+        },
+        {
+          "command": "vanthrex.dev.sqlToJson",
+          "when": "editorLangId == sql"
+        },
+        {
+          "command": "vanthrex.dev.sqlCreateView",
+          "when": "editorLangId == sql"
+        },
+        {
+          "command": "vanthrex.dev.sqlCreateTableAs",
+          "when": "editorLangId == sql"
+        },
+        {
+          "command": "vanthrex.dev.sqlDeleteToSelect",
+          "when": "editorLangId == sql"
+        },
+        {
+          "command": "vanthrex.dev.sqlUpdateToSelect",
+          "when": "editorLangId == sql"
+        },
+        {
+          "command": "vanthrex.dev.sqlAuditColumns",
+          "when": "editorLangId == sql"
+        },
+        {
+          "command": "vanthrex.dev.sqlIdentity",
+          "when": "editorLangId == sql"
+        },
+        {
+          "command": "vanthrex.dev.sqlDrop",
+          "when": "editorLangId == sql"
+        },
+        {
+          "command": "vanthrex.dev.sqlProcedure",
+          "when": "editorLangId == sql"
+        },
+        {
+          "command": "vanthrex.dev.sqlFunction",
+          "when": "editorLangId == sql"
+        },
+        {
+          "command": "vanthrex.dev.sqlAuditTrigger",
+          "when": "editorLangId == sql"
+        },
+        {
+          "command": "vanthrex.dev.sqlDuplicates",
+          "when": "editorLangId == sql"
+        },
+        {
+          "command": "vanthrex.dev.sqlLastDays",
+          "when": "editorLangId == sql"
+        },
+        {
+          "command": "vanthrex.dev.sqlWhoLocks",
+          "when": "editorLangId == sql"
+        },
+        {
+          "command": "vanthrex.dev.sqlTableSize",
+          "when": "editorLangId == sql"
+        },
+        {
+          "command": "vanthrex.dev.clProgram",
+          "when": "editorLangId == cl"
+        },
+        {
+          "command": "vanthrex.dev.clRetry",
+          "when": "editorLangId == cl"
+        },
+        {
+          "command": "vanthrex.dev.clAllocate",
+          "when": "(editorLangId == cl) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.clSubmit",
+          "when": "(editorLangId == cl) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.clCopyFile",
+          "when": "editorLangId == cl"
+        },
+        {
+          "command": "vanthrex.dev.clSaveSavf",
+          "when": "editorLangId == cl"
+        },
+        {
+          "command": "vanthrex.dev.clConvertDate",
+          "when": "editorLangId == cl"
+        },
+        {
+          "command": "vanthrex.dev.clRunSql",
+          "when": "(editorLangId == cl || editorLangId == sql) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.clAskUser",
+          "when": "editorLangId == cl"
+        },
+        {
+          "command": "vanthrex.dev.clObjectInfo",
+          "when": "editorLangId == cl"
+        },
+        {
+          "command": "vanthrex.dev.ibmiDate",
+          "when": "(editorIsOpen) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.ibmiToday",
+          "when": "editorIsOpen"
+        },
+        {
+          "command": "vanthrex.dev.ibmiHex",
+          "when": "(editorIsOpen) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.ibmiSystemName",
+          "when": "(editorIsOpen) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.ibmiCcsid",
+          "when": "editorIsOpen"
+        },
+        {
+          "command": "vanthrex.dev.ibmiMessage",
+          "when": "editorIsOpen"
+        },
+        {
+          "command": "vanthrex.dev.ibmiSqlToRpg",
+          "when": "(editorIsOpen) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.ibmiRpgToSql",
+          "when": "(editorIsOpen) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.ibmiDuration",
+          "when": "(editorIsOpen) && editorHasSelection"
+        },
+        {
+          "command": "vanthrex.dev.ibmiNumericInfo",
+          "when": "editorIsOpen"
         },
         {
           "command": "vanthrex.dev.whatsNew",
