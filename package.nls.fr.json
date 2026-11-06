@@ -812,5 +812,6 @@
   "config.lint.rules.dds-length-limit": "Longueur supérieure à ce que le type de données autorise.",
   "config.lint.rules.dds-key-not-in-record": "Zone clé (K) qui n'est pas une zone du format d'enregistrement.",
   "config.lint.rules.dds-off-screen": "Zone d'affichage ou constante hors de la taille de l'écran (DSPSIZ).",
-  "config.lint.rules.dds-overlap": "Deux zones d'affichage ou constantes d'un format d'enregistrement superposées."
+  "config.lint.rules.dds-overlap": "Deux zones d'affichage ou constantes d'un format d'enregistrement superposées.",
+  "command.healthOverview": "Vue d'ensemble de la santé du système (visuel)"
 }

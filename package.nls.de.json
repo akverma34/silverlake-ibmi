@@ -812,5 +812,6 @@
   "config.lint.rules.dds-length-limit": "Eine Länge über dem, was der Datentyp erlaubt.",
   "config.lint.rules.dds-key-not-in-record": "Ein Schlüsselfeld (K), das kein Feld des Satzformats ist.",
   "config.lint.rules.dds-off-screen": "Ein Anzeigefeld oder eine Konstante außerhalb der Bildschirmgröße (DSPSIZ).",
-  "config.lint.rules.dds-overlap": "Zwei Anzeigefelder oder Konstanten eines Satzformats, die übereinander liegen."
+  "config.lint.rules.dds-overlap": "Zwei Anzeigefelder oder Konstanten eines Satzformats, die übereinander liegen.",
+  "command.healthOverview": "Systemzustand im Überblick (grafisch)"
 }

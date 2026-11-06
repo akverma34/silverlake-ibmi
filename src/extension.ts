@@ -92,6 +92,7 @@ import { registerDevInsights } from './features/devInsightsView';
 import { registerSystemVisuals } from './features/systemVisualsView';
 import { registerPlatformInsights } from './features/platformInsightsView';
 import { registerHealthInsights } from './features/healthInsightsView';
+import { registerHealthOverview } from './features/healthOverviewView';
 import { registerDbCare } from './features/dbCareView';
 import { registerSqlGen } from './features/sqlGenView';
 import { registerDevTools } from './features/devToolsView';
@@ -243,6 +244,7 @@ export function activate(context: vscode.ExtensionContext): void {
   step('system visuals', () => registerSystemVisuals(context, m));
   step('platform insights', () => registerPlatformInsights(context, m));
   step('health insights', () => registerHealthInsights(context, m));
+  step('health overview', () => registerHealthOverview(context, m));
   step('database care', () => registerDbCare(context, m));
   step('sql generators', () => registerSqlGen(context, m));
   step('developer converters', () => registerDevTools(context, m));

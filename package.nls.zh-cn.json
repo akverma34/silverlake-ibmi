@@ -812,5 +812,6 @@
   "config.lint.rules.dds-length-limit": "超出数据类型允许范围的长度。",
   "config.lint.rules.dds-key-not-in-record": "不是记录格式字段的键字段 (K)。",
   "config.lint.rules.dds-off-screen": "超出屏幕大小 (DSPSIZ) 的显示字段或常量。",
-  "config.lint.rules.dds-overlap": "记录格式中相互重叠的两个显示字段或常量。"
+  "config.lint.rules.dds-overlap": "记录格式中相互重叠的两个显示字段或常量。",
+  "command.healthOverview": "系统健康概览（可视化）"
 }

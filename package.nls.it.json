@@ -812,5 +812,6 @@
   "config.lint.rules.dds-length-limit": "Una lunghezza superiore a quella consentita dal tipo di dati.",
   "config.lint.rules.dds-key-not-in-record": "Un campo chiave (K) che non è un campo del formato record.",
   "config.lint.rules.dds-off-screen": "Un campo video o una costante al di fuori delle dimensioni dello schermo (DSPSIZ).",
-  "config.lint.rules.dds-overlap": "Due campi video o costanti di un formato record sovrapposti."
+  "config.lint.rules.dds-overlap": "Due campi video o costanti di un formato record sovrapposti.",
+  "command.healthOverview": "Panoramica dello stato del sistema (grafica)"
 }

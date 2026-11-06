@@ -812,5 +812,6 @@
   "config.lint.rules.dds-length-limit": "データ・タイプで許可される範囲を超える長さ。",
   "config.lint.rules.dds-key-not-in-record": "レコード様式のフィールドではないキー・フィールド (K)。",
   "config.lint.rules.dds-off-screen": "画面サイズ (DSPSIZ) の外にある表示フィールドまたは定数。",
-  "config.lint.rules.dds-overlap": "レコード様式内で重なり合う 2 つの表示フィールドまたは定数。"
+  "config.lint.rules.dds-overlap": "レコード様式内で重なり合う 2 つの表示フィールドまたは定数。",
+  "command.healthOverview": "システム状態の概要 (グラフィカル)"
 }

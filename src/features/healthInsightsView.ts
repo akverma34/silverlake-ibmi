@@ -5,6 +5,7 @@ import {
   CheckState, lockChains, lockJobsSql, LockRow, Level, limitLevel, limitsSql, limitUses, objectLockWaitsSql, profileFindings, ProfileRow,
   profilesSql, rowLockWaitsSql, scoreGrade, securityChecks, securityScore, securityValuesSql,
 } from '../core/healthInsights';
+import { scorecardMarkdown } from '../core/healthOverview';
 import { errorMessage, logError } from '../core/log';
 import { ConnectionManager } from '../core/manager';
 import { page } from './visualsView';
@@ -150,14 +151,17 @@ async function securityScorecard(manager: ConnectionManager): Promise<void> {
   const conn = manager.require();
   const title = t('Security Scorecard');
   const panel = vscode.window.createWebviewPanel('vanthrex.securityScorecard', title, vscode.ViewColumn.Active, opts);
-  const toolbar = `<div class="bar"><button id="refresh">${escapeHtml(t('Refresh'))}</button></div>`;
+  const toolbar = `<div class="bar"><button id="refresh">${escapeHtml(t('Refresh'))}</button><button id="md">${escapeHtml(t('Copy as a Markdown report'))}</button></div>`;
+  const mdScript = `document.getElementById('md').onclick = () => vscode.postMessage({ type: 'markdown' });`;
+  let report = '';
   const load = async () => {
-    panel.webview.html = page(title, toolbar + `<div class="empty">${escapeHtml(t('Reading the security system values and user profiles…'))}</div>`);
+    panel.webview.html = page(title, toolbar + `<div class="empty">${escapeHtml(t('Reading the security system values and user profiles…'))}</div>`, '', mdScript);
     try {
       const [vals, profiles] = await Promise.all([conn.rows<Row>(securityValuesSql(), 100), conn.rows<ProfileRow>(profilesSql(), 50000).catch(() => undefined)]);
       const checks = securityChecks(Object.fromEntries(vals.map(r => [str(r, 'NAME'), str(r, 'VAL')])));
       const p = profiles ? profileFindings(profiles) : undefined;
       const score = securityScore(checks, p); const grade = scoreGrade(score);
+      report = scorecardMarkdown(conn.profile.name, new Date().toISOString().slice(0, 16).replace('T', ' '), score, checks, p);
       const color = score >= 75 ? '#59a14f' : score >= 50 ? '#f28e2b' : '#e15759';
       const R = 54; const C = 2 * Math.PI * R;
       const ring = `<svg viewBox="0 0 140 140" width="140" height="140" role="img" aria-label="${escapeHtml(t('Score {0} of 100', score))}">
@@ -188,10 +192,22 @@ ${p ? `<h3>${escapeHtml(t('User profiles'))}</h3>
       panel.webview.html = page(title, body, CSS + `
   .top { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; } td { vertical-align: top; padding-bottom: 6px; }
   .pill { color: #fff; border-radius: 9px; padding: 1px 8px; font-size: .85em; white-space: nowrap; } h4 { margin: 12px 0 4px; font-weight: 600; }
-  .names { display: flex; flex-wrap: wrap; gap: 4px; } .names code { background: var(--vscode-editorWidget-background); padding: 1px 6px; border-radius: 3px; }`);
-    } catch (e) { logError(e); panel.webview.html = page(title, toolbar + `<div class="err">${escapeHtml(errorMessage(e))}</div>`); }
+  .names { display: flex; flex-wrap: wrap; gap: 4px; } .names code { background: var(--vscode-editorWidget-background); padding: 1px 6px; border-radius: 3px; }`, mdScript);
+    } catch (e) { logError(e); panel.webview.html = page(title, toolbar + `<div class="err">${escapeHtml(errorMessage(e))}</div>`, '', mdScript); }
   };
-  panel.webview.onDidReceiveMessage(async (m: { type?: string }) => { try { if (m?.type === 'refresh') { await load(); } } catch (e) { fail(e); } });
+  panel.webview.onDidReceiveMessage(async (m: { type?: string }) => {
+    try {
+      if (m?.type === 'refresh') { await load(); }
+      else if (m?.type === 'markdown') {
+        if (!report) { void vscode.window.showWarningMessage(t('The scorecard is not read yet.')); return; }
+        await vscode.env.clipboard.writeText(report);
+        const open = t('Open in an editor');
+        if (await vscode.window.showInformationMessage(t('The security scorecard is on the clipboard as Markdown.'), open) === open) {
+          await vscode.window.showTextDocument(await vscode.workspace.openTextDocument({ language: 'markdown', content: report }));
+        }
+      }
+    } catch (e) { fail(e); }
+  });
   await load();
 }
 

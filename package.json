@@ -2,7 +2,7 @@
   "name": "vanthrex-ibmi",
   "displayName": "%displayName%",
   "description": "%description%",
-  "version": "3.2.1",
+  "version": "3.3.0",
   "publisher": "gauravgupta0612",
   "license": "MIT",
   "icon": "media/icon.png",
@@ -2400,6 +2400,12 @@
         "title": "%command.securityScorecard%",
         "category": "Vanthrex",
         "icon": "$(verified)"
+      },
+      {
+        "command": "vanthrex.healthOverview",
+        "title": "%command.healthOverview%",
+        "category": "Vanthrex",
+        "icon": "$(pulse)"
       },
       {
         "command": "vanthrex.findMessageInJobLogs",
@@ -5508,6 +5514,10 @@
         },
         {
           "command": "vanthrex.securityScorecard",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.healthOverview",
           "when": "vanthrex.connected"
         },
         {

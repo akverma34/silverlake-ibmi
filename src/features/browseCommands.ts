@@ -196,6 +196,7 @@ export function registerBrowseCommands(
       { label: vscode.l10n.t('$(shield) Security audit journal (visual)'), cmd: 'vanthrex.auditJournalMap' },
       { label: vscode.l10n.t('$(server) Disk units map (visual)'), cmd: 'vanthrex.diskUnitsMap' },
       { label: vscode.l10n.t('$(dashboard) Embedded SQL statement statistics…'), cmd: 'vanthrex.sqlStatementStats' },
+      { label: vscode.l10n.t('$(pulse) System health overview (visual)'), cmd: 'vanthrex.healthOverview' },
       { label: vscode.l10n.t('$(lock) Lock wait chains (visual)'), cmd: 'vanthrex.lockWaitChains' },
       { label: vscode.l10n.t('$(warning) Limits watch (visual)'), cmd: 'vanthrex.limitsWatch' },
       { label: vscode.l10n.t('$(verified) Security scorecard (visual)'), cmd: 'vanthrex.securityScorecard' },

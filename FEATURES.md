@@ -1313,47 +1313,53 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** see which program run touched which tables and when — before digging into the journal entries.
 - **How:** *Journal Activity Heat Map (Visual)…* and type LIBRARY/JOURNAL. Click a table for its journal entries.
 
-### 206. Security Audit Journal — new
+### 206. Security Audit Journal — new in 3.3
 
 - **What:** QAUDJRN hour by hour, one row per entry type, with the users with the most entries and the latest failures and security changes.
 - **Why:** see at once who failed to sign on, who hit an authority failure and who changed an authority, a profile or a system value — without DSPAUDJRNE or an outfile.
 - **How:** *Security Audit Journal (Visual)* in the command palette or the quick menu. Click an event for the job log of its job. Needs *AUDIT or *ALLOBJ.
 
-### 207. Disk Units Map — new
+### 207. Disk Units Map — new in 3.3
 
 - **What:** every disk unit by ASP, filled to its % used, with how busy its disk arm is.
 - **Why:** spot a full ASP, an unbalanced unit or a busy disk arm before the system slows down.
 - **How:** *Disk Units Map (Visual)* in the command palette or the quick menu.
 
-### 208. Embedded SQL Statement Statistics — new
+### 208. Embedded SQL Statement Statistics — new in 3.3
 
 - **What:** the run statistics of every SQL statement in the programs of a library or of one program (QSYS2.SYSPROGRAMSTMTSTAT).
 - **Why:** find the embedded SQL that takes the time, the statements that never run and those whose access plan is rebuilt again and again.
 - **How:** right-click a library or a program, or *Embedded SQL Statement Statistics…* and type LIBRARY or LIBRARY/PROGRAM.
 
-### 209. VS Code tasks for IBM i — new
+### 209. VS Code tasks for IBM i — new in 3.3
 
 - **What:** a `vanthrex` task type: `{ "type": "vanthrex", "command": "CRTBNDRPG PGM(&CURLIB/&NAME) SRCSTMF('&RELATIVEPATH')" }` runs on the IBM i; `"kind": "pase"` runs a PASE command, in `"cwd"` when given.
 - **Why:** the usual VS Code way to build — Run Task, a key binding, a task before debugging — with Code for IBM i style variables.
 - **How:** *Terminal → Run Task… → vanthrex* for the ready-made tasks, or add your own in `.vscode/tasks.json`.
 
-### 210. Lock Wait Chains — new
+### 210. Lock Wait Chains — new in 3.3
 
 - **What:** the jobs waiting for an object or row lock, the jobs holding it, and the head blockers at the start of each chain.
 - **Why:** when users say "it hangs", find the one job that holds everybody up — without WRKOBJLCK on object after object.
 - **How:** *Lock Wait Chains (Visual)* in the command palette or the quick menu. Click a job for its job log, right-click for Work with Active Jobs.
 
-### 211. Limits Watch — new
+### 211. Limits Watch — new in 3.3
 
 - **What:** the objects, jobs and IFS directories closest to an IBM i limit (QSYS2.SYSLIMITS), as % of the maximum.
 - **Why:** a table that reaches its row limit or a job that runs out of locks stops production; see it coming.
 - **How:** *Limits Watch (Visual)* in the command palette or the quick menu.
 
-### 212. Security Scorecard — new
+### 212. Security Scorecard — new in 3.3
 
 - **What:** a 0–100 score of the security system values and the enabled profiles, with what to look at first.
 - **Why:** a quick security health check before an audit, or after a change of system values.
-- **How:** *Security Scorecard (Visual)* in the command palette or the quick menu. *SECADM or *ALLOBJ shows every profile.
+- **How:** *Security Scorecard (Visual)* in the command palette or the quick menu. *SECADM or *ALLOBJ shows every profile. **Copy as a Markdown report** puts the scorecard on the clipboard for an audit file, a ticket or an e-mail.
+
+### 213. System Health Overview — new in 3.3
+
+- **What:** one page that answers "is the system OK right now?": disk space per ASP, limits close to their maximum, jobs waiting for a lock, jobs waiting for a reply (MSGW) and the security score — each as a card with a traffic light (green, orange, red) and a button to its detail page, and one overall status at the top.
+- **Why:** the first thing to open in the morning or when users say "the system is slow": you see at once whether it is the disks, a lock, an unanswered message or a limit, instead of opening five screens.
+- **How:** *System Health Overview (Visual)* in the command palette or the quick menu (Ctrl+Alt+I). Tick *Refresh every minute* to keep it on a second screen. Each card is read on its own: one you are not authorized to read shows why, the others still work.
 
 ## Keyboard shortcuts
 

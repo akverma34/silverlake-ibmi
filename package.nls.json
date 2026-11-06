@@ -812,5 +812,6 @@
   "config.lint.rules.dds-length-limit": "A length beyond what the data type allows.",
   "config.lint.rules.dds-key-not-in-record": "A key field (K) that is not a field of the record format.",
   "config.lint.rules.dds-off-screen": "A display field or constant outside the screen size (DSPSIZ).",
-  "config.lint.rules.dds-overlap": "Two display fields or constants of a record format on top of each other."
+  "config.lint.rules.dds-overlap": "Two display fields or constants of a record format on top of each other.",
+  "command.healthOverview": "System Health Overview (Visual)"
 }

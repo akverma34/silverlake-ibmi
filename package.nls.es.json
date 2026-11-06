@@ -812,5 +812,6 @@
   "config.lint.rules.dds-length-limit": "Una longitud superior a la que permite el tipo de datos.",
   "config.lint.rules.dds-key-not-in-record": "Un campo clave (K) que no es un campo del formato de registro.",
   "config.lint.rules.dds-off-screen": "Un campo de pantalla o una constante fuera del tamaño de pantalla (DSPSIZ).",
-  "config.lint.rules.dds-overlap": "Dos campos de pantalla o constantes de un formato de registro superpuestos."
+  "config.lint.rules.dds-overlap": "Dos campos de pantalla o constantes de un formato de registro superpuestos.",
+  "command.healthOverview": "Resumen de salud del sistema (visual)"
 }
