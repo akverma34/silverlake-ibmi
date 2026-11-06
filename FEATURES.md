@@ -1447,6 +1447,54 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** See what a job is holding open when it hangs or locks something.
 - **How:** *Job Internals* in the command palette or the quick menu.
 
+### 224. Rename Member and Change Descriptions — new
+
+- **What:** Rename a member (RNMM) and change the description of a member (CHGPFM) or an object (CHGOBJD) from the Libraries view.
+- **Why:** Small everyday changes without a 5250 session.
+- **How:** Right-click a member or an object in the Libraries view.
+
+### 225. Library List Order and Clean-up — new
+
+- **What:** Move a library up or down in your library list, and remove the libraries that no longer exist.
+- **Why:** The order of the list decides which object is found; a deleted library left in the list breaks jobs.
+- **How:** Right-click a library (Move Up / Move Down); *Clean Up Library List* in the Libraries view menu, the command palette or the quick menu.
+
+### 226. Download Members to This PC — new
+
+- **What:** One member, a source file or every source file of a library to a local folder, laid out Library → File → Member, File → Member or all in one folder.
+- **Why:** A local copy for a backup, a review or a move to Git.
+- **How:** Right-click a member, a source file or a library.
+
+### 227. Replace a Member from a File on This PC — new
+
+- **What:** Upload a local file into a member: replace a member, or add one to a source file (the name and type come from the file name).
+- **Why:** Bring back code written or fixed outside the IBM i.
+- **How:** Right-click a member or a source file.
+
+### 228. Compare with an IFS File or a File on This PC — new
+
+- **What:** Compare the open member or file side by side with any IFS file or a local file.
+- **Why:** Check a member against a copy kept on the IFS or on the PC.
+- **How:** Right-click in the editor.
+
+### 229. Shared Snippets — new
+
+- **What:** Save the selection (or the whole file) as a snippet in an IFS folder and insert snippets from it; point vanthrex.sharedSnippets.folder to a folder the team can write to so everyone shares them.
+- **Why:** Reuse the team's proven code instead of copying it from old programs.
+- **How:** Right-click in the editor, or *Save as Shared Snippet* / *Insert Shared Snippet* in the command palette or the quick menu.
+
+### 230. Find IFS Files by Name — new
+
+- **What:** Find stream files by name or pattern (*.rpgle, order…) under a folder and all its subfolders, and open one.
+- **Why:** Find a file when you only remember part of its name.
+- **How:** Right-click a folder in the IFS view, the IFS view menu, the command palette or the quick menu. Right-click a file or folder to copy its path.
+
+### 231. Next and Previous Changed Block — new
+
+- **What:** Jump to the next or previous block of lines changed since the highlight date (or not saved yet).
+- **Why:** Walk through a change without scrolling.
+- **How:** Right-click in a member, or the command palette.
+
 ## Keyboard shortcuts
 
 | Keys | Action |

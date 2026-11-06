@@ -34,6 +34,14 @@
 - **System Diagnostics**: Problems logged, recently ended jobs (abnormal ends in red), the largest temporary storage buckets, active watches, Java virtual machines and Collection Services (QSYS2.PROBLEM_INFO, ENDED_JOB_INFO, SYSTMPSTG, WATCH_INFO, JVM_INFO, COLLECTION_SERVICES_INFO). Read only.
 - **Security Configuration**: The security attributes, the certificates applications use and the exit points with their programs (QSYS2.SECURITY_INFO, CERTIFICATE_USAGE_INFO, EXIT_POINT_INFO). Read only.
 - **Job Internals**: For one job: its open files, the IFS objects it uses and its database connections (QSYS2.OPEN_FILES, IFS_JOB_INFO, ACTIVE_DB_CONNECTIONS). Read only.
+- **Rename Member and Change Descriptions**: Rename a member (RNMM) and change the description of a member (CHGPFM) or an object (CHGOBJD) from the Libraries view.
+- **Library List Order and Clean-up**: Move a library up or down in your library list, and remove the libraries that no longer exist.
+- **Download Members to This PC**: One member, a source file or every source file of a library to a local folder, laid out Library → File → Member, File → Member or all in one folder.
+- **Replace a Member from a File on This PC**: Upload a local file into a member: replace a member, or add one to a source file (the name and type come from the file name).
+- **Compare with an IFS File or a File on This PC**: Compare the open member or file side by side with any IFS file or a local file.
+- **Shared Snippets**: Save the selection (or the whole file) as a snippet in an IFS folder and insert snippets from it; point vanthrex.sharedSnippets.folder to a folder the team can write to so everyone shares them.
+- **Find IFS Files by Name**: Find stream files by name or pattern (*.rpgle, order…) under a folder and all its subfolders, and open one.
+- **Next and Previous Changed Block**: Jump to the next or previous block of lines changed since the highlight date (or not saved yet).
 
 ## 3.2.1
 

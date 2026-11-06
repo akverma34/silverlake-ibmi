@@ -2474,6 +2474,102 @@
         "icon": "$(inspect)"
       },
       {
+        "command": "vanthrex.renameMember",
+        "title": "%command.renameMember%",
+        "category": "Vanthrex",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "vanthrex.changeMemberText",
+        "title": "%command.changeMemberText%",
+        "category": "Vanthrex",
+        "icon": "$(note)"
+      },
+      {
+        "command": "vanthrex.changeObjectText",
+        "title": "%command.changeObjectText%",
+        "category": "Vanthrex",
+        "icon": "$(note)"
+      },
+      {
+        "command": "vanthrex.moveLibraryUp",
+        "title": "%command.moveLibraryUp%",
+        "category": "Vanthrex",
+        "icon": "$(arrow-up)"
+      },
+      {
+        "command": "vanthrex.moveLibraryDown",
+        "title": "%command.moveLibraryDown%",
+        "category": "Vanthrex",
+        "icon": "$(arrow-down)"
+      },
+      {
+        "command": "vanthrex.cleanupLibraryList",
+        "title": "%command.cleanupLibraryList%",
+        "category": "Vanthrex",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "vanthrex.downloadMembers",
+        "title": "%command.downloadMembers%",
+        "category": "Vanthrex",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "vanthrex.uploadMember",
+        "title": "%command.uploadMember%",
+        "category": "Vanthrex",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "vanthrex.compareWithIfsFile",
+        "title": "%command.compareWithIfsFile%",
+        "category": "Vanthrex",
+        "icon": "$(diff)"
+      },
+      {
+        "command": "vanthrex.compareWithLocalFile",
+        "title": "%command.compareWithLocalFile%",
+        "category": "Vanthrex",
+        "icon": "$(diff)"
+      },
+      {
+        "command": "vanthrex.saveSharedSnippet",
+        "title": "%command.saveSharedSnippet%",
+        "category": "Vanthrex",
+        "icon": "$(save)"
+      },
+      {
+        "command": "vanthrex.insertSharedSnippet",
+        "title": "%command.insertSharedSnippet%",
+        "category": "Vanthrex",
+        "icon": "$(symbol-snippet)"
+      },
+      {
+        "command": "vanthrex.ifsFindByName",
+        "title": "%command.ifsFindByName%",
+        "category": "Vanthrex",
+        "icon": "$(search)"
+      },
+      {
+        "command": "vanthrex.ifsCopyPath",
+        "title": "%command.ifsCopyPath%",
+        "category": "Vanthrex",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "vanthrex.nextChangedBlock",
+        "title": "%command.nextChangedBlock%",
+        "category": "Vanthrex",
+        "icon": "$(arrow-down)"
+      },
+      {
+        "command": "vanthrex.previousChangedBlock",
+        "title": "%command.previousChangedBlock%",
+        "category": "Vanthrex",
+        "icon": "$(arrow-up)"
+      },
+      {
         "command": "vanthrex.findMessageInJobLogs",
         "title": "%command.findMessageInJobLogs%",
         "category": "Vanthrex",
@@ -3962,6 +4058,16 @@
           "command": "vanthrex.commandLine",
           "when": "view == vanthrex.menus",
           "group": "navigation@1"
+        },
+        {
+          "command": "vanthrex.cleanupLibraryList",
+          "when": "view == vanthrex.libraries && vanthrex.connected",
+          "group": "1_more@9"
+        },
+        {
+          "command": "vanthrex.ifsFindByName",
+          "when": "view == vanthrex.ifs && vanthrex.connected",
+          "group": "1_more@9"
         }
       ],
       "view/item/context": [
@@ -4879,6 +4985,66 @@
           "command": "vanthrex.goMenu",
           "when": "view == vanthrex.connections && viewItem == connection.active",
           "group": "0_5250@2"
+        },
+        {
+          "command": "vanthrex.renameMember",
+          "when": "view == vanthrex.libraries && viewItem == member",
+          "group": "7_member@1"
+        },
+        {
+          "command": "vanthrex.changeMemberText",
+          "when": "view == vanthrex.libraries && viewItem == member",
+          "group": "7_member@2"
+        },
+        {
+          "command": "vanthrex.downloadMembers",
+          "when": "view == vanthrex.libraries && viewItem == member",
+          "group": "7_member@3"
+        },
+        {
+          "command": "vanthrex.uploadMember",
+          "when": "view == vanthrex.libraries && viewItem == member",
+          "group": "7_member@4"
+        },
+        {
+          "command": "vanthrex.downloadMembers",
+          "when": "view == vanthrex.libraries && viewItem == srcfile",
+          "group": "7_member@3"
+        },
+        {
+          "command": "vanthrex.uploadMember",
+          "when": "view == vanthrex.libraries && viewItem == srcfile",
+          "group": "7_member@4"
+        },
+        {
+          "command": "vanthrex.downloadMembers",
+          "when": "view == vanthrex.libraries && viewItem == library",
+          "group": "7_member@3"
+        },
+        {
+          "command": "vanthrex.changeObjectText",
+          "when": "view == vanthrex.libraries && viewItem =~ /^object/",
+          "group": "5_compare@14"
+        },
+        {
+          "command": "vanthrex.moveLibraryUp",
+          "when": "view == vanthrex.libraries && viewItem == library",
+          "group": "8_order@1"
+        },
+        {
+          "command": "vanthrex.moveLibraryDown",
+          "when": "view == vanthrex.libraries && viewItem == library",
+          "group": "8_order@2"
+        },
+        {
+          "command": "vanthrex.ifsFindByName",
+          "when": "view == vanthrex.ifs && viewItem =~ /^ifs\\.dir$/",
+          "group": "3@4"
+        },
+        {
+          "command": "vanthrex.ifsCopyPath",
+          "when": "view == vanthrex.ifs && viewItem =~ /^ifs\\.(dir|file)$/",
+          "group": "6_copy@1"
         }
       ],
       "editor/title": [
@@ -5248,6 +5414,36 @@
           "command": "vanthrex.copyLink",
           "when": "resourceScheme =~ /^vanthrex-(member|ifs)/",
           "group": "vanthrex@19"
+        },
+        {
+          "command": "vanthrex.compareWithIfsFile",
+          "when": "vanthrex.connected",
+          "group": "vanthrex@4"
+        },
+        {
+          "command": "vanthrex.compareWithLocalFile",
+          "when": "vanthrex.connected",
+          "group": "vanthrex@5"
+        },
+        {
+          "command": "vanthrex.nextChangedBlock",
+          "when": "resourceScheme == vanthrex-member",
+          "group": "vanthrex@6"
+        },
+        {
+          "command": "vanthrex.previousChangedBlock",
+          "when": "resourceScheme == vanthrex-member",
+          "group": "vanthrex@7"
+        },
+        {
+          "command": "vanthrex.saveSharedSnippet",
+          "when": "vanthrex.connected",
+          "group": "vanthrex@8"
+        },
+        {
+          "command": "vanthrex.insertSharedSnippet",
+          "when": "vanthrex.connected",
+          "group": "vanthrex@9"
         }
       ],
       "commandPalette": [
@@ -6989,6 +7185,70 @@
         {
           "command": "vanthrex.copyLink",
           "when": "resourceScheme =~ /^vanthrex-(member|ifs)/"
+        },
+        {
+          "command": "vanthrex.renameMember",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.changeMemberText",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.changeObjectText",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.moveLibraryUp",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.moveLibraryDown",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.cleanupLibraryList",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.downloadMembers",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.uploadMember",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.compareWithIfsFile",
+          "when": "vanthrex.connected && editorIsOpen"
+        },
+        {
+          "command": "vanthrex.compareWithLocalFile",
+          "when": "vanthrex.connected && editorIsOpen"
+        },
+        {
+          "command": "vanthrex.saveSharedSnippet",
+          "when": "vanthrex.connected && editorIsOpen"
+        },
+        {
+          "command": "vanthrex.insertSharedSnippet",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.ifsFindByName",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.ifsCopyPath",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.nextChangedBlock",
+          "when": "resourceScheme == vanthrex-member"
+        },
+        {
+          "command": "vanthrex.previousChangedBlock",
+          "when": "resourceScheme == vanthrex-member"
         }
       ],
       "vanthrex.ai": [
@@ -8061,6 +8321,11 @@
           "type": "boolean",
           "default": true,
           "description": "%config.conflictCheck%"
+        },
+        "vanthrex.sharedSnippets.folder": {
+          "type": "string",
+          "default": "",
+          "description": "%config.sharedSnippets.folder%"
         },
         "vanthrex.members.sortBy": {
           "type": "string",
