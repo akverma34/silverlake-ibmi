@@ -2426,6 +2426,54 @@
         "icon": "$(comment-discussion)"
       },
       {
+        "command": "vanthrex.networkConfig",
+        "title": "%command.networkConfig%",
+        "category": "Vanthrex",
+        "icon": "$(globe)"
+      },
+      {
+        "command": "vanthrex.fixCurrency",
+        "title": "%command.fixCurrency%",
+        "category": "Vanthrex",
+        "icon": "$(shield)"
+      },
+      {
+        "command": "vanthrex.hardwareStatus",
+        "title": "%command.hardwareStatus%",
+        "category": "Vanthrex",
+        "icon": "$(circuit-board)"
+      },
+      {
+        "command": "vanthrex.subsystemSetup",
+        "title": "%command.subsystemSetup%",
+        "category": "Vanthrex",
+        "icon": "$(server-process)"
+      },
+      {
+        "command": "vanthrex.saveMedia",
+        "title": "%command.saveMedia%",
+        "category": "Vanthrex",
+        "icon": "$(archive)"
+      },
+      {
+        "command": "vanthrex.systemDiagnostics",
+        "title": "%command.systemDiagnostics%",
+        "category": "Vanthrex",
+        "icon": "$(pulse)"
+      },
+      {
+        "command": "vanthrex.securityConfig",
+        "title": "%command.securityConfig%",
+        "category": "Vanthrex",
+        "icon": "$(lock-small)"
+      },
+      {
+        "command": "vanthrex.jobInternals",
+        "title": "%command.jobInternals%",
+        "category": "Vanthrex",
+        "icon": "$(inspect)"
+      },
+      {
         "command": "vanthrex.findMessageInJobLogs",
         "title": "%command.findMessageInJobLogs%",
         "category": "Vanthrex",
@@ -6048,6 +6096,38 @@
         },
         {
           "command": "vanthrex.replyListCheck",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.networkConfig",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.fixCurrency",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.hardwareStatus",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.subsystemSetup",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.saveMedia",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.systemDiagnostics",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.securityConfig",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.jobInternals",
           "when": "vanthrex.connected"
         },
         {
