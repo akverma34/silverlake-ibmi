@@ -4130,5 +4130,11 @@
   "Files in use": "Arquivos em uso",
   "Blocking": "Bloqueando",
   "Work with the blocking jobs": "Trabalhar com os jobs que bloqueiam",
-  "Read from QSYS2.IFS_OBJECT_LOCK_INFO. A job that cannot save or replace a stream file (CPFA0A1, \"Object is in use\") is usually one of the red jobs; ending it or closing the file in it releases the file.": "Lido de QSYS2.IFS_OBJECT_LOCK_INFO. Quando um arquivo de fluxo não pode ser salvo ou substituído (CPFA0A1, \"Objeto em uso\"), geralmente é por um dos jobs em vermelho; encerrá-lo ou fechar o arquivo nele o libera."
+  "Read from QSYS2.IFS_OBJECT_LOCK_INFO. A job that cannot save or replace a stream file (CPFA0A1, \"Object is in use\") is usually one of the red jobs; ending it or closing the file in it releases the file.": "Lido de QSYS2.IFS_OBJECT_LOCK_INFO. Quando um arquivo de fluxo não pode ser salvo ou substituído (CPFA0A1, \"Objeto em uso\"), geralmente é por um dos jobs em vermelho; encerrá-lo ou fechar o arquivo nele o libera.",
+  "Who uses {0} and its subfolders": "Quem usa {0} e suas subpastas",
+  "No job uses a file in this folder or its subfolders right now.": "Nenhum job usa um arquivo desta pasta ou de suas subpastas agora.",
+  "Include subfolders": "Incluir subpastas",
+  "Who Has It Locked?": "Quem está bloqueando?",
+  "{0} could not be saved: {1} job(s) have it open, {2} of them keeping others from writing it.": "Não foi possível salvar {0}: {1} job(s) o mantêm aberto, {2} deles impedindo que outros o gravem.",
+  "{0} could not be saved: {1} job(s) have it open.": "Não foi possível salvar {0}: {1} job(s) o mantêm aberto."
 }

@@ -4130,5 +4130,11 @@
   "Files in use": "使用中的文件",
   "Blocking": "阻塞",
   "Work with the blocking jobs": "处理阻塞的作业",
-  "Read from QSYS2.IFS_OBJECT_LOCK_INFO. A job that cannot save or replace a stream file (CPFA0A1, \"Object is in use\") is usually one of the red jobs; ending it or closing the file in it releases the file.": "读取自 QSYS2.IFS_OBJECT_LOCK_INFO。无法保存或替换流文件(CPFA0A1,\"对象正在使用\")时,通常是某个红色作业造成的;结束该作业或在其中关闭文件即可释放。"
+  "Read from QSYS2.IFS_OBJECT_LOCK_INFO. A job that cannot save or replace a stream file (CPFA0A1, \"Object is in use\") is usually one of the red jobs; ending it or closing the file in it releases the file.": "读取自 QSYS2.IFS_OBJECT_LOCK_INFO。无法保存或替换流文件(CPFA0A1,\"对象正在使用\")时,通常是某个红色作业造成的;结束该作业或在其中关闭文件即可释放。",
+  "Who uses {0} and its subfolders": "谁在使用 {0} 及其子文件夹",
+  "No job uses a file in this folder or its subfolders right now.": "目前没有作业使用此文件夹或其子文件夹中的文件。",
+  "Include subfolders": "包括子文件夹",
+  "Who Has It Locked?": "谁锁定了它?",
+  "{0} could not be saved: {1} job(s) have it open, {2} of them keeping others from writing it.": "无法保存 {0}:{1} 个作业打开了它,其中 {2} 个阻止其他作业写入。",
+  "{0} could not be saved: {1} job(s) have it open.": "无法保存 {0}:{1} 个作业打开了它。"
 }

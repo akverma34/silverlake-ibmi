@@ -161,14 +161,14 @@ async function createIfs(manager: ConnectionManager, a?: unknown): Promise<void>
   else { vscode.window.setStatusBarMessage(vscode.l10n.t('Folder {0} created', path), 4000); }
 }
 
-type IfsArg = { path?: string; isDirectory?: boolean } | vscode.Uri | undefined;
+type IfsArg = { path?: string; isDirectory?: boolean; subtree?: boolean } | vscode.Uri | undefined;
 
 /** Who has an IFS file (or the files of a folder) open right now, and whether they keep others from writing it. */
 async function ifsLocks(manager: ConnectionManager, a?: IfsArg): Promise<void> {
   const conn = manager.require();
-  let path: string | undefined; let folder: boolean | undefined;
+  let path: string | undefined; let folder: boolean | undefined; let subtree = false;
   if (a instanceof vscode.Uri) { path = a.path; folder = false; }
-  else if (a?.path) { path = a.path; folder = a.isDirectory; }
+  else if (a?.path) { path = a.path; folder = a.isDirectory; subtree = !!a.subtree; }
   else {
     const ed = vscode.window.activeTextEditor?.document.uri;
     path = (await vscode.window.showInputBox({ title: vscode.l10n.t('Who has this IFS file locked?'), prompt: vscode.l10n.t('File or folder'), value: ed?.scheme === 'vanthrex-ifs' ? ed.path : conn.profile.ifsHome ?? '/home', ignoreFocusOut: true,
@@ -179,7 +179,7 @@ async function ifsLocks(manager: ConnectionManager, a?: IfsArg): Promise<void> {
   if (folder === undefined) { folder = await conn.stat(path).then(st => st.isDirectory(), () => false); }
   let rows: Row[];
   try {
-    rows = await reportProgress('ifsLocks', vscode.l10n.t('Reading from the IBM i…'), () => conn.rows<Row>(ifsLocksSql(path!, !!folder), 2000));
+    rows = await reportProgress('ifsLocks', vscode.l10n.t('Reading from the IBM i…'), () => conn.rows<Row>(ifsLocksSql(path!, !!folder, 2000, subtree && !!folder), 2000));
   } catch (e) {
     if (/SQL0204|SQL0440|42704|42884/.test(String(e))) { throw new Error(vscode.l10n.t('QSYS2.IFS_OBJECT_LOCK_INFO is not on this system (it needs IBM i 7.3 TR11, 7.4 TR5 or later).')); }
     throw e;
@@ -187,13 +187,14 @@ async function ifsLocks(manager: ConnectionManager, a?: IfsArg): Promise<void> {
   const locks = ifsLockRows(rows);
   const blocking = locks.filter(l => l.blocking);
   showReport('ifsLocks', {
-    title: vscode.l10n.t('Who uses {0}', path),
+    title: subtree && folder ? vscode.l10n.t('Who uses {0} and its subfolders', path) : vscode.l10n.t('Who uses {0}', path),
     subtitle: locks.length
       ? vscode.l10n.t('{0} job(s) use {1} file(s). Jobs in red keep others from writing the file (or reading it). Click a job for its job log.', new Set(locks.map(l => l.job)).size, new Set(locks.map(l => l.path)).size)
-      : folder ? vscode.l10n.t('No job uses a file in this folder right now.') : vscode.l10n.t('No job uses this file right now.'),
+      : folder ? (subtree ? vscode.l10n.t('No job uses a file in this folder or its subfolders right now.') : vscode.l10n.t('No job uses a file in this folder right now.')) : vscode.l10n.t('No job uses this file right now.'),
     facts: locks.length ? [[vscode.l10n.t('Jobs'), new Set(locks.map(l => l.job)).size], [vscode.l10n.t('Files in use'), new Set(locks.map(l => l.path)).size], [vscode.l10n.t('Blocking'), blocking.length]] : undefined,
     actions: [
-      { label: vscode.l10n.t('Refresh'), command: 'vanthrex.ifsLocks', args: [{ path, isDirectory: folder }] },
+      { label: vscode.l10n.t('Refresh'), command: 'vanthrex.ifsLocks', args: [{ path, isDirectory: folder, subtree }] },
+      ...(folder && !subtree && path !== '/' ? [{ label: vscode.l10n.t('Include subfolders'), command: 'vanthrex.ifsLocks', args: [{ path, isDirectory: true, subtree: true }] }] : []),
       ...(blocking.length ? [{ label: vscode.l10n.t('Work with the blocking jobs'), command: 'vanthrex.wrkactjob', args: [{ job: blocking.length === 1 ? jobShortName(blocking[0].job) : undefined, user: new Set(blocking.map(b => b.user)).size === 1 ? blocking[0].user : undefined }] }] : []),
     ],
     tables: locks.length ? [{

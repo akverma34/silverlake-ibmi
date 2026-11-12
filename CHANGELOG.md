@@ -47,7 +47,7 @@
 - **Generate CALL Statement**: A ready-to-fill CALL (procedure), VALUES (scalar function) or SELECT … FROM TABLE() (table function), one named parameter per line with its mode and type, read from QSYS2.SYSROUTINES and SYSPARMS.
 - **SQL from a JSON Sample**: The selected (or copied) JSON turned into a VALUES JSON_OBJECT / JSON_ARRAY statement that returns it; replace the sample values with your columns.
 - **Maintained Temporary Indexes**: The temporary indexes the query engine maintains (QSYS2.MTI_INFO), most used first.
-- **Who Has It Locked? (IFS)**: Right-click an IFS file or folder (or the editor of an IFS file) to see the jobs that have it open right now (QSYS2.IFS_OBJECT_LOCK_INFO), with their user, number of opens and how they use it. Jobs that keep others from writing it (share-none modes, save locks, check-outs) are first and in red; click one for its job log, or *Work with the blocking jobs*. On a folder, every stream file directly in it is checked. Read only; needs IBM i 7.3 TR11, 7.4 TR5 or later.
+- **Who Has It Locked? (IFS)**: Right-click an IFS file or folder (or the editor of an IFS file) to see the jobs that have it open right now (QSYS2.IFS_OBJECT_LOCK_INFO), with their user, number of opens and how they use it. Jobs that keep others from writing it (share-none modes, save locks, check-outs) are first and in red; click one for its job log, or *Work with the blocking jobs*. On a folder, every stream file directly in it is checked, and *Include subfolders* checks the whole tree below it. When saving an IFS file fails while other jobs have it open, Vanthrex says how many (and how many keep others from writing it) and offers the page in one click. Read only; needs IBM i 7.3 TR11, 7.4 TR5 or later.
 
 ## 3.2.1
 
