@@ -72,12 +72,13 @@ export function checkMode(mode: string): string {
 
 const sqlQ = (s: string) => `'${s.replace(/'/g, "''")}'`;
 
-/** Jobs using an IFS object; for a folder, the stream files directly in it (IBM i 7.3 TR11 / 7.4 TR5 and later). */
-export function ifsLocksSql(path: string, folder: boolean, max = 2000): string {
+/** Jobs using an IFS object; for a folder, the stream files in it (and below it with subtree) — IBM i 7.3 TR11 / 7.4 TR5 and later. */
+export function ifsLocksSql(path: string, folder: boolean, max = 2000, subtree = false): string {
   const p = checkIfsPath(path);
+  if (subtree && p === '/') { throw new Error('Pick a folder below / to include its subfolders.'); }
   const lim = Math.max(1, Math.min(10000, Math.trunc(max)));
   if (!folder) { return `SELECT ${sqlQ(p)} AS P, L.* FROM TABLE(QSYS2.IFS_OBJECT_LOCK_INFO(PATH_NAME => ${sqlQ(p)})) L FETCH FIRST ${lim} ROWS ONLY`; }
-  return `SELECT X.PATH_NAME AS P, L.* FROM TABLE(QSYS2.IFS_OBJECT_STATISTICS(START_PATH_NAME => ${sqlQ(p)}, SUBTREE_DIRECTORIES => 'NO', OBJECT_TYPE_LIST => '*ALLSTMF')) X, ` +
+  return `SELECT X.PATH_NAME AS P, L.* FROM TABLE(QSYS2.IFS_OBJECT_STATISTICS(START_PATH_NAME => ${sqlQ(p)}, SUBTREE_DIRECTORIES => '${subtree ? 'YES' : 'NO'}', OBJECT_TYPE_LIST => '*ALLSTMF')) X, ` +
     `LATERAL (SELECT * FROM TABLE(QSYS2.IFS_OBJECT_LOCK_INFO(PATH_NAME => X.PATH_NAME))) L ORDER BY X.PATH_NAME FETCH FIRST ${lim} ROWS ONLY`;
 }
 
@@ -107,4 +108,11 @@ export function ifsLockRows(rows: Record<string, unknown>[]): IfsLock[] {
 /** The short job name (the last part of 123456/USER/NAME). */
 export function jobShortName(job: string): string {
   return job.trim().split('/').pop() ?? '';
+}
+
+/** The warning shown when saving a stream file failed while other jobs have it open (undefined when none has). */
+export function busyFileMessage(path: string, locks: IfsLock[]): { jobs: number; blocking: number } | undefined {
+  const mine = locks.filter(l => l.path === path || !l.path);
+  if (!mine.length) { return undefined; }
+  return { jobs: new Set(mine.map(l => l.job)).size, blocking: new Set(mine.filter(l => l.blocking).map(l => l.job)).size };
 }

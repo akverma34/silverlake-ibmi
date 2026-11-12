@@ -4130,5 +4130,11 @@
   "Files in use": "使用中のファイル",
   "Blocking": "ブロック中",
   "Work with the blocking jobs": "ブロック中のジョブの処理",
-  "Read from QSYS2.IFS_OBJECT_LOCK_INFO. A job that cannot save or replace a stream file (CPFA0A1, \"Object is in use\") is usually one of the red jobs; ending it or closing the file in it releases the file.": "QSYS2.IFS_OBJECT_LOCK_INFO から読み取りました。ストリーム・ファイルを保存または置換できない場合 (CPFA0A1「オブジェクトは使用中」)、通常は赤のジョブのいずれかが原因です。そのジョブを終了するか、ジョブ内でファイルを閉じると解放されます。"
+  "Read from QSYS2.IFS_OBJECT_LOCK_INFO. A job that cannot save or replace a stream file (CPFA0A1, \"Object is in use\") is usually one of the red jobs; ending it or closing the file in it releases the file.": "QSYS2.IFS_OBJECT_LOCK_INFO から読み取りました。ストリーム・ファイルを保存または置換できない場合 (CPFA0A1「オブジェクトは使用中」)、通常は赤のジョブのいずれかが原因です。そのジョブを終了するか、ジョブ内でファイルを閉じると解放されます。",
+  "Who uses {0} and its subfolders": "{0} とそのサブフォルダーを使用しているジョブ",
+  "No job uses a file in this folder or its subfolders right now.": "現在このフォルダーとそのサブフォルダー内のファイルを使用しているジョブはありません。",
+  "Include subfolders": "サブフォルダーを含める",
+  "Who Has It Locked?": "誰がロックしていますか?",
+  "{0} could not be saved: {1} job(s) have it open, {2} of them keeping others from writing it.": "{0} を保存できませんでした: {1} 個のジョブが開いており、そのうち {2} 個が他のジョブによる書き込みを妨げています。",
+  "{0} could not be saved: {1} job(s) have it open.": "{0} を保存できませんでした: {1} 個のジョブが開いています。"
 }

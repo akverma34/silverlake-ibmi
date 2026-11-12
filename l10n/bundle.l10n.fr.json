@@ -4130,5 +4130,11 @@
   "Files in use": "Fichiers utilisés",
   "Blocking": "Bloquants",
   "Work with the blocking jobs": "Gérer les travaux bloquants",
-  "Read from QSYS2.IFS_OBJECT_LOCK_INFO. A job that cannot save or replace a stream file (CPFA0A1, \"Object is in use\") is usually one of the red jobs; ending it or closing the file in it releases the file.": "Lu dans QSYS2.IFS_OBJECT_LOCK_INFO. Quand un fichier STMF ne peut pas être enregistré ou remplacé (CPFA0A1, « Objet en cours d'utilisation »), c'est en général à cause d'un travail en rouge ; l'arrêter ou y fermer le fichier le libère."
+  "Read from QSYS2.IFS_OBJECT_LOCK_INFO. A job that cannot save or replace a stream file (CPFA0A1, \"Object is in use\") is usually one of the red jobs; ending it or closing the file in it releases the file.": "Lu dans QSYS2.IFS_OBJECT_LOCK_INFO. Quand un fichier STMF ne peut pas être enregistré ou remplacé (CPFA0A1, « Objet en cours d'utilisation »), c'est en général à cause d'un travail en rouge ; l'arrêter ou y fermer le fichier le libère.",
+  "Who uses {0} and its subfolders": "Qui utilise {0} et ses sous-dossiers",
+  "No job uses a file in this folder or its subfolders right now.": "Aucun travail n'utilise de fichier de ce dossier ou de ses sous-dossiers en ce moment.",
+  "Include subfolders": "Inclure les sous-dossiers",
+  "Who Has It Locked?": "Qui le verrouille ?",
+  "{0} could not be saved: {1} job(s) have it open, {2} of them keeping others from writing it.": "{0} n'a pas pu être enregistré : {1} travail(s) l'ont ouvert, dont {2} empêchent les autres de l'écrire.",
+  "{0} could not be saved: {1} job(s) have it open.": "{0} n'a pas pu être enregistré : {1} travail(s) l'ont ouvert."
 }

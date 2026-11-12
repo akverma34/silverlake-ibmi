@@ -4,8 +4,9 @@ import { errorMessage, log, logError } from '../core/log';
 import { saveOrKeep } from './pendingSaves';
 import { parseMemberPath, clString, memberPath } from '../core/util';
 import { SourceRecord, mergeRecords, tooLongLines } from '../core/sourceDates';
-import type { MemberLock } from '../core/connection';
+import type { IbmiConnection, MemberLock } from '../core/connection';
 import { cacheEnabled, cacheGet, cachePut } from './memberCache';
+import { busyFileMessage, ifsLockRows, ifsLocksSql } from '../core/ifsTools';
 
 export const MEMBER_SCHEME = 'vanthrex-member';
 export const IFS_SCHEME = 'vanthrex-ifs';
@@ -270,6 +271,22 @@ export class MemberFileSystem extends BaseFs {
   }
 }
 
+/**
+ * After a stream file could not be saved: when other jobs have it open, say so and offer the page that lists them.
+ * Best effort and silent on failure (no connection, IFS_OBJECT_LOCK_INFO missing on older releases).
+ */
+async function offerLockHolders(conn: IbmiConnection, path: string): Promise<void> {
+  try {
+    const busy = busyFileMessage(path, ifsLockRows(await conn.rows<Record<string, unknown>>(ifsLocksSql(path, false, 100), 100)));
+    if (!busy) { return; }
+    const who = vscode.l10n.t('Who Has It Locked?');
+    const msg = busy.blocking
+      ? vscode.l10n.t('{0} could not be saved: {1} job(s) have it open, {2} of them keeping others from writing it.', path, busy.jobs, busy.blocking)
+      : vscode.l10n.t('{0} could not be saved: {1} job(s) have it open.', path, busy.jobs);
+    if (await vscode.window.showWarningMessage(msg, who) === who) { await vscode.commands.executeCommand('vanthrex.ifsLocks', { path, isDirectory: false }); }
+  } catch (e) { log(`IFS lock check after a failed save: ${errorMessage(e)}`); }
+}
+
 /** IFS stream files: vanthrex-ifs:/home/me/src/hello.rpgle */
 export class IfsFileSystem extends BaseFs {
   async stat(uri: vscode.Uri): Promise<vscode.FileStat> {
@@ -321,7 +338,12 @@ export class IfsFileSystem extends BaseFs {
     try { await conn.stat(uri.path); } catch { exists = false; }
     if (!exists && !options.create) { throw vscode.FileSystemError.FileNotFound(uri); }
     if (exists && !options.overwrite) { throw vscode.FileSystemError.FileExists(uri); }
-    await conn.writeStreamFile(uri.path, content);
+    try {
+      await conn.writeStreamFile(uri.path, content);
+    } catch (e) {
+      if (exists) { void offerLockHolders(conn, uri.path); }
+      throw e;
+    }
     this.rememberOrigin(uri, conn);
     fsEvents.fire({ uri, content, kind: 'write' });
     if (!exists) {

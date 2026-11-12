@@ -24,3 +24,20 @@ test('IFS lock rows: uses, user and blocking first', () => {
   assert.deepStrictEqual(rows[1].uses, ['read only', 'share with readers and writers']);
   assert.strictEqual(v.jobShortName('123456/BOB/QZDASOINIT'), 'QZDASOINIT');
 });
+
+test('IFS lock SQL with subfolders', () => {
+  assert.match(v.ifsLocksSql('/home/app', true, 10, true), /SUBTREE_DIRECTORIES => 'YES'/);
+  assert.match(v.ifsLocksSql('/home/app', true, 10, false), /SUBTREE_DIRECTORIES => 'NO'/);
+  assert.throws(() => v.ifsLocksSql('/', true, 10, true), /below \//);
+});
+
+test('busy file message after a failed save', () => {
+  const locks = v.ifsLockRows([
+    { P: '/a/x.txt', JOB_NAME: '1/A/J1', READ_WRITE_NO_SHARE: 'YES' },
+    { P: '/a/x.txt', JOB_NAME: '2/B/J2', READ_ONLY: 'YES' },
+    { P: '/a/x.txt', JOB_NAME: '2/B/J2', READ_ONLY: 'YES' },
+  ]);
+  assert.deepStrictEqual(v.busyFileMessage('/a/x.txt', locks), { jobs: 2, blocking: 1 });
+  assert.strictEqual(v.busyFileMessage('/a/x.txt', []), undefined);
+  assert.strictEqual(v.busyFileMessage('/a/other.txt', locks), undefined);
+});
