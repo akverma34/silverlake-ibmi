@@ -198,9 +198,11 @@ class PdmPanel {
 
   private async objects(lib: string): Promise<PdmRow[]> {
     const rows = await this.conn.rows<Row>(
-      `SELECT O.OBJNAME AS N, O.OBJTYPE AS T, CASE WHEN O.OBJTYPE = '*FILE' AND EXISTS (SELECT 1 FROM QSYS2.SYSTABLES S WHERE S.SYSTEM_TABLE_SCHEMA = ${sqlString(lib)} ` +
-      `AND S.SYSTEM_TABLE_NAME = O.OBJNAME AND S.FILE_TYPE = 'S') THEN 'PF-SRC' ELSE COALESCE(O.OBJATTRIBUTE, '') END AS A, COALESCE(O.OBJTEXT, '') AS X, ` +
-      `VARCHAR(O.CHANGE_TIMESTAMP) AS C, O.OBJSIZE AS Z FROM TABLE(QSYS2.OBJECT_STATISTICS(${sqlString(lib)}, '*ALL')) O ORDER BY O.OBJNAME, O.OBJTYPE`, 50000);
+      // Source files are found with a LEFT JOIN: some Db2 for i levels reject EXISTS inside a CASE of the select list (SQL0104, issue #16).
+      `SELECT O.OBJNAME AS N, O.OBJTYPE AS T, CASE WHEN S.SYSTEM_TABLE_NAME IS NOT NULL THEN 'PF-SRC' ELSE COALESCE(O.OBJATTRIBUTE, '') END AS A, COALESCE(O.OBJTEXT, '') AS X, ` +
+      `VARCHAR(O.CHANGE_TIMESTAMP) AS C, O.OBJSIZE AS Z FROM TABLE(QSYS2.OBJECT_STATISTICS(${sqlString(lib)}, '*ALL')) O ` +
+      `LEFT JOIN QSYS2.SYSTABLES S ON O.OBJTYPE = '*FILE' AND S.SYSTEM_TABLE_SCHEMA = ${sqlString(lib)} AND S.SYSTEM_TABLE_NAME = O.OBJNAME AND S.FILE_TYPE = 'S' ` +
+      `ORDER BY O.OBJNAME, O.OBJTYPE`, 50000);
     return rows.map(r => ({ name: s(r, 'N'), type: s(r, 'T'), attribute: s(r, 'A'), text: s(r, 'X'), changed: s(r, 'C').slice(0, 16), size: Number(r.Z ?? 0) }));
   }
 

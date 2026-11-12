@@ -59,6 +59,10 @@
   - **SQL recipes:** Top rows per group (ROW_NUMBER); Add a running total column; Add the previous row's value and the change (LAG); Add each row's percent of the total; Pivot: one column per value; Values of a column as one list per group (LISTAGG); Rows that differ from another table (EXCEPT); Delete duplicate rows, keep the first (preview first); Missing numbers in a numbered column (gaps); Insert a recursive query (parent / child tree).
   - **CL recipes:** Insert a loop over the objects of a library; Insert a loop over the members of a file; Insert a QShell command that stops on failure; Insert a library list change that is put back.
 
+**Fixes**
+
+- **PDM: work with objects (WRKOBJPDM)** showed an empty list with `SQL0104 Token EXISTS not valid` on some systems (issue #16). The query that marks source files (PF-SRC) used EXISTS inside a CASE, which some Db2 for i levels do not accept; it now uses a LEFT JOIN. The same change was made to the **Messages** view (which inquiry messages still need a reply).
+
 ## 3.2.1
 
 **Fixes**
