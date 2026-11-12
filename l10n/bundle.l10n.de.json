@@ -4119,5 +4119,16 @@
   "{0} maintained temporary index(es).": "{0} verwaltete(r) temporäre(r) Index(e).",
   "$(symbol-method) Generate a CALL statement…": "$(symbol-method) CALL-Anweisung generieren…",
   "$(json) SQL from a JSON sample": "$(json) SQL aus einem JSON-Beispiel",
-  "$(list-tree) Maintained temporary indexes": "$(list-tree) Verwaltete temporäre Indizes"
+  "$(list-tree) Maintained temporary indexes": "$(list-tree) Verwaltete temporäre Indizes",
+  "Who has this IFS file locked?": "Wer hat diese IFS-Datei gesperrt?",
+  "File or folder": "Datei oder Ordner",
+  "QSYS2.IFS_OBJECT_LOCK_INFO is not on this system (it needs IBM i 7.3 TR11, 7.4 TR5 or later).": "QSYS2.IFS_OBJECT_LOCK_INFO gibt es auf diesem System nicht (es braucht IBM i 7.3 TR11, 7.4 TR5 oder neuer).",
+  "Who uses {0}": "Wer {0} verwendet",
+  "{0} job(s) use {1} file(s). Jobs in red keep others from writing the file (or reading it). Click a job for its job log.": "{0} Job(s) verwenden {1} Datei(en). Rote Jobs hindern andere daran, die Datei zu schreiben (oder zu lesen). Klicken Sie auf einen Job für sein Jobprotokoll.",
+  "No job uses a file in this folder right now.": "Gerade verwendet kein Job eine Datei in diesem Ordner.",
+  "No job uses this file right now.": "Gerade verwendet kein Job diese Datei.",
+  "Files in use": "Verwendete Dateien",
+  "Blocking": "Blockierend",
+  "Work with the blocking jobs": "Blockierende Jobs bearbeiten",
+  "Read from QSYS2.IFS_OBJECT_LOCK_INFO. A job that cannot save or replace a stream file (CPFA0A1, \"Object is in use\") is usually one of the red jobs; ending it or closing the file in it releases the file.": "Gelesen aus QSYS2.IFS_OBJECT_LOCK_INFO. Kann eine Datenstromdatei nicht gespeichert oder ersetzt werden (CPFA0A1, „Objekt ist in Gebrauch“), ist meist einer der roten Jobs schuld; den Job beenden oder die Datei darin schließen gibt sie frei."
 }

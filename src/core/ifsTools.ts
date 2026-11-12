@@ -67,3 +67,44 @@ export function checkMode(mode: string): string {
   if (!/^[0-7]{3,4}$/.test(m)) { throw new Error('Use an octal mode such as 755 or 640.'); }
   return m;
 }
+
+// ---------------------------------------------------------------- who uses an IFS file (QSYS2.IFS_OBJECT_LOCK_INFO)
+
+const sqlQ = (s: string) => `'${s.replace(/'/g, "''")}'`;
+
+/** Jobs using an IFS object; for a folder, the stream files directly in it (IBM i 7.3 TR11 / 7.4 TR5 and later). */
+export function ifsLocksSql(path: string, folder: boolean, max = 2000): string {
+  const p = checkIfsPath(path);
+  const lim = Math.max(1, Math.min(10000, Math.trunc(max)));
+  if (!folder) { return `SELECT ${sqlQ(p)} AS P, L.* FROM TABLE(QSYS2.IFS_OBJECT_LOCK_INFO(PATH_NAME => ${sqlQ(p)})) L FETCH FIRST ${lim} ROWS ONLY`; }
+  return `SELECT X.PATH_NAME AS P, L.* FROM TABLE(QSYS2.IFS_OBJECT_STATISTICS(START_PATH_NAME => ${sqlQ(p)}, SUBTREE_DIRECTORIES => 'NO', OBJECT_TYPE_LIST => '*ALLSTMF')) X, ` +
+    `LATERAL (SELECT * FROM TABLE(QSYS2.IFS_OBJECT_LOCK_INFO(PATH_NAME => X.PATH_NAME))) L ORDER BY X.PATH_NAME FETCH FIRST ${lim} ROWS ONLY`;
+}
+
+export interface IfsLock { path: string; job: string; user: string; refs: number; uses: string[]; blocking: boolean }
+
+const LOCK_META = new Set(['P', 'PATH_NAME', 'JOB_NAME', 'REFERENCE_COUNT']);
+/** Uses that keep other jobs from writing (or from reading): share modes that share nothing, save locks, check-outs. */
+const BLOCKING = /NO_SHARE|SHARE_NONE|SHARE_WITH_(READERS|WRITERS)(_ONLY)?$|SAVE_LOCK|CHECKED_OUT$/;
+
+/** One entry per file and job: which uses are on (every YES column, named in plain words), blocking ones flagged. */
+export function ifsLockRows(rows: Record<string, unknown>[]): IfsLock[] {
+  const out: IfsLock[] = [];
+  for (const r of rows) {
+    const job = String(r.JOB_NAME ?? '').trim();
+    if (!job) { continue; }
+    const on = Object.keys(r).filter(k => !LOCK_META.has(k) && String(r[k] ?? '').trim().toUpperCase() === 'YES');
+    out.push({
+      path: String(r.P ?? r.PATH_NAME ?? '').trim(), job, user: job.split('/')[1] ?? '',
+      refs: Number(r.REFERENCE_COUNT ?? 0) || 0,
+      uses: on.map(k => k.toLowerCase().replace(/_/g, ' ')),
+      blocking: on.some(k => BLOCKING.test(k)),
+    });
+  }
+  return out.sort((a, b) => Number(b.blocking) - Number(a.blocking) || a.path.localeCompare(b.path) || a.job.localeCompare(b.job));
+}
+
+/** The short job name (the last part of 123456/USER/NAME). */
+export function jobShortName(job: string): string {
+  return job.trim().split('/').pop() ?? '';
+}

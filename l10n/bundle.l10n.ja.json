@@ -4119,5 +4119,16 @@
   "{0} maintained temporary index(es).": "保守一時索引 {0} 個。",
   "$(symbol-method) Generate a CALL statement…": "$(symbol-method) CALL ステートメントの生成…",
   "$(json) SQL from a JSON sample": "$(json) JSON サンプルからの SQL",
-  "$(list-tree) Maintained temporary indexes": "$(list-tree) 保守一時索引"
+  "$(list-tree) Maintained temporary indexes": "$(list-tree) 保守一時索引",
+  "Who has this IFS file locked?": "この IFS ファイルをロックしているのは誰ですか?",
+  "File or folder": "ファイルまたはフォルダー",
+  "QSYS2.IFS_OBJECT_LOCK_INFO is not on this system (it needs IBM i 7.3 TR11, 7.4 TR5 or later).": "このシステムには QSYS2.IFS_OBJECT_LOCK_INFO がありません (IBM i 7.3 TR11、7.4 TR5 以降が必要です)。",
+  "Who uses {0}": "{0} を使用しているジョブ",
+  "{0} job(s) use {1} file(s). Jobs in red keep others from writing the file (or reading it). Click a job for its job log.": "{0} 個のジョブが {1} 個のファイルを使用しています。赤のジョブは他のジョブによるファイルの書き込み (または読み取り) を妨げています。ジョブをクリックするとジョブ・ログが開きます。",
+  "No job uses a file in this folder right now.": "現在このフォルダー内のファイルを使用しているジョブはありません。",
+  "No job uses this file right now.": "現在このファイルを使用しているジョブはありません。",
+  "Files in use": "使用中のファイル",
+  "Blocking": "ブロック中",
+  "Work with the blocking jobs": "ブロック中のジョブの処理",
+  "Read from QSYS2.IFS_OBJECT_LOCK_INFO. A job that cannot save or replace a stream file (CPFA0A1, \"Object is in use\") is usually one of the red jobs; ending it or closing the file in it releases the file.": "QSYS2.IFS_OBJECT_LOCK_INFO から読み取りました。ストリーム・ファイルを保存または置換できない場合 (CPFA0A1「オブジェクトは使用中」)、通常は赤のジョブのいずれかが原因です。そのジョブを終了するか、ジョブ内でファイルを閉じると解放されます。"
 }

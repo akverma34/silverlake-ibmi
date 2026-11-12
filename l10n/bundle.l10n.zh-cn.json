@@ -4119,5 +4119,16 @@
   "{0} maintained temporary index(es).": "{0} 个维护的临时索引。",
   "$(symbol-method) Generate a CALL statement…": "$(symbol-method) 生成 CALL 语句…",
   "$(json) SQL from a JSON sample": "$(json) 根据 JSON 示例生成 SQL",
-  "$(list-tree) Maintained temporary indexes": "$(list-tree) 维护的临时索引"
+  "$(list-tree) Maintained temporary indexes": "$(list-tree) 维护的临时索引",
+  "Who has this IFS file locked?": "谁锁定了这个 IFS 文件?",
+  "File or folder": "文件或文件夹",
+  "QSYS2.IFS_OBJECT_LOCK_INFO is not on this system (it needs IBM i 7.3 TR11, 7.4 TR5 or later).": "此系统上没有 QSYS2.IFS_OBJECT_LOCK_INFO(需要 IBM i 7.3 TR11、7.4 TR5 或更高版本)。",
+  "Who uses {0}": "谁在使用 {0}",
+  "{0} job(s) use {1} file(s). Jobs in red keep others from writing the file (or reading it). Click a job for its job log.": "{0} 个作业正在使用 {1} 个文件。红色作业会阻止其他作业写入(或读取)该文件。单击作业可查看其作业日志。",
+  "No job uses a file in this folder right now.": "目前没有作业使用此文件夹中的文件。",
+  "No job uses this file right now.": "目前没有作业使用此文件。",
+  "Files in use": "使用中的文件",
+  "Blocking": "阻塞",
+  "Work with the blocking jobs": "处理阻塞的作业",
+  "Read from QSYS2.IFS_OBJECT_LOCK_INFO. A job that cannot save or replace a stream file (CPFA0A1, \"Object is in use\") is usually one of the red jobs; ending it or closing the file in it releases the file.": "读取自 QSYS2.IFS_OBJECT_LOCK_INFO。无法保存或替换流文件(CPFA0A1,\"对象正在使用\")时,通常是某个红色作业造成的;结束该作业或在其中关闭文件即可释放。"
 }
