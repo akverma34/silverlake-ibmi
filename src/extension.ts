@@ -93,6 +93,7 @@ import { registerSystemVisuals } from './features/systemVisualsView';
 import { registerPlatformInsights } from './features/platformInsightsView';
 import { registerHealthInsights } from './features/healthInsightsView';
 import { registerHealthOverview } from './features/healthOverviewView';
+import { registerSystemChecks } from './features/systemChecksView';
 import { registerAdminInsights } from './features/adminInsightsView';
 import { registerServiceInsights } from './features/serviceInsightsView';
 import { registerWorkbench } from './features/workbenchView';
@@ -248,6 +249,7 @@ export function activate(context: vscode.ExtensionContext): void {
   step('platform insights', () => registerPlatformInsights(context, m));
   step('health insights', () => registerHealthInsights(context, m));
   step('health overview', () => registerHealthOverview(context, m));
+  step('system checks', () => registerSystemChecks(context, m));
   step('admin insights', () => registerAdminInsights(context, m));
   step('service insights', () => registerServiceInsights(context, m));
   step('workbench', () => registerWorkbench(context, m, libraries, ifs));

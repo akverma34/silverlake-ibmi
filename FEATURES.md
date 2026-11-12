@@ -1400,131 +1400,146 @@ Also in the right-click menus: *AI: Generate Test Data for This Table* and *AI: 
 - **Why:** the code IBM i developers write again and again — IFS files, data areas and queues, job log messages, commit / rollback, JSON and CSV in RPG; a JSON array, a view, a safe preview of an UPDATE or DELETE, audit columns, a trigger, duplicates and IBM i Services queries in SQL; a CL program with error handling, retries, ALCOBJ, SBMJOB, save files — and the conversions you otherwise look up (date formats, hex, CCSIDs, SQL ↔ RPG types, system names).
 - **How:** put the cursor in the source (or select the variables, the command or the value), press Ctrl+Alt+A and type a word of the tool. Tools that need a name ask for it; Ctrl+Z undoes any of them.
 
-### 216. Network Configuration — new
+### 219. Network Configuration — new in 3.3
 
 - **What:** TCP/IP of the connection, network attributes, the Telnet, SMTP and time (NTP) servers, HTTP servers, relational database entries and the subsystems server jobs are routed to (QSYS2.TCPIP_INFO, NETWORK_ATTRIBUTE_INFO, TELNET_SERVER_ATTRIBUTES, SMTP_ATTRIBUTES, TIME_PROTOCOL_INFO, HTTP_SERVER_INFO, RDB_ENTRY_INFO, SERVER_SBS_ROUTING).
 - **Why:** The network setup on one page instead of CFGTCP, CHGTELNA, DSPNETA and WRKRDBDIRE one after the other.
 - **How:** *Network Configuration* in the command palette or the quick menu.
 
-### 217. Fix Currency — new
+### 220. Fix Currency — new in 3.3
 
 - **What:** firmware level against IBM's, defective PTFs installed and CVEs not yet fixed, plus the Electronic Service Agent status (QSYS2.FIRMWARE_CURRENCY, DEFECTIVE_PTF_CURRENCY, CVE_CURRENCY, ELECTRONIC_SERVICE_AGENT_INFO).
 - **Why:** Know whether the system needs fixes before a problem or an audit asks.
 - **How:** *Fix Currency* in the command palette or the quick menu.
 
-### 218. Hardware and Devices — new
+### 221. Hardware and Devices — new in 3.3
 
 - **What:** the status of lines, controllers and devices, the hardware resources and NVMe devices, failed or damaged ones in red (QSYS2.CONFIGURATION_STATUS, HARDWARE_RESOURCE_INFO, NVME_INFO).
 - **Why:** Spot a failed line or a missing adapter without WRKCFGSTS and WRKHDWRSC.
 - **How:** *Hardware and Devices* in the command palette or the quick menu.
 
-### 219. Subsystem Setup — new
+### 222. Subsystem Setup — new in 3.3
 
 - **What:** for one subsystem or all: autostart jobs, routing entries, prestart jobs, job queue entries, workstation and communications entries and pools (QSYS2.AUTOSTART_JOB_INFO, ROUTING_ENTRY_INFO, PRESTART_JOB_INFO, JOB_QUEUE_ENTRIES, WORKSTATION_INFO, COMMUNICATIONS_ENTRY_INFO, SUBSYSTEM_POOL_INFO).
 - **Why:** See how a subsystem is built without DSPSBSD and its seven menus.
 - **How:** *Subsystem Setup* in the command palette or the quick menu.
 
-### 220. Save Files and Tapes — new
+### 223. Save Files and Tapes — new in 3.3
 
 - **What:** save files with what and when they saved, tape cartridges and media libraries (QSYS2.SAVE_FILE_INFO, TAPE_CARTRIDGE_INFO, MEDIA_LIBRARY_INFO).
 - **Why:** Check the backups that exist and the media before a restore.
 - **How:** *Save Files and Tapes* in the command palette or the quick menu.
 
-### 221. System Diagnostics — new
+### 224. System Diagnostics — new in 3.3
 
 - **What:** problems logged, recently ended jobs (abnormal ends in red), the largest temporary storage buckets, active watches, Java virtual machines and Collection Services (QSYS2.PROBLEM_INFO, ENDED_JOB_INFO, SYSTMPSTG, WATCH_INFO, JVM_INFO, COLLECTION_SERVICES_INFO).
 - **Why:** One place to start when the system behaves oddly.
 - **How:** *System Diagnostics* in the command palette or the quick menu.
 
-### 222. Security Configuration — new
+### 225. Security Configuration — new in 3.3
 
 - **What:** the security attributes, the certificates applications use and the exit points with their programs (QSYS2.SECURITY_INFO, CERTIFICATE_USAGE_INFO, EXIT_POINT_INFO).
 - **Why:** Review the security setup that system values do not show.
 - **How:** *Security Configuration* in the command palette or the quick menu.
 
-### 223. Job Internals — new
+### 226. Job Internals — new in 3.3
 
 - **What:** for one job: its open files, the IFS objects it uses and its database connections (QSYS2.OPEN_FILES, IFS_JOB_INFO, ACTIVE_DB_CONNECTIONS).
 - **Why:** See what a job is holding open when it hangs or locks something.
 - **How:** *Job Internals* in the command palette or the quick menu.
 
-### 224. Rename Member and Change Descriptions — new
+### 227. Rename Member and Change Descriptions — new in 3.3
 
 - **What:** Rename a member (RNMM) and change the description of a member (CHGPFM) or an object (CHGOBJD) from the Libraries view.
 - **Why:** Small everyday changes without a 5250 session.
 - **How:** Right-click a member or an object in the Libraries view.
 
-### 225. Library List Order and Clean-up — new
+### 228. Library List Order and Clean-up — new in 3.3
 
 - **What:** Move a library up or down in your library list, and remove the libraries that no longer exist.
 - **Why:** The order of the list decides which object is found; a deleted library left in the list breaks jobs.
 - **How:** Right-click a library (Move Up / Move Down); *Clean Up Library List* in the Libraries view menu, the command palette or the quick menu.
 
-### 226. Download Members to This PC — new
+### 229. Download Members to This PC — new in 3.3
 
 - **What:** One member, a source file or every source file of a library to a local folder, laid out Library → File → Member, File → Member or all in one folder.
 - **Why:** A local copy for a backup, a review or a move to Git.
 - **How:** Right-click a member, a source file or a library.
 
-### 227. Replace a Member from a File on This PC — new
+### 230. Replace a Member from a File on This PC — new in 3.3
 
 - **What:** Upload a local file into a member: replace a member, or add one to a source file (the name and type come from the file name).
 - **Why:** Bring back code written or fixed outside the IBM i.
 - **How:** Right-click a member or a source file.
 
-### 228. Compare with an IFS File or a File on This PC — new
+### 231. Compare with an IFS File or a File on This PC — new in 3.3
 
 - **What:** Compare the open member or file side by side with any IFS file or a local file.
 - **Why:** Check a member against a copy kept on the IFS or on the PC.
 - **How:** Right-click in the editor.
 
-### 229. Shared Snippets — new
+### 232. Shared Snippets — new in 3.3
 
 - **What:** Save the selection (or the whole file) as a snippet in an IFS folder and insert snippets from it; point vanthrex.sharedSnippets.folder to a folder the team can write to so everyone shares them.
 - **Why:** Reuse the team's proven code instead of copying it from old programs.
 - **How:** Right-click in the editor, or *Save as Shared Snippet* / *Insert Shared Snippet* in the command palette or the quick menu.
 
-### 230. Find IFS Files by Name — new
+### 233. Find IFS Files by Name — new in 3.3
 
 - **What:** Find stream files by name or pattern (*.rpgle, order…) under a folder and all its subfolders, and open one.
 - **Why:** Find a file when you only remember part of its name.
 - **How:** Right-click a folder in the IFS view, the IFS view menu, the command palette or the quick menu. Right-click a file or folder to copy its path.
 
-### 231. Next and Previous Changed Block — new
+### 234. Next and Previous Changed Block — new in 3.3
 
 - **What:** Jump to the next or previous block of lines changed since the highlight date (or not saved yet).
 - **Why:** Walk through a change without scrolling.
 - **How:** Right-click in a member, or the command palette.
 
-### 232. Library Actions — new
+### 235. Library Actions — new in 3.3
 
 - **What:** Change the description of a library, copy it to a new library (CPYLIB), rename it, clear it or delete it. Clear and delete ask you to type the library name; IBM libraries (Q…, SYS…, #…) cannot be renamed, cleared or deleted from here, and the library list follows a rename or a delete.
 - **Why:** Manage libraries without a 5250 session.
 - **How:** Right-click a library in the Libraries view.
 
-### 233. Clear and Copy Table Data — new
+### 236. Clear and Copy Table Data — new in 3.3
 
 - **What:** Clear the rows of a table (CLRPFM, after typing its name), or copy its rows to another table: replace or add them, columns matched by name, or create the copy (CPYF).
 - **Why:** Reset test data or refresh a test table from production.
 - **How:** Right-click a file in the Libraries view.
 
-### 234. Generate CALL Statement — new
+### 237. Generate CALL Statement — new in 3.3
 
 - **What:** A ready-to-fill CALL (procedure), VALUES (scalar function) or SELECT … FROM TABLE() (table function), one named parameter per line with its mode and type, read from QSYS2.SYSROUTINES and SYSPARMS.
 - **Why:** Call a routine without looking up its parameters.
 - **How:** Right-click in an SQL file, the command palette or the quick menu.
 
-### 235. SQL from a JSON Sample — new
+### 238. SQL from a JSON Sample — new in 3.3
 
 - **What:** The selected (or copied) JSON turned into a VALUES JSON_OBJECT / JSON_ARRAY statement that returns it; replace the sample values with your columns.
 - **Why:** Build an API response in SQL from the JSON you were given.
 - **How:** Select JSON and right-click, or the command palette.
 
-### 236. Maintained Temporary Indexes — new
+### 239. Maintained Temporary Indexes — new in 3.3
 
 - **What:** The temporary indexes the query engine maintains (QSYS2.MTI_INFO), most used first.
 - **Why:** An MTI that queries use a lot is rebuilt after every IPL; a permanent index on the same keys saves that work.
 - **How:** The command palette or the quick menu.
+
+### 240. System Checks — new in 3.3
+
+- **What:** one menu (*System Checks…*) of all the system checks, with five new pages: **Backup freshness** (user libraries never saved or not saved for more than `vanthrex.backupDays` days), **Sign-on problems** (locked out, invalid attempts, passwords and profiles expired or expiring), **Job descriptions that name a user** (USER(name) instead of *RQD, with *PUBLIC authority), **User objects in IBM libraries** (QSYS, QSYS2, QGPL) and **Environment variables** (system and job, the well-known ones explained). The menu also leads to the System Health Overview, Lock Wait Chains, Limits Watch, Failed Jobs, System Diagnostics, Security Configuration, Fix Currency, Hardware and Devices, Network Configuration, Subsystem Setup and Save Files and Tapes.
+- **Why:** the questions asked when something feels wrong — "was this library saved?", "why can't this user sign on?", "can anyone run jobs as QSECOFR?", "will the upgrade wipe our command in QSYS?", "why does QSH not find Java?" — answered in one click instead of a WRK command and a manual search.
+- **How:** *System Checks (Backups, Sign-on, Security…)…* in the command palette or the quick menu (Ctrl+Alt+I). Every page only reads; a fix opens the CL prompter (F4), so nothing changes until you press Enter there.
+
+### 241. Developer Toolbox: 24 more tools, third batch — new in 3.3
+
+- **What:** 24 more tools in the Developer Toolbox (Ctrl+Alt+A), each also a command (*Vanthrex Tools: …*):
+  - **RPG recipes (`src/rpg/rpgRecipes.ts`):** Add an SQLSTATE check after every EXEC SQL; Insert GET DIAGNOSTICS (message of the last SQL error); Insert splitting a text into an array; Insert a FOR-EACH loop over an array; Insert sorting a data structure array by a subfield; Insert the first and last day of the month; Insert days, months and years between two dates; Insert SND-MSG (job log or escape message); Insert a multi-row FETCH (100 rows at a time); Insert a check that an object exists (SQL).
+  - **SQL recipes (`src/core/sqlRecipes.ts`):** Top rows per group (ROW_NUMBER); Add a running total column; Add the previous row's value and the change (LAG); Add each row's percent of the total; Pivot: one column per value; Values of a column as one list per group (LISTAGG); Rows that differ from another table (EXCEPT); Delete duplicate rows, keep the first (preview first); Missing numbers in a numbered column (gaps); Insert a recursive query (parent / child tree).
+  - **CL recipes (`src/core/clRecipes.ts`):** Insert a loop over the objects of a library; Insert a loop over the members of a file; Insert a QShell command that stops on failure; Insert a library list change that is put back.
+- **Why:** error handling that is easy to forget (an SQLSTATE check after every EXEC SQL), modern RPG that few remember the syntax of (FOR-EACH, SND-MSG, SORTA on a subfield, multi-row FETCH), the SQL analytic queries people search the web for (top rows per group, running totals, LAG, pivots, LISTAGG, gaps, duplicates, recursive trees), and the CL loops every shop writes again.
+- **How:** put the cursor in the source (or in the SELECT), press Ctrl+Alt+A and type a word of the tool; the SQL recipes add the new query below the statement. Ctrl+Z undoes any of them.
 
 ## Keyboard shortcuts
 
