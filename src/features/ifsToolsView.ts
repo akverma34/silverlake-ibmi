@@ -2,8 +2,8 @@
 import * as vscode from 'vscode';
 import { IbmiConnection } from '../core/connection';
 import {
-  checkIfsPath, checkMode, chgautCommand, chgownCommand, COMMON_CCSIDS, convertCcsidCommand, DATA_AUTHORITIES, ifsGrepCommand, parseGrep,
-  tagCcsidCommand,
+  checkIfsPath, checkMode, chgautCommand, chgownCommand, COMMON_CCSIDS, convertCcsidCommand, DATA_AUTHORITIES, ifsGrepCommand, ifsLockRows,
+  ifsLocksSql, jobShortName, parseGrep, tagCcsidCommand,
 } from '../core/ifsTools';
 import { errorMessage, logError } from '../core/log';
 import { ConnectionManager } from '../core/manager';
@@ -15,7 +15,7 @@ import { reportProgress, showReport } from './reportPanel';
 /** Commands the report pages may run (anything else posted by a webview is ignored). */
 const ALLOWED = new Set([
   'vscode.open', 'vanthrex.searchIfs', 'vanthrex.ifsPermissions', 'vanthrex.ifsPermissions.row', 'vanthrex.ifsCcsid',
-  'vanthrex.ifsCcsid.change',
+  'vanthrex.ifsCcsid.change', 'vanthrex.ifsLocks', 'vanthrex.jobLog', 'vanthrex.wrkactjob',
 ]);
 
 const progress = <T>(title: string, fn: () => Promise<T>) => vscode.window.withProgress({ location: vscode.ProgressLocation.Notification, title }, fn);
@@ -161,6 +161,52 @@ async function createIfs(manager: ConnectionManager, a?: unknown): Promise<void>
   else { vscode.window.setStatusBarMessage(vscode.l10n.t('Folder {0} created', path), 4000); }
 }
 
+type IfsArg = { path?: string; isDirectory?: boolean } | vscode.Uri | undefined;
+
+/** Who has an IFS file (or the files of a folder) open right now, and whether they keep others from writing it. */
+async function ifsLocks(manager: ConnectionManager, a?: IfsArg): Promise<void> {
+  const conn = manager.require();
+  let path: string | undefined; let folder: boolean | undefined;
+  if (a instanceof vscode.Uri) { path = a.path; folder = false; }
+  else if (a?.path) { path = a.path; folder = a.isDirectory; }
+  else {
+    const ed = vscode.window.activeTextEditor?.document.uri;
+    path = (await vscode.window.showInputBox({ title: vscode.l10n.t('Who has this IFS file locked?'), prompt: vscode.l10n.t('File or folder'), value: ed?.scheme === 'vanthrex-ifs' ? ed.path : conn.profile.ifsHome ?? '/home', ignoreFocusOut: true,
+      validateInput: v => { try { checkIfsPath(v); return undefined; } catch (e) { return errorMessage(e); } } }))?.trim();
+  }
+  if (!path) { return; }
+  path = checkIfsPath(path);
+  if (folder === undefined) { folder = await conn.stat(path).then(st => st.isDirectory(), () => false); }
+  let rows: Row[];
+  try {
+    rows = await reportProgress('ifsLocks', vscode.l10n.t('Reading from the IBM i…'), () => conn.rows<Row>(ifsLocksSql(path!, !!folder), 2000));
+  } catch (e) {
+    if (/SQL0204|SQL0440|42704|42884/.test(String(e))) { throw new Error(vscode.l10n.t('QSYS2.IFS_OBJECT_LOCK_INFO is not on this system (it needs IBM i 7.3 TR11, 7.4 TR5 or later).')); }
+    throw e;
+  }
+  const locks = ifsLockRows(rows);
+  const blocking = locks.filter(l => l.blocking);
+  showReport('ifsLocks', {
+    title: vscode.l10n.t('Who uses {0}', path),
+    subtitle: locks.length
+      ? vscode.l10n.t('{0} job(s) use {1} file(s). Jobs in red keep others from writing the file (or reading it). Click a job for its job log.', new Set(locks.map(l => l.job)).size, new Set(locks.map(l => l.path)).size)
+      : folder ? vscode.l10n.t('No job uses a file in this folder right now.') : vscode.l10n.t('No job uses this file right now.'),
+    facts: locks.length ? [[vscode.l10n.t('Jobs'), new Set(locks.map(l => l.job)).size], [vscode.l10n.t('Files in use'), new Set(locks.map(l => l.path)).size], [vscode.l10n.t('Blocking'), blocking.length]] : undefined,
+    actions: [
+      { label: vscode.l10n.t('Refresh'), command: 'vanthrex.ifsLocks', args: [{ path, isDirectory: folder }] },
+      ...(blocking.length ? [{ label: vscode.l10n.t('Work with the blocking jobs'), command: 'vanthrex.wrkactjob', args: [{ job: blocking.length === 1 ? jobShortName(blocking[0].job) : undefined, user: new Set(blocking.map(b => b.user)).size === 1 ? blocking[0].user : undefined }] }] : []),
+    ],
+    tables: locks.length ? [{
+      title: vscode.l10n.t('Jobs'), filter: locks.length > 10,
+      columns: [...(folder ? ['File'] : []), 'Job', 'User', 'Opens', 'How'],
+      rows: locks.map(l => [...(folder ? [l.path.slice(path!.length).replace(/^\//, '') || l.path] : []), l.job, l.user, l.refs, l.uses.join(', ')]),
+      rowActions: locks.map(l => ({ label: vscode.l10n.t('Job log'), command: 'vanthrex.jobLog', args: [{ job: l.job }] })),
+      rowClass: locks.map(l => (l.blocking ? 'bad' : undefined)),
+    }] : undefined,
+    note: vscode.l10n.t('Read from QSYS2.IFS_OBJECT_LOCK_INFO. A job that cannot save or replace a stream file (CPFA0A1, "Object is in use") is usually one of the red jobs; ending it or closing the file in it releases the file.'),
+  }, ALLOWED);
+}
+
 const TAIL = 'vanthrex-tail';
 
 class TailProvider implements vscode.TextDocumentContentProvider, vscode.Disposable {
@@ -195,6 +241,7 @@ export function registerIfsTools(context: vscode.ExtensionContext, manager: Conn
     vscode.commands.registerCommand('vanthrex.ifsPermissions.row', guard((p: string, u: string, d: boolean) => ifsPermissionRow(manager, p, u, !!d))),
     vscode.commands.registerCommand('vanthrex.ifsCcsid', guard((n?: { path?: string; isDirectory?: boolean }) => ifsCcsid(manager, n))),
     vscode.commands.registerCommand('vanthrex.ifsCcsid.change', guard((p: string, many: boolean) => changeCcsid(manager, p, !!many))),
+    vscode.commands.registerCommand('vanthrex.ifsLocks', guard((a?: IfsArg) => ifsLocks(manager, a))),
     vscode.commands.registerCommand('vanthrex.createIfs', guard((a?: unknown) => createIfs(manager, a))),
     tail,
     vscode.workspace.registerTextDocumentContentProvider(TAIL, tail),

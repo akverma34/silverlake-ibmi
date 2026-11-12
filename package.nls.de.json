@@ -342,6 +342,7 @@
   "command.journals.row": "Journaloptionen",
   "command.ifsPermissions": "Berechtigungen…",
   "command.ifsPermissions.row": "Berechtigung ändern…",
+  "command.ifsLocks": "Wer hat es gesperrt?",
   "command.compareStructure": "Tabellenstruktur vergleichen…",
   "command.compareStructure.script": "ALTER-Script öffnen",
   "command.unusedCode": "Nicht verwendeten Code suchen",

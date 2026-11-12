@@ -1570,6 +1570,12 @@
         "category": "Vanthrex"
       },
       {
+        "command": "vanthrex.ifsLocks",
+        "title": "%command.ifsLocks%",
+        "category": "Vanthrex",
+        "icon": "$(lock)"
+      },
+      {
         "command": "vanthrex.compareStructure",
         "title": "%command.compareStructure%",
         "category": "Vanthrex",
@@ -4692,6 +4698,11 @@
           "group": "1_open@7"
         },
         {
+          "command": "vanthrex.ifsLocks",
+          "when": "view == vanthrex.ifs && viewItem =~ /^ifs/",
+          "group": "1_open@8"
+        },
+        {
           "command": "vanthrex.jobDetails",
           "when": "view == vanthrex.jobs && viewItem =~ /^job/",
           "group": "1_job@-1"
@@ -5229,6 +5240,11 @@
           "command": "vanthrex.showHistory",
           "when": "resourceScheme =~ /^vanthrex-(member|ifs)$/",
           "group": "vanthrex@5"
+        },
+        {
+          "command": "vanthrex.ifsLocks",
+          "when": "vanthrex.connected && resourceScheme == vanthrex-ifs",
+          "group": "vanthrex@6"
         },
         {
           "command": "vanthrex.prompt",
