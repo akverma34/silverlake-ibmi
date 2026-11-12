@@ -41,3 +41,28 @@ test('busy file message after a failed save', () => {
   assert.strictEqual(v.busyFileMessage('/a/x.txt', []), undefined);
   assert.strictEqual(v.busyFileMessage('/a/other.txt', locks), undefined);
 });
+
+test('job info SQL for the lock page', () => {
+  const one = v.lockJobsInfoSql(['123456/BOB/QZDASOINIT', '123457/ANN/QZDASOINIT', 'junk', "1/x'/y"]);
+  assert.match(one, /JOB_NAME_FILTER => 'QZDASOINIT'/);
+  assert.match(one, /WHERE JOB_NAME IN \('123456\/BOB\/QZDASOINIT', '123457\/ANN\/QZDASOINIT'\)$/);
+  const two = v.lockJobsInfoSql(['123456/BOB/J1', '123457/ANN/J2', '123456/bob/j1']);
+  assert.doesNotMatch(two, /JOB_NAME_FILTER/);
+  assert.match(two, /IN \('123456\/BOB\/J1', '123457\/ANN\/J2'\)$/);
+  assert.strictEqual(v.lockJobsInfoSql(['nope', '']), undefined);
+});
+
+test('job status in plain words', () => {
+  assert.strictEqual(v.jobStatusText('msgw'), 'waiting for a reply (MSGW)');
+  assert.strictEqual(v.jobStatusText('XYZW'), 'XYZW');
+  assert.strictEqual(v.jobStatusText(' '), '');
+});
+
+test('when a watched file counts as free', () => {
+  const blocking = { path: '/a', job: '1/A/B', user: 'A', refs: 1, uses: [], blocking: true };
+  const reader = { ...blocking, blocking: false };
+  assert.strictEqual(v.ifsLockFree([reader], true), true);
+  assert.strictEqual(v.ifsLockFree([reader, blocking], true), false);
+  assert.strictEqual(v.ifsLockFree([reader], false), false);
+  assert.strictEqual(v.ifsLockFree([], false), true);
+});

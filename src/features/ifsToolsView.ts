@@ -3,7 +3,7 @@ import * as vscode from 'vscode';
 import { IbmiConnection } from '../core/connection';
 import {
   checkIfsPath, checkMode, chgautCommand, chgownCommand, COMMON_CCSIDS, convertCcsidCommand, DATA_AUTHORITIES, ifsGrepCommand, ifsLockRows,
-  ifsLocksSql, jobShortName, parseGrep, tagCcsidCommand,
+  ifsLockFree, ifsLocksSql, jobShortName, jobStatusText, lockJobsInfoSql, parseGrep, tagCcsidCommand,
 } from '../core/ifsTools';
 import { errorMessage, logError } from '../core/log';
 import { ConnectionManager } from '../core/manager';
@@ -15,7 +15,7 @@ import { reportProgress, showReport } from './reportPanel';
 /** Commands the report pages may run (anything else posted by a webview is ignored). */
 const ALLOWED = new Set([
   'vscode.open', 'vanthrex.searchIfs', 'vanthrex.ifsPermissions', 'vanthrex.ifsPermissions.row', 'vanthrex.ifsCcsid',
-  'vanthrex.ifsCcsid.change', 'vanthrex.ifsLocks', 'vanthrex.jobLog', 'vanthrex.wrkactjob',
+  'vanthrex.ifsCcsid.change', 'vanthrex.ifsLocks', 'vanthrex.ifsLocks.watch', 'vanthrex.jobLog', 'vanthrex.wrkactjob',
 ]);
 
 const progress = <T>(title: string, fn: () => Promise<T>) => vscode.window.withProgress({ location: vscode.ProgressLocation.Notification, title }, fn);
@@ -186,26 +186,66 @@ async function ifsLocks(manager: ConnectionManager, a?: IfsArg): Promise<void> {
   }
   const locks = ifsLockRows(rows);
   const blocking = locks.filter(l => l.blocking);
+  // What each job is doing (best effort: a job that ended in between, or one we may not see, just has no status).
+  const info = new Map<string, Row>();
+  const infoSql = lockJobsInfoSql(locks.map(l => l.job));
+  if (infoSql) { (await conn.rows<Row>(infoSql, 1000).catch(e => { logError(e); return [] as Row[]; })).forEach(r => info.set(s(r, 'J'), r)); }
+  const status = (job: string) => { const r = info.get(job); return r ? jobStatusText(s(r, 'ST')) : vscode.l10n.t('not active'); };
+  const doing = (job: string) => { const r = info.get(job); return r ? [s(r, 'F').replace(/^-/, ''), s(r, 'S')].filter(Boolean).join(' · ') : ''; };
+  const stuck = new Set(locks.filter(l => s(info.get(l.job), 'ST') === 'MSGW').map(l => l.job));
   showReport('ifsLocks', {
     title: subtree && folder ? vscode.l10n.t('Who uses {0} and its subfolders', path) : vscode.l10n.t('Who uses {0}', path),
     subtitle: locks.length
       ? vscode.l10n.t('{0} job(s) use {1} file(s). Jobs in red keep others from writing the file (or reading it). Click a job for its job log.', new Set(locks.map(l => l.job)).size, new Set(locks.map(l => l.path)).size)
       : folder ? (subtree ? vscode.l10n.t('No job uses a file in this folder or its subfolders right now.') : vscode.l10n.t('No job uses a file in this folder right now.')) : vscode.l10n.t('No job uses this file right now.'),
-    facts: locks.length ? [[vscode.l10n.t('Jobs'), new Set(locks.map(l => l.job)).size], [vscode.l10n.t('Files in use'), new Set(locks.map(l => l.path)).size], [vscode.l10n.t('Blocking'), blocking.length]] : undefined,
+    facts: locks.length ? [[vscode.l10n.t('Jobs'), new Set(locks.map(l => l.job)).size], [vscode.l10n.t('Files in use'), new Set(locks.map(l => l.path)).size], [vscode.l10n.t('Blocking'), blocking.length],
+      ...(stuck.size ? [[vscode.l10n.t('Waiting for a reply'), stuck.size] as [string, number]] : [])] : undefined,
     actions: [
       { label: vscode.l10n.t('Refresh'), command: 'vanthrex.ifsLocks', args: [{ path, isDirectory: folder, subtree }] },
       ...(folder && !subtree && path !== '/' ? [{ label: vscode.l10n.t('Include subfolders'), command: 'vanthrex.ifsLocks', args: [{ path, isDirectory: true, subtree: true }] }] : []),
+      ...(locks.length && !folder ? [{ label: vscode.l10n.t('Tell me when it is free'), command: 'vanthrex.ifsLocks.watch', args: [path, blocking.length > 0] }] : []),
       ...(blocking.length ? [{ label: vscode.l10n.t('Work with the blocking jobs'), command: 'vanthrex.wrkactjob', args: [{ job: blocking.length === 1 ? jobShortName(blocking[0].job) : undefined, user: new Set(blocking.map(b => b.user)).size === 1 ? blocking[0].user : undefined }] }] : []),
     ],
     tables: locks.length ? [{
       title: vscode.l10n.t('Jobs'), filter: locks.length > 10,
-      columns: [...(folder ? ['File'] : []), 'Job', 'User', 'Opens', 'How'],
-      rows: locks.map(l => [...(folder ? [l.path.slice(path!.length).replace(/^\//, '') || l.path] : []), l.job, l.user, l.refs, l.uses.join(', ')]),
+      columns: [...(folder ? ['File'] : []), 'Job', 'User', 'Status', 'Doing', 'Opens', 'How'],
+      rows: locks.map(l => [...(folder ? [l.path.slice(path!.length).replace(/^\//, '') || l.path] : []), l.job, l.user, status(l.job), doing(l.job), l.refs, l.uses.join(', ')]),
       rowActions: locks.map(l => ({ label: vscode.l10n.t('Job log'), command: 'vanthrex.jobLog', args: [{ job: l.job }] })),
-      rowClass: locks.map(l => (l.blocking ? 'bad' : undefined)),
+      rowClass: locks.map(l => (l.blocking ? 'bad' : stuck.has(l.job) ? 'different' : undefined)),
     }] : undefined,
     note: vscode.l10n.t('Read from QSYS2.IFS_OBJECT_LOCK_INFO. A job that cannot save or replace a stream file (CPFA0A1, "Object is in use") is usually one of the red jobs; ending it or closing the file in it releases the file.'),
   }, ALLOWED);
+}
+
+const watching = new Set<string>();
+
+/** Poll a busy stream file every 10 seconds (for up to 30 minutes) and say when it can be written again. */
+async function watchIfsLock(manager: ConnectionManager, path: string, untilNoBlocking: boolean): Promise<void> {
+  const conn = manager.require();
+  const key = `${conn.profile.name}:${path}`;
+  if (watching.has(key)) { vscode.window.showInformationMessage(vscode.l10n.t('Already watching {0}.', path)); return; }
+  watching.add(key);
+  try {
+    const free = await vscode.window.withProgress({ location: vscode.ProgressLocation.Notification, title: vscode.l10n.t('Watching {0}', path), cancellable: true }, async (progress, token) => {
+      const until = Date.now() + 30 * 60_000;
+      while (!token.isCancellationRequested && Date.now() < until) {
+        if (manager.connection !== conn) { return undefined; }
+        const locks = ifsLockRows(await conn.rows<Row>(ifsLocksSql(path, false, 200), 200));
+        if (ifsLockFree(locks, untilNoBlocking)) { return true; }
+        progress.report({ message: untilNoBlocking
+          ? vscode.l10n.t('{0} job(s) still keep others from writing it', new Set(locks.filter(l => l.blocking).map(l => l.job)).size)
+          : vscode.l10n.t('{0} job(s) still have it open', new Set(locks.map(l => l.job)).size) });
+        await new Promise<void>(r => { const t = setTimeout(r, 10_000); token.onCancellationRequested(() => { clearTimeout(t); r(); }); });
+      }
+      return token.isCancellationRequested ? undefined : false;
+    });
+    if (free === true) {
+      const open = vscode.l10n.t('Open');
+      if (await vscode.window.showInformationMessage(vscode.l10n.t('{0} is free now.', path), open) === open) { await vscode.window.showTextDocument(ifsUri(path), { preview: false }); }
+    } else if (free === false) {
+      vscode.window.showWarningMessage(vscode.l10n.t('{0} is still in use after 30 minutes; stopped watching.', path));
+    }
+  } finally { watching.delete(key); }
 }
 
 const TAIL = 'vanthrex-tail';
@@ -243,6 +283,7 @@ export function registerIfsTools(context: vscode.ExtensionContext, manager: Conn
     vscode.commands.registerCommand('vanthrex.ifsCcsid', guard((n?: { path?: string; isDirectory?: boolean }) => ifsCcsid(manager, n))),
     vscode.commands.registerCommand('vanthrex.ifsCcsid.change', guard((p: string, many: boolean) => changeCcsid(manager, p, !!many))),
     vscode.commands.registerCommand('vanthrex.ifsLocks', guard((a?: IfsArg) => ifsLocks(manager, a))),
+    vscode.commands.registerCommand('vanthrex.ifsLocks.watch', guard((p: string, b: boolean) => watchIfsLock(manager, p, !!b))),
     vscode.commands.registerCommand('vanthrex.createIfs', guard((a?: unknown) => createIfs(manager, a))),
     tail,
     vscode.workspace.registerTextDocumentContentProvider(TAIL, tail),

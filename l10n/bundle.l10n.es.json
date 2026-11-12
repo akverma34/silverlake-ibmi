@@ -4280,5 +4280,13 @@
   "$(server-process) Subsystem setup": "$(server-process) Configuración de subsistemas",
   "Autostart and prestart jobs, routing and job queue entries of a subsystem": "Trabajos de inicio automático y preiniciados, entradas de direccionamiento y de cola de trabajos de un subsistema",
   "$(save-all) Save files and tapes": "$(save-all) Archivos de salvar y cintas",
-  "Save files with what and when they saved, tape cartridges and media libraries": "Archivos de salvar con qué y cuándo guardaron, cartuchos de cinta y bibliotecas de soportes"
+  "Save files with what and when they saved, tape cartridges and media libraries": "Archivos de salvar con qué y cuándo guardaron, cartuchos de cinta y bibliotecas de soportes",
+  "not active": "no activo",
+  "Tell me when it is free": "Avisarme cuando quede libre",
+  "Already watching {0}.": "Ya se está vigilando {0}.",
+  "Watching {0}": "Vigilando {0}",
+  "{0} job(s) still keep others from writing it": "{0} trabajo(s) aún impiden a otros escribirlo",
+  "{0} job(s) still have it open": "{0} trabajo(s) aún lo tienen abierto",
+  "{0} is free now.": "{0} ya está libre.",
+  "{0} is still in use after 30 minutes; stopped watching.": "{0} sigue en uso tras 30 minutos; se deja de vigilar."
 }
