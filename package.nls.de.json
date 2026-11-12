@@ -343,6 +343,7 @@
   "command.ifsPermissions": "Berechtigungen…",
   "command.ifsPermissions.row": "Berechtigung ändern…",
   "command.ifsLocks": "Wer hat es gesperrt?",
+  "command.ifsLocks.watch": "Benachrichtigen, wenn frei",
   "command.compareStructure": "Tabellenstruktur vergleichen…",
   "command.compareStructure.script": "ALTER-Script öffnen",
   "command.unusedCode": "Nicht verwendeten Code suchen",

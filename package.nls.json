@@ -343,6 +343,7 @@
   "command.ifsPermissions": "Permissions…",
   "command.ifsPermissions.row": "Change Permission…",
   "command.ifsLocks": "Who Has It Locked?",
+  "command.ifsLocks.watch": "Tell Me When It Is Free",
   "command.compareStructure": "Compare Table Structure…",
   "command.compareStructure.script": "Open ALTER Script",
   "command.unusedCode": "Find Unused Code",

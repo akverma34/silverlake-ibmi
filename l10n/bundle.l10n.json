@@ -4270,5 +4270,13 @@
   "$(server-process) Subsystem setup": "$(server-process) Subsystem setup",
   "Autostart and prestart jobs, routing and job queue entries of a subsystem": "Autostart and prestart jobs, routing and job queue entries of a subsystem",
   "$(save-all) Save files and tapes": "$(save-all) Save files and tapes",
-  "Save files with what and when they saved, tape cartridges and media libraries": "Save files with what and when they saved, tape cartridges and media libraries"
+  "Save files with what and when they saved, tape cartridges and media libraries": "Save files with what and when they saved, tape cartridges and media libraries",
+  "not active": "not active",
+  "Tell me when it is free": "Tell me when it is free",
+  "Already watching {0}.": "Already watching {0}.",
+  "Watching {0}": "Watching {0}",
+  "{0} job(s) still keep others from writing it": "{0} job(s) still keep others from writing it",
+  "{0} job(s) still have it open": "{0} job(s) still have it open",
+  "{0} is free now.": "{0} is free now.",
+  "{0} is still in use after 30 minutes; stopped watching.": "{0} is still in use after 30 minutes; stopped watching."
 }

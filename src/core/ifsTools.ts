@@ -116,3 +116,38 @@ export function busyFileMessage(path: string, locks: IfsLock[]): { jobs: number;
   if (!mine.length) { return undefined; }
   return { jobs: new Set(mine.map(l => l.job)).size, blocking: new Set(mine.filter(l => l.blocking).map(l => l.job)).size };
 }
+
+const QUALIFIED_JOB = /^\d{6}\/[A-Z0-9$#@_.]{1,10}\/[A-Z0-9$#@_.]{1,10}$/i;
+
+/** Status, type, function and subsystem of the jobs on the lock page (ACTIVE_JOB_INFO); undefined when none is valid. */
+export function lockJobsInfoSql(jobs: string[]): string | undefined {
+  const list = [...new Set(jobs.map(j => j.trim().toUpperCase()).filter(j => QUALIFIED_JOB.test(j)))].slice(0, 500);
+  if (!list.length) { return undefined; }
+  const names = new Set(list.map(jobShortName));
+  const args = [`DETAILED_INFO => 'NONE'`, ...(names.size === 1 ? [`JOB_NAME_FILTER => ${sqlQ([...names][0])}`] : [])];
+  return `SELECT JOB_NAME AS J, COALESCE(JOB_STATUS, '') AS ST, COALESCE(JOB_TYPE, '') AS T, COALESCE(SUBSYSTEM, '') AS S, ` +
+    `COALESCE(FUNCTION_TYPE, '') || CASE WHEN FUNCTION IS NULL THEN '' ELSE '-' || FUNCTION END AS F ` +
+    `FROM TABLE(QSYS2.ACTIVE_JOB_INFO(${args.join(', ')})) X WHERE JOB_NAME IN (${list.map(sqlQ).join(', ')})`;
+}
+
+const STATUS_TEXT: Record<string, string> = {
+  MSGW: 'waiting for a reply', LCKW: 'waiting for a lock', RUN: 'running', TIMW: 'waiting (time)', DEQW: 'waiting for a data queue',
+  SELW: 'waiting on a socket', EVTW: 'waiting for an event', ICFW: 'waiting for communications', DSPW: 'waiting at a display',
+  JVAW: 'waiting in Java', THDW: 'waiting for a thread', SEMW: 'waiting for a semaphore', CNDW: 'waiting on a condition',
+  DLYW: 'delayed (DLYJOB)', HLD: 'held', HLDT: 'held', SIGW: 'waiting for a signal', END: 'ending', EOJ: 'ending',
+};
+
+/** IBM i job status in plain words, the code kept in brackets ("waiting for a reply (MSGW)"). */
+export function jobStatusText(status: string): string {
+  const s = status.trim().toUpperCase();
+  if (!s) { return ''; }
+  return STATUS_TEXT[s] ? `${STATUS_TEXT[s]} (${s})` : s;
+}
+
+/**
+ * Whether a watched file counts as free: when jobs kept others from writing it at the start, free once none does;
+ * otherwise free once no job has it open at all.
+ */
+export function ifsLockFree(locks: IfsLock[], untilNoBlocking: boolean): boolean {
+  return untilNoBlocking ? !locks.some(l => l.blocking) : locks.length === 0;
+}

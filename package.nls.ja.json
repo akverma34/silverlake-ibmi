@@ -343,6 +343,7 @@
   "command.ifsPermissions": "許可…",
   "command.ifsPermissions.row": "許可の変更…",
   "command.ifsLocks": "誰がロックしていますか?",
+  "command.ifsLocks.watch": "解放されたら通知",
   "command.compareStructure": "表構造の比較…",
   "command.compareStructure.script": "ALTER スクリプトを開く",
   "command.unusedCode": "未使用コードの検索",

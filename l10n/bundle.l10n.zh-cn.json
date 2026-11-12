@@ -4280,5 +4280,13 @@
   "$(server-process) Subsystem setup": "$(server-process) 子系统设置",
   "Autostart and prestart jobs, routing and job queue entries of a subsystem": "子系统的自动启动作业、预启动作业、路由条目和作业队列条目",
   "$(save-all) Save files and tapes": "$(save-all) 保存文件和磁带",
-  "Save files with what and when they saved, tape cartridges and media libraries": "保存文件（保存内容与时间）、磁带盒和介质库"
+  "Save files with what and when they saved, tape cartridges and media libraries": "保存文件（保存内容与时间）、磁带盒和介质库",
+  "not active": "未活动",
+  "Tell me when it is free": "释放后通知我",
+  "Already watching {0}.": "已在监视 {0}。",
+  "Watching {0}": "正在监视 {0}",
+  "{0} job(s) still keep others from writing it": "仍有 {0} 个作业阻止其他作业写入",
+  "{0} job(s) still have it open": "仍有 {0} 个作业打开了它",
+  "{0} is free now.": "{0} 现已释放。",
+  "{0} is still in use after 30 minutes; stopped watching.": "{0} 30 分钟后仍在使用中;已停止监视。"
 }

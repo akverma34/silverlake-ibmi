@@ -623,7 +623,7 @@ Needs a Mapepire SQL engine (the cross-reference is built with DSPPGMREF in QTEM
 - **Installed Software and License Keys**, **Is This PTF Installed?…** (quick menu).
 - **Journals** (quick menu or right-click a library): receivers, size, objects journaled; change receiver; STRJRNLIB.
 - **Permissions…** on an IFS file or folder: data authorities and owner, with changes for one object or a whole folder tree.
-- **Who Has It Locked?** on an IFS file or folder (or in the editor of an IFS file): the jobs that have it open, with the ones keeping others from writing it in red, and a click to their job log — the answer to CPFA0A1 "Object is in use". On a folder, *Include subfolders* checks the whole tree; a failed save of an IFS file that other jobs have open offers the page by itself.
+- **Who Has It Locked?** on an IFS file or folder (or in the editor of an IFS file): the jobs that have it open, with the ones keeping others from writing it in red, and a click to their job log — the answer to CPFA0A1 "Object is in use". On a folder, *Include subfolders* checks the whole tree; a failed save of an IFS file that other jobs have open offers the page by itself. Each job shows its status (MSGW, LCKW… in plain words), function and subsystem, and *Tell me when it is free* notifies you once the file can be written again.
 - **Work with Message Queue…**: any message queue — reply, remove, explain, sender's job log, send.
 
 ### 66. Code and database quality — new in 2.1

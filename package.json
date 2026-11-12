@@ -1576,6 +1576,11 @@
         "icon": "$(lock)"
       },
       {
+        "command": "vanthrex.ifsLocks.watch",
+        "title": "%command.ifsLocks.watch%",
+        "category": "Vanthrex"
+      },
+      {
         "command": "vanthrex.compareStructure",
         "title": "%command.compareStructure%",
         "category": "Vanthrex",
@@ -6044,6 +6049,10 @@
         },
         {
           "command": "vanthrex.ifsPermissions.row",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.ifsLocks.watch",
           "when": "false"
         },
         {

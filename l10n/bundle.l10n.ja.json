@@ -4280,5 +4280,13 @@
   "$(server-process) Subsystem setup": "$(server-process) サブシステムの構成",
   "Autostart and prestart jobs, routing and job queue entries of a subsystem": "サブシステムの自動開始ジョブ、事前開始ジョブ、経路指定項目、ジョブ待ち行列項目",
   "$(save-all) Save files and tapes": "$(save-all) 保管ファイルとテープ",
-  "Save files with what and when they saved, tape cartridges and media libraries": "保管ファイル (内容と保管日時)、テープ・カートリッジ、メディア・ライブラリー"
+  "Save files with what and when they saved, tape cartridges and media libraries": "保管ファイル (内容と保管日時)、テープ・カートリッジ、メディア・ライブラリー",
+  "not active": "アクティブでない",
+  "Tell me when it is free": "解放されたら通知",
+  "Already watching {0}.": "{0} は既に監視中です。",
+  "Watching {0}": "{0} を監視中",
+  "{0} job(s) still keep others from writing it": "{0} 個のジョブがまだ他のジョブの書き込みを妨げています",
+  "{0} job(s) still have it open": "{0} 個のジョブがまだ開いています",
+  "{0} is free now.": "{0} は解放されました。",
+  "{0} is still in use after 30 minutes; stopped watching.": "{0} は 30 分後もまだ使用中のため、監視を停止しました。"
 }

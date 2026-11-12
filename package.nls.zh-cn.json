@@ -343,6 +343,7 @@
   "command.ifsPermissions": "许可权…",
   "command.ifsPermissions.row": "更改许可权…",
   "command.ifsLocks": "谁锁定了它?",
+  "command.ifsLocks.watch": "释放后通知我",
   "command.compareStructure": "比较表结构…",
   "command.compareStructure.script": "打开 ALTER 脚本",
   "command.unusedCode": "查找未使用的代码",
