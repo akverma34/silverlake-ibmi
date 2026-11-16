@@ -105,3 +105,85 @@ export function buildProblems(output: string): { messages: string[]; failed: boo
   const failed = /\b(make|gmake)\S*: \*\*\*|\bError\b.*\bfailed\b|\bFAILED\b|exit code [1-9]|Build failed/i.test(output);
   return { messages: [...ids].slice(0, 30), failed };
 }
+
+// ---------------------------------------------------------------- deploy methods (as in Code for IBM i)
+
+export type DeployMethod = 'changed' | 'compare' | 'git' | 'all';
+
+const CRC_TABLE = (() => {
+  const t = new Uint32Array(256);
+  for (let i = 0; i < 256; i++) {
+    let c = i << 24;
+    for (let j = 0; j < 8; j++) { c = c & 0x80000000 ? (c << 1) ^ 0x04c11db7 : c << 1; }
+    t[i] = c >>> 0;
+  }
+  return t;
+})();
+
+/** The POSIX `cksum` checksum of some bytes (the same number the IBM i PASE `cksum` command prints). */
+export function posixCksum(data: Uint8Array): number {
+  let crc = 0;
+  const step = (b: number) => { crc = ((crc << 8) ^ CRC_TABLE[((crc >>> 24) ^ b) & 0xff]) >>> 0; };
+  for (let i = 0; i < data.length; i++) { step(data[i]); }
+  for (let n = data.length; n > 0; n = Math.floor(n / 256)) { step(n & 0xff); }
+  return ~crc >>> 0;
+}
+
+/** PASE command that prints `crc size ./path` for every file below the deploy folder (nothing when it does not exist yet). */
+export function remoteChecksumCommand(dir: string): string {
+  return `if [ -d ${shq(dir)} ]; then cd ${shq(dir)} && /QOpenSys/usr/bin/find . -type f -exec /QOpenSys/usr/bin/cksum {} + 2>/dev/null; fi`;
+}
+
+/** The output of remoteChecksumCommand by workspace-relative path. */
+export function parseCksum(output: string): Map<string, { crc: number; size: number }> {
+  const out = new Map<string, { crc: number; size: number }>();
+  for (const line of output.split('\n')) {
+    const m = /^(\d+)\s+(\d+)\s+(.+)$/.exec(line.replace(/\r$/, ''));
+    if (m) { out.set(toPosix(m[3]), { crc: Number(m[1]), size: Number(m[2]) }); }
+  }
+  return out;
+}
+
+/** Compare deploy: upload what differs from the IFS (or is missing there); files only on the IFS are reported, never deleted. */
+export function planCompare(local: { rel: string; crc: number; size: number }[], remote: Map<string, { crc: number; size: number }>, ignore: string[]):
+  { upload: string[]; unchanged: number; remoteOnly: string[] } {
+  const kept = local.filter(f => !matchesIgnore(f.rel, ignore));
+  const upload: string[] = [];
+  let unchanged = 0;
+  for (const f of kept) {
+    const r = remote.get(toPosix(f.rel));
+    if (r && r.crc === f.crc && r.size === f.size) { unchanged++; } else { upload.push(toPosix(f.rel)); }
+  }
+  const mine = new Set(kept.map(f => toPosix(f.rel)));
+  const remoteOnly = [...remote.keys()].filter(k => !mine.has(k) && !matchesIgnore(k, ignore)).sort();
+  return { upload: upload.sort(), unchanged, remoteOnly };
+}
+
+/**
+ * Files changed in Git (`git status --porcelain=v1 -z --untracked-files=all`): modified, staged, added, renamed or new,
+ * not deleted, relative to the workspace folder (`prefix` = `git rev-parse --show-prefix`), ignore list applied.
+ */
+export function parseGitStatus(z: string, prefix: string, ignore: string[] = []): string[] {
+  const parts = z.split('\0');
+  const pre = toPosix(prefix).replace(/\/?$/, prefix ? '/' : '');
+  const out = new Set<string>();
+  for (let i = 0; i < parts.length; i++) {
+    const e = parts[i];
+    if (e.length < 4) { continue; }
+    const xy = e.slice(0, 2); const path = toPosix(e.slice(3));
+    if (xy[0] === 'R' || xy[0] === 'C') { i++; } // the next entry is the old name of a rename / copy
+    if (xy.includes('D') || xy === '!!') { continue; }
+    if (pre && !path.startsWith(pre)) { continue; }
+    const rel = path.slice(pre.length);
+    if (rel && !rel.endsWith('/') && !matchesIgnore(rel, ignore)) { out.add(rel); }
+  }
+  return [...out].sort();
+}
+
+/** `rm -f` commands for deleted files in the deploy folder, 100 per command. */
+export function removeCommands(dir: string, rels: string[]): string[] {
+  const paths = rels.map(r => shq(remotePathFor(dir, r)));
+  const out: string[] = [];
+  for (let i = 0; i < paths.length; i += 100) { out.push(`rm -f ${paths.slice(i, i + 100).join(' ')}`); }
+  return out;
+}

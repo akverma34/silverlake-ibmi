@@ -999,5 +999,13 @@
   "command.ifsSort": "Ordenar por nombre / fecha",
   "config.ifs.showHiddenFiles": "Mostrar en la vista IFS los archivos y carpetas cuyo nombre empieza por un punto (.profile, .git…).",
   "config.ifs.sortBy": "Orden de la vista IFS: por nombre o los más recientes primero. Las carpetas siempre van primero.",
-  "config.compileActions.environment": "Dónde se ejecuta el mandato: ile (un mandato CL), pase (un mandato de shell en la carpeta del archivo) o qsh (QShell)."
+  "config.compileActions.environment": "Dónde se ejecuta el mandato: ile (un mandato CL), pase (un mandato de shell en la carpeta del archivo) o qsh (QShell).",
+  "command.deployCompare": "Desplegar comparando con el IFS (sumas de comprobación)",
+  "command.deployGit": "Desplegar los cambios de Git en IBM i (IFS)",
+  "command.deployCleanup": "Eliminar del IFS los archivos eliminados localmente…",
+  "config.deploy.method": "Qué sube *Desplegar cambios* (y Construir) a la carpeta de despliegue del IFS. Como en Code for IBM i.",
+  "config.deploy.method.changed": "Archivos cambiados desde el último despliegue desde este PC (rápido).",
+  "config.deploy.method.compare": "Archivos cuya suma de comprobación difiere de la copia en la carpeta del IFS, o que faltan allí (encuentra cambios hechos desde otro PC o en el IBM i).",
+  "config.deploy.method.git": "Archivos cambiados en Git: modificados, preparados y nuevos (no ignorados por Git).",
+  "config.deploy.method.all": "Todos los archivos."
 }

@@ -2011,6 +2011,21 @@
         "category": "Vanthrex"
       },
       {
+        "command": "vanthrex.deployCompare",
+        "title": "%command.deployCompare%",
+        "category": "Vanthrex"
+      },
+      {
+        "command": "vanthrex.deployGit",
+        "title": "%command.deployGit%",
+        "category": "Vanthrex"
+      },
+      {
+        "command": "vanthrex.deployCleanup",
+        "title": "%command.deployCleanup%",
+        "category": "Vanthrex"
+      },
+      {
         "command": "vanthrex.compileLocal",
         "title": "%command.compileLocal%",
         "category": "Vanthrex",
@@ -6492,6 +6507,18 @@
           "when": "vanthrex.connected"
         },
         {
+          "command": "vanthrex.deployCompare",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.deployGit",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.deployCleanup",
+          "when": "vanthrex.connected"
+        },
+        {
           "command": "vanthrex.compileLocal",
           "when": "vanthrex.connected"
         },
@@ -7947,6 +7974,16 @@
           "group": "7_vanthrex@1"
         },
         {
+          "command": "vanthrex.deployCompare",
+          "when": "vanthrex.connected && explorerResourceIsRoot",
+          "group": "7_vanthrex@1.1"
+        },
+        {
+          "command": "vanthrex.deployGit",
+          "when": "vanthrex.connected && explorerResourceIsRoot",
+          "group": "7_vanthrex@1.2"
+        },
+        {
           "command": "vanthrex.compileLocal",
           "when": "vanthrex.connected && !explorerResourceIsFolder && resourceExtname =~ /^\\.(rpgle|sqlrpgle|clle|clp|cmd|sql|pf|lf|dspf|prtf)$/i",
           "group": "7_vanthrex@2"
@@ -9310,6 +9347,24 @@
           "type": "boolean",
           "default": false,
           "markdownDescription": "%config.deploy.onSave%"
+        },
+        "vanthrex.deploy.method": {
+          "type": "string",
+          "enum": [
+            "changed",
+            "compare",
+            "git",
+            "all"
+          ],
+          "default": "changed",
+          "enumDescriptions": [
+            "%config.deploy.method.changed%",
+            "%config.deploy.method.compare%",
+            "%config.deploy.method.git%",
+            "%config.deploy.method.all%"
+          ],
+          "markdownDescription": "%config.deploy.method%",
+          "scope": "resource"
         },
         "vanthrex.deploy.compileDeploysChanges": {
           "type": "boolean",

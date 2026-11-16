@@ -999,5 +999,13 @@
   "command.ifsSort": "按名称 / 日期排序",
   "config.ifs.showHiddenFiles": "在 IFS 视图中显示名称以点开头的文件和文件夹 (.profile、.git…)。",
   "config.ifs.sortBy": "IFS 视图的顺序:按名称,或最新的在前。文件夹始终在前。",
-  "config.compileActions.environment": "命令运行的位置:ile(CL 命令)、pase(在文件所在文件夹中的 shell 命令)或 qsh(QShell)。"
+  "config.compileActions.environment": "命令运行的位置:ile(CL 命令)、pase(在文件所在文件夹中的 shell 命令)或 qsh(QShell)。",
+  "command.deployCompare": "通过与 IFS 比较进行部署(校验和)",
+  "command.deployGit": "将 Git 更改部署到 IBM i (IFS)",
+  "command.deployCleanup": "从 IFS 中删除本地已删除的文件…",
+  "config.deploy.method": "*部署更改*(以及构建)上传到 IFS 部署文件夹的内容。与 Code for IBM i 相同。",
+  "config.deploy.method.changed": "自上次从此 PC 部署以来更改的文件(快速)。",
+  "config.deploy.method.compare": "校验和与 IFS 文件夹中的副本不同或在那里缺失的文件(可发现从其他 PC 或在 IBM i 上做的更改)。",
+  "config.deploy.method.git": "Git 中更改的文件:已修改、已暂存和新文件(未被 Git 忽略)。",
+  "config.deploy.method.all": "所有文件。"
 }

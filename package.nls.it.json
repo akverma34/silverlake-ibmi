@@ -999,5 +999,13 @@
   "command.ifsSort": "Ordina per nome / data",
   "config.ifs.showHiddenFiles": "Mostra nella vista IFS i file e le cartelle il cui nome inizia con un punto (.profile, .git…).",
   "config.ifs.sortBy": "Ordine della vista IFS: per nome o prima i più recenti. Le cartelle vengono sempre per prime.",
-  "config.compileActions.environment": "Dove viene eseguito il comando: ile (un comando CL), pase (un comando shell nella cartella del file) o qsh (QShell)."
+  "config.compileActions.environment": "Dove viene eseguito il comando: ile (un comando CL), pase (un comando shell nella cartella del file) o qsh (QShell).",
+  "command.deployCompare": "Distribuisci confrontando con l'IFS (checksum)",
+  "command.deployGit": "Distribuisci le modifiche Git su IBM i (IFS)",
+  "command.deployCleanup": "Elimina dall'IFS i file eliminati in locale…",
+  "config.deploy.method": "Cosa carica *Distribuisci modifiche* (e Build) nella cartella di distribuzione dell'IFS. Come in Code for IBM i.",
+  "config.deploy.method.changed": "File modificati dall'ultima distribuzione da questo PC (veloce).",
+  "config.deploy.method.compare": "File il cui checksum è diverso dalla copia nella cartella dell'IFS, o assenti lì (trova le modifiche fatte da un altro PC o sull'IBM i).",
+  "config.deploy.method.git": "File modificati in Git: modificati, in stage e nuovi (non ignorati da Git).",
+  "config.deploy.method.all": "Tutti i file."
 }

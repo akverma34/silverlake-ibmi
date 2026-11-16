@@ -4326,5 +4326,19 @@
   "No library matches {0}": "没有与 {0} 匹配的库",
   "No source file matches the filter": "没有与过滤器匹配的源文件",
   "No member matches the filter": "没有与过滤器匹配的成员",
-  "No object matches the filter": "没有与过滤器匹配的对象"
+  "No object matches the filter": "没有与过滤器匹配的对象",
+  "{0} is not a folder on this PC.": "{0} 不是此 PC 上的文件夹。",
+  "{0} is not in a Git repository (or Git is not installed).": "{0} 不在 Git 仓库中(或未安装 Git)。",
+  "Comparing {0} with {1}…": "正在比较 {0} 与 {1}…",
+  "Could not read the checksums in {0}: {1}": "无法读取 {0} 中的校验和:{1}",
+  "Nothing to deploy: no file of {0} is changed in Git.": "无需部署:{0} 中没有在 Git 中更改的文件。",
+  "Deployed {0} file(s) changed in Git to {1}.": "已将 {0} 个在 Git 中更改的文件部署到 {1}。",
+  "{0} file(s) are only in the IFS folder (build output, or deleted here).": "{0} 个文件只在 IFS 文件夹中(构建输出,或已在此处删除)。",
+  "Delete Them from the IFS…": "从 IFS 中删除…",
+  "No deployed file of {0} was deleted locally.": "{0} 中没有已部署后在本地删除的文件。",
+  "Delete {0} File(s)": "删除 {0} 个文件",
+  "Delete from {0} on {1} the {2} file(s) you deleted in {3}?": "要从 {1} 上的 {0} 中删除您在 {3} 中删除的 {2} 个文件吗?",
+  "Delete {0} file(s) from {1}": "从 {1} 中删除 {0} 个文件",
+  "Could not delete the files from {0}": "无法从 {0} 中删除文件",
+  "Deleted {0} file(s) from {1}.": "已从 {1} 中删除 {0} 个文件。"
 }

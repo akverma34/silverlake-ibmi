@@ -14,6 +14,10 @@
 - **Change Member Type…**: CHGPFM SRCTYPE from the Libraries view, from a list of the usual types or any other.
 - **Copy Member Path…**: `LIB/FILE(MEMBER)`, `LIB/FILE/MEMBER.type`, `/QSYS.LIB/…` or `SRCFILE(…) SRCMBR(…)` on the clipboard, from the Libraries view or the editor.
 - **IFS view: hidden files and order**: hide the files whose name starts with a dot (`vanthrex.ifs.showHiddenFiles`) and sort by name or newest first (`vanthrex.ifs.sortBy`), both from the view's menu.
+- **Deploy by comparing with the IFS** (*Deploy by Comparing with the IFS (Checksums)*): the checksum of every local file (POSIX `cksum`) against the files in the IFS deploy folder, read in one PASE command; only the files that really differ, or are missing there, are uploaded. Finds changes made from another PC, by a colleague or on the IBM i, which the usual deploy (files changed since the last deploy from this PC) cannot see. Files only in the IFS folder are counted, never deleted.
+- **Deploy Git changes** (*Deploy Git Changes to IBM i (IFS)*): uploads the files Git sees as modified, staged, renamed or new (not the ones Git ignores, and not deleted ones), as Code for IBM i's "working changes" deploy.
+- **`vanthrex.deploy.method`**: what *Deploy Changes* and *Build* upload: `changed` (default), `compare`, `git` or `all`, per workspace folder. Compiling a local file still deploys the changed files only, so it stays fast.
+- **Delete locally deleted files from the IFS**: files deployed before and deleted in the local folder since are listed and deleted from the IFS deploy folder after a confirmation (*Delete Locally Deleted Files from the IFS…*, or the button after a deploy).
 
 ## 3.3.0
 

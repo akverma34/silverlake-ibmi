@@ -999,5 +999,13 @@
   "command.ifsSort": "名前 / 日付で並べ替え",
   "config.ifs.showHiddenFiles": "名前がドットで始まるファイルとフォルダー (.profile、.git…) を IFS ビューに表示します。",
   "config.ifs.sortBy": "IFS ビューの順序: 名前順、または新しい順。フォルダーは常に先頭です。",
-  "config.compileActions.environment": "コマンドの実行場所: ile (CL コマンド)、pase (ファイルのフォルダーでのシェル・コマンド)、qsh (QShell)。"
+  "config.compileActions.environment": "コマンドの実行場所: ile (CL コマンド)、pase (ファイルのフォルダーでのシェル・コマンド)、qsh (QShell)。",
+  "command.deployCompare": "IFS と比較してデプロイ (チェックサム)",
+  "command.deployGit": "Git の変更を IBM i にデプロイ (IFS)",
+  "command.deployCleanup": "ローカルで削除したファイルを IFS から削除…",
+  "config.deploy.method": "*変更のデプロイ* (およびビルド) で IFS のデプロイ・フォルダーにアップロードするもの。Code for IBM i と同じです。",
+  "config.deploy.method.changed": "この PC から前回デプロイした後に変更されたファイル (高速)。",
+  "config.deploy.method.compare": "チェックサムが IFS フォルダー内のコピーと異なる、またはそこにないファイル (別の PC や IBM i 上での変更も検出)。",
+  "config.deploy.method.git": "Git で変更されたファイル: 変更済み、ステージ済み、新規 (Git で無視されていないもの)。",
+  "config.deploy.method.all": "すべてのファイル。"
 }

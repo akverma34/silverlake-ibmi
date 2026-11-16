@@ -4326,5 +4326,19 @@
   "No library matches {0}": "Keine Bibliothek passt zu {0}",
   "No source file matches the filter": "Keine Quellendatei passt zum Filter",
   "No member matches the filter": "Keine Teildatei passt zum Filter",
-  "No object matches the filter": "Kein Objekt passt zum Filter"
+  "No object matches the filter": "Kein Objekt passt zum Filter",
+  "{0} is not a folder on this PC.": "{0} ist kein Ordner auf diesem PC.",
+  "{0} is not in a Git repository (or Git is not installed).": "{0} ist in keinem Git-Repository (oder Git ist nicht installiert).",
+  "Comparing {0} with {1}…": "{0} wird mit {1} verglichen…",
+  "Could not read the checksums in {0}: {1}": "Die Prüfsummen in {0} konnten nicht gelesen werden: {1}",
+  "Nothing to deploy: no file of {0} is changed in Git.": "Nichts bereitzustellen: keine Datei von {0} ist in Git geändert.",
+  "Deployed {0} file(s) changed in Git to {1}.": "{0} in Git geänderte Datei(en) nach {1} bereitgestellt.",
+  "{0} file(s) are only in the IFS folder (build output, or deleted here).": "{0} Datei(en) gibt es nur im IFS-Ordner (Build-Ausgabe oder hier gelöscht).",
+  "Delete Them from the IFS…": "Aus dem IFS löschen…",
+  "No deployed file of {0} was deleted locally.": "Keine bereitgestellte Datei von {0} wurde lokal gelöscht.",
+  "Delete {0} File(s)": "{0} Datei(en) löschen",
+  "Delete from {0} on {1} the {2} file(s) you deleted in {3}?": "Die {2} Datei(en), die Sie in {3} gelöscht haben, aus {0} auf {1} löschen?",
+  "Delete {0} file(s) from {1}": "{0} Datei(en) aus {1} löschen",
+  "Could not delete the files from {0}": "Die Dateien konnten nicht aus {0} gelöscht werden",
+  "Deleted {0} file(s) from {1}.": "{0} Datei(en) aus {1} gelöscht."
 }

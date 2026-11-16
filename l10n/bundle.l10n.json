@@ -4316,5 +4316,19 @@
   "No library matches {0}": "No library matches {0}",
   "No source file matches the filter": "No source file matches the filter",
   "No member matches the filter": "No member matches the filter",
-  "No object matches the filter": "No object matches the filter"
+  "No object matches the filter": "No object matches the filter",
+  "{0} is not a folder on this PC.": "{0} is not a folder on this PC.",
+  "{0} is not in a Git repository (or Git is not installed).": "{0} is not in a Git repository (or Git is not installed).",
+  "Comparing {0} with {1}…": "Comparing {0} with {1}…",
+  "Could not read the checksums in {0}: {1}": "Could not read the checksums in {0}: {1}",
+  "Nothing to deploy: no file of {0} is changed in Git.": "Nothing to deploy: no file of {0} is changed in Git.",
+  "Deployed {0} file(s) changed in Git to {1}.": "Deployed {0} file(s) changed in Git to {1}.",
+  "{0} file(s) are only in the IFS folder (build output, or deleted here).": "{0} file(s) are only in the IFS folder (build output, or deleted here).",
+  "Delete Them from the IFS…": "Delete Them from the IFS…",
+  "No deployed file of {0} was deleted locally.": "No deployed file of {0} was deleted locally.",
+  "Delete {0} File(s)": "Delete {0} File(s)",
+  "Delete from {0} on {1} the {2} file(s) you deleted in {3}?": "Delete from {0} on {1} the {2} file(s) you deleted in {3}?",
+  "Delete {0} file(s) from {1}": "Delete {0} file(s) from {1}",
+  "Could not delete the files from {0}": "Could not delete the files from {0}",
+  "Deleted {0} file(s) from {1}.": "Deleted {0} file(s) from {1}."
 }

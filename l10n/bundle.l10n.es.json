@@ -4326,5 +4326,19 @@
   "No library matches {0}": "Ninguna biblioteca coincide con {0}",
   "No source file matches the filter": "Ningún archivo fuente coincide con el filtro",
   "No member matches the filter": "Ningún miembro coincide con el filtro",
-  "No object matches the filter": "Ningún objeto coincide con el filtro"
+  "No object matches the filter": "Ningún objeto coincide con el filtro",
+  "{0} is not a folder on this PC.": "{0} no es una carpeta de este PC.",
+  "{0} is not in a Git repository (or Git is not installed).": "{0} no está en un repositorio Git (o Git no está instalado).",
+  "Comparing {0} with {1}…": "Comparando {0} con {1}…",
+  "Could not read the checksums in {0}: {1}": "No se han podido leer las sumas de comprobación de {0}: {1}",
+  "Nothing to deploy: no file of {0} is changed in Git.": "Nada que desplegar: ningún archivo de {0} ha cambiado en Git.",
+  "Deployed {0} file(s) changed in Git to {1}.": "Se han desplegado {0} archivo(s) cambiados en Git en {1}.",
+  "{0} file(s) are only in the IFS folder (build output, or deleted here).": "{0} archivo(s) solo están en la carpeta del IFS (salida de la construcción o eliminados aquí).",
+  "Delete Them from the IFS…": "Eliminarlos del IFS…",
+  "No deployed file of {0} was deleted locally.": "Ningún archivo desplegado de {0} se ha eliminado localmente.",
+  "Delete {0} File(s)": "Eliminar {0} archivo(s)",
+  "Delete from {0} on {1} the {2} file(s) you deleted in {3}?": "¿Eliminar de {0} en {1} los {2} archivo(s) que ha eliminado en {3}?",
+  "Delete {0} file(s) from {1}": "Eliminar {0} archivo(s) de {1}",
+  "Could not delete the files from {0}": "No se han podido eliminar los archivos de {0}",
+  "Deleted {0} file(s) from {1}.": "Se han eliminado {0} archivo(s) de {1}."
 }

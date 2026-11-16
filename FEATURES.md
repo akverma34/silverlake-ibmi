@@ -1601,3 +1601,9 @@ On a Mac, use **Cmd** instead of **Ctrl**.
 - **What:** *Change Member Type…* (CHGPFM SRCTYPE), *Copy Member Path…* in four forms, and in the IFS view hidden (.name) files shown or hidden and sorting by name or date.
 - **Why:** small things from Code for IBM i you reach for every day.
 - **How:** right-click a member; in the IFS view, the view's menu.
+
+### 245. Deploy by comparing, Git changes, and clean-up — new in 3.4
+
+- **What:** three ways to choose what goes to the IFS deploy folder, as in Code for IBM i: compare checksums with the IFS, only the files changed in Git, or (as before) the files changed since the last deploy from this PC; and deleting from the IFS the files you deleted locally.
+- **Why:** the usual deploy only knows what this PC sent. Comparing finds changes made from another PC or on the IBM i; Git changes match what you are about to commit; the clean-up keeps the deploy folder from keeping old sources that a build might still pick up.
+- **How:** *Deploy by Comparing with the IFS (Checksums)*, *Deploy Git Changes to IBM i (IFS)* and *Delete Locally Deleted Files from the IFS…* in the Command Palette or on the workspace folder in the Explorer; `vanthrex.deploy.method` sets what *Deploy Changes* and *Build* use.
