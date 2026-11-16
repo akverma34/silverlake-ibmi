@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.3.0 (not released yet)
+## 3.3.0
 
 **System and security insights — what Code for IBM i and Db2 for i users had to look for elsewhere.**
 
@@ -62,6 +62,7 @@
 **Fixes**
 
 - **PDM: work with objects (WRKOBJPDM)** showed an empty list with `SQL0104 Token EXISTS not valid` on some systems (issue #16). The query that marks source files (PF-SRC) used EXISTS inside a CASE, which some Db2 for i levels do not accept; it now uses a LEFT JOIN. The same change was made to the **Messages** view (which inquiry messages still need a reply).
+- **Members opened for display** (PDM option 5) are now marked read-only in a way every VS Code version accepts.
 
 ## 3.2.1
 
