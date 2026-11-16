@@ -77,11 +77,12 @@ export interface CompileVariables {
 }
 
 /** Replace &VAR placeholders. Longer names first so &OBJLIB isn't eaten by &LIB. */
-export function substituteVariables(template: string, vars: CompileVariables): string {
-  const keys = Object.keys(vars).sort((a, b) => b.length - a.length) as (keyof CompileVariables)[];
+export function substituteVariables(template: string, vars: CompileVariables | Record<string, string | undefined>): string {
+  const all = vars as Record<string, string | undefined>;
+  const keys = Object.keys(all).sort((a, b) => b.length - a.length);
   let out = template;
   for (const key of keys) {
-    const value = vars[key];
+    const value = all[key];
     if (value === undefined) { continue; }
     out = out.replace(new RegExp(`&${key}\\b`, 'g'), value);
   }

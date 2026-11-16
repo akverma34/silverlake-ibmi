@@ -61,8 +61,11 @@ export class IfsTreeProvider implements vscode.TreeDataProvider<IfsNode> {
     }
     try {
       const list = await conn.readDirectory(n.path);
+      const cfg = vscode.workspace.getConfiguration('vanthrex.ifs');
+      const hidden = cfg.get<boolean>('showHiddenFiles', true);
+      const byDate = cfg.get<string>('sortBy', 'name') === 'date';
       return list
-        .filter(e => e.filename !== '.' && e.filename !== '..')
+        .filter(e => e.filename !== '.' && e.filename !== '..' && (hidden || !e.filename.startsWith('.')))
         .map(e => ({
           path: `${n.path === '/' ? '' : n.path}/${e.filename}`,
           name: e.filename,
@@ -70,7 +73,8 @@ export class IfsTreeProvider implements vscode.TreeDataProvider<IfsNode> {
           size: e.attrs.size,
           mtime: e.attrs.mtime,
         }))
-        .sort((a, b) => (a.isDirectory === b.isDirectory ? a.name.localeCompare(b.name) : a.isDirectory ? -1 : 1));
+        .sort((a, b) => (a.isDirectory !== b.isDirectory ? (a.isDirectory ? -1 : 1)
+          : byDate ? (b.mtime ?? 0) - (a.mtime ?? 0) || a.name.localeCompare(b.name) : a.name.localeCompare(b.name)));
     } catch (e) {
       logError(e);
       return [{ path: n.path, name: '', isDirectory: false, error: errorMessage(e) }];

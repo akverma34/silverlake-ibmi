@@ -58,8 +58,12 @@ test('Code for IBM i import', () => {
   assert.deepStrictEqual(imp.profiles.map(p => [p.name, p.user, p.authType, p.libraries.join(' '), p.currentLibrary, p.ifsHome]),
     [['DEV', 'GG', 'password', 'APPLIB QGPL', 'APPLIB', '/home/GG'], ['PROD', 'X', 'key', '', undefined, undefined]]);
   assert.deepStrictEqual(imp.sets, [{ connection: 'DEV', name: 'Test', libraries: ['TSTLIB'], currentLibrary: undefined }]);
-  assert.deepStrictEqual(imp.actions.map(a => [a.name, a.command, !!a.skipped]), [['Compile', 'CRTBNDRPG PGM(&OBJLIB/&NAME) SRCFILE(&LIB/&SRCFILE)', false], ['Shell', 'make', true], ['Odd', 'X &FOO', true], ['Obj', 'DSPOBJD', true]]);
-  assert.strictEqual(imp.notes.length, 2);
+  assert.deepStrictEqual(imp.actions.map(a => [a.name, a.command, !!a.skipped]), [['Compile', 'CRTBNDRPG PGM(&OBJLIB/&NAME) SRCFILE(&LIB/&SRCFILE)', false], ['Shell', 'make', false], ['Odd', 'X &FOO', true], ['Obj', 'DSPOBJD', false]]);
+  assert.deepStrictEqual(imp.actions.map(a => [a.source, a.environment]), [['member', undefined], ['ifs', 'pase'], ['member', undefined], ['object', undefined]]);
+  // The empty object filter is not usable; the custom variable X has no value but is kept.
+  assert.strictEqual(imp.profiles[0].filters, undefined);
+  assert.deepStrictEqual(imp.profiles[0].variables, { X: '' });
+  assert.strictEqual(imp.notes.length, 1);
   assert.deepStrictEqual(m.fromCodeForIbmi(undefined, undefined, undefined), { profiles: [], sets: [], actions: [], notes: [] });
 });
 

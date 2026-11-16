@@ -1583,3 +1583,27 @@ On a Mac, use **Cmd** instead of **Ctrl**.
 - **SQL engine:** keep it on *Automatic*. It uses Mapepire over SSH when Java is available, which is the fastest option and needed for *Where Used*.
 - **When something fails:** open **View → Output → "Vanthrex for IBM i"** to see the exact commands and messages.
 - **Where to put objects:** set *Compile objects into* in the connection form to send objects to a development library automatically.
+
+### 242. Object filters — new in 3.4
+
+- **What:** named filters in the Libraries view, under the library list: libraries by name or generic name, objects and source files by name and type, members by name and source type.
+- **Why:** browse and edit libraries that are not on your library list, or only the members you work on (ORD* programs, only RPGLE members…), as in the Code for IBM i Object Browser.
+- **How:** *New Object Filter…* in the Libraries view's menu, or right-click a library or a source file; right-click a filter to edit, copy, move or delete it.
+
+### 243. Actions like Code for IBM i — new in 3.4
+
+- **What:** the Code for IBM i action variables (`&HOST`, `&HOME`, `&BRANCH`, `&RELATIVEPATH`, `&BASENAME`, `&PARENT`, `&LIBLS`, `&LIBLC`, `&TYPE`…), custom variables per connection, actions that run in PASE or QShell, actions on objects, and the workspace `.vscode/actions.json` read as it is.
+- **Why:** the actions you wrote for Code for IBM i run in Vanthrex without changes, including `make` / `makei` builds and actions on programs and files.
+- **How:** `"environment": "pase"` or `"qsh"` and `"source": "object"` in `vanthrex.compileActions`; *Custom Variables for Actions…* in the Libraries view's menu; right-click an object → *Run Action…*.
+
+### 244. Member type, member path and IFS view options — new in 3.4
+
+- **What:** *Change Member Type…* (CHGPFM SRCTYPE), *Copy Member Path…* in four forms, and in the IFS view hidden (.name) files shown or hidden and sorting by name or date.
+- **Why:** small things from Code for IBM i you reach for every day.
+- **How:** right-click a member; in the IFS view, the view's menu.
+
+### 245. Deploy by comparing, Git changes, and clean-up — new in 3.4
+
+- **What:** three ways to choose what goes to the IFS deploy folder, as in Code for IBM i: compare checksums with the IFS, only the files changed in Git, or (as before) the files changed since the last deploy from this PC; and deleting from the IFS the files you deleted locally.
+- **Why:** the usual deploy only knows what this PC sent. Comparing finds changes made from another PC or on the IBM i; Git changes match what you are about to commit; the clean-up keeps the deploy folder from keeping old sources that a build might still pick up.
+- **How:** *Deploy by Comparing with the IFS (Checksums)*, *Deploy Git Changes to IBM i (IFS)* and *Delete Locally Deleted Files from the IFS…* in the Command Palette or on the workspace folder in the Explorer; `vanthrex.deploy.method` sets what *Deploy Changes* and *Build* use.

@@ -1,10 +1,12 @@
 // Local development: keep source in a local (Git) folder, deploy changed files to an IFS folder, compile a local file
 // there with errors shown on the local file, and run a project build command (makei, gmake, Bob…) in PASE.
+import { execFile } from 'child_process';
 import * as vscode from 'vscode';
 import { Compiler } from './compile';
 import { ifsUri } from './fileSystems';
 import {
-  buildProblems, buildShellCommand, DEFAULT_IGNORE, deployDirectory, DeployState, foldersToCreate, LocalFile, matchesIgnore, planDeploy, remotePathFor,
+  buildProblems, buildShellCommand, DEFAULT_IGNORE, deployDirectory, DeployMethod, DeployState, foldersToCreate, LocalFile, matchesIgnore, parseCksum,
+  parseGitStatus, planCompare, planDeploy, posixCksum, remoteChecksumCommand, remotePathFor, removeCommands,
 } from '../core/localDev';
 import { IbmiConnection } from '../core/connection';
 import { errorMessage, logError } from '../core/log';
@@ -64,17 +66,65 @@ export async function listFiles(root: vscode.Uri, ignore: string[]): Promise<Loc
 
 function stateKey(conn: IbmiConnection, dir: string): string { return `${conn.profile.id}|${dir}`; }
 
+const git = (cwd: string, args: string[]) => new Promise<string>((resolve, reject) =>
+  execFile('git', args, { cwd, maxBuffer: 64 * 1024 * 1024, windowsHide: true }, (err, stdout, stderr) => (err ? reject(new Error((stderr || err.message).trim())) : resolve(stdout))));
+
+/** Files changed in Git in a workspace folder: modified, staged, renamed and new (not ignored by Git), not deleted. */
+async function gitChanges(folder: vscode.WorkspaceFolder, ignore: string[]): Promise<string[]> {
+  if (folder.uri.scheme !== 'file') { throw new Error(vscode.l10n.t('{0} is not a folder on this PC.', folder.name)); }
+  let prefix: string;
+  try { prefix = (await git(folder.uri.fsPath, ['rev-parse', '--show-prefix'])).trim(); }
+  catch { throw new Error(vscode.l10n.t('{0} is not in a Git repository (or Git is not installed).', folder.name)); }
+  return parseGitStatus(await git(folder.uri.fsPath, ['status', '--porcelain=v1', '-z', '--untracked-files=all']), prefix, ignore);
+}
+
+/** Compare deploy: checksums of the local files against the IFS deploy folder (PASE cksum), so only real differences are uploaded. */
+async function comparePlan(conn: IbmiConnection, folder: vscode.WorkspaceFolder, dir: string, ignore: string[]): Promise<{ upload: string[]; unchanged: number; remoteOnly: string[] }> {
+  return vscode.window.withProgress({ location: vscode.ProgressLocation.Notification, title: vscode.l10n.t('Comparing {0} with {1}…', folder.name, dir) }, async () => {
+    const r = await conn.exec(remoteChecksumCommand(dir));
+    if (r.code !== 0 && !r.stdout.trim()) { throw new Error(vscode.l10n.t('Could not read the checksums in {0}: {1}', dir, (r.stderr || '').trim())); }
+    const remote = parseCksum(r.stdout);
+    const local: { rel: string; crc: number; size: number }[] = [];
+    for (const f of await listFiles(folder.uri, ignore)) {
+      const data = await vscode.workspace.fs.readFile(vscode.Uri.joinPath(folder.uri, ...f.rel.split('/')));
+      local.push({ rel: f.rel, crc: posixCksum(data), size: data.length });
+    }
+    return planCompare(local, remote, ignore);
+  });
+}
+
+/** The deploy method of a folder (vanthrex.deploy.method). */
+function methodFor(folder: vscode.WorkspaceFolder): DeployMethod {
+  const m = vscode.workspace.getConfiguration('vanthrex.deploy', folder.uri).get<string>('method', 'changed');
+  return m === 'compare' || m === 'git' || m === 'all' ? m : 'changed';
+}
+
 /** Upload new and changed files (or only `only`) to the deploy folder. Returns the folder. */
-async function deploy(context: vscode.ExtensionContext, manager: ConnectionManager, folder: vscode.WorkspaceFolder, opts: { all?: boolean; only?: string[]; quiet?: boolean } = {}): Promise<string> {
+async function deploy(context: vscode.ExtensionContext, manager: ConnectionManager, folder: vscode.WorkspaceFolder, opts: { all?: boolean; only?: string[]; quiet?: boolean; method?: DeployMethod } = {}): Promise<string> {
   const conn = manager.require();
   const dir = directoryFor(conn, folder);
   const ignore = ignoreList(folder);
   const all = context.workspaceState.get<Record<string, DeployState>>(STATE_KEY, {});
   const state = all[stateKey(conn, dir)] ?? {};
-  const files = await listFiles(folder.uri, ignore);
-  const plan = opts.only ? { upload: opts.only, unchanged: 0, removed: [] as string[] } : planDeploy(files, state, ignore, opts.all);
+  const method: DeployMethod = opts.all ? 'all' : opts.method ?? 'changed';
+  let remoteOnly: string[] = [];
+  let plan: { upload: string[]; unchanged: number; removed: string[] };
+  if (opts.only) { plan = { upload: opts.only, unchanged: 0, removed: [] }; }
+  else if (method === 'compare') {
+    const c = await comparePlan(conn, folder, dir, ignore);
+    plan = { upload: c.upload, unchanged: c.unchanged, removed: [] }; remoteOnly = c.remoteOnly;
+  } else if (method === 'git') {
+    const changed = await gitChanges(folder, ignore);
+    plan = { upload: changed, unchanged: 0, removed: planDeploy(await listFiles(folder.uri, ignore), state, ignore).removed };
+  } else {
+    plan = planDeploy(await listFiles(folder.uri, ignore), state, ignore, method === 'all');
+  }
   if (!plan.upload.length) {
-    if (!opts.quiet) { vscode.window.showInformationMessage(vscode.l10n.t('Nothing to deploy: all {0} file(s) in {1} are up to date.', plan.unchanged, dir)); }
+    if (!opts.quiet) {
+      vscode.window.showInformationMessage(method === 'git'
+        ? vscode.l10n.t('Nothing to deploy: no file of {0} is changed in Git.', folder.name)
+        : vscode.l10n.t('Nothing to deploy: all {0} file(s) in {1} are up to date.', plan.unchanged, dir));
+    }
     return dir;
   }
   const ccsid = cfg().get<number>('ccsid', 1208);
@@ -106,15 +156,43 @@ async function deploy(context: vscode.ExtensionContext, manager: ConnectionManag
   all[stateKey(conn, dir)] = state;
   await context.workspaceState.update(STATE_KEY, all);
   if (!opts.quiet) {
-    const msg = vscode.l10n.t('Deployed {0} file(s) to {1} ({2} unchanged).', plan.upload.length, dir, plan.unchanged);
-    const extra = plan.removed.length ? ' ' + vscode.l10n.t('{0} file(s) deleted locally are still in the IFS folder.', plan.removed.length) : '';
-    const open = vscode.l10n.t('Show in IFS'); const build = vscode.l10n.t('Build');
-    void vscode.window.showInformationMessage(msg + extra, open, build).then(c => {
+    const msg = method === 'git'
+      ? vscode.l10n.t('Deployed {0} file(s) changed in Git to {1}.', plan.upload.length, dir)
+      : vscode.l10n.t('Deployed {0} file(s) to {1} ({2} unchanged).', plan.upload.length, dir, plan.unchanged);
+    const extra = (plan.removed.length ? ' ' + vscode.l10n.t('{0} file(s) deleted locally are still in the IFS folder.', plan.removed.length) : '')
+      + (remoteOnly.length ? ' ' + vscode.l10n.t('{0} file(s) are only in the IFS folder (build output, or deleted here).', remoteOnly.length) : '');
+    const open = vscode.l10n.t('Show in IFS'); const build = vscode.l10n.t('Build'); const clean = vscode.l10n.t('Delete Them from the IFS…');
+    void vscode.window.showInformationMessage(msg + extra, open, build, ...(plan.removed.length ? [clean] : [])).then(c => {
       if (c === open) { void vscode.commands.executeCommand('vanthrex.ifsChangeRoot', dir); }
       if (c === build) { void vscode.commands.executeCommand('vanthrex.build', folder.uri); }
+      if (c === clean) { void vscode.commands.executeCommand('vanthrex.deployCleanup', folder.uri); }
     });
   }
   return dir;
+}
+
+/** Delete from the deploy folder the files deployed before and deleted locally since (after a confirmation listing them). */
+async function deployCleanup(context: vscode.ExtensionContext, manager: ConnectionManager, folder: vscode.WorkspaceFolder): Promise<void> {
+  const conn = manager.require();
+  const dir = directoryFor(conn, folder);
+  const ignore = ignoreList(folder);
+  const all = context.workspaceState.get<Record<string, DeployState>>(STATE_KEY, {});
+  const state = all[stateKey(conn, dir)] ?? {};
+  const { removed } = planDeploy(await listFiles(folder.uri, ignore), state, ignore);
+  if (!removed.length) { vscode.window.showInformationMessage(vscode.l10n.t('No deployed file of {0} was deleted locally.', folder.name)); return; }
+  const yes = vscode.l10n.t('Delete {0} File(s)', removed.length);
+  const list = removed.slice(0, 20).join('\n') + (removed.length > 20 ? `\n… +${removed.length - 20}` : '');
+  if (await vscode.window.showWarningMessage(vscode.l10n.t('Delete from {0} on {1} the {2} file(s) you deleted in {3}?', dir, conn.profile.name, removed.length, folder.name), { modal: true, detail: list }, yes) !== yes) { return; }
+  await conn.withChangesAllowed(vscode.l10n.t('Delete {0} file(s) from {1}', removed.length, dir), async () => {
+    for (const cmd of removeCommands(dir, removed)) {
+      const r = await conn.exec(cmd);
+      if (r.code !== 0) { throw new Error(r.stderr || vscode.l10n.t('Could not delete the files from {0}', dir)); }
+    }
+  });
+  for (const r of removed) { delete state[r]; }
+  all[stateKey(conn, dir)] = state;
+  await context.workspaceState.update(STATE_KEY, all);
+  vscode.window.showInformationMessage(vscode.l10n.t('Deleted {0} file(s) from {1}.', removed.length, dir));
 }
 
 async function compileLocal(context: vscode.ExtensionContext, manager: ConnectionManager, compiler: Compiler, uri: vscode.Uri | undefined, alwaysAsk: boolean): Promise<void> {
@@ -148,7 +226,7 @@ async function build(context: vscode.ExtensionContext, manager: ConnectionManage
     command = typed.trim();
     await settings.update('buildCommand', command, vscode.ConfigurationTarget.WorkspaceFolder);
   }
-  const dir = await deploy(context, manager, folder, { quiet: true });
+  const dir = await deploy(context, manager, folder, { quiet: true, method: methodFor(folder) });
   const line = buildShellCommand(command, dir, { curlib: conn.profile.currentLibrary, libl: conn.profile.libraries });
   const ch = out();
   ch.clear(); ch.show(true);
@@ -189,7 +267,10 @@ export function registerLocalDev(context: vscode.ExtensionContext, manager: Conn
     try { await fn(...a); } catch (e) { logError(e); vscode.window.showErrorMessage(errorMessage(e)); }
   };
   context.subscriptions.push(
-    vscode.commands.registerCommand('vanthrex.deploy', wrap(async (uri?: vscode.Uri) => { const f = await pickFolder(uri); if (f) { await deploy(context, manager, f); } })),
+    vscode.commands.registerCommand('vanthrex.deploy', wrap(async (uri?: vscode.Uri) => { const f = await pickFolder(uri); if (f) { await deploy(context, manager, f, { method: methodFor(f) }); } })),
+    vscode.commands.registerCommand('vanthrex.deployCompare', wrap(async (uri?: vscode.Uri) => { const f = await pickFolder(uri); if (f) { await deploy(context, manager, f, { method: 'compare' }); } })),
+    vscode.commands.registerCommand('vanthrex.deployGit', wrap(async (uri?: vscode.Uri) => { const f = await pickFolder(uri); if (f) { await deploy(context, manager, f, { method: 'git' }); } })),
+    vscode.commands.registerCommand('vanthrex.deployCleanup', wrap(async (uri?: vscode.Uri) => { const f = await pickFolder(uri); if (f) { await deployCleanup(context, manager, f); } })),
     vscode.commands.registerCommand('vanthrex.deployAll', wrap(async (uri?: vscode.Uri) => { const f = await pickFolder(uri); if (f) { await deploy(context, manager, f, { all: true }); } })),
     vscode.commands.registerCommand('vanthrex.compileLocal', wrap((uri?: vscode.Uri, alwaysAsk?: boolean) => compileLocal(context, manager, compiler, uri, alwaysAsk === true))),
     vscode.commands.registerCommand('vanthrex.build', wrap((uri?: vscode.Uri) => build(context, manager, uri))),
