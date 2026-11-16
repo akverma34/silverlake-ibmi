@@ -3,12 +3,17 @@
 // (connections without passwords, library sets, CL macros, compile actions, checks and standards) to share with
 // colleagues. Passwords are never read or written: each person types theirs once.
 
+import { fromCodeForIbmiFilters, ObjectFilter } from './objectFilters';
+
 export interface ImportedProfile {
   name: string; host: string; port: number; user: string; authType: 'password' | 'key'; privateKeyPath?: string;
   libraries: string[]; currentLibrary?: string; ifsHome?: string;
+  filters?: ObjectFilter[]; variables?: Record<string, string>;
 }
 export interface ImportedSet { connection: string; name: string; libraries: string[]; currentLibrary?: string }
-export interface ImportedAction { name: string; command: string; extensions: string[]; source: 'member' | 'ifs' | 'both'; skipped?: string }
+export interface ImportedAction {
+  name: string; command: string; extensions: string[]; source: 'member' | 'ifs' | 'both' | 'object'; environment?: 'ile' | 'pase' | 'qsh'; skipped?: string;
+}
 export interface Imported { profiles: ImportedProfile[]; sets: ImportedSet[]; actions: ImportedAction[]; notes: string[] }
 
 const str = (v: unknown) => (typeof v === 'string' ? v.trim() : '');
@@ -18,14 +23,18 @@ const libs = (v: unknown) => (Array.isArray(v) ? v.map(x => str(x).toUpperCase()
 const VARS: Record<string, string> = {
   '&OPENLIB': '&LIB', '&OPENSPF': '&SRCFILE', '&OPENMBR': '&NAME', '&BUILDLIB': '&OBJLIB', '&CURLIB': '&CURLIB', '&LIBRARY': '&LIB',
   '&NAME': '&NAME', '&EXT': '&EXT', '&FULLPATH': '&FULLPATH', '&USERNAME': '&USER', '&USER': '&USER',
+  '&HOST': '&HOST', '&HOME': '&HOME', '&WORKDIR': '&WORKDIR', '&BRANCH': '&BRANCH', '&RELATIVEPATH': '&RELATIVEPATH', '&BASENAME': '&BASENAME',
+  '&PARENT': '&PARENT', '&LIBLS': '&LIBLS', '&LIBLC': '&LIBLC', '&TYPE': '&TYPE',
 };
 
 /** A Code for IBM i action command with Vanthrex variables, or why it cannot be used as is. */
-export function convertActionCommand(command: string): { command: string; unknown: string[] } {
+export function convertActionCommand(command: string, custom: string[] = []): { command: string; unknown: string[] } {
   const unknown: string[] = [];
+  const own = new Set(custom.map(c => `&${c.trim().replace(/^&/, '').toUpperCase()}`));
   const out = command.replace(/&[A-Z_]+[A-Z0-9_]*/gi, v => {
     const k = v.toUpperCase();
     if (VARS[k]) { return VARS[k]; }
+    if (own.has(k)) { return k; }
     // Lower-case &openlib etc. are the same variables in Code for IBM i.
     unknown.push(v);
     return v;
@@ -51,14 +60,30 @@ export function fromCodeForIbmi(connections: unknown, settings: unknown, actions
       authType: key ? 'key' : 'password', privateKeyPath: key || undefined,
       libraries: libs(s.libraryList), currentLibrary: str(s.currentLibrary).toUpperCase() || undefined, ifsHome: str(s.homeDirectory) || undefined,
     });
+    const filters = fromCodeForIbmiFilters(s.objectFilters);
+    if (filters.length) { res.profiles[res.profiles.length - 1].filters = filters; }
+    const vars: Record<string, string> = {};
+    for (const v of Array.isArray(s.customVariables) ? s.customVariables : []) {
+      const n = str(v?.name).replace(/^&/, '').toUpperCase();
+      if (/^[A-Z][A-Z0-9_]{0,29}$/.test(n)) { vars[n] = str(v?.value); }
+    }
+    if (Object.keys(vars).length) { res.profiles[res.profiles.length - 1].variables = vars; }
     for (const p of Array.isArray(s.connectionProfiles) ? s.connectionProfiles : []) {
       const pn = str(p?.name); const l = libs(p?.libraryList);
       if (pn && l.length) { res.sets.push({ connection: name, name: pn, libraries: l, currentLibrary: str(p?.currentLibrary).toUpperCase() || undefined }); }
     }
-    if (Array.isArray(s.objectFilters) && s.objectFilters.length) { res.notes.push(`${name}: ${s.objectFilters.length} object filter(s) — in Vanthrex, add their libraries to the library list or use Libraries & Source and Go to Anything (Ctrl+Alt+J).`); }
-    if (Array.isArray(s.customVariables) && s.customVariables.length) { res.notes.push(`${name}: custom variables (${s.customVariables.map((v: { name?: string }) => `&${str(v?.name)}`).join(', ')}) are not imported: write their value in the compile command.`); }
+    const left = (Array.isArray(s.objectFilters) ? s.objectFilters.length : 0) - filters.length;
+    if (left > 0) { res.notes.push(`${name}: ${left} object filter(s) use regular expressions or are incomplete and were not imported; add them again with "New Object Filter…".`); }
   }
-  const allActions = [...(Array.isArray(actions) ? actions : []), ...(Array.isArray(workspaceActions) ? workspaceActions : [])];
+  const custom = res.profiles.flatMap(p => Object.keys(p.variables ?? {}));
+  res.actions = convertActions([...(Array.isArray(actions) ? actions : []), ...(Array.isArray(workspaceActions) ? workspaceActions : [])], custom);
+  return res;
+}
+
+/** Code for IBM i actions (settings or .vscode/actions.json) as Vanthrex compile actions, with why some cannot be used. */
+export function convertActions(list: unknown, custom: string[] = []): ImportedAction[] {
+  const out: ImportedAction[] = [];
+  const allActions = Array.isArray(list) ? list : [];
   const seen = new Set<string>();
   for (const a of allActions) {
     const name = str(a?.name); const cmd = str(a?.command);
@@ -67,14 +92,15 @@ export function fromCodeForIbmi(connections: unknown, settings: unknown, actions
     const type = str(a?.type).toLowerCase();
     const env = str(a?.environment).toLowerCase();
     const exts = (Array.isArray(a?.extensions) ? a.extensions : []).map((e: unknown) => str(e).toLowerCase()).filter((e: string) => e && e !== 'global' && e !== 'globals');
-    const conv = convertActionCommand(cmd);
-    const act: ImportedAction = { name, command: conv.command, extensions: exts.length ? exts : ['*'], source: type === 'streamfile' ? 'ifs' : 'member' };
-    if (type === 'object' || type === 'file') { act.skipped = 'runs on objects or local files: use Run CL or the local build (makei / gmake) instead'; }
-    else if (env && env !== 'ile') { act.skipped = `runs in ${env.toUpperCase()}: use the PASE terminal or a CL wrapper (QSH CMD(…))`; }
+    const conv = convertActionCommand(cmd, custom);
+    const act: ImportedAction = { name, command: conv.command, extensions: exts.length ? exts : ['*'], source: type === 'streamfile' ? 'ifs' : type === 'object' ? 'object' : 'member' };
+    if (env === 'pase' || env === 'qsh') { act.environment = env; }
+    if (type === 'file') { act.skipped = 'runs on local files: use Deploy and the local build (makei / gmake), or Compile on the local file'; }
+    else if (env && env !== 'ile' && env !== 'pase' && env !== 'qsh') { act.skipped = `runs in an unknown environment (${env})`; }
     else if (conv.unknown.length) { act.skipped = `unknown variable(s) ${conv.unknown.join(', ')}`; }
-    res.actions.push(act);
+    out.push(act);
   }
-  return res;
+  return out;
 }
 
 // ---------------------------------------------------------------- team setup file

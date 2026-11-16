@@ -984,5 +984,20 @@
   "command.jobdUsers": "Descrições de job que nomeiam um usuário",
   "command.ibmLibraryObjects": "Objetos de usuário em bibliotecas da IBM (QSYS, QSYS2, QGPL)",
   "command.environmentVariables": "Variáveis de ambiente (sistema e job)",
-  "config.backupDays": "Dias após os quais **Atualidade dos backups** marca uma biblioteca como não salva ultimamente."
+  "config.backupDays": "Dias após os quais **Atualidade dos backups** marca uma biblioteca como não salva ultimamente.",
+  "command.filter.new": "Novo filtro de objetos…",
+  "command.filter.edit": "Editar filtro…",
+  "command.filter.copy": "Copiar filtro…",
+  "command.filter.delete": "Excluir filtro",
+  "command.filter.moveUp": "Mover filtro para cima",
+  "command.filter.moveDown": "Mover filtro para baixo",
+  "command.customVariables": "Variáveis personalizadas das ações…",
+  "command.changeMemberType": "Alterar tipo do membro…",
+  "command.copyMemberPath": "Copiar caminho do membro…",
+  "command.runObjectAction": "Executar ação…",
+  "command.ifsToggleHidden": "Mostrar ou ocultar arquivos ocultos (.nome)",
+  "command.ifsSort": "Ordenar por nome / data",
+  "config.ifs.showHiddenFiles": "Mostrar na visão IFS os arquivos e pastas cujo nome começa com ponto (.profile, .git…).",
+  "config.ifs.sortBy": "Ordem da visão IFS: por nome ou os mais recentes primeiro. As pastas sempre vêm primeiro.",
+  "config.compileActions.environment": "Onde o comando é executado: ile (um comando CL), pase (um comando shell na pasta do arquivo) ou qsh (QShell)."
 }

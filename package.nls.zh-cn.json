@@ -984,5 +984,20 @@
   "command.jobdUsers": "指定了用户的作业描述",
   "command.ibmLibraryObjects": "IBM 库中的用户对象（QSYS、QSYS2、QGPL）",
   "command.environmentVariables": "环境变量（系统和作业）",
-  "config.backupDays": "**备份新鲜度** 将库标记为近期未保存的天数。"
+  "config.backupDays": "**备份新鲜度** 将库标记为近期未保存的天数。",
+  "command.filter.new": "新建对象过滤器…",
+  "command.filter.edit": "编辑过滤器…",
+  "command.filter.copy": "复制过滤器…",
+  "command.filter.delete": "删除过滤器",
+  "command.filter.moveUp": "上移过滤器",
+  "command.filter.moveDown": "下移过滤器",
+  "command.customVariables": "操作的自定义变量…",
+  "command.changeMemberType": "更改成员类型…",
+  "command.copyMemberPath": "复制成员路径…",
+  "command.runObjectAction": "运行操作…",
+  "command.ifsToggleHidden": "显示或隐藏隐藏文件 (.name)",
+  "command.ifsSort": "按名称 / 日期排序",
+  "config.ifs.showHiddenFiles": "在 IFS 视图中显示名称以点开头的文件和文件夹 (.profile、.git…)。",
+  "config.ifs.sortBy": "IFS 视图的顺序:按名称,或最新的在前。文件夹始终在前。",
+  "config.compileActions.environment": "命令运行的位置:ile(CL 命令)、pase(在文件所在文件夹中的 shell 命令)或 qsh(QShell)。"
 }

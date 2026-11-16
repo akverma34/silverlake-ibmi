@@ -1,3 +1,4 @@
+import type { ObjectFilter } from './objectFilters';
 import * as vscode from 'vscode';
 
 export type SqlEngineKind = 'auto' | 'mapepire-ssh' | 'mapepire-daemon' | 'db2util';
@@ -21,6 +22,10 @@ export interface ConnectionProfile {
   ifsHome?: string;
   /** Protect production systems: ask before every change, or allow no change at all. */
   protection?: 'none' | 'confirm' | 'readOnly';
+  /** Object filters shown in the Libraries view under the library list (as in the Code for IBM i Object Browser). */
+  filters?: ObjectFilter[];
+  /** Custom variables for compile actions (&NAME → value), per connection. */
+  variables?: Record<string, string>;
 }
 
 const PROFILES_KEY = 'vanthrex.profiles';

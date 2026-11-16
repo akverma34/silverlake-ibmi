@@ -984,5 +984,20 @@
   "command.jobdUsers": "ユーザーを指定しているジョブ記述",
   "command.ibmLibraryObjects": "IBM ライブラリー内のユーザー・オブジェクト (QSYS、QSYS2、QGPL)",
   "command.environmentVariables": "環境変数 (システムとジョブ)",
-  "config.backupDays": "**バックアップの鮮度** がライブラリーを「最近保管されていない」とする日数。"
+  "config.backupDays": "**バックアップの鮮度** がライブラリーを「最近保管されていない」とする日数。",
+  "command.filter.new": "新規オブジェクト・フィルター…",
+  "command.filter.edit": "フィルターの編集…",
+  "command.filter.copy": "フィルターのコピー…",
+  "command.filter.delete": "フィルターの削除",
+  "command.filter.moveUp": "フィルターを上へ",
+  "command.filter.moveDown": "フィルターを下へ",
+  "command.customVariables": "アクションのカスタム変数…",
+  "command.changeMemberType": "メンバー・タイプの変更…",
+  "command.copyMemberPath": "メンバー・パスのコピー…",
+  "command.runObjectAction": "アクションの実行…",
+  "command.ifsToggleHidden": "隠しファイル (.name) の表示/非表示",
+  "command.ifsSort": "名前 / 日付で並べ替え",
+  "config.ifs.showHiddenFiles": "名前がドットで始まるファイルとフォルダー (.profile、.git…) を IFS ビューに表示します。",
+  "config.ifs.sortBy": "IFS ビューの順序: 名前順、または新しい順。フォルダーは常に先頭です。",
+  "config.compileActions.environment": "コマンドの実行場所: ile (CL コマンド)、pase (ファイルのフォルダーでのシェル・コマンド)、qsh (QShell)。"
 }

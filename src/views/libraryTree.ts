@@ -3,14 +3,16 @@ import { ConnectionManager } from '../core/manager';
 import { errorMessage, logError } from '../core/log';
 import { sqlString } from '../core/util';
 import { memberUri } from '../features/fileSystems';
+import { describeFilter, exactLibraries, filterLibrariesSql, filterShows, memberCondition, ObjectFilter, objectArgs, sourceFileCondition } from '../core/objectFilters';
 
 /** Expanding the same library or source file again within this time reuses the list (Refresh reads it again). */
 const TREE_CACHE_MS = 20_000;
 
 export type LibNode =
-  | { kind: 'library'; library: string; current: boolean }
-  | { kind: 'folder'; library: string; folder: 'source' | 'objects' }
-  | { kind: 'srcfile'; library: string; file: string; text: string }
+  | { kind: 'filter'; filter: ObjectFilter }
+  | { kind: 'library'; library: string; current: boolean; filter?: ObjectFilter; text?: string }
+  | { kind: 'folder'; library: string; folder: 'source' | 'objects'; filter?: ObjectFilter }
+  | { kind: 'srcfile'; library: string; file: string; text: string; filter?: ObjectFilter }
   | { kind: 'member'; library: string; file: string; member: string; type: string; text: string; changed?: string; created?: string; lines?: number }
   | { kind: 'object'; library: string; name: string; type: string; attribute: string; text: string }
   | { kind: 'message'; text: string; error?: boolean };
@@ -34,10 +36,18 @@ export class LibraryTreeProvider implements vscode.TreeDataProvider<LibNode> {
   getTreeItem(n: LibNode): vscode.TreeItem {
     const C = vscode.TreeItemCollapsibleState;
     switch (n.kind) {
+      case 'filter': {
+        const item = new vscode.TreeItem(n.filter.name, C.Collapsed);
+        item.iconPath = new vscode.ThemeIcon('filter');
+        item.description = describeFilter(n.filter);
+        item.tooltip = vscode.l10n.t('Object filter: {0}', describeFilter(n.filter));
+        item.contextValue = 'filter';
+        return item;
+      }
       case 'library': {
         const item = new vscode.TreeItem(n.library, C.Collapsed);
         item.iconPath = new vscode.ThemeIcon(n.current ? 'star-full' : 'library');
-        item.description = n.current ? 'current library' : '';
+        item.description = n.current ? 'current library' : n.text ?? '';
         item.contextValue = 'library';
         return item;
       }
@@ -98,18 +108,26 @@ export class LibraryTreeProvider implements vscode.TreeDataProvider<LibNode> {
         const p = conn.profile;
         const libs = [...p.libraries];
         if (p.currentLibrary && !libs.includes(p.currentLibrary)) { libs.unshift(p.currentLibrary); }
-        return libs.map(library => ({ kind: 'library', library, current: library === p.currentLibrary }));
+        return [
+          ...libs.map(library => ({ kind: 'library', library, current: library === p.currentLibrary }) as LibNode),
+          ...(p.filters ?? []).map(filter => ({ kind: 'filter', filter }) as LibNode),
+        ];
       }
       const showObjects = vscode.workspace.getConfiguration('vanthrex').get<boolean>('objects.showAll', true);
       switch (n.kind) {
-        case 'library':
-          return showObjects
-            ? [{ kind: 'folder', library: n.library, folder: 'source' }, { kind: 'folder', library: n.library, folder: 'objects' }]
-            : this.sourceFiles(n.library);
+        case 'filter':
+          return this.filterLibraries(n.filter);
+        case 'library': {
+          const shows = n.filter ? filterShows(n.filter) : { source: true, objects: true };
+          // A filter that names only object types shows those objects, even when the view hides objects otherwise.
+          if (!shows.source) { return this.objects(n.library, n.filter); }
+          if (!showObjects || !shows.objects) { return this.sourceFiles(n.library, n.filter); }
+          return [{ kind: 'folder', library: n.library, folder: 'source', filter: n.filter }, { kind: 'folder', library: n.library, folder: 'objects', filter: n.filter }];
+        }
         case 'folder':
-          return n.folder === 'source' ? this.sourceFiles(n.library) : this.objects(n.library);
+          return n.folder === 'source' ? this.sourceFiles(n.library, n.filter) : this.objects(n.library, n.filter);
         case 'srcfile':
-          return this.members(n.library, n.file);
+          return this.members(n.library, n.file, n.filter);
         default:
           return [];
       }
@@ -119,18 +137,27 @@ export class LibraryTreeProvider implements vscode.TreeDataProvider<LibNode> {
     }
   }
 
-  private async sourceFiles(library: string): Promise<LibNode[]> {
+  /** The libraries an object filter picks: its exact names as they are, generic names read from the system. */
+  private async filterLibraries(f: ObjectFilter): Promise<LibNode[]> {
+    const exact = exactLibraries(f);
+    if (exact) { return exact.map(library => ({ kind: 'library', library, current: false, filter: f })); }
+    const rows = await this.manager.require().cachedRows<{ LIB: string; TEXT: string }>(filterLibrariesSql(f), 500, TREE_CACHE_MS);
+    if (!rows.length) { return [{ kind: 'message', text: vscode.l10n.t('No library matches {0}', f.library) }]; }
+    return rows.map(r => ({ kind: 'library', library: String(r.LIB).trim(), current: false, filter: f, text: String(r.TEXT ?? '').trim() }));
+  }
+
+  private async sourceFiles(library: string, filter?: ObjectFilter): Promise<LibNode[]> {
     const rows = await this.manager.require().cachedRows<{ NAME: string; TEXT: string }>(
       `SELECT SYSTEM_TABLE_NAME AS NAME, COALESCE(TABLE_TEXT, '') AS TEXT FROM QSYS2.SYSTABLES ` +
-      `WHERE SYSTEM_TABLE_SCHEMA = ${sqlString(library)} AND FILE_TYPE = 'S' ORDER BY 1`, 5000, TREE_CACHE_MS);
-    if (!rows.length) { return [{ kind: 'message', text: 'No source files (right-click the library to create one)' }]; }
-    return rows.map(r => ({ kind: 'srcfile', library, file: String(r.NAME).trim(), text: String(r.TEXT ?? '').trim() }));
+      `WHERE SYSTEM_TABLE_SCHEMA = ${sqlString(library)} AND FILE_TYPE = 'S'${filter ? sourceFileCondition(filter) : ''} ORDER BY 1`, 5000, TREE_CACHE_MS);
+    if (!rows.length) { return [{ kind: 'message', text: filter ? vscode.l10n.t('No source file matches the filter') : 'No source files (right-click the library to create one)' }]; }
+    return rows.map(r => ({ kind: 'srcfile', library, file: String(r.NAME).trim(), text: String(r.TEXT ?? '').trim(), filter }));
   }
 
   /** Per source file ("LIB/FILE"): only show members changed in the last N days. */
   readonly memberFilter = new Map<string, number>();
 
-  private async members(library: string, file: string): Promise<LibNode[]> {
+  private async members(library: string, file: string, filter?: ObjectFilter): Promise<LibNode[]> {
     const byDate = vscode.workspace.getConfiguration('vanthrex').get<string>('members.sortBy', 'name') === 'date';
     const days = this.memberFilter.get(`${library}/${file}`);
     const rows = await this.manager.require().cachedRows<{ NAME: string; TYPE: string; TEXT: string; CHANGED: string; CREATED: string; N: number }>(
@@ -139,9 +166,10 @@ export class LibraryTreeProvider implements vscode.TreeDataProvider<LibNode> {
       `FROM QSYS2.SYSPARTITIONSTAT ` +
       `WHERE SYSTEM_TABLE_SCHEMA = ${sqlString(library)} AND SYSTEM_TABLE_NAME = ${sqlString(file)} ` +
       (days ? `AND LAST_SOURCE_UPDATE_TIMESTAMP >= CURRENT TIMESTAMP - ${Math.floor(days)} DAYS ` : '') +
+      (filter ? `${memberCondition(filter)} ` : '') +
       `ORDER BY ${byDate ? 'LAST_SOURCE_UPDATE_TIMESTAMP DESC, ' : ''}1`, 20000, TREE_CACHE_MS);
     if (!rows.length) {
-      return [{ kind: 'message', text: days ? `No members changed in the last ${days} days` : 'Empty source file (click + to add a member)' }];
+      return [{ kind: 'message', text: days ? `No members changed in the last ${days} days` : filter && memberCondition(filter) ? vscode.l10n.t('No member matches the filter') : 'Empty source file (click + to add a member)' }];
     }
     return rows.map(r => ({
       kind: 'member', library, file,
@@ -152,11 +180,12 @@ export class LibraryTreeProvider implements vscode.TreeDataProvider<LibNode> {
     }));
   }
 
-  private async objects(library: string): Promise<LibNode[]> {
+  private async objects(library: string, filter?: ObjectFilter): Promise<LibNode[]> {
+    const a = filter ? objectArgs(filter) : { types: '*ALL', where: '' };
     const rows = await this.manager.require().cachedRows<{ OBJNAME: string; OBJTYPE: string; ATTR: string; TEXT: string }>(
       `SELECT OBJNAME, OBJTYPE, COALESCE(OBJATTRIBUTE, '') AS ATTR, COALESCE(OBJTEXT, '') AS TEXT ` +
-      `FROM TABLE(QSYS2.OBJECT_STATISTICS(${sqlString(library)}, '*ALL')) ORDER BY OBJTYPE, OBJNAME`, 20000, TREE_CACHE_MS);
-    if (!rows.length) { return [{ kind: 'message', text: 'No objects' }]; }
+      `FROM TABLE(QSYS2.OBJECT_STATISTICS(${sqlString(library)}, ${sqlString(a.types)})) X${a.where} ORDER BY OBJTYPE, OBJNAME`, 20000, TREE_CACHE_MS);
+    if (!rows.length) { return [{ kind: 'message', text: filter ? vscode.l10n.t('No object matches the filter') : 'No objects' }]; }
     return rows.map(r => ({
       kind: 'object', library,
       name: String(r.OBJNAME).trim(), type: String(r.OBJTYPE).trim(),

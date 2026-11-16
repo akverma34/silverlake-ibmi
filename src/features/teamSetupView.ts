@@ -33,7 +33,7 @@ async function saveProfiles(manager: ConnectionManager, state: vscode.Memento, p
   const created: string[] = []; const skipped: string[] = [];
   for (const p of profiles) {
     if (existing.some(e => e.name.toUpperCase() === p.name.toUpperCase() || (e.host === p.host && e.user.toUpperCase() === (p.user || user || '').toUpperCase()))) { skipped.push(p.name); continue; }
-    const prof = { ...newProfile(), name: p.name, host: p.host, port: p.port, user: (p.user || user || '').toUpperCase(), authType: p.authType, privateKeyPath: p.privateKeyPath, libraries: p.libraries, currentLibrary: p.currentLibrary, ifsHome: p.ifsHome };
+    const prof = { ...newProfile(), name: p.name, host: p.host, port: p.port, user: (p.user || user || '').toUpperCase(), authType: p.authType, privateKeyPath: p.privateKeyPath, libraries: p.libraries, currentLibrary: p.currentLibrary, ifsHome: p.ifsHome, filters: p.filters, variables: p.variables };
     await manager.profiles.save(prof);
     const mine = sets.filter(s => s.connection === p.name).map(s => ({ name: s.name, libraries: s.libraries, currentLibrary: s.currentLibrary }));
     if (mine.length) { await state.update(setsKey(prof.id), mine); }
@@ -60,7 +60,7 @@ async function importCodeForIbmi(manager: ConnectionManager, state: vscode.Memen
   let added = 0;
   if (actions.length) {
     const current = cfg().get<{ name: string; command: string; extensions: string[]; source?: string }[]>('compileActions', []);
-    const fresh = actions.filter(a => !current.some(c => c.name === a.name)).map(a => ({ name: a.name, command: a.command, extensions: a.extensions, source: a.source }));
+    const fresh = actions.filter(a => !current.some(c => c.name === a.name)).map(a => ({ name: a.name, command: a.command, extensions: a.extensions, source: a.source, ...(a.environment ? { environment: a.environment } : {}) }));
     if (fresh.length) { await cfg().update('compileActions', [...current, ...fresh], vscode.ConfigurationTarget.Global); added = fresh.length; }
   }
   showReport('import-code-for-ibmi', {

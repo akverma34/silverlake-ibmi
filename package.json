@@ -4051,6 +4051,76 @@
         "title": "%command.copyLink%",
         "category": "Vanthrex",
         "icon": "$(link)"
+      },
+      {
+        "command": "vanthrex.filter.new",
+        "title": "%command.filter.new%",
+        "category": "Vanthrex",
+        "icon": "$(filter)"
+      },
+      {
+        "command": "vanthrex.filter.edit",
+        "title": "%command.filter.edit%",
+        "category": "Vanthrex",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "vanthrex.filter.copy",
+        "title": "%command.filter.copy%",
+        "category": "Vanthrex"
+      },
+      {
+        "command": "vanthrex.filter.delete",
+        "title": "%command.filter.delete%",
+        "category": "Vanthrex",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "vanthrex.filter.moveUp",
+        "title": "%command.filter.moveUp%",
+        "category": "Vanthrex",
+        "icon": "$(arrow-up)"
+      },
+      {
+        "command": "vanthrex.filter.moveDown",
+        "title": "%command.filter.moveDown%",
+        "category": "Vanthrex",
+        "icon": "$(arrow-down)"
+      },
+      {
+        "command": "vanthrex.customVariables",
+        "title": "%command.customVariables%",
+        "category": "Vanthrex",
+        "icon": "$(symbol-variable)"
+      },
+      {
+        "command": "vanthrex.changeMemberType",
+        "title": "%command.changeMemberType%",
+        "category": "Vanthrex"
+      },
+      {
+        "command": "vanthrex.copyMemberPath",
+        "title": "%command.copyMemberPath%",
+        "category": "Vanthrex",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "vanthrex.runObjectAction",
+        "title": "%command.runObjectAction%",
+        "category": "Vanthrex",
+        "icon": "$(play)"
+      },
+      {
+        "command": "vanthrex.ifsToggleHidden",
+        "title": "%command.ifsToggleHidden%",
+        "category": "Vanthrex",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "vanthrex.ifsSort",
+        "title": "%command.ifsSort%",
+        "category": "Vanthrex",
+        "icon": "$(list-ordered)"
       }
     ],
     "menus": {
@@ -4289,6 +4359,26 @@
           "command": "vanthrex.ifsFindByName",
           "when": "view == vanthrex.ifs && vanthrex.connected",
           "group": "1_more@9"
+        },
+        {
+          "command": "vanthrex.filter.new",
+          "when": "view == vanthrex.libraries",
+          "group": "1_filters@1"
+        },
+        {
+          "command": "vanthrex.customVariables",
+          "when": "view == vanthrex.libraries",
+          "group": "1_filters@2"
+        },
+        {
+          "command": "vanthrex.ifsToggleHidden",
+          "when": "view == vanthrex.ifs",
+          "group": "1_view@1"
+        },
+        {
+          "command": "vanthrex.ifsSort",
+          "when": "view == vanthrex.ifs",
+          "group": "1_view@2"
         }
       ],
       "view/item/context": [
@@ -5306,6 +5396,56 @@
           "command": "vanthrex.copyTableData",
           "when": "view == vanthrex.libraries && viewItem == object.file",
           "group": "6_data@2"
+        },
+        {
+          "command": "vanthrex.filter.edit",
+          "when": "view == vanthrex.libraries && viewItem == filter",
+          "group": "inline@1"
+        },
+        {
+          "command": "vanthrex.filter.edit",
+          "when": "view == vanthrex.libraries && viewItem == filter",
+          "group": "1_filter@1"
+        },
+        {
+          "command": "vanthrex.filter.copy",
+          "when": "view == vanthrex.libraries && viewItem == filter",
+          "group": "1_filter@2"
+        },
+        {
+          "command": "vanthrex.filter.moveUp",
+          "when": "view == vanthrex.libraries && viewItem == filter",
+          "group": "1_filter@3"
+        },
+        {
+          "command": "vanthrex.filter.moveDown",
+          "when": "view == vanthrex.libraries && viewItem == filter",
+          "group": "1_filter@4"
+        },
+        {
+          "command": "vanthrex.filter.delete",
+          "when": "view == vanthrex.libraries && viewItem == filter",
+          "group": "9_delete@1"
+        },
+        {
+          "command": "vanthrex.filter.new",
+          "when": "view == vanthrex.libraries && viewItem =~ /^(library|srcfile)$/",
+          "group": "8_filter@1"
+        },
+        {
+          "command": "vanthrex.changeMemberType",
+          "when": "view == vanthrex.libraries && viewItem == member",
+          "group": "7_member@2"
+        },
+        {
+          "command": "vanthrex.copyMemberPath",
+          "when": "view == vanthrex.libraries && viewItem == member",
+          "group": "7_member@3"
+        },
+        {
+          "command": "vanthrex.runObjectAction",
+          "when": "view == vanthrex.libraries && viewItem =~ /^object/",
+          "group": "0_info@2"
         }
       ],
       "editor/title": [
@@ -5720,6 +5860,11 @@
           "command": "vanthrex.jsonToSql",
           "when": "editorHasSelection && (editorLangId == json || editorLangId =~ /sql/)",
           "group": "vanthrex@11"
+        },
+        {
+          "command": "vanthrex.copyMemberPath",
+          "when": "resourceScheme == vanthrex-member",
+          "group": "vanthrex@7"
         }
       ],
       "commandPalette": [
@@ -7689,6 +7834,42 @@
         {
           "command": "vanthrex.temporaryIndexes",
           "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.filter.edit",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.filter.copy",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.filter.delete",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.filter.moveUp",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.filter.moveDown",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.changeMemberType",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.runObjectAction",
+          "when": "false"
+        },
+        {
+          "command": "vanthrex.filter.new",
+          "when": "vanthrex.connected"
+        },
+        {
+          "command": "vanthrex.customVariables",
+          "when": "vanthrex.connected"
         }
       ],
       "vanthrex.ai": [
@@ -8221,9 +8402,20 @@
                 "enum": [
                   "member",
                   "ifs",
-                  "both"
+                  "both",
+                  "object"
                 ],
                 "default": "member"
+              },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "ile",
+                  "pase",
+                  "qsh"
+                ],
+                "default": "ile",
+                "description": "%config.compileActions.environment%"
               }
             }
           },
@@ -8935,6 +9127,20 @@
           "minimum": 10,
           "maximum": 20000,
           "description": "%config.ifs.followLines%"
+        },
+        "vanthrex.ifs.showHiddenFiles": {
+          "type": "boolean",
+          "default": true,
+          "description": "%config.ifs.showHiddenFiles%"
+        },
+        "vanthrex.ifs.sortBy": {
+          "type": "string",
+          "enum": [
+            "name",
+            "date"
+          ],
+          "default": "name",
+          "description": "%config.ifs.sortBy%"
         },
         "vanthrex.templates": {
           "type": "array",

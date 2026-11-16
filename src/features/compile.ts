@@ -5,12 +5,63 @@ import { parseEvfEvent, parseQsysPath, EvfError } from '../core/evfevent';
 import { objectNameFromFile, parseMemberPath, substituteVariables, CompileVariables } from '../core/util';
 import { IFS_SCHEME, MEMBER_SCHEME, ifsUri, memberUri } from './fileSystems';
 import { localRelFor } from '../core/localDev';
+import {
+  actionEnvironment, CompileAction, contextVariables, gitBranch, ifsVariables, memberVariables, objectActionsFor, objectVariables, shellCommand,
+  unresolvedVariables,
+} from '../core/actions';
+import { convertActions } from '../core/migration';
+import type { IbmiConnection } from '../core/connection';
 
-export interface CompileAction {
-  name: string;
-  command: string;
-  extensions: string[];
-  source?: 'member' | 'ifs' | 'both';
+export type { CompileAction } from '../core/actions';
+
+/** Result of an action, whatever environment it ran in. */
+interface ActionResult { ok: boolean; messages: string[]; stdout: string; stderr: string }
+
+/** The branch of the Git repository a file is in (or of the first workspace folder), read from .git/HEAD. */
+async function currentBranch(uri?: vscode.Uri): Promise<string | undefined> {
+  const folder = (uri && vscode.workspace.getWorkspaceFolder(uri)) ?? vscode.workspace.workspaceFolders?.[0];
+  if (!folder) { return undefined; }
+  try { return gitBranch(new TextDecoder().decode(await vscode.workspace.fs.readFile(vscode.Uri.joinPath(folder.uri, '.git', 'HEAD')))); }
+  catch { return undefined; }
+}
+
+/** Actions of the workspace's .vscode/actions.json (Code for IBM i format), used as they are. */
+async function workspaceActions(customNames: string[]): Promise<CompileAction[]> {
+  const out: CompileAction[] = [];
+  for (const f of vscode.workspace.workspaceFolders ?? []) {
+    try {
+      const json = JSON.parse(new TextDecoder().decode(await vscode.workspace.fs.readFile(vscode.Uri.joinPath(f.uri, '.vscode', 'actions.json'))));
+      for (const a of convertActions(json, customNames)) {
+        if (!a.skipped) { out.push({ name: a.name, command: a.command, extensions: a.extensions, source: a.source, environment: a.environment }); }
+      }
+    } catch { /* no actions.json, or not JSON */ }
+  }
+  return out;
+}
+
+/** All compile actions: the vanthrex.compileActions setting, then the workspace actions.json (same names are not repeated). */
+export async function allActions(conn: IbmiConnection): Promise<CompileAction[]> {
+  const mine = vscode.workspace.getConfiguration('vanthrex').get<CompileAction[]>('compileActions', []);
+  const ws = await workspaceActions(Object.keys(conn.profile.variables ?? {}));
+  return [...mine, ...ws.filter(w => !mine.some(m => m.name === w.name))];
+}
+
+/** Connection variables (host, home, library list, branch, custom variables) for an action. */
+export async function connectionVariables(conn: IbmiConnection, uri?: vscode.Uri, workDir?: string): Promise<Record<string, string>> {
+  return contextVariables({
+    host: conn.profile.host, user: conn.user, home: conn.profile.ifsHome || conn.homeDirectory, libraries: conn.profile.libraries,
+    currentLibrary: conn.profile.currentLibrary, branch: await currentBranch(uri), workDir, custom: conn.profile.variables,
+  });
+}
+
+/** Runs an action in its environment: a CL command, or a shell command (PASE / QShell) in a folder. */
+export async function runAction(conn: IbmiConnection, action: CompileAction, command: string, workDir: string): Promise<ActionResult> {
+  const env = actionEnvironment(action);
+  if (env === 'ile') { const r = await conn.runCL(command); return { ok: r.ok, messages: r.messages, stdout: r.stdout, stderr: r.stderr }; }
+  const r = await conn.exec(shellCommand(env, command, workDir));
+  const out = `${r.stdout}\n${r.stderr}`;
+  if (r.stdout.trim() || r.stderr.trim()) { log(`${action.name} (${env.toUpperCase()}):\n${out.trim()}`); }
+  return { ok: r.code === 0, messages: [...new Set(out.match(/\b[A-Z]{3}[0-9A-F]{4}\b/g) ?? [])], stdout: r.stdout, stderr: r.stderr };
 }
 
 const LAST_ACTION_KEY = 'vanthrex.lastCompileAction';
@@ -44,32 +95,36 @@ export class Compiler {
     if (doc?.isDirty) { await doc.save(); }
 
     const isMember = uri.scheme === MEMBER_SCHEME;
-    const vars: CompileVariables = { CURLIB: conn.profile.currentLibrary || 'QGPL', USER: conn.user };
+    // The folder PASE and QShell actions run in: the deploy folder of a local file, the folder of an IFS file, else home.
+    const workDir = local?.dir ?? (isMember ? (conn.profile.ifsHome || conn.homeDirectory) : uri.path.replace(/\/[^/]*$/, '') || '/');
+    const vars: CompileVariables & Record<string, string | undefined> = { ...(await connectionVariables(conn, local?.uri ?? uri, workDir)) };
     let ext: string;
     if (isMember) {
       const m = parseMemberPath(uri.path);
       ext = m.extension;
-      Object.assign(vars, {
-        LIB: m.library, SRCFILE: m.file, NAME: m.member, EXT: ext,
+      Object.assign(vars, memberVariables(m.library, m.file, m.member, ext), {
         OBJLIB: conn.profile.objectLibrary || m.library,
       });
     } else {
       const fileName = uri.path.split('/').pop() ?? '';
       ext = (fileName.split('.').pop() ?? '').toLowerCase();
-      Object.assign(vars, {
-        NAME: objectNameFromFile(fileName), EXT: ext, FULLPATH: uri.path,
+      Object.assign(vars, ifsVariables(uri.path, local ? vscode.workspace.asRelativePath(local.uri, false) : undefined), {
+        NAME: objectNameFromFile(fileName), EXT: ext,
         OBJLIB: conn.profile.objectLibrary || conn.profile.currentLibrary || 'QGPL',
-        LIB: conn.profile.currentLibrary || 'QGPL',
+        LIB: conn.profile.currentLibrary || 'QGPL', LIBRARY: conn.profile.currentLibrary || 'QGPL',
       });
     }
+    vars.BUILDLIB = vars.OBJLIB;
 
-    const action = await this.pickAction(ext, isMember ? 'member' : 'ifs', alwaysAsk);
+    const action = await this.pickAction(conn, ext, isMember ? 'member' : 'ifs', alwaysAsk);
     if (!action) { return; }
     const command = substituteVariables(action.command, vars);
+    const missing = unresolvedVariables(command);
+    if (missing.length) { throw new Error(vscode.l10n.t('{0} has no value here: {1}', missing.join(', '), command)); }
 
     const result = await vscode.window.withProgress(
       { location: vscode.ProgressLocation.Notification, title: vscode.l10n.t('Compiling {0}…', String(vars.NAME)), cancellable: false },
-      () => conn.runCL(command));
+      () => runAction(conn, action, command, workDir));
 
     // Collect inline errors from the events file when the compiler wrote one.
     let errors: EvfError[] = [];
@@ -120,10 +175,35 @@ export class Compiler {
     return vscode.window.activeTextEditor?.document.uri;
   }
 
-  private async pickAction(ext: string, source: 'member' | 'ifs', alwaysAsk: boolean): Promise<CompileAction | undefined> {
-    const all = vscode.workspace.getConfiguration('vanthrex').get<CompileAction[]>('compileActions', []);
-    const candidates = all.filter(a =>
-      a.extensions.map(x => x.toLowerCase()).includes(ext) &&
+  /** Runs an object action (Code for IBM i "type": "object") on an object of the Libraries view. */
+  async runObjectAction(o: { library: string; name: string; type: string; attribute?: string }): Promise<void> {
+    const conn = this.manager.require();
+    const list = objectActionsFor(await allActions(conn), o.type, o.attribute ?? '');
+    if (!list.length) {
+      const choice = await vscode.window.showWarningMessage(vscode.l10n.t('No action is defined for {0} objects. Add one to vanthrex.compileActions with "source": "object".', o.type), vscode.l10n.t('Open Settings'));
+      if (choice) { void vscode.commands.executeCommand('workbench.action.openSettings', 'vanthrex.compileActions'); }
+      return;
+    }
+    const pick = list.length === 1 ? { action: list[0] } : await vscode.window.showQuickPick(list.map(a => ({ label: a.name, detail: a.command, action: a })), { title: `${o.library}/${o.name} ${o.type}` });
+    if (!pick) { return; }
+    const workDir = conn.profile.ifsHome || conn.homeDirectory;
+    const vars: Record<string, string | undefined> = { ...(await connectionVariables(conn, undefined, workDir)), ...objectVariables(o.library, o.name, o.type, o.attribute ?? '') };
+    vars.OBJLIB = o.library; vars.BUILDLIB = o.library;
+    const command = substituteVariables(pick.action.command, vars);
+    const missing = unresolvedVariables(command);
+    if (missing.length) { throw new Error(vscode.l10n.t('{0} has no value here: {1}', missing.join(', '), command)); }
+    const r = await vscode.window.withProgress({ location: vscode.ProgressLocation.Notification, title: `${pick.action.name}: ${o.library}/${o.name}` }, () => runAction(conn, pick.action, command, workDir));
+    if (r.ok) { vscode.window.showInformationMessage(vscode.l10n.t('✔ {0} ran on {1}.', pick.action.name, `${o.library}/${o.name}`)); }
+    else {
+      void vscode.window.showErrorMessage(vscode.l10n.t('✖ {0} failed on {1}: {2}', pick.action.name, `${o.library}/${o.name}`, r.messages.slice(-1)[0] ?? (r.stderr || r.stdout).trim().split('\n').slice(-1)[0] ?? ''), vscode.l10n.t('Show Log'))
+        .then(c => { if (c) { showLog(); } });
+    }
+  }
+
+  private async pickAction(conn: IbmiConnection, ext: string, source: 'member' | 'ifs', alwaysAsk: boolean): Promise<CompileAction | undefined> {
+    const all = await allActions(conn);
+    const candidates = all.filter(a => a.source !== 'object' &&
+      a.extensions.map(x => x.toLowerCase()).some(x => x === ext || x === '*') &&
       ((a.source ?? 'member') === source || a.source === 'both'));
     if (!candidates.length) {
       const choice = await vscode.window.showWarningMessage(
@@ -211,6 +291,10 @@ export function registerCompile(context: vscode.ExtensionContext, manager: Conne
     compiler,
     vscode.commands.registerCommand('vanthrex.compile', run(false)),
     vscode.commands.registerCommand('vanthrex.compileWith', run(true)),
+    vscode.commands.registerCommand('vanthrex.runObjectAction', async (o?: { library: string; name: string; type: string; attribute?: string }) => {
+      try { if (o?.library) { await compiler.runObjectAction(o); } else { vscode.window.showInformationMessage(vscode.l10n.t('Right-click an object in the Libraries view to run an action on it.')); } }
+      catch (e) { logError(e); vscode.window.showErrorMessage(errorMessage(e)); }
+    }),
   );
   return compiler;
 }

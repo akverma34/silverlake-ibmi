@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.4.0 (not released yet)
+
+**Everything Code for IBM i users rely on — the parts Vanthrex was still missing, or could not import.**
+
+- **Object filters**: Like the Code for IBM i Object Browser, the Libraries view shows named filters under your library list. A filter picks libraries by name or generic name (ORD*, *TST), objects and source files by name and type (*PGM, *FILE, *SRCPF…), and members by name and source type (RPGLE, SQL*…), so libraries that are not on your library list can be browsed and edited too. *New Object Filter…* in the view's menu (or on a library or source file, filled in from it), and *Edit*, *Copy*, *Move Up / Down* and *Delete* on a filter. Each connection has its own filters.
+- **More action variables, as in Code for IBM i**: `&HOST`, `&HOME`, `&WORKDIR`, `&BRANCH` (the Git branch of the workspace), `&RELATIVEPATH`, `&BASENAME`, `&PARENT`, `&LIBLS` / `&LIBLC` (the library list with spaces or commas), `&LIBRARY`, `&BUILDLIB` and `&TYPE`. A command that still names a variable with no value (for example `&BRANCH` outside a Git repository) is not run; Vanthrex says which one.
+- **Custom variables**: *Custom Variables for Actions…* keeps your own variables per connection (`&TGTRLS`, `&APPLIB`…), used in compile actions like the built-in ones.
+- **Actions in PASE and QShell**: `"environment": "pase"` or `"qsh"` on a compile action runs a shell command (make, makei, gmake, a script…) in the folder of the file (the deploy folder for a local file, home for a member) instead of a CL command. Its output goes to the Vanthrex log, and the message IDs in it are reported.
+- **Actions on objects**: `"source": "object"` makes an action for objects, picked by type (`PGM`, `FILE`) or attribute (`RPGLE`): right-click an object → *Run Action…*.
+- **The workspace `.vscode/actions.json`** of Code for IBM i is read as it is, every time, next to `vanthrex.compileActions`; a team keeps one file for both extensions.
+- **Import from Code for IBM i** now brings the object filters (simple ones; filters with regular expressions are listed as not imported), the custom variables and the PASE, QShell and object actions it used to skip.
+- **Change Member Type…**: CHGPFM SRCTYPE from the Libraries view, from a list of the usual types or any other.
+- **Copy Member Path…**: `LIB/FILE(MEMBER)`, `LIB/FILE/MEMBER.type`, `/QSYS.LIB/…` or `SRCFILE(…) SRCMBR(…)` on the clipboard, from the Libraries view or the editor.
+- **IFS view: hidden files and order**: hide the files whose name starts with a dot (`vanthrex.ifs.showHiddenFiles`) and sort by name or newest first (`vanthrex.ifs.sortBy`), both from the view's menu.
+
 ## 3.3.0
 
 **System and security insights — what Code for IBM i and Db2 for i users had to look for elsewhere.**
