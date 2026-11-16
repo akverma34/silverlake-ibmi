@@ -14,7 +14,27 @@ export interface ObjectFilter {
   member: string;
   /** Member source types (RPGLE, CLLE, SQL*…), comma separated; * = all. */
   memberType: string;
+  /**
+   * Objects, members and member types are regular expressions (as Code for IBM i "regex" filters), matched with
+   * Db2 REGEXP_LIKE, case-insensitively; libraries stay names or generic names. * = all.
+   */
+  regex?: boolean;
 }
+
+/** The longest regular expression a filter keeps. */
+const MAX_REGEX = 256;
+
+/** Checks one regular expression of a filter; '' and * mean "all". Returns it trimmed, or '*'. */
+export function checkRegex(what: string, value: string | undefined): string {
+  const v = String(value ?? '').trim();
+  if (!v || v === '*' || v === '.*' || v === '^.*$') { return '*'; }
+  if (v.length > MAX_REGEX) { throw new Error(`The ${what} expression is longer than ${MAX_REGEX} characters.`); }
+  // Back-references and look-around are not in Db2's (ICU) dialect the same way: keep to what both understand.
+  if (/\\[1-9]|\(\?<?[=!]/.test(v)) { throw new Error(`The ${what} expression uses look-around or back-references, which the IBM i does not support here.`); }
+  try { new RegExp(v, 'i'); } catch (e) { throw new Error(`The ${what} expression is not valid: ${(e as Error).message.replace(/^Invalid regular expression: /, '')}`); }
+  return v;
+}
+
 
 const PART = /^[A-Z0-9$#@_.*]{1,10}$/;
 const TYPE = /^\*[A-Z]{2,9}$/;
@@ -33,7 +53,10 @@ export function checkFilter(f: Partial<ObjectFilter>): ObjectFilter {
   const lib = filterParts(f.library);
   if (!lib.length) { throw new Error('Enter at least one library (generic names such as ORD* are allowed).'); }
   if (lib.some(l => l === '*' || l === '*ALL')) { throw new Error('A filter cannot show every library: use a generic name such as ORD*.'); }
-  for (const [what, parts] of [['library', lib], ['object', filterParts(f.object)], ['member', filterParts(f.member)], ['member type', filterParts(f.memberType)]] as const) {
+  const regex = f.regex === true;
+  const named = regex ? [['library', lib]] as const
+    : [['library', lib], ['object', filterParts(f.object)], ['member', filterParts(f.member)], ['member type', filterParts(f.memberType)]] as const;
+  for (const [what, parts] of named) {
     const bad = parts.find(p => p !== '*ALL' && !PART.test(p));
     if (bad) { throw new Error(`"${bad}" is not a valid ${what} name or generic name.`); }
   }
@@ -41,7 +64,13 @@ export function checkFilter(f: Partial<ObjectFilter>): ObjectFilter {
   const badType = types.find(t => !TYPE.test(t));
   if (badType) { throw new Error(`"${badType}" is not an object type (use *PGM, *FILE, *SRCPF…).`); }
   const join = (v: string | undefined) => { const p = filterParts(v); return isAll(p) ? '*' : p.join(', '); };
-  return { name, library: lib.join(', '), object: join(f.object), types: types.length && !types.includes('*ALL') ? types : ['*ALL'], member: join(f.member), memberType: join(f.memberType) };
+  const out: ObjectFilter = { name, library: lib.join(', '), object: '*', types: types.length && !types.includes('*ALL') ? types : ['*ALL'], member: '*', memberType: '*' };
+  if (regex) {
+    Object.assign(out, { object: checkRegex('object', f.object), member: checkRegex('member', f.member), memberType: checkRegex('member type', f.memberType), regex: true });
+  } else {
+    Object.assign(out, { object: join(f.object), member: join(f.member), memberType: join(f.memberType) });
+  }
+  return out;
 }
 
 /** A generic name as SQL LIKE (with ! as the escape character for _ and %). */
@@ -57,6 +86,17 @@ export function nameCondition(column: string, value: string | undefined): string
   if (isAll(parts)) { return undefined; }
   const ors = parts.map(p => (p.includes('*') ? `${column} LIKE ${q(likePattern(p))} ESCAPE '!'` : `${column} = ${q(p)}`));
   return ors.length === 1 ? ors[0] : `(${ors.join(' OR ')})`;
+}
+
+/** WHERE condition for a column against a regular expression (case-insensitive); undefined for "all". */
+export function regexCondition(column: string, pattern: string | undefined): string | undefined {
+  const p = String(pattern ?? '').trim();
+  return !p || p === '*' ? undefined : `REGEXP_LIKE(${column}, ${q(p)}, 'i')`;
+}
+
+/** The condition of one filter field (object, member, member type): generic names, or a regular expression. */
+function fieldCondition(f: ObjectFilter, column: string, value: string): string | undefined {
+  return f.regex ? regexCondition(column, value) : nameCondition(column, value);
 }
 
 /** The exact library names of a filter, when it has no generic part (then no query is needed to list them). */
@@ -79,37 +119,39 @@ export function filterShows(f: ObjectFilter): { source: boolean; objects: boolea
 
 /** Extra WHERE condition on source file names (SYSTABLES). */
 export function sourceFileCondition(f: ObjectFilter): string {
-  const c = nameCondition('SYSTEM_TABLE_NAME', f.object);
+  const c = fieldCondition(f, 'SYSTEM_TABLE_NAME', f.object);
   return c ? ` AND ${c}` : '';
 }
 
 /** Object types argument of OBJECT_STATISTICS and the extra WHERE condition on object names. */
 export function objectArgs(f: ObjectFilter): { types: string; where: string } {
   const types = f.types.includes('*ALL') ? '*ALL' : f.types.filter(t => t !== '*SRCPF').join(' ') || '*FILE';
-  const c = nameCondition('OBJNAME', f.object);
+  const c = fieldCondition(f, 'OBJNAME', f.object);
   return { types, where: c ? ` WHERE ${c}` : '' };
 }
 
 /** Extra WHERE condition on members (SYSPARTITIONSTAT). */
 export function memberCondition(f: ObjectFilter): string {
-  return [nameCondition('SYSTEM_TABLE_MEMBER', f.member), nameCondition('SOURCE_TYPE', f.memberType)].filter(Boolean).map(c => ` AND ${c}`).join('');
+  return [fieldCondition(f, 'SYSTEM_TABLE_MEMBER', f.member), fieldCondition(f, 'SOURCE_TYPE', f.memberType)].filter(Boolean).map(c => ` AND ${c}`).join('');
 }
 
 /** One line describing a filter, for the tree and the pick lists. */
 export function describeFilter(f: ObjectFilter): string {
-  const bits = [f.library, f.object !== '*' ? `/${f.object}` : '', !f.types.includes('*ALL') ? ` ${f.types.join(' ')}` : '',
-    f.member !== '*' ? ` · members ${f.member}` : '', f.memberType !== '*' ? ` · types ${f.memberType}` : ''];
+  const re = (v: string) => (f.regex ? `/${v}/` : v);
+  const bits = [f.library, f.object !== '*' ? `/${re(f.object)}` : '', !f.types.includes('*ALL') ? ` ${f.types.join(' ')}` : '',
+    f.member !== '*' ? ` · members ${re(f.member)}` : '', f.memberType !== '*' ? ` · types ${re(f.memberType)}` : '', f.regex ? ' · regex' : ''];
   return bits.join('');
 }
 
-/** Code for IBM i object filters (code-for-ibmi.connectionSettings[].objectFilters) as Vanthrex filters; invalid ones are left out. */
+/** Code for IBM i object filters (code-for-ibmi.connectionSettings[].objectFilters) as Vanthrex filters, regex ones included; invalid ones are left out. */
 export function fromCodeForIbmiFilters(list: unknown): ObjectFilter[] {
   const out: ObjectFilter[] = [];
   for (const x of Array.isArray(list) ? list : []) {
     const o = (x ?? {}) as Record<string, unknown>;
-    if (String(o.filterType ?? 'simple').toLowerCase() === 'regex') { continue; }
+    const regex = String(o.filterType ?? 'simple').toLowerCase() === 'regex';
     try {
       out.push(checkFilter({
+        regex,
         name: String(o.name ?? ''), library: String(o.library ?? ''), object: String(o.object ?? '*'),
         types: Array.isArray(o.types) ? o.types.map(String) : ['*ALL'], member: String(o.member ?? '*'), memberType: String(o.memberType ?? '*'),
       }));

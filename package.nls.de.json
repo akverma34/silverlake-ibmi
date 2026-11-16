@@ -1007,5 +1007,10 @@
   "config.deploy.method.changed": "Seit der letzten Bereitstellung von diesem PC geänderte Dateien (schnell).",
   "config.deploy.method.compare": "Dateien, deren Prüfsumme von der Kopie im IFS-Ordner abweicht oder die dort fehlen (findet Änderungen von einem anderen PC oder auf dem IBM i).",
   "config.deploy.method.git": "In Git geänderte Dateien: geändert, vorgemerkt und neu (nicht von Git ignoriert).",
-  "config.deploy.method.all": "Alle Dateien."
+  "config.deploy.method.all": "Alle Dateien.",
+  "config.compileActions.source.member": "Quellenteildateien.",
+  "config.compileActions.source.ifs": "IFS-Datenstromdateien.",
+  "config.compileActions.source.both": "Teildateien und IFS-Dateien.",
+  "config.compileActions.source.object": "Objekte (Rechtsklick auf ein Objekt → Aktion ausführen…).",
+  "config.compileActions.source.local": "Lokale Dateien des Arbeitsbereichs: zuerst in den IFS-Bereitstellungsordner bereitgestellt, dann dort ausgeführt (\"file\"-Aktionen von Code for IBM i)."
 }

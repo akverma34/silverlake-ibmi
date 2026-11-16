@@ -7,7 +7,7 @@ import { IFS_SCHEME, MEMBER_SCHEME, ifsUri, memberUri } from './fileSystems';
 import { localRelFor } from '../core/localDev';
 import {
   actionEnvironment, CompileAction, contextVariables, gitBranch, ifsVariables, memberVariables, objectActionsFor, objectVariables, shellCommand,
-  unresolvedVariables,
+  sourceActionsFor, unresolvedVariables,
 } from '../core/actions';
 import { convertActions } from '../core/migration';
 import type { IbmiConnection } from '../core/connection';
@@ -116,7 +116,7 @@ export class Compiler {
     }
     vars.BUILDLIB = vars.OBJLIB;
 
-    const action = await this.pickAction(conn, ext, isMember ? 'member' : 'ifs', alwaysAsk);
+    const action = await this.pickAction(conn, ext, isMember ? 'member' : local ? 'local' : 'ifs', alwaysAsk);
     if (!action) { return; }
     const command = substituteVariables(action.command, vars);
     const missing = unresolvedVariables(command);
@@ -200,26 +200,23 @@ export class Compiler {
     }
   }
 
-  private async pickAction(conn: IbmiConnection, ext: string, source: 'member' | 'ifs', alwaysAsk: boolean): Promise<CompileAction | undefined> {
-    const all = await allActions(conn);
-    const candidates = all.filter(a => a.source !== 'object' &&
-      a.extensions.map(x => x.toLowerCase()).some(x => x === ext || x === '*') &&
-      ((a.source ?? 'member') === source || a.source === 'both'));
+  private async pickAction(conn: IbmiConnection, ext: string, source: 'member' | 'ifs' | 'local', alwaysAsk: boolean): Promise<CompileAction | undefined> {
+    const candidates = sourceActionsFor(await allActions(conn), ext, source);
     if (!candidates.length) {
       const choice = await vscode.window.showWarningMessage(
-        vscode.l10n.t('No compile action is defined for ".{0}" {1}.', ext, source === 'ifs' ? 'IFS files' : 'members'), vscode.l10n.t('Open Settings'));
+        vscode.l10n.t('No compile action is defined for ".{0}" {1}.', ext, source === 'member' ? 'members' : source === 'local' ? 'local files' : 'IFS files'), vscode.l10n.t('Open Settings'));
       if (choice) { vscode.commands.executeCommand('workbench.action.openSettings', 'vanthrex.compileActions'); }
       return undefined;
     }
     const lastMap = this.state.get<Record<string, string>>(LAST_ACTION_KEY, {});
-    const key = `${source}:${ext}`;
+    const key = `${source === 'local' ? 'ifs' : source}:${ext}`;
     if (!alwaysAsk) {
       if (candidates.length === 1) { return candidates[0]; }
       const last = candidates.find(c => c.name === lastMap[key]);
       if (last) { return last; }
     }
     const pick = await vscode.window.showQuickPick(
-      candidates.map(a => ({ label: a.name, detail: a.command, action: a })),
+      candidates.map(a => ({ label: a.name, description: a.source === 'local' ? vscode.l10n.t('local file') : undefined, detail: a.command, action: a })),
       { title: vscode.l10n.t('Compile .{0}', ext), placeHolder: vscode.l10n.t('Choose how to compile (your choice is remembered)') });
     if (!pick) { return undefined; }
     await this.state.update(LAST_ACTION_KEY, { ...lastMap, [key]: pick.action.name });

@@ -1007,5 +1007,10 @@
   "config.deploy.method.changed": "自上次从此 PC 部署以来更改的文件(快速)。",
   "config.deploy.method.compare": "校验和与 IFS 文件夹中的副本不同或在那里缺失的文件(可发现从其他 PC 或在 IBM i 上做的更改)。",
   "config.deploy.method.git": "Git 中更改的文件:已修改、已暂存和新文件(未被 Git 忽略)。",
-  "config.deploy.method.all": "所有文件。"
+  "config.deploy.method.all": "所有文件。",
+  "config.compileActions.source.member": "源成员。",
+  "config.compileActions.source.ifs": "IFS 流文件。",
+  "config.compileActions.source.both": "成员和 IFS 文件。",
+  "config.compileActions.source.object": "对象(右键单击对象 → 运行操作…)。",
+  "config.compileActions.source.local": "工作区的本地文件:先部署到 IFS 部署文件夹,然后在那里运行(Code for IBM i 的 \"file\" 操作)。"
 }

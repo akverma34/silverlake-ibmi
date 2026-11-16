@@ -1007,5 +1007,10 @@
   "config.deploy.method.changed": "Fichiers modifiés depuis le dernier déploiement depuis ce PC (rapide).",
   "config.deploy.method.compare": "Fichiers dont la somme de contrôle diffère de la copie dans le dossier de l'IFS, ou absents de celui-ci (trouve les modifications faites depuis un autre PC ou sur l'IBM i).",
   "config.deploy.method.git": "Fichiers modifiés dans Git : modifiés, indexés et nouveaux (non ignorés par Git).",
-  "config.deploy.method.all": "Tous les fichiers."
+  "config.deploy.method.all": "Tous les fichiers.",
+  "config.compileActions.source.member": "Membres source.",
+  "config.compileActions.source.ifs": "Fichiers STREAM de l'IFS.",
+  "config.compileActions.source.both": "Membres et fichiers de l'IFS.",
+  "config.compileActions.source.object": "Objets (clic droit sur un objet → Exécuter une action…).",
+  "config.compileActions.source.local": "Fichiers locaux de l'espace de travail : d'abord déployés dans le dossier de déploiement de l'IFS, puis exécutés là (actions « file » de Code for IBM i)."
 }

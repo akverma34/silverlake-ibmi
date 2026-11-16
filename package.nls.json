@@ -154,7 +154,7 @@
   "command.systemHealth": "PTF & System Health",
   "submenu.vanthrex.ai": "Vanthrex AI",
   "config.title.0": "Vanthrex for IBM i",
-  "config.compileActions.md": "Compile actions. Variables: `&LIB` (source library), `&OBJLIB` (target library), `&SRCFILE`, `&NAME`, `&EXT`, `&FULLPATH` (IFS path), `&CURLIB`, `&USER`. Add `OPTION(*EVENTF)` to get inline errors. More variables, as in Code for IBM i: `&HOST`, `&HOME`, `&WORKDIR`, `&BRANCH` (Git branch of the workspace), `&RELATIVEPATH`, `&BASENAME`, `&PARENT`, `&LIBLS` / `&LIBLC` (library list with spaces / commas), `&TYPE` (objects) and your own custom variables (*Custom Variables for Actions…*). `\"environment\": \"pase\"` or `\"qsh\"` runs a shell command instead of a CL command; `\"source\": \"object\"` makes an action for objects (right-click an object → *Run Action…*). The workspace `.vscode/actions.json` of Code for IBM i is read as well.",
+  "config.compileActions.md": "Compile actions. Variables: `&LIB` (source library), `&OBJLIB` (target library), `&SRCFILE`, `&NAME`, `&EXT`, `&FULLPATH` (IFS path), `&CURLIB`, `&USER`. Add `OPTION(*EVENTF)` to get inline errors. More variables, as in Code for IBM i: `&HOST`, `&HOME`, `&WORKDIR`, `&BRANCH` (Git branch of the workspace), `&RELATIVEPATH`, `&BASENAME`, `&PARENT`, `&LIBLS` / `&LIBLC` (library list with spaces / commas), `&TYPE` (objects) and your own custom variables (*Custom Variables for Actions…*). `\"environment\": \"pase\"` or `\"qsh\"` runs a shell command instead of a CL command; `\"source\": \"object\"` makes an action for objects (right-click an object → *Run Action…*). `\"source\": \"local\"` makes an action for local workspace files: the file is deployed to the IFS deploy folder and the action runs there (Code for IBM i `file` actions). The workspace `.vscode/actions.json` of Code for IBM i is read as well.",
   "config.sql.maxRows": "Maximum number of rows fetched into the SQL result grid.",
   "config.sql.confirmDestructive": "Ask for confirmation before running DELETE, DROP, TRUNCATE or UPDATE without WHERE.",
   "config.tempDirectory": "IFS directory used for temporary files during member transfer.",
@@ -1007,5 +1007,10 @@
   "config.deploy.method.changed": "Files changed since the last deploy from this PC (fast).",
   "config.deploy.method.compare": "Files whose checksum differs from the copy in the IFS folder, or missing there (finds changes made from another PC or on the IBM i).",
   "config.deploy.method.git": "Files changed in Git: modified, staged and new (not ignored by Git).",
-  "config.deploy.method.all": "Every file."
+  "config.deploy.method.all": "Every file.",
+  "config.compileActions.source.member": "Source members.",
+  "config.compileActions.source.ifs": "IFS stream files.",
+  "config.compileActions.source.both": "Members and IFS files.",
+  "config.compileActions.source.object": "Objects (right-click an object → Run Action…).",
+  "config.compileActions.source.local": "Local files of the workspace: deployed to the IFS deploy folder first, then run there (Code for IBM i \"file\" actions)."
 }

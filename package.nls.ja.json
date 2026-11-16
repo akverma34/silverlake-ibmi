@@ -1007,5 +1007,10 @@
   "config.deploy.method.changed": "この PC から前回デプロイした後に変更されたファイル (高速)。",
   "config.deploy.method.compare": "チェックサムが IFS フォルダー内のコピーと異なる、またはそこにないファイル (別の PC や IBM i 上での変更も検出)。",
   "config.deploy.method.git": "Git で変更されたファイル: 変更済み、ステージ済み、新規 (Git で無視されていないもの)。",
-  "config.deploy.method.all": "すべてのファイル。"
+  "config.deploy.method.all": "すべてのファイル。",
+  "config.compileActions.source.member": "ソース・メンバー。",
+  "config.compileActions.source.ifs": "IFS ストリーム・ファイル。",
+  "config.compileActions.source.both": "メンバーと IFS ファイル。",
+  "config.compileActions.source.object": "オブジェクト (オブジェクトを右クリック → アクションの実行…)。",
+  "config.compileActions.source.local": "ワークスペースのローカル・ファイル: まず IFS のデプロイ・フォルダーにデプロイしてから、そこで実行します (Code for IBM i の \"file\" アクション)。"
 }

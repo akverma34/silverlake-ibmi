@@ -3,7 +3,8 @@
 // and the workspace .vscode/actions.json read as it is. Pure functions (no vscode import), unit tested.
 
 export type ActionEnvironment = 'ile' | 'pase' | 'qsh';
-export type ActionSource = 'member' | 'ifs' | 'both' | 'object';
+/** What an action compiles: members, IFS files, both, objects, or local files (deployed to the IFS first, run from the deploy folder). */
+export type ActionSource = 'member' | 'ifs' | 'both' | 'object' | 'local';
 
 export interface CompileAction {
   name: string;
@@ -79,6 +80,18 @@ export function memberVariables(lib: string, file: string, member: string, ext: 
 export function objectVariables(lib: string, name: string, type: string, attribute: string): Record<string, string> {
   return { LIB: lib, LIBRARY: lib, NAME: name, TYPE: type.replace(/^\*/, ''), EXT: attribute, BASENAME: `${name}.${type.replace(/^\*/, '').toLowerCase()}`,
     FULLPATH: `/QSYS.LIB/${lib}.LIB/${name}.${type.replace(/^\*/, '')}` };
+}
+
+/**
+ * The actions offered for a source file: members get member (and both) actions; IFS files get ifs (and both) actions;
+ * a local file (compiled from its copy in the deploy folder) gets its own local actions first, then the IFS ones.
+ */
+export function sourceActionsFor(actions: CompileAction[], ext: string, source: 'member' | 'ifs' | 'local'): CompileAction[] {
+  const e = ext.toLowerCase();
+  const fits = (a: CompileAction) => a.extensions.some(x => x.toLowerCase() === e || x === '*');
+  const of = (s: ActionSource) => actions.filter(a => fits(a) && ((a.source ?? 'member') === s || (s !== 'local' && a.source === 'both')));
+  if (source === 'local') { return [...of('local'), ...of('ifs')]; }
+  return of(source);
 }
 
 /** Object actions that apply to an object: by type (PGM, *PGM), attribute (RPGLE) or * for all. */
