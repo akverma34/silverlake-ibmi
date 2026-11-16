@@ -1007,5 +1007,10 @@
   "config.deploy.method.changed": "File modificati dall'ultima distribuzione da questo PC (veloce).",
   "config.deploy.method.compare": "File il cui checksum è diverso dalla copia nella cartella dell'IFS, o assenti lì (trova le modifiche fatte da un altro PC o sull'IBM i).",
   "config.deploy.method.git": "File modificati in Git: modificati, in stage e nuovi (non ignorati da Git).",
-  "config.deploy.method.all": "Tutti i file."
+  "config.deploy.method.all": "Tutti i file.",
+  "config.compileActions.source.member": "Membri sorgente.",
+  "config.compileActions.source.ifs": "File di flusso dell'IFS.",
+  "config.compileActions.source.both": "Membri e file dell'IFS.",
+  "config.compileActions.source.object": "Oggetti (clic destro su un oggetto → Esegui azione…).",
+  "config.compileActions.source.local": "File locali dell'area di lavoro: prima distribuiti nella cartella di distribuzione dell'IFS, poi eseguiti lì (azioni \"file\" di Code for IBM i)."
 }

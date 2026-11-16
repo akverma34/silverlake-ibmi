@@ -4330,5 +4330,14 @@
   "Delete from {0} on {1} the {2} file(s) you deleted in {3}?": "{3} で削除した {2} 個のファイルを {1} の {0} から削除しますか?",
   "Delete {0} file(s) from {1}": "{1} から {0} 個のファイルを削除",
   "Could not delete the files from {0}": "{0} からファイルを削除できませんでした",
-  "Deleted {0} file(s) from {1}.": "{1} から {0} 個のファイルを削除しました。"
+  "Deleted {0} file(s) from {1}.": "{1} から {0} 個のファイルを削除しました。",
+  "Generic names": "総称名",
+  "ORD*, *TST, APPLIB: comma separated, * for all": "ORD*、*TST、APPLIB: コンマ区切り、* はすべて",
+  "Regular expressions": "正規表現",
+  "For objects, members and member types (e.g. ^ORD[0-9]+$), matched on the IBM i ignoring case. Libraries stay generic names.": "オブジェクト、メンバー、メンバー・タイプ用 (例: ^ORD[0-9]+$)。IBM i 上で大文字小文字を区別せずに照合します。ライブラリーは総称名のままです。",
+  "How are objects and members named in this filter?": "このフィルターではオブジェクトとメンバーをどのように指定しますか?",
+  "Objects and source files: a regular expression, * for all": "オブジェクトとソース・ファイル: 正規表現、* はすべて",
+  "Members: a regular expression, * for all": "メンバー: 正規表現、* はすべて",
+  "Member types: a regular expression (e.g. ^(SQL)?RPGLE$), * for all": "メンバー・タイプ: 正規表現 (例: ^(SQL)?RPGLE$)、* はすべて",
+  "local file": "ローカル・ファイル"
 }

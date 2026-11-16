@@ -8440,9 +8440,17 @@
                   "member",
                   "ifs",
                   "both",
-                  "object"
+                  "object",
+                  "local"
                 ],
-                "default": "member"
+                "default": "member",
+                "enumDescriptions": [
+                  "%config.compileActions.source.member%",
+                  "%config.compileActions.source.ifs%",
+                  "%config.compileActions.source.both%",
+                  "%config.compileActions.source.object%",
+                  "%config.compileActions.source.local%"
+                ]
               },
               "environment": {
                 "type": "string",

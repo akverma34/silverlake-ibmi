@@ -31,12 +31,13 @@ test('object filter: SQL pieces', () => {
   assert.strictEqual(f.describeFilter(flt), 'ORD*, APPLIB/ORD_* *PGM *SRCPF · types RPG*');
 });
 
-test('Code for IBM i filters imported, regex ones left out', () => {
+test('Code for IBM i filters imported, regex ones too', () => {
   assert.deepStrictEqual(f.fromCodeForIbmiFilters([
     { name: 'Dev', library: 'DEVLIB', object: '*', types: ['*ALL'], member: '*', memberType: '*' },
-    { name: 'Re', library: '^A.*', filterType: 'regex' },
+    { name: 'Re', library: 'APPLIB', object: '^ORD[0-9]+$', filterType: 'regex' },
+    { name: 'Bad regex', library: 'APPLIB', object: '([', filterType: 'regex' },
     { name: 'Bad', library: '' },
-  ]).map(x => x.name), ['Dev']);
+  ]).map(x => [x.name, !!x.regex]), [['Dev', false], ['Re', true]]);
 });
 
 test('action variables', () => {
@@ -80,6 +81,6 @@ test('Code for IBM i actions converted with custom variables and environments', 
     { name: 'Local', command: 'x', type: 'file' },
   ], ['tgtrls']);
   assert.deepStrictEqual(acts.map(x => [x.name, x.source, x.environment, x.extensions, !!x.skipped]),
-    [['Make', 'ifs', 'pase', ['*'], false], ['Own', 'member', undefined, ['rpgle'], false], ['Local', 'member', undefined, ['*'], true]]);
+    [['Make', 'ifs', 'pase', ['*'], false], ['Own', 'member', undefined, ['rpgle'], false], ['Local', 'local', undefined, ['*'], false]]);
   assert.match(m.convertActions([{ name: 'Own', command: 'X &TGTRLS' }])[0].skipped, /TGTRLS/);
 });

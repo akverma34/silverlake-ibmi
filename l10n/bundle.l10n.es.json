@@ -4330,5 +4330,14 @@
   "Delete from {0} on {1} the {2} file(s) you deleted in {3}?": "¿Eliminar de {0} en {1} los {2} archivo(s) que ha eliminado en {3}?",
   "Delete {0} file(s) from {1}": "Eliminar {0} archivo(s) de {1}",
   "Could not delete the files from {0}": "No se han podido eliminar los archivos de {0}",
-  "Deleted {0} file(s) from {1}.": "Se han eliminado {0} archivo(s) de {1}."
+  "Deleted {0} file(s) from {1}.": "Se han eliminado {0} archivo(s) de {1}.",
+  "Generic names": "Nombres genéricos",
+  "ORD*, *TST, APPLIB: comma separated, * for all": "ORD*, *TST, APPLIB: separados por comas, * para todos",
+  "Regular expressions": "Expresiones regulares",
+  "For objects, members and member types (e.g. ^ORD[0-9]+$), matched on the IBM i ignoring case. Libraries stay generic names.": "Para objetos, miembros y tipos de miembro (p. ej., ^ORD[0-9]+$), comparados en el IBM i sin distinguir mayúsculas. Las bibliotecas siguen siendo nombres genéricos.",
+  "How are objects and members named in this filter?": "¿Cómo se indican los objetos y miembros en este filtro?",
+  "Objects and source files: a regular expression, * for all": "Objetos y archivos fuente: una expresión regular, * para todos",
+  "Members: a regular expression, * for all": "Miembros: una expresión regular, * para todos",
+  "Member types: a regular expression (e.g. ^(SQL)?RPGLE$), * for all": "Tipos de miembro: una expresión regular (p. ej., ^(SQL)?RPGLE$), * para todos",
+  "local file": "archivo local"
 }

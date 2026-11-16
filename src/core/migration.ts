@@ -12,7 +12,7 @@ export interface ImportedProfile {
 }
 export interface ImportedSet { connection: string; name: string; libraries: string[]; currentLibrary?: string }
 export interface ImportedAction {
-  name: string; command: string; extensions: string[]; source: 'member' | 'ifs' | 'both' | 'object'; environment?: 'ile' | 'pase' | 'qsh'; skipped?: string;
+  name: string; command: string; extensions: string[]; source: 'member' | 'ifs' | 'both' | 'object' | 'local'; environment?: 'ile' | 'pase' | 'qsh'; skipped?: string;
 }
 export interface Imported { profiles: ImportedProfile[]; sets: ImportedSet[]; actions: ImportedAction[]; notes: string[] }
 
@@ -73,7 +73,7 @@ export function fromCodeForIbmi(connections: unknown, settings: unknown, actions
       if (pn && l.length) { res.sets.push({ connection: name, name: pn, libraries: l, currentLibrary: str(p?.currentLibrary).toUpperCase() || undefined }); }
     }
     const left = (Array.isArray(s.objectFilters) ? s.objectFilters.length : 0) - filters.length;
-    if (left > 0) { res.notes.push(`${name}: ${left} object filter(s) use regular expressions or are incomplete and were not imported; add them again with "New Object Filter…".`); }
+    if (left > 0) { res.notes.push(`${name}: ${left} object filter(s) are incomplete or not valid and were not imported; add them again with "New Object Filter…".`); }
   }
   const custom = res.profiles.flatMap(p => Object.keys(p.variables ?? {}));
   res.actions = convertActions([...(Array.isArray(actions) ? actions : []), ...(Array.isArray(workspaceActions) ? workspaceActions : [])], custom);
@@ -93,10 +93,9 @@ export function convertActions(list: unknown, custom: string[] = []): ImportedAc
     const env = str(a?.environment).toLowerCase();
     const exts = (Array.isArray(a?.extensions) ? a.extensions : []).map((e: unknown) => str(e).toLowerCase()).filter((e: string) => e && e !== 'global' && e !== 'globals');
     const conv = convertActionCommand(cmd, custom);
-    const act: ImportedAction = { name, command: conv.command, extensions: exts.length ? exts : ['*'], source: type === 'streamfile' ? 'ifs' : type === 'object' ? 'object' : 'member' };
+    const act: ImportedAction = { name, command: conv.command, extensions: exts.length ? exts : ['*'], source: type === 'streamfile' ? 'ifs' : type === 'object' ? 'object' : type === 'file' ? 'local' : 'member' };
     if (env === 'pase' || env === 'qsh') { act.environment = env; }
-    if (type === 'file') { act.skipped = 'runs on local files: use Deploy and the local build (makei / gmake), or Compile on the local file'; }
-    else if (env && env !== 'ile' && env !== 'pase' && env !== 'qsh') { act.skipped = `runs in an unknown environment (${env})`; }
+    if (env && env !== 'ile' && env !== 'pase' && env !== 'qsh') { act.skipped = `runs in an unknown environment (${env})`; }
     else if (conv.unknown.length) { act.skipped = `unknown variable(s) ${conv.unknown.join(', ')}`; }
     out.push(act);
   }

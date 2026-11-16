@@ -1007,5 +1007,10 @@
   "config.deploy.method.changed": "Archivos cambiados desde el último despliegue desde este PC (rápido).",
   "config.deploy.method.compare": "Archivos cuya suma de comprobación difiere de la copia en la carpeta del IFS, o que faltan allí (encuentra cambios hechos desde otro PC o en el IBM i).",
   "config.deploy.method.git": "Archivos cambiados en Git: modificados, preparados y nuevos (no ignorados por Git).",
-  "config.deploy.method.all": "Todos los archivos."
+  "config.deploy.method.all": "Todos los archivos.",
+  "config.compileActions.source.member": "Miembros fuente.",
+  "config.compileActions.source.ifs": "Archivos continuos del IFS.",
+  "config.compileActions.source.both": "Miembros y archivos del IFS.",
+  "config.compileActions.source.object": "Objetos (clic derecho en un objeto → Ejecutar acción…).",
+  "config.compileActions.source.local": "Archivos locales del espacio de trabajo: primero se despliegan en la carpeta de despliegue del IFS y luego se ejecutan allí (acciones \"file\" de Code for IBM i)."
 }

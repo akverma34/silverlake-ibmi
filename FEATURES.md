@@ -1607,3 +1607,10 @@ On a Mac, use **Cmd** instead of **Ctrl**.
 - **What:** three ways to choose what goes to the IFS deploy folder, as in Code for IBM i: compare checksums with the IFS, only the files changed in Git, or (as before) the files changed since the last deploy from this PC; and deleting from the IFS the files you deleted locally.
 - **Why:** the usual deploy only knows what this PC sent. Comparing finds changes made from another PC or on the IBM i; Git changes match what you are about to commit; the clean-up keeps the deploy folder from keeping old sources that a build might still pick up.
 - **How:** *Deploy by Comparing with the IFS (Checksums)*, *Deploy Git Changes to IBM i (IFS)* and *Delete Locally Deleted Files from the IFS…* in the Command Palette or on the workspace folder in the Explorer; `vanthrex.deploy.method` sets what *Deploy Changes* and *Build* use.
+
+### 246. Regular-expression object filters and actions on local files — new in 3.4
+
+- **What:** object filters can use regular expressions for objects, members and member types; compile actions can target local workspace files (`"source": "local"`). Both close the last gaps found when comparing with Code for IBM i: its "regex" filters and its `file` actions were left out by the importer until now.
+- **Why:** some naming conventions cannot be written as generic names (`^ORD[0-9]+$`, `^(SQL)?RPGLE$`, "everything except …"); and teams that develop in Git have actions written for local files that should run as they are.
+- **How:** *New Object Filter…* → *Regular expressions* (libraries stay generic names; the expression is checked as you type and matched on the IBM i ignoring case). For local files, add an action with `"source": "local"` in `vanthrex.compileActions` or `.vscode/actions.json`; Compile on a local file deploys it and offers these actions first, then the IFS ones.
+

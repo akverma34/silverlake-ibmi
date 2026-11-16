@@ -4330,5 +4330,14 @@
   "Delete from {0} on {1} the {2} file(s) you deleted in {3}?": "要从 {1} 上的 {0} 中删除您在 {3} 中删除的 {2} 个文件吗?",
   "Delete {0} file(s) from {1}": "从 {1} 中删除 {0} 个文件",
   "Could not delete the files from {0}": "无法从 {0} 中删除文件",
-  "Deleted {0} file(s) from {1}.": "已从 {1} 中删除 {0} 个文件。"
+  "Deleted {0} file(s) from {1}.": "已从 {1} 中删除 {0} 个文件。",
+  "Generic names": "通用名称",
+  "ORD*, *TST, APPLIB: comma separated, * for all": "ORD*、*TST、APPLIB:以逗号分隔,* 表示全部",
+  "Regular expressions": "正则表达式",
+  "For objects, members and member types (e.g. ^ORD[0-9]+$), matched on the IBM i ignoring case. Libraries stay generic names.": "用于对象、成员和成员类型(例如 ^ORD[0-9]+$),在 IBM i 上不区分大小写进行匹配。库仍使用通用名称。",
+  "How are objects and members named in this filter?": "此过滤器中如何指定对象和成员?",
+  "Objects and source files: a regular expression, * for all": "对象和源文件:正则表达式,* 表示全部",
+  "Members: a regular expression, * for all": "成员:正则表达式,* 表示全部",
+  "Member types: a regular expression (e.g. ^(SQL)?RPGLE$), * for all": "成员类型:正则表达式(例如 ^(SQL)?RPGLE$),* 表示全部",
+  "local file": "本地文件"
 }

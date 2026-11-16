@@ -19,22 +19,37 @@ const COMMON_TYPES = ['*ALL', '*SRCPF', '*PGM', '*SRVPGM', '*MODULE', '*FILE', '
 
 /** Asks for every part of a filter, starting from `start`; undefined when cancelled. */
 async function askFilter(start: ObjectFilter, taken: string[]): Promise<ObjectFilter | undefined> {
-  const step = (n: number) => `${t('Object filter')} (${n}/6)`;
-  const check = (part: Partial<ObjectFilter>) => { try { checkFilter({ ...start, ...part }); return undefined; } catch (e) { return errorMessage(e); } };
+  const step = (n: number) => `${t('Object filter')} (${n}/7)`;
+  let base: ObjectFilter = start;
+  const check = (part: Partial<ObjectFilter>) => { try { checkFilter({ ...base, ...part }); return undefined; } catch (e) { return errorMessage(e); } };
   const name = await vscode.window.showInputBox({ title: step(1), prompt: t('Name of the filter'), value: start.name, ignoreFocusOut: true,
     validateInput: v => (!v.trim() ? t('Give the filter a name.') : taken.includes(v.trim().toUpperCase()) ? t('A filter with this name exists.') : undefined) });
   if (name === undefined) { return undefined; }
-  const library = await vscode.window.showInputBox({ title: step(2), prompt: t('Libraries: names or generic names, comma separated (ORD*, APPLIB)'), value: start.library, ignoreFocusOut: true, validateInput: v => check({ name, library: v }) });
+  const generic = { label: t('Generic names'), detail: t('ORD*, *TST, APPLIB: comma separated, * for all'), regex: false };
+  const expr = { label: t('Regular expressions'), detail: t('For objects, members and member types (e.g. ^ORD[0-9]+$), matched on the IBM i ignoring case. Libraries stay generic names.'), regex: true };
+  const kind = await vscode.window.showQuickPick(start.regex ? [expr, generic] : [generic, expr], { title: step(2), placeHolder: t('How are objects and members named in this filter?'), ignoreFocusOut: true });
+  if (!kind) { return undefined; }
+  const regex = kind.regex;
+  // Values typed in the other mode do not carry over (a generic list is not an expression, and the other way round).
+  const keep = (v: string) => (regex === (start.regex === true) ? v : '*');
+  base = { ...start, regex, object: keep(start.object), member: keep(start.member), memberType: keep(start.memberType) };
+  const library = await vscode.window.showInputBox({ title: step(3), prompt: t('Libraries: names or generic names, comma separated (ORD*, APPLIB)'), value: start.library, ignoreFocusOut: true, validateInput: v => check({ name, regex, library: v }) });
   if (library === undefined) { return undefined; }
-  const object = await vscode.window.showInputBox({ title: step(3), prompt: t('Objects and source files: names or generic names, * for all'), value: start.object, ignoreFocusOut: true, validateInput: v => check({ name, library, object: v }) });
+  const object = await vscode.window.showInputBox({ title: step(4),
+    prompt: regex ? t('Objects and source files: a regular expression, * for all') : t('Objects and source files: names or generic names, * for all'),
+    value: keep(start.object), ignoreFocusOut: true, validateInput: v => check({ name, regex, library, object: v }) });
   if (object === undefined) { return undefined; }
-  const picked = await vscode.window.showQuickPick(COMMON_TYPES.map(x => ({ label: x, picked: start.types.includes(x) })), { title: step(4), placeHolder: t('Object types (*SRCPF = source files only; none or *ALL = all)'), canPickMany: true, ignoreFocusOut: true });
+  const picked = await vscode.window.showQuickPick(COMMON_TYPES.map(x => ({ label: x, picked: start.types.includes(x) })), { title: step(5), placeHolder: t('Object types (*SRCPF = source files only; none or *ALL = all)'), canPickMany: true, ignoreFocusOut: true });
   if (!picked) { return undefined; }
-  const member = await vscode.window.showInputBox({ title: step(5), prompt: t('Members: names or generic names, * for all'), value: start.member, ignoreFocusOut: true, validateInput: v => check({ name, library, object, member: v }) });
+  const member = await vscode.window.showInputBox({ title: step(6),
+    prompt: regex ? t('Members: a regular expression, * for all') : t('Members: names or generic names, * for all'),
+    value: keep(start.member), ignoreFocusOut: true, validateInput: v => check({ name, regex, library, object, member: v }) });
   if (member === undefined) { return undefined; }
-  const memberType = await vscode.window.showInputBox({ title: step(6), prompt: t('Member types: RPGLE, CLLE, SQL*…, * for all'), value: start.memberType, ignoreFocusOut: true, validateInput: v => check({ name, library, object, member, memberType: v }) });
+  const memberType = await vscode.window.showInputBox({ title: step(7),
+    prompt: regex ? t('Member types: a regular expression (e.g. ^(SQL)?RPGLE$), * for all') : t('Member types: RPGLE, CLLE, SQL*…, * for all'),
+    value: keep(start.memberType), ignoreFocusOut: true, validateInput: v => check({ name, regex, library, object, member, memberType: v }) });
   if (memberType === undefined) { return undefined; }
-  return checkFilter({ name, library, object, types: picked.map(p => p.label), member, memberType });
+  return checkFilter({ name, regex, library, object, types: picked.map(p => p.label), member, memberType });
 }
 
 async function newFilter(manager: ConnectionManager, from?: LibNode): Promise<void> {

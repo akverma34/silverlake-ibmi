@@ -18,6 +18,8 @@
 - **Deploy Git changes** (*Deploy Git Changes to IBM i (IFS)*): uploads the files Git sees as modified, staged, renamed or new (not the ones Git ignores, and not deleted ones), as Code for IBM i's "working changes" deploy.
 - **`vanthrex.deploy.method`**: what *Deploy Changes* and *Build* upload: `changed` (default), `compare`, `git` or `all`, per workspace folder. Compiling a local file still deploys the changed files only, so it stays fast.
 - **Delete locally deleted files from the IFS**: files deployed before and deleted in the local folder since are listed and deleted from the IFS deploy folder after a confirmation (*Delete Locally Deleted Files from the IFS…*, or the button after a deploy).
+- **Regular-expression object filters**: a filter can name objects, members and member types with regular expressions (for example `^ORD[0-9]+$`), matched on the IBM i with `REGEXP_LIKE`, ignoring case; libraries stay names or generic names. The expression is checked as you type. Code for IBM i "regex" filters are now imported instead of being left out.
+- **Actions on local files** (`"source": "local"`): an action for workspace files, run from the IFS deploy folder after the file is deployed, offered first when you compile a local file (the IFS actions still follow). Code for IBM i `file` actions, from its settings or `.vscode/actions.json`, are now used instead of skipped.
 
 ## 3.3.0
 
